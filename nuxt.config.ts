@@ -82,6 +82,10 @@ export default defineNuxtConfig({
 
   // Configuration Nuxt Content avec plugin rehype pour ouvrir les liens externes dans un nouvel onglet
   content: {
+    database: {
+      type: 'libsql',
+      url: 'file:.data/content/contents.db',
+    },
     build: {
       markdown: {
         rehypePlugins: {
