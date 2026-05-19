@@ -1,0 +1,101 @@
+import { defineContentConfig, defineCollection, z } from '@nuxt/content'
+
+/**
+ * Configuration des collections Nuxt Content
+ * Définit les schémas de validation pour les documents légaux, la FAQ, les documents et le SEO
+ */
+export default defineContentConfig({
+  collections: {
+    legal: defineCollection({
+      type: 'page',
+      source: '{mentions-legales,reglement,rgpd}.md',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        updatedAt: z.string().optional(),
+      }),
+    }),
+    faq: defineCollection({
+      type: 'data',
+      source: 'faq.yml',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        categories: z.array(
+          z.object({
+            name: z.string(),
+            questions: z.array(
+              z.object({
+                question: z.string(),
+                answer: z.string(),
+                icon: z.string().optional(),
+                buttons: z
+                  .array(
+                    z.object({
+                      label: z.string(),
+                      to: z.string(),
+                      icon: z.string().optional(),
+                      variant: z.string().optional(),
+                      target: z.string().optional(),
+                    }),
+                  )
+                  .optional(),
+              }),
+            ),
+          }),
+        ),
+      }),
+    }),
+    documents: defineCollection({
+      type: 'data',
+      source: 'documents.yml',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        categories: z.array(
+          z.object({
+            name: z.string(),
+            description: z.string(),
+            icon: z.string().optional(),
+            color: z.string().optional(),
+            documents: z.array(
+              z.object({
+                title: z.string(),
+                description: z.string(),
+                url: z.string(),
+                icon: z.string().optional(),
+                type: z.enum(['internal', 'external']),
+              }),
+            ),
+          }),
+        ),
+      }),
+    }),
+    seo: defineCollection({
+      type: 'data',
+      source: 'seo.yml',
+      schema: z.object({
+        defaults: z.object({
+          siteName: z.string(),
+          separator: z.string(),
+          baseUrl: z.string(),
+          ogImage: z.string(),
+          ogType: z.string(),
+          ogSiteName: z.string(),
+          twitterCard: z.string(),
+          locale: z.string(),
+          themeColor: z.string(),
+          author: z.string(),
+        }),
+        pages: z.record(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            ogImage: z.string().optional(),
+            robots: z.string().optional(),
+          }),
+        ),
+      }),
+    }),
+  },
+})
