@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+:root {
+  font-family: 'Outfit', sans-serif;
+}
+
+@theme {
+  /* Couleurs Efrei Para */
+  --color-efreipara: #092954;
+  --color-efreipara-background: #010521;
+  --color-efreipara-oa: #9680dd;
+  --color-on-efreipara-oa: #ffffff;
+  --color-efreipara-tandem: #d2b841;
+  --color-on-efreipara-tandem: #000000;
+  --color-efreipara-soufflerie: #d370c3;
+  --color-on-efreipara-soufflerie: #ffffff;
+  --color-efreipara-pac: #c3042d;
+  --color-on-efreipara-pac: #ffffff;
+
+  /* Couleur Efrei */
+  --color-efrei: #0d7cc0;
+
+  /* Couleurs des réseaux sociaux */
+  --color-discord: #5865f2;
+  --color-on-discord: #ffffff;
+  --color-instagram: #c13584;
+  --color-on-instagram: #ffffff;
+  --color-facebook: #0165e1;
+  --color-on-facebook: #ffffff;
+  --color-linkedin: #0a66c2;
+  --color-on-linkedin: #ffffff;
+  --color-github: #000000;
+  --color-on-github: #ffffff;
+
+  /* Autres couleurs */
+  --color-headline: #afbae0;
+}
