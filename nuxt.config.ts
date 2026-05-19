@@ -110,5 +110,8 @@ export default defineNuxtConfig({
       legalComments: 'none',
       drop: ['console', 'debugger'],
     },
+    optimizeDeps: {
+      include: ['@plausible-analytics/tracker', '@vue/devtools-core', '@vue/devtools-kit'],
+    },
   },
 })
