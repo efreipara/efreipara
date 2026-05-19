@@ -1,0 +1,158 @@
+<script setup lang="ts">
+// Récupération des données des réseaux sociaux
+const { socials } = useSocials()
+
+// Organisation du footer en 4 colonnes : Activités, Club, Réseaux, Légal
+const columns = [
+  {
+    label: 'Activités',
+    children: [
+      {
+        label: 'Nos activités',
+        to: '/activites',
+      },
+      {
+        label: 'Saut en OA',
+        to: '/activites/oa',
+      },
+      {
+        label: 'Saut en Tandem',
+        to: '/activites/tandem',
+      },
+      {
+        label: 'Soufflerie',
+        to: '/activites/soufflerie',
+      },
+      {
+        label: 'PAC',
+        to: '/activites/pac',
+      },
+    ],
+  },
+  {
+    label: 'Club',
+    children: [
+      {
+        label: 'À propos',
+        to: '/about',
+      },
+      {
+        label: 'Documents',
+        to: '/documents',
+      },
+      {
+        label: 'Galeries photos',
+        to: '/galeries',
+      },
+      {
+        label: 'Nous contacter',
+        to: '/contact',
+      },
+      {
+        label: 'FAQ',
+        to: '/faq',
+      },
+    ],
+  },
+  {
+    label: 'Réseaux',
+    children: socials.map((social) => ({
+      label: social.name,
+      to: social.url,
+      target: '_blank',
+    })),
+  },
+  {
+    label: 'Légal',
+    children: [
+      {
+        label: 'Mentions légales',
+        to: '/mentions-legales',
+      },
+      {
+        label: 'Règlement',
+        to: '/reglement',
+      },
+      {
+        label: 'RGPD',
+        to: '/rgpd',
+      },
+      {
+        label: 'Statut du site',
+        to: 'https://status.efreipara.fr',
+        target: '_blank',
+      },
+    ],
+  },
+]
+</script>
+
+<template>
+  <!-- Séparateur visuel avec icône parachute -->
+  <USeparator icon="i-efreipara-parachute" class="h-px" />
+
+  <UFooter :ui="{ top: 'border-b border-default' }">
+    <!-- Colonnes de navigation du footer -->
+    <template #top>
+      <UContainer>
+        <UFooterColumns :columns="columns" />
+      </UContainer>
+    </template>
+
+    <!-- Section gauche : Copyright et informations de licence -->
+    <template #left>
+      <div class="flex flex-col">
+        <p class="text-muted text-sm">
+          &copy; {{ new Date().getFullYear() }}
+          <UIcon name="i-efreipara-parachute" class="w-3 h-3 mx-1" />
+          Efrei Para
+        </p>
+        <p class="text-muted text-sm">
+          Code source :
+          <a href="https://opensource.org/license/MIT">MIT</a>
+        </p>
+        <p class="text-muted text-sm">
+          Contenus :
+          <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+            CC BY-NC 4.0 (sauf mention contraire)
+            <UIcon name="i-creativecommons-cc" class="w-4 h-4 ml-0.5" />
+            <UIcon name="i-creativecommons-by" class="w-4 h-4 ml-0.5" />
+            <UIcon name="i-creativecommons-nc" class="w-4 h-4 ml-0.5" />
+          </a>
+        </p>
+        <p class="text-muted text-sm">
+          Photos, vidéos & logos : Tous droits réservés / All rights reserved.
+        </p>
+      </div>
+    </template>
+
+    <!-- Section droite : Boutons des réseaux sociaux -->
+    <template #right>
+      <UButton
+        to="https://www.efrei.fr"
+        target="_blank"
+        aria-label="Efrei"
+        color="neutral"
+        variant="ghost"
+        class="px-2"
+      >
+        <img
+          src="~/assets/logos/efrei-white.png"
+          alt="Efrei"
+          class="h-5 w-auto select-none pointer-events-none"
+        />
+      </UButton>
+      <span class="text-muted">|</span>
+      <UButton
+        v-for="social in socials"
+        :key="social.name"
+        :to="social.url"
+        target="_blank"
+        :icon="social.icon"
+        :aria-label="`${social.name} Efrei Para`"
+        color="neutral"
+        variant="ghost"
+      />
+    </template>
+  </UFooter>
+</template>
