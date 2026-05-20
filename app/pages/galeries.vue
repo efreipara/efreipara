@@ -105,7 +105,7 @@ const galeries = ref([
             <div class="p-6 sm:p-8">
               <!-- Titre avec icône -->
               <div class="flex items-center gap-2 mb-3">
-                <UIcon :name="getIcon(galerie.type)" class="w-6 h-6 flex-shrink-0 text-primary" />
+                <UIcon :name="getIcon(galerie.type)" class="w-6 h-6 shrink-0 text-primary" />
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">
                   {{ galerie.title }}
                 </h3>
