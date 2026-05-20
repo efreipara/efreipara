@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { ButtonProps } from '@nuxt/ui'
+
 const { getIcon } = useEventIcon()
 const appConfig = useAppConfig()
 
-const activitesFeatures = ref([
+const activitesFeatures = [
   {
     title: 'Sauts en ouverture automatique (OA)',
     description:
@@ -35,9 +37,9 @@ const activitesFeatures = ref([
     to: '/activites/pac',
     class: 'text-efreipara-pac',
   },
-])
+]
 
-const activitesLink = ref([
+const activitesLink: ButtonProps[] = [
   {
     label: 'Découvrir toutes nos activités en détail',
     to: '/activites',
@@ -45,7 +47,7 @@ const activitesLink = ref([
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
   },
-])
+]
 </script>
 
 <template>
