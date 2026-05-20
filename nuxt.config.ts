@@ -1,8 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+
+  alias: {
+    'rehype-target-blank': fileURLToPath(new URL('./rehype-target-blank.mjs', import.meta.url)),
+  },
   devtools: { enabled: true },
 
   // Modules Nuxt : UI, analytics, fonts, icônes, images et gestion de contenu
