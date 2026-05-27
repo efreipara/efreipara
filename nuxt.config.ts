@@ -31,6 +31,13 @@ export default defineNuxtConfig({
   },
 
   // Mode sombre par défaut pour l'identité visuelle du club
+  app: {
+    pageTransition: {
+      name: 'fade',
+      mode: 'out-in',
+    },
+  },
+
   colorMode: {
     preference: 'dark',
     fallback: 'dark',
