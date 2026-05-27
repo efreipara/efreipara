@@ -45,3 +45,7 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+.font-title {
+  font-family: 'Racing Sans One', sans-serif;
+}

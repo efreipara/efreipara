@@ -44,14 +44,17 @@ export default defineNuxtConfig({
     classSuffix: '',
   },
 
-  // Police Outfit hébergée localement pour de meilleures performances et confidentialité
+  // Polices hébergées localement pour de meilleures performances et confidentialité
   fonts: {
     defaults: {
       weights: ['100 900'],
       styles: ['normal'],
       subsets: ['latin-ext', 'latin'],
     },
-    families: [{ name: 'Outfit', provider: 'local' }],
+    families: [
+      { name: 'Outfit', provider: 'local' },
+      { name: 'Racing Sans One', provider: 'local', weights: [400] },
+    ],
     providers: {
       google: false,
     },
