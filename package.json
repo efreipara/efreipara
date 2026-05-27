@@ -16,18 +16,18 @@
   "dependencies": {
     "isomorphic-dompurify": "^3.14.0",
     "marked": "^18.0.4",
-    "vue": "^3.5.34",
+    "vue": "^3.5.35",
     "vue-router": "^5.0.7"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.83",
+    "@iconify-json/simple-icons": "^1.2.84",
     "@iconify-json/tabler": "^1.2.35",
     "@nuxt/content": "^3.14.0",
     "@nuxt/eslint": "^1.15.2",
     "@nuxt/fonts": "^0.14.0",
     "@nuxt/icon": "^2.2.2",
     "@nuxt/image": "^2.0.0",
-    "@nuxt/ui": "^4.7.1",
+    "@nuxt/ui": "^4.8.0",
     "@nuxtjs/plausible": "^3.0.2",
     "@libsql/client": "^0.17.3",
     "@types/node": "^25.9.1",
