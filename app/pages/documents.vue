@@ -13,6 +13,7 @@ const appConfig = useAppConfig()
     <UPageHero
       title="Documents"
       description="Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme."
+      :ui="{ title: 'font-title' }"
     />
     <UContainer class="pb-16">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

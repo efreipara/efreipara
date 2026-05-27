@@ -175,6 +175,7 @@ const pacLink: ButtonProps[] = [
     <UPageHero
       title="Nos activités"
       description="Découvrez les sensations uniques du parachutisme avec Efrei Para"
+      :ui="{ title: 'font-title' }"
     />
     <UPageSection
       title="Saut en ouverture automatique (OA)"
@@ -184,6 +185,7 @@ const pacLink: ButtonProps[] = [
       :features="oaFeatures"
       :links="oaLink"
       :ui="{
+        title: 'font-title',
         leadingIcon: 'text-efreipara-oa size-10 shrink-0',
         container: 'pt-0!',
       }"
@@ -201,7 +203,7 @@ const pacLink: ButtonProps[] = [
       :icon="getIcon('tandem')"
       :features="tandemFeatures"
       :links="tandemLink"
-      :ui="{ leadingIcon: 'text-efreipara-tandem size-10 shrink-0' }"
+      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-tandem size-10 shrink-0' }"
       :reverse="isLargeScreen"
     >
       <img
@@ -217,7 +219,7 @@ const pacLink: ButtonProps[] = [
       :icon="getIcon('soufflerie')"
       :features="soufflerieFeatures"
       :links="soufflerieLink"
-      :ui="{ leadingIcon: 'text-efreipara-soufflerie size-10 shrink-0' }"
+      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-soufflerie size-10 shrink-0' }"
     >
       <img
         :src="buildCdnUrl('soufflerie.jpg')"
@@ -232,7 +234,7 @@ const pacLink: ButtonProps[] = [
       :icon="getIcon('pac')"
       :features="pacFeatures"
       :links="pacLink"
-      :ui="{ leadingIcon: 'text-efreipara-pac size-10 shrink-0' }"
+      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-pac size-10 shrink-0' }"
       :reverse="isLargeScreen"
     >
       <img

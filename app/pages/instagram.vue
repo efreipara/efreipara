@@ -26,7 +26,7 @@ onMounted(() => {
             :name="appConfig.socials.instagram.icon"
             class="w-20 h-20 mx-auto mb-6 text-[#E4405F]"
           />
-          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 class="text-4xl sm:text-5xl font-title font-bold text-gray-900 dark:text-white mb-4">
             Suivre sur Instagram
           </h1>
           <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">Redirection vers Instagram...</p>

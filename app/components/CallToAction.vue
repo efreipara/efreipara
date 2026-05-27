@@ -40,6 +40,7 @@ const links: ButtonProps[] = [
       variant="naked"
       :links="links"
       class="relative"
+      :ui="{ title: 'font-title' }"
     >
       <!-- Image depuis le CDN pour de meilleures performances -->
       <img

@@ -31,6 +31,7 @@ const whyJoinFeatures = ref([
     <UPageHero
       title="Rejoins Efrei Para"
       description="Que tu souhaites simplement participer à nos activités ou t'investir dans l'organisation, il y a une place pour toi !"
+      :ui="{ title: 'font-title' }"
     />
 
     <UContainer class="my-0 py-0">

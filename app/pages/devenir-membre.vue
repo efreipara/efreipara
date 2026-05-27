@@ -23,7 +23,7 @@ onMounted(() => {
       <div class="pt-24 sm:pt-32 pb-16 sm:pb-24">
         <div class="text-center">
           <UIcon :name="option.icon" class="w-20 h-20 mx-auto mb-6" :class="option.color" />
-          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 class="text-4xl sm:text-5xl font-title font-bold text-gray-900 dark:text-white mb-4">
             {{ option.title }}
           </h1>
           <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">

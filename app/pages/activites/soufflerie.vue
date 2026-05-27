@@ -13,6 +13,7 @@ const { buildCdnUrl } = useCdnAsset()
         title="Baptêmes en soufflerie"
         description="Ressentez les sensations uniques de la chute libre en toute sécurité. Apprenez les bases du vol en soufflerie verticale avec des moniteurs diplômés."
         orientation="horizontal"
+        :ui="{ title: 'font-title' }"
       >
         <template #headline>
           <div class="flex items-center text-efreipara-soufflerie font-semibold">

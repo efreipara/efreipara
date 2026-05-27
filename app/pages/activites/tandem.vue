@@ -13,6 +13,7 @@ const { buildCdnUrl } = useCdnAsset()
         title="Saut en Tandem"
         description="Faites votre premier saut en parachute ! Vivez 50 secondes de chute libre à 4000m d'altitude, attaché à un moniteur professionnel. Aucune expérience requise."
         orientation="horizontal"
+        :ui="{ title: 'font-title' }"
       >
         <template #headline>
           <div class="flex items-center text-efreipara-tandem font-semibold">

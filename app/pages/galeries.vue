@@ -77,6 +77,7 @@ const galeries = ref([
       title="Galeries Photos"
       description="Revivez nos événements en images grâce aux galeries de l'association photo Efrei Picture Studio"
       :icon="appConfig.efreipara.icons.navigation.galeries"
+      :ui="{ title: 'font-title' }"
     />
 
     <UPageSection :ui="{ container: 'pt-0!' }">

@@ -13,6 +13,7 @@ const { buildCdnUrl } = useCdnAsset()
         title="Saut en Ouverture Automatique (OA)"
         description="Vivez l'adrénaline du parachutisme en solo avec un parachute qui s'ouvre automatiquement à la sortie de l'avion."
         orientation="horizontal"
+        :ui="{ title: 'font-title' }"
       >
         <template #headline>
           <div class="flex items-center text-efreipara-oa font-semibold">

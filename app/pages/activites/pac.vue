@@ -13,6 +13,7 @@ const { buildCdnUrl } = useCdnAsset()
         title="Formations PAC"
         description="Formation complète en Progression Accompagnée en Chute. Devenez parachutiste autonome avec un encadrement professionnel et maîtrisez la chute libre."
         orientation="horizontal"
+        :ui="{ title: 'font-title' }"
       >
         <template #headline>
           <div class="flex items-center text-efreipara-pac font-semibold">

@@ -38,7 +38,7 @@ const categoriesData = computed(() => {
   <UContainer class="py-16">
     <!-- En-tête -->
     <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      <h1 class="text-4xl md:text-5xl font-title font-bold mb-4">
         {{ faqData?.title || 'Questions Fréquentes' }}
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -54,7 +54,7 @@ const categoriesData = computed(() => {
         variant="subtle"
       >
         <template #header>
-          <h2 class="text-2xl font-bold">{{ name }}</h2>
+          <h2 class="text-2xl font-title font-bold">{{ name }}</h2>
         </template>
 
         <!-- Questions de la catégorie -->
