@@ -53,18 +53,37 @@ const activitesLink: ButtonProps[] = [
 <template>
   <div>
     <MainHero description="Défiez la gravité et vivez des sensations uniques avec Efrei Para" />
+
     <UPageSection
       title="Qui sommes-nous ?"
       icon="i-efreipara-parachute"
-      :ui="{ description: 'whitespace-pre-line' }"
+      :ui="{ container: 'py-12!', title: 'font-title' }"
     >
-      <p>
-        <b>Efrei Para</b> est le club de parachutisme du BDS Efrei. Nous organisons des
-        <b>sauts en ouverture automatique (OA)</b>, des <b>sauts en tandem</b> et des
-        <b>baptêmes en soufflerie</b> pendant l'hiver. <br /><br />
-        <u>Notre objectif</u> : rendre le parachutisme accessible aux étudiants dans un cadre
-        sécurisé et convivial.
-      </p>
+      <div class="flex items-center gap-8">
+        <div class="flex flex-col gap-4 text-muted">
+          <p>
+            <b class="text-highlighted">Efrei Para</b> est le club de parachutisme du BDS Efrei,
+            fondé en <b class="text-highlighted">2016</b>. Repris en 2023 après l'arrêt lié au
+            Covid, le club est aujourd'hui plus actif que jamais avec plus de
+            <b class="text-highlighted">100 membres</b> sur le Discord.
+          </p>
+          <p>
+            Nous organisons des <b class="text-highlighted">sauts en tandem</b>, des
+            <b class="text-highlighted">baptêmes en soufflerie</b> et des
+            <b class="text-highlighted">sauts en OA</b> tout au long de l'année.
+          </p>
+          <p>
+            Notre objectif : rendre le parachutisme accessible aux étudiants dans un cadre sécurisé
+            et convivial, sans expérience préalable requise.
+          </p>
+        </div>
+        <img
+          src="~/assets/images/avion.svg"
+          alt=""
+          aria-hidden="true"
+          class="hidden md:block w-72 h-auto opacity-75 shrink-0"
+        />
+      </div>
     </UPageSection>
     <div class="flex justify-center">
       <img src="~/assets/images/avion.svg" alt="Avion" class="w-64 md:w-96 h-auto" />
