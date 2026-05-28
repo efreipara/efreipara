@@ -46,6 +46,25 @@ const activitesLink: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
+    class: 'rounded-full',
+  },
+]
+
+const stats = [
+  {
+    title: '100+',
+    description: 'Membres actifs sur Discord',
+    icon: 'i-tabler-users',
+  },
+  {
+    title: '4',
+    description: 'Activités proposées',
+    icon: getIcon('oa'),
+  },
+  {
+    title: '2016',
+    description: 'Année de création du club',
+    icon: 'i-tabler-calendar',
   },
 ]
 </script>
@@ -85,9 +104,27 @@ const activitesLink: ButtonProps[] = [
         />
       </div>
     </UPageSection>
-    <div class="flex justify-center">
-      <img src="~/assets/images/avion.svg" alt="Avion" class="w-64 md:w-96 h-auto" />
+
+    <div class="border-y border-default">
+      <UContainer>
+        <div class="grid grid-cols-3 divide-x divide-default">
+          <div
+            v-for="stat in stats"
+            :key="stat.description"
+            class="flex flex-col items-center gap-1 py-10"
+          >
+            <UIcon :name="stat.icon" class="size-5 text-muted mb-1" />
+            <span class="text-4xl md:text-5xl font-bold tracking-tight font-title">{{
+              stat.title
+            }}</span>
+            <span class="text-xs sm:text-sm text-muted text-center px-2">{{
+              stat.description
+            }}</span>
+          </div>
+        </div>
+      </UContainer>
     </div>
+
     <UPageSection
       title="Nos activités"
       :features="activitesFeatures"
