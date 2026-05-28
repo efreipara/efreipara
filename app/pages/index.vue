@@ -67,6 +67,30 @@ const stats = [
     icon: 'i-tabler-calendar',
   },
 ]
+
+const whyFeatures = [
+  {
+    title: 'Accessible à tous',
+    description:
+      'Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe de tout : briefing, équipement et encadrement.',
+    icon: 'i-tabler-mood-happy',
+    class: 'text-efreipara-tandem',
+  },
+  {
+    title: 'Encadrement professionnel',
+    description:
+      'Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres agréés. La sécurité avant tout.',
+    icon: 'i-tabler-shield-check',
+    class: 'text-efreipara-oa',
+  },
+  {
+    title: 'Communauté étudiante',
+    description:
+      'Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements uniques durant l’année pour vivre des expériences inoubliables ensemble.',
+    icon: 'i-tabler-heart',
+    class: 'text-efreipara-soufflerie',
+  },
+]
 </script>
 
 <template>
@@ -134,7 +158,12 @@ const stats = [
         title: 'font-title',
       }"
     />
-    <UPageSection title="Pourquoi Efrei Para ?" orientation="horizontal" />
+
+    <UPageSection
+      title="Pourquoi Efrei Para ?"
+      :features="whyFeatures"
+      :ui="{ title: 'font-title' }"
+    />
 
     <CallToAction />
   </div>
