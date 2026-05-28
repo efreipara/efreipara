@@ -131,6 +131,7 @@ const stats = [
       :links="activitesLink"
       :ui="{
         features: 'sm:grid-cols-2 lg:grid-cols-2 gap-8 grid',
+        title: 'font-title',
       }"
     />
     <UPageSection title="Pourquoi Efrei Para ?" orientation="horizontal" />
