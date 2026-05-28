@@ -2,6 +2,7 @@
 import type { ButtonProps } from '@nuxt/ui'
 
 const { getIcon } = useEventIcon()
+const { partners } = usePartners()
 const appConfig = useAppConfig()
 
 const activitesFeatures = [
@@ -164,6 +165,29 @@ const whyFeatures = [
       :features="whyFeatures"
       :ui="{ title: 'font-title' }"
     />
+
+    <div class="border-t border-default">
+      <UContainer class="py-12">
+        <p class="text-center text-2xl font-title mb-8">Nos partenaires</p>
+        <div class="flex flex-wrap justify-center items-center gap-6">
+          <NuxtLink
+            v-for="partner in partners"
+            :key="partner.name"
+            :to="partner.url"
+            target="_blank"
+            class="group overflow-hidden rounded-xl"
+          >
+            <div class="bg-white px-5 py-3 transition-transform duration-200 group-hover:scale-105">
+              <img
+                :src="partner.logo"
+                :alt="partner.name"
+                class="h-10 w-32 md:h-14 md:w-44 object-contain"
+              />
+            </div>
+          </NuxtLink>
+        </div>
+      </UContainer>
+    </div>
 
     <CallToAction />
   </div>
