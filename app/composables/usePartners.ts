@@ -24,7 +24,7 @@ export const usePartners = () => {
     },
     {
       name: 'Skydive Event Paris',
-      logo: '/partners/skydive-event-paris.png',
+      logo: '/partners/skydive-event.webp',
       url: 'https://www.skydiveevent-paris.fr',
       activites: ['tandem'],
     },
