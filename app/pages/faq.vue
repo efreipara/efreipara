@@ -82,6 +82,7 @@ const categoriesData = computed(() => {
                   :variant="button.variant || 'solid'"
                   color="neutral"
                   size="sm"
+                  class="rounded-full"
                 >
                   {{ button.label }}
                 </UButton>
@@ -114,6 +115,7 @@ const categoriesData = computed(() => {
             size="lg"
             :icon="getSocialIcon('Discord')"
             color="neutral"
+            class="rounded-full"
           >
             Discord
           </UButton>
@@ -123,6 +125,7 @@ const categoriesData = computed(() => {
             size="lg"
             :icon="getSocialIcon('Instagram')"
             color="neutral"
+            class="rounded-full"
           >
             Instagram
           </UButton>

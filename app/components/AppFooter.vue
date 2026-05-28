@@ -134,7 +134,7 @@ const columns = [
         aria-label="Efrei"
         color="neutral"
         variant="ghost"
-        class="px-2"
+        class="rounded-full p-2"
       >
         <img
           src="~/assets/logos/efrei-white.png"
@@ -152,6 +152,7 @@ const columns = [
         :aria-label="`${social.name} Efrei Para`"
         color="neutral"
         variant="ghost"
+        class="rounded-full p-2"
       />
     </template>
   </UFooter>

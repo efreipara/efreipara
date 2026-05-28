@@ -76,7 +76,7 @@ const supportContact = {
               size="sm"
               block
               color="neutral"
-              class="justify-center"
+              class="justify-center rounded-full"
             >
               Envoyer un email
             </UButton>
@@ -93,7 +93,7 @@ const supportContact = {
                 size="sm"
                 color="neutral"
                 title="Google Maps"
-                class="justify-center"
+                class="justify-center rounded-full"
               >
                 <span class="hidden sm:inline">Google Maps</span>
                 <span class="sm:hidden">Maps</span>
@@ -105,7 +105,7 @@ const supportContact = {
                 size="sm"
                 color="neutral"
                 title="Apple Plans"
-                class="justify-center"
+                class="justify-center rounded-full"
               >
                 <span class="hidden sm:inline">Apple Plans</span>
                 <span class="sm:hidden">Plans</span>
@@ -117,7 +117,7 @@ const supportContact = {
                 size="sm"
                 color="neutral"
                 title="Waze"
-                class="justify-center"
+                class="justify-center rounded-full"
               >
                 Waze
               </UButton>
@@ -188,7 +188,7 @@ const supportContact = {
             :icon="appConfig.socials.github.icon"
             size="sm"
             color="neutral"
-            class="justify-center"
+            class="justify-center rounded-full"
           >
             Signaler sur GitHub
           </UButton>
@@ -197,7 +197,7 @@ const supportContact = {
             :icon="supportContact.icon"
             size="sm"
             color="neutral"
-            class="justify-center"
+            class="justify-center rounded-full"
           >
             Contacter par email
           </UButton>

@@ -59,7 +59,7 @@ const cdnUrl = config.public.cdnUrl
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.activites.parachute"
-            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30"
+            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 rounded-full"
           >
             Nos activités
           </UButton>
@@ -69,7 +69,7 @@ const cdnUrl = config.public.cdnUrl
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.rejoindre.rejoindre"
-            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30"
+            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 rounded-full"
           >
             Nous rejoindre
           </UButton>

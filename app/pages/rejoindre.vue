@@ -49,6 +49,7 @@ const whyJoinFeatures = ref([
             target: '_blank',
             external: true,
             color: 'neutral',
+            class: 'rounded-full',
           },
         ]"
       />

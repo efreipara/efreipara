@@ -91,6 +91,7 @@ const appConfig = useAppConfig()
               size="lg"
               :icon="getSocialIcon('Discord')"
               color="neutral"
+              class="rounded-full"
             >
               Discord
             </UButton>
@@ -100,6 +101,7 @@ const appConfig = useAppConfig()
               size="lg"
               :icon="getSocialIcon('Instagram')"
               color="neutral"
+              class="rounded-full"
             >
               Instagram
             </UButton>
@@ -110,6 +112,7 @@ const appConfig = useAppConfig()
               :icon="getSocialIcon('GitHub')"
               color="neutral"
               variant="subtle"
+              class="rounded-full"
             >
               Signaler sur GitHub
             </UButton>

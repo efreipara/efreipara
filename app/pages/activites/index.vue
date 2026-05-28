@@ -136,6 +136,7 @@ const oaLink: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
+    class: 'rounded-full',
   },
 ]
 
@@ -146,6 +147,7 @@ const tandemLink: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
+    class: 'rounded-full',
   },
 ]
 
@@ -156,6 +158,7 @@ const soufflerieLink: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
+    class: 'rounded-full',
   },
 ]
 
@@ -166,6 +169,7 @@ const pacLink: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     trailingIcon: appConfig.ui.icons.arrowRight,
+    class: 'rounded-full',
   },
 ]
 </script>

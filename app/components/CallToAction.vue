@@ -16,6 +16,7 @@ const links: ButtonProps[] = [
     color: 'neutral',
     variant: 'subtle',
     icon: appConfig.efreipara.icons.activites.parachute,
+    class: 'rounded-full',
   },
   {
     label: 'Nous rejoindre',
@@ -23,6 +24,7 @@ const links: ButtonProps[] = [
     size: 'lg',
     color: 'neutral',
     icon: appConfig.efreipara.icons.rejoindre.rejoindre,
+    class: 'rounded-full',
   },
 ]
 </script>

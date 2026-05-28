@@ -30,7 +30,7 @@ const { buildCdnUrl } = useCdnAsset()
       <div class="text-center my-12">
         <UIcon name="tabler:traffic-cone" class="size-10 text-gray-500" />
         <p class="text-lg text-gray-500">Page en construction</p>
-        <UButton :to="`/activites`" class="mt-6" color="neutral" variant="solid">
+        <UButton :to="`/activites`" class="mt-6 rounded-full" color="neutral" variant="solid">
           Voir nos activités
         </UButton>
       </div> </UContainer
