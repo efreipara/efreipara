@@ -136,10 +136,10 @@
         variant="ghost"
         class="rounded-full p-2"
       >
-        <img
-          src="~/assets/logos/efrei-white.png"
-          alt="Efrei"
-          class="pointer-events-none h-5 w-auto select-none"
+        <Icon
+          name="efrei:logo"
+          aria-hidden="true"
+          class="pointer-events-none h-5 w-14 select-none"
         />
       </UButton>
       <span class="text-muted">|</span>
