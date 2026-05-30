@@ -46,7 +46,7 @@
 
       <div class="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
         <Icon
-          name="i-efreipara-efreipara"
+          name="efreipara:efreipara"
           class="mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
         />
         <p v-if="description" class="mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl">

@@ -5,109 +5,109 @@ categories:
     questions:
       - question: Qu'est-ce qu'Efrei Para ?
         answer: Efrei Para est un club de parachutisme de l'Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et de progression autonome chute libre (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
-        icon: i-efreipara-parachute
+        icon: efreipara:parachute
 
       - question: Comment puis-je contacter l'association ?
         answer: Tu peux nous contacter via notre Discord, sur Instagram, ou par email. Tu peux également venir nous rencontrer lors de nos petits-déjeuners à l'Efrei ou lors de nos événements. Nous répondons à toutes vos demandes !
-        icon: i-tabler-mail
+        icon: tabler:mail
         buttons:
           - label: Rejoindre notre Discord
             to: /discord
-            icon: i-simple-icons-discord
+            icon: simple-icons:discord
             target: _blank
           - label: Suivre sur Instagram
             to: /instagram
-            icon: i-simple-icons-instagram
+            icon: simple-icons:instagram
             target: _blank
           - label: Nous contacter
             to: /contact
-            icon: i-tabler-mail
+            icon: tabler:mail
 
   - name: Rejoindre
     questions:
       - question: Comment puis-je rejoindre le club ?
         answer: Pour rejoindre Efrei Para, il suffit d'être étudiant à l'Efrei. L'inscription se fait via un formulaire en ligne. L'adhésion te donne accès à l'espace membre sur notre Discord et d'optenir des points LXP !
-        icon: i-tabler-user
+        icon: tabler:user
         buttons:
           - label: Rejoindre Efrei Para
             to: /rejoindre
-            icon: i-tabler-user-plus
+            icon: tabler:user-plus
           - label: Devenir membre du bureau
             to: /rejoindre-bureau
-            icon: i-tabler-crown
+            icon: tabler:crown
             variant: subtle
 
       - question: Faut-il avoir de l'expérience en parachutisme ?
         answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t'accompagneront à chaque étape.
-        icon: i-tabler-school
+        icon: tabler:school
         buttons:
           - label: Devenir membre
             to: /rejoindre
-            icon: i-tabler-rocket
+            icon: tabler:rocket
 
       - question: Est-ce que l'adhésion à Efrei Para est payante ?
         answer: |
           Non. Zéro euro. Nada. Rien du tout. 😎
 
           L'adhésion au club est entièrement gratuite pour les étudiants de l'Efrei.
-        icon: i-tabler-currency-euro
+        icon: tabler:currency-euro
 
       - question: Puis-je rejoindre le club à n’importe quel moment de l’année ?
         answer: Oui. Il est possible de rejoindre Efrei Para tout au long de l’année, même si certaines activités sont plus fréquentes à certaines périodes.
-        icon: i-tabler-calendar-week
+        icon: tabler:calendar-week
 
       - question: Dois-je m’engager sur toute l’année ?
         answer: Non. Il n’y a aucun engagement obligatoire. Tu participes aux activités qui t’intéressent, quand tu le souhaites.
-        icon: i-tabler-mood-smile-beam
+        icon: tabler:mood-smile-beam
 
       - question: Puis-je rejoindre sans jamais sauter ?
         answer: Oui. Tu peux rejoindre le club pour découvrir le milieu, participer aux événements, à la vie du club ou aux sorties, sans forcément sauter immédiatement.
-        icon: i-tabler-eye
+        icon: tabler:eye
 
   - name: Les activités
     questions:
       - question: Quelles sont les activités proposées ?
         answer: Nous proposons plusieurs activités selon ton niveau. Pour débuter, il y a les sauts en ouverture automatique (OA) et les tandems. Pour progresser, nous offrons la progression autonome chute libre (PAC) et des séances en soufflerie. Toutes nos activités sont encadrées par des professionnels diplômés.
-        icon: i-tabler-plane-tilt
+        icon: tabler:plane-tilt
         buttons:
           - label: Sauts OA
             to: /activites/oa
-            icon: i-tabler-parachute
+            icon: tabler:parachute
           - label: Sauts Tandem
             to: /activites/tandem
-            icon: i-tabler-users
+            icon: tabler:users
           - label: Soufflerie
             to: /activites/soufflerie
-            icon: i-tabler-wind
+            icon: tabler:wind
           - label: PAC
             to: /activites/pac
-            icon: i-tabler-medal-2
+            icon: tabler:medal-2
 
       - question: Comment se déroule un premier saut ?
         answer: Pour ton premier saut, nous recommandons l'ouverture automatique (OA). Tu suivras d'abord un briefing théorique complet, puis l'équipement et la préparation au sol. Ensuite, direction l'avion pour le grand saut ! Ton parachute s'ouvrira automatiquement et tu piloteras jusqu'au sol sous les consignes radio de l'instructeur.
-        icon: i-tabler-parachute
+        icon: tabler:parachute
 
       - question: Où se déroulent les sauts ?
         answer: Nos sauts se déroulent sur des zones de sauts agréées en Île-de-France et en région parisienne. Les lieux peuvent varier selon les activités et les disponibilités. Nous organisons également des week-ends et sorties dans d'autres régions pour diversifier les expériences.
-        icon: i-tabler-map-pin
+        icon: tabler:map-pin
 
   - name: Conditions
     questions:
       - question: Quel est l'âge minimum pour sauter ?
         answer: L'âge minimum pour pratiquer le parachutisme est de 15 ans avec une autorisation parentale. À partir de 18 ans, aucune autorisation n'est nécessaire. Il faut également présenter un certificat médical de non contre-indication à la pratique du parachutisme.
-        icon: i-tabler-calendar-check
+        icon: tabler:calendar-check
 
       - question: Y a-t-il des conditions physiques particulières ?
         answer: Le parachutisme nécessite une condition physique normale. Il faut présenter un certificat médical de non contre-indication. Certaines contre-indications existent (problèmes cardiaques, épilepsie, etc.). En cas de doute, consulte ton médecin. Il y a également des limites de poids pour certaines activités.
-        icon: i-tabler-heartbeat
+        icon: tabler:heartbeat
         buttons:
           - label: Voir les contre-indications (FFP)
             to: https://www.ffp.asso.fr/wp-content/uploads/2021/06/contre-indication-para-NEW.pdf
-            icon: i-tabler-clipboard-heart
+            icon: tabler:clipboard-heart
             target: _blank
           - label: Espace médical FFP (infos)
             to: https://www.ffp.asso.fr/espace-medical/
-            icon: i-tabler-building-hospital
+            icon: tabler:building-hospital
             target: _blank
 
   - name: Organisation & logistique
@@ -116,21 +116,21 @@ categories:
         answer: |
           Les déplacements sont organisés par le club, souvent en covoiturage. Toutes les informations pratiques sont communiquées à l’avance. 
           Tu peux également y aller par tes propres moyens si tu le souhaites.
-        icon: i-tabler-car
+        icon: tabler:car
 
       - question: Faut-il prévoir un budget pour les activités ?
         answer: |
           Oui. L’adhésion au club est gratuite, mais les activités de parachutisme ont un coût (sauts, formations, soufflerie).
           Les tarifs sont négociés par le club et annoncés à l’avance. Les étudiants de l’Efrei profitent généralement de tarifs réduits, avec une partie prise en charge par le club et l’école.
           Le club n’a aucun but lucratif : l’objectif est uniquement de rendre le parachutisme accessible aux étudiants.
-        icon: i-tabler-wallet
+        icon: tabler:wallet
 
       - question: Combien de temps dure une journée de saut ?
         answer: |
           Une journée de saut typique dure environ 6 à 8 heures. Cela inclut le briefing, l’équipement, les sauts, et le débriefing. Le temps exact peut varier en fonction des conditions météo et du nombre de participants.
 
           Pour les baptêmes en soufflerie, la durée est généralement plus courte, autour de 2 à 3 heures.
-        icon: i-tabler-clock
+        icon: tabler:clock
 
   - name: Sécurité
     questions:
@@ -142,16 +142,16 @@ categories:
 
           La sécurité repose sur une **formation progressive**, du **matériel de secours redondant** et l’encadrement par des **professionnels diplômés**.
           En saut en **tandem**, le niveau de sécurité est encore renforcé, notamment grâce à la présence d’un instructeur expérimenté.
-        icon: i-tabler-shield-check-filled
+        icon: tabler:shield-check-filled
 
       - question: Qui encadre les sauts ?
         answer: Les sauts sont encadrés par des instructeurs professionnels diplômés, dans des centres agréés par la Fédération Française de Parachutisme (FFP).
-        icon: i-tabler-user-scan
+        icon: tabler:user-scan
 
       - question: Le matériel est-il vérifié ?
         answer: Oui. Le matériel utilisé est contrôlé régulièrement et conforme aux normes de sécurité en vigueur. Chaque parachutiste dispose d’un parachute principal et d’un parachute de secours.
-        icon: i-tabler-tool
+        icon: tabler:tool
 
       - question: Que se passe-t-il en cas de mauvaise météo ?
         answer: La sécurité passe avant tout. Si les conditions météo ne sont pas favorables, les sauts sont reportés ou annulés.
-        icon: i-tabler-cloud-storm
+        icon: tabler:cloud-storm

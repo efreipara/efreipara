@@ -55,7 +55,7 @@
     {
       title: '100+',
       description: 'Membres actifs sur Discord',
-      icon: 'i-tabler-users',
+      icon: 'tabler:users',
     },
     {
       title: '4',
@@ -65,7 +65,7 @@
     {
       title: '2016',
       description: 'Année de création du club',
-      icon: 'i-tabler-calendar',
+      icon: 'tabler:calendar',
     },
   ]
 
@@ -74,21 +74,21 @@
       title: 'Accessible à tous',
       description:
         'Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe de tout : briefing, équipement et encadrement.',
-      icon: 'i-tabler-mood-happy',
+      icon: 'tabler:mood-happy',
       class: 'text-efreipara-tandem',
     },
     {
       title: 'Encadrement professionnel',
       description:
         'Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres agréés. La sécurité avant tout.',
-      icon: 'i-tabler-shield-check',
+      icon: 'tabler:shield-check',
       class: 'text-efreipara-oa',
     },
     {
       title: 'Communauté étudiante',
       description:
         'Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements uniques durant l’année pour vivre des expériences inoubliables ensemble.',
-      icon: 'i-tabler-heart',
+      icon: 'tabler:heart',
       class: 'text-efreipara-soufflerie',
     },
   ]
@@ -100,7 +100,7 @@
 
     <UPageSection
       title="Qui sommes-nous ?"
-      icon="i-efreipara-parachute"
+      icon="efreipara:parachute"
       :ui="{ container: 'py-12!', title: 'font-title' }"
     >
       <div class="flex items-center gap-8">

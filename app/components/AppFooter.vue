@@ -89,7 +89,7 @@
 
 <template>
   <!-- Séparateur visuel avec icône parachute -->
-  <USeparator icon="i-efreipara-parachute" class="h-px" />
+  <USeparator icon="efreipara:parachute" class="h-px" />
 
   <UFooter :ui="{ top: 'border-b border-default' }">
     <!-- Colonnes de navigation du footer -->
@@ -104,7 +104,7 @@
       <div class="flex flex-col">
         <p class="text-muted text-sm">
           &copy; {{ new Date().getFullYear() }}
-          <UIcon name="i-efreipara-parachute" class="mx-1 h-3 w-3" />
+          <UIcon name="efreipara:parachute" class="mx-1 h-3 w-3" />
           Efrei Para
         </p>
         <p class="text-muted text-sm">
@@ -115,9 +115,9 @@
           Contenus :
           <a href="https://creativecommons.org/licenses/by-nc/4.0/">
             CC BY-NC 4.0 (sauf mention contraire)
-            <UIcon name="i-creativecommons-cc" class="ml-0.5 h-4 w-4" />
-            <UIcon name="i-creativecommons-by" class="ml-0.5 h-4 w-4" />
-            <UIcon name="i-creativecommons-nc" class="ml-0.5 h-4 w-4" />
+            <UIcon name="creativecommons:cc" class="ml-0.5 h-4 w-4" />
+            <UIcon name="creativecommons:by" class="ml-0.5 h-4 w-4" />
+            <UIcon name="creativecommons:nc" class="ml-0.5 h-4 w-4" />
           </a>
         </p>
         <p class="text-muted text-sm">
