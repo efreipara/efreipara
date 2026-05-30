@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     defaults: {
       weights: ['100 900'],
       styles: ['normal'],
-      subsets: ['latin-ext', 'latin'],
+      subsets: ['latin'],
     },
     families: [
       { name: 'Outfit', provider: 'local' },
