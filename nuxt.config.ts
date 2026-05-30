@@ -39,9 +39,6 @@ export default defineNuxtConfig({
   },
 
   colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
-    classSuffix: '',
   },
 
   // Polices hébergées localement pour de meilleures performances et confidentialité
