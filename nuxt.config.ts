@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // Collections d'icônes personnalisées (Efrei Para, Efrei, Creative Commons)
+  // Collections d'icônes personnalisées (Efrei Para, Efrei, Creative Commons, Logos partenaires)
   icon: {
     customCollections: [
       {
@@ -72,6 +72,10 @@ export default defineNuxtConfig({
       {
         prefix: 'creativecommons',
         dir: './app/assets/icons/creativecommons',
+      },
+      {
+        prefix: 'ifly',
+        dir: './app/assets/icons/ifly',
       },
     ],
   },
