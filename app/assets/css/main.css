@@ -47,5 +47,12 @@
 }
 
 .font-title {
-  font-family: 'Racing Sans One', sans-serif;
+  font-family: 'Racing Sans One', 'Outfit', sans-serif;
+}
+
+/* Titres des pages légales (ContentRenderer) */
+.legal-content h1,
+.legal-content h2,
+.legal-content h3 {
+  font-family: 'Racing Sans One', 'Outfit', sans-serif;
 }

@@ -17,7 +17,9 @@ const { data: page } = await useAsyncData(props.slug, () =>
 <template>
   <UContainer class="mt-15 px-4 py-8 max-w-4xl">
     <div v-if="page">
-      <ContentRenderer :value="page" />
+      <div class="legal-content">
+        <ContentRenderer :value="page" />
+      </div>
       <div v-if="page.updatedAt" class="text-sm text-gray-400 mt-12 pt-6 border-t border-gray-800">
         Dernière mise à jour :
         {{
@@ -30,7 +32,7 @@ const { data: page } = await useAsyncData(props.slug, () =>
       </div>
     </div>
     <div v-else class="text-center py-12">
-      <h1 class="text-2xl font-bold mb-4">Page non trouvée</h1>
+      <h1 class="text-2xl font-title font-bold mb-4">Page non trouvée</h1>
       <p>Le contenu demandé n'existe pas.</p>
       <div class="flex justify-center mt-4">
         <ULink
