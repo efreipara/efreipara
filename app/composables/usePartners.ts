@@ -7,7 +7,8 @@ import type { ActivityType } from './useActivities'
 // Partenaire du club avec logo et activités associées
 export interface Partner {
   name: string
-  logo: string
+  logo?: string
+  icon?: string
   url: string
   activites?: ActivityType[] // Activités concernées (tableau vide = aucune, undefined = toutes)
 }
