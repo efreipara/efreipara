@@ -7,6 +7,8 @@ export default defineAppConfig({
     },
     icons: {
       // Icônes génériques utilisées dans l'interface (NuxtUI)
+      accessibility: 'tabler:accessible',
+      accessibilityOff: 'tabler:accessible-off',
       arrowDown: 'tabler:arrow-down',
       arrowLeft: 'tabler:arrow-left',
       arrowRight: 'tabler:arrow-right',
