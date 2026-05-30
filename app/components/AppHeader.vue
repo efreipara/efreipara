@@ -64,20 +64,8 @@ const baseItems = [
   },
 ]
 
-// Menu desktop : icônes uniquement pour les réseaux sociaux (gain de place)
-const itemsDesktop = computed<NavigationMenuItem[]>(() => [
-  ...baseItems,
-  {
-    icon: getSocialIcon('instagram'),
-    to: instagram?.url,
-    target: '_blank',
-  },
-  {
-    icon: getSocialIcon('discord'),
-    to: discord?.url,
-    target: '_blank',
-  },
-])
+// Menu desktop : sans les réseaux sociaux (rendus séparément en boutons ronds)
+const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
 
 // Menu mobile : avec labels pour les réseaux sociaux (meilleure accessibilité)
 const itemsMobile = computed<NavigationMenuItem[]>(() => [
@@ -145,6 +133,29 @@ const itemsMobile = computed<NavigationMenuItem[]>(() => [
           </div>
         </template>
       </UNavigationMenu>
+      <div class="hidden lg:flex items-center gap-1">
+        <span class="text-muted">|</span>
+        <UButton
+          v-if="instagram"
+          :to="instagram.url"
+          target="_blank"
+          :icon="getSocialIcon('instagram')"
+          aria-label="Instagram Efrei Para"
+          color="neutral"
+          variant="ghost"
+          class="rounded-full p-2"
+        />
+        <UButton
+          v-if="discord"
+          :to="discord.url"
+          target="_blank"
+          :icon="getSocialIcon('discord')"
+          aria-label="Discord Efrei Para"
+          color="neutral"
+          variant="ghost"
+          class="rounded-full p-2"
+        />
+      </div>
     </template>
 
     <!-- Navigation mobile avec icônes colorées pour chaque activité -->
