@@ -155,6 +155,8 @@ const itemsMobile = computed<NavigationMenuItem[]>(() => [
           variant="ghost"
           class="rounded-full p-2"
         />
+        <span class="text-muted">|</span>
+        <UColorModeButton class="rounded-full p-2" />
       </div>
     </template>
 
