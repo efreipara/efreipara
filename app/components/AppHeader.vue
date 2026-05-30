@@ -1,95 +1,95 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
-import type { ActivityType } from '~/composables/useActivities'
+  import type { NavigationMenuItem } from '@nuxt/ui'
+  import type { ActivityType } from '~/composables/useActivities'
 
-// Récupération des icônes depuis la configuration de l'app
-const appConfig = useAppConfig()
+  // Récupération des icônes depuis la configuration de l'app
+  const appConfig = useAppConfig()
 
-// Récupération des données des réseaux sociaux et des fonctions utilitaires
-const { socials, getSocialIcon } = useSocials()
-const { getIcon } = useEventIcon()
-const { getColor } = useActivityColor()
-const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
-const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
+  // Récupération des données des réseaux sociaux et des fonctions utilitaires
+  const { socials, getSocialIcon } = useSocials()
+  const { getIcon } = useEventIcon()
+  const { getColor } = useActivityColor()
+  const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
+  const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
 
-// Items de navigation partagés entre desktop et mobile
-const baseItems = [
-  {
-    label: 'Nos activités',
-    to: '/activites',
-    icon: getIcon('oa'),
-    defaultOpen: true,
-    slot: 'activities',
-    children: [
-      {
-        label: 'Saut en OA',
-        description: 'Saut solo en ouverture automatique',
-        to: '/activites/oa',
-        slot: 'oa',
-      },
-      {
-        label: 'Saut en Tandem',
-        description: 'Découverte du parachutisme avec un moniteur',
-        to: '/activites/tandem',
-        slot: 'tandem',
-      },
-      {
-        label: 'Soufflerie',
-        description: 'Expérience de chute libre en soufflerie',
-        to: '/activites/soufflerie',
-        slot: 'soufflerie',
-      },
-      {
-        label: 'PAC',
-        description: 'Progression Accompagnée en Chute',
-        to: '/activites/pac',
-        slot: 'pac',
-      },
-    ],
-  },
-  {
-    label: 'Documents',
-    to: '/documents',
-    icon: appConfig.efreipara.icons.navigation.document,
-  },
-  {
-    label: 'Galeries',
-    to: '/galeries',
-    icon: appConfig.efreipara.icons.navigation.galeries,
-  },
-  {
-    label: 'Nous rejoindre',
-    to: '/rejoindre',
-    icon: appConfig.efreipara.icons.rejoindre.rejoindre,
-  },
-]
+  // Items de navigation partagés entre desktop et mobile
+  const baseItems = [
+    {
+      label: 'Nos activités',
+      to: '/activites',
+      icon: getIcon('oa'),
+      defaultOpen: true,
+      slot: 'activities',
+      children: [
+        {
+          label: 'Saut en OA',
+          description: 'Saut solo en ouverture automatique',
+          to: '/activites/oa',
+          slot: 'oa',
+        },
+        {
+          label: 'Saut en Tandem',
+          description: 'Découverte du parachutisme avec un moniteur',
+          to: '/activites/tandem',
+          slot: 'tandem',
+        },
+        {
+          label: 'Soufflerie',
+          description: 'Expérience de chute libre en soufflerie',
+          to: '/activites/soufflerie',
+          slot: 'soufflerie',
+        },
+        {
+          label: 'PAC',
+          description: 'Progression Accompagnée en Chute',
+          to: '/activites/pac',
+          slot: 'pac',
+        },
+      ],
+    },
+    {
+      label: 'Documents',
+      to: '/documents',
+      icon: appConfig.efreipara.icons.navigation.document,
+    },
+    {
+      label: 'Galeries',
+      to: '/galeries',
+      icon: appConfig.efreipara.icons.navigation.galeries,
+    },
+    {
+      label: 'Nous rejoindre',
+      to: '/rejoindre',
+      icon: appConfig.efreipara.icons.rejoindre.rejoindre,
+    },
+  ]
 
-// Menu desktop : sans les réseaux sociaux (rendus séparément en boutons ronds)
-const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
+  // Menu desktop : sans les réseaux sociaux (rendus séparément en boutons ronds)
+  const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
 
-// Menu mobile : avec labels pour les réseaux sociaux (meilleure accessibilité)
-const itemsMobile = computed<NavigationMenuItem[]>(() => [
-  ...baseItems,
-  {
-    label: 'Instagram',
-    icon: getSocialIcon('instagram'),
-    to: instagram?.url,
-    target: '_blank',
-  },
-  {
-    label: 'Discord',
-    icon: getSocialIcon('discord'),
-    to: discord?.url,
-    target: '_blank',
-  },
-])
+  // Menu mobile : avec labels pour les réseaux sociaux (meilleure accessibilité)
+  const itemsMobile = computed<NavigationMenuItem[]>(() => [
+    ...baseItems,
+    {
+      label: 'Instagram',
+      icon: getSocialIcon('instagram'),
+      to: instagram?.url,
+      target: '_blank',
+    },
+    {
+      label: 'Discord',
+      icon: getSocialIcon('discord'),
+      to: discord?.url,
+      target: '_blank',
+    },
+  ])
 </script>
 
 <template>
   <UHeader>
     <!-- Logo Efrei Para -->
     <template #title>
-      <Icon name="i-efreipara-logo-color" class="h-12 w-32 ml-2" />
+      <Icon name="i-efreipara-logo-color" class="ml-2 h-12 w-32" />
     </template>
 
     <!-- Navigation desktop avec menu déroulant personnalisé pour les activités -->
@@ -113,19 +113,19 @@ const itemsMobile = computed<NavigationMenuItem[]>(() => [
               v-for="child in (item as any).children"
               :key="child.label"
               :to="child.to"
-              class="group flex items-start gap-2 rounded-md p-3 hover:bg-elevated/50 transition-colors"
+              class="group hover:bg-elevated/50 flex items-start gap-2 rounded-md p-3 transition-colors"
             >
               <Icon
                 :name="getIcon(child.slot as ActivityType)"
-                :class="`text-${getColor(child.slot as ActivityType)} shrink-0 size-5`"
+                :class="`text-${getColor(child.slot as ActivityType)} size-5 shrink-0`"
               />
-              <div class="flex-1 min-w-0">
+              <div class="min-w-0 flex-1">
                 <p
-                  class="font-medium text-sm text-toned group-hover:text-highlighted transition-colors"
+                  class="text-toned group-hover:text-highlighted text-sm font-medium transition-colors"
                 >
                   {{ child.label }}
                 </p>
-                <p class="text-sm text-muted line-clamp-2">
+                <p class="text-muted line-clamp-2 text-sm">
                   {{ child.description }}
                 </p>
               </div>
@@ -133,7 +133,7 @@ const itemsMobile = computed<NavigationMenuItem[]>(() => [
           </div>
         </template>
       </UNavigationMenu>
-      <div class="hidden lg:flex items-center gap-1">
+      <div class="hidden items-center gap-1 lg:flex">
         <span class="text-muted">|</span>
         <UButton
           v-if="instagram"

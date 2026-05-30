@@ -1,47 +1,47 @@
 <script setup lang="ts">
-import { marked } from 'marked'
-import DOMPurify from 'isomorphic-dompurify'
+  import { marked } from 'marked'
+  import DOMPurify from 'isomorphic-dompurify'
 
-// Récupération des données FAQ depuis Nuxt Content
-const { data: faqData } = await useAsyncData('faq', () => {
-  return queryCollection('faq').first()
-})
+  // Récupération des données FAQ depuis Nuxt Content
+  const { data: faqData } = await useAsyncData('faq', () => {
+    return queryCollection('faq').first()
+  })
 
-// Récupération des liens sociaux
-const { getSocialUrl, getSocialIcon } = useSocials()
-const appConfig = useAppConfig()
+  // Récupération des liens sociaux
+  const { getSocialUrl, getSocialIcon } = useSocials()
+  const appConfig = useAppConfig()
 
-// Helper pour convertir le Markdown en HTML sécurisé
-const parseMarkdown = (text: string) => {
-  const html = marked(text, { breaks: true }) as string
-  return DOMPurify.sanitize(html)
-}
+  // Helper pour convertir le Markdown en HTML sécurisé
+  const parseMarkdown = (text: string) => {
+    const html = marked(text, { breaks: true }) as string
+    return DOMPurify.sanitize(html)
+  }
 
-// Transformation des catégories pour UAccordion
-const categoriesData = computed(() => {
-  if (!faqData.value?.categories) return []
+  // Transformation des catégories pour UAccordion
+  const categoriesData = computed(() => {
+    if (!faqData.value?.categories) return []
 
-  return faqData.value.categories.map((category) => ({
-    name: category.name,
-    questions: category.questions.map((question, index) => ({
-      label: question.question,
-      content: question.answer,
-      icon: question.icon || appConfig.efreipara.icons.extras.question,
-      value: String(index),
-      buttons: question.buttons,
-    })),
-  }))
-})
+    return faqData.value.categories.map((category) => ({
+      name: category.name,
+      questions: category.questions.map((question, index) => ({
+        label: question.question,
+        content: question.answer,
+        icon: question.icon || appConfig.efreipara.icons.extras.question,
+        value: String(index),
+        buttons: question.buttons,
+      })),
+    }))
+  })
 </script>
 
 <template>
   <UContainer class="py-16">
     <!-- En-tête -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-title font-bold mb-4">
+    <div class="mb-12 text-center">
+      <h1 class="font-title mb-4 text-4xl font-bold md:text-5xl">
         {{ faqData?.title || 'Questions Fréquentes' }}
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      <p class="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
         {{ faqData?.description || 'Retrouvez ici les réponses aux questions les plus fréquentes' }}
       </p>
     </div>
@@ -54,7 +54,7 @@ const categoriesData = computed(() => {
         variant="subtle"
       >
         <template #header>
-          <h2 class="text-2xl font-title font-bold">{{ name }}</h2>
+          <h2 class="font-title text-2xl font-bold">{{ name }}</h2>
         </template>
 
         <!-- Questions de la catégorie -->
@@ -95,20 +95,20 @@ const categoriesData = computed(() => {
 
     <!-- Call to action -->
     <UCard class="mt-12">
-      <div class="text-center space-y-6">
+      <div class="space-y-6 text-center">
         <div class="space-y-3">
           <div class="flex justify-center">
             <UIcon
               :name="appConfig.efreipara.icons.extras.question"
-              class="size-12 text-primary-500"
+              class="text-primary-500 size-12"
             />
           </div>
           <h2 class="text-2xl font-bold">Une question sans réponse ?</h2>
-          <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          <p class="mx-auto max-w-xl text-gray-600 dark:text-gray-400">
             N'hésite pas à nous poser tes questions sur Discord ou Instagram !
           </p>
         </div>
-        <div class="flex gap-3 justify-center flex-wrap">
+        <div class="flex flex-wrap justify-center gap-3">
           <UButton
             :to="getSocialUrl('Discord')"
             target="_blank"

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const route = useRoute()
-const showLayout = computed(() => route.meta.layout !== false)
+  const route = useRoute()
+  const showLayout = computed(() => route.meta.layout !== false)
 
-// SEO automatique basé sur le chemin de la route
-const seoKey = computed(() => {
-  const path = route.path === '/' ? 'index' : route.path.slice(1).replace(/\//g, '-')
-  return path
-})
+  // SEO automatique basé sur le chemin de la route
+  const seoKey = computed(() => {
+    const path = route.path === '/' ? 'index' : route.path.slice(1).replace(/\//g, '-')
+    return path
+  })
 
-useSeo(seoKey)
+  useSeo(seoKey)
 </script>
 
 <template>

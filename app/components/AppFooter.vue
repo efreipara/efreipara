@@ -1,90 +1,90 @@
 <script setup lang="ts">
-// Récupération des données des réseaux sociaux
-const { socials } = useSocials()
+  // Récupération des données des réseaux sociaux
+  const { socials } = useSocials()
 
-// Organisation du footer en 4 colonnes : Activités, Club, Réseaux, Légal
-const columns = [
-  {
-    label: 'Activités',
-    children: [
-      {
-        label: 'Nos activités',
-        to: '/activites',
-      },
-      {
-        label: 'Saut en OA',
-        to: '/activites/oa',
-      },
-      {
-        label: 'Saut en Tandem',
-        to: '/activites/tandem',
-      },
-      {
-        label: 'Soufflerie',
-        to: '/activites/soufflerie',
-      },
-      {
-        label: 'PAC',
-        to: '/activites/pac',
-      },
-    ],
-  },
-  {
-    label: 'Club',
-    children: [
-      {
-        label: 'À propos',
-        to: '/about',
-      },
-      {
-        label: 'Documents',
-        to: '/documents',
-      },
-      {
-        label: 'Galeries photos',
-        to: '/galeries',
-      },
-      {
-        label: 'Nous contacter',
-        to: '/contact',
-      },
-      {
-        label: 'FAQ',
-        to: '/faq',
-      },
-    ],
-  },
-  {
-    label: 'Réseaux',
-    children: socials.map((social) => ({
-      label: social.name,
-      to: social.url,
-      target: '_blank',
-    })),
-  },
-  {
-    label: 'Légal',
-    children: [
-      {
-        label: 'Mentions légales',
-        to: '/mentions-legales',
-      },
-      {
-        label: 'Règlement',
-        to: '/reglement',
-      },
-      {
-        label: 'RGPD',
-        to: '/rgpd',
-      },
-      {
-        label: 'Statut du site',
-        to: 'https://status.efreipara.fr',
+  // Organisation du footer en 4 colonnes : Activités, Club, Réseaux, Légal
+  const columns = [
+    {
+      label: 'Activités',
+      children: [
+        {
+          label: 'Nos activités',
+          to: '/activites',
+        },
+        {
+          label: 'Saut en OA',
+          to: '/activites/oa',
+        },
+        {
+          label: 'Saut en Tandem',
+          to: '/activites/tandem',
+        },
+        {
+          label: 'Soufflerie',
+          to: '/activites/soufflerie',
+        },
+        {
+          label: 'PAC',
+          to: '/activites/pac',
+        },
+      ],
+    },
+    {
+      label: 'Club',
+      children: [
+        {
+          label: 'À propos',
+          to: '/about',
+        },
+        {
+          label: 'Documents',
+          to: '/documents',
+        },
+        {
+          label: 'Galeries photos',
+          to: '/galeries',
+        },
+        {
+          label: 'Nous contacter',
+          to: '/contact',
+        },
+        {
+          label: 'FAQ',
+          to: '/faq',
+        },
+      ],
+    },
+    {
+      label: 'Réseaux',
+      children: socials.map((social) => ({
+        label: social.name,
+        to: social.url,
         target: '_blank',
-      },
-    ],
-  },
-]
+      })),
+    },
+    {
+      label: 'Légal',
+      children: [
+        {
+          label: 'Mentions légales',
+          to: '/mentions-legales',
+        },
+        {
+          label: 'Règlement',
+          to: '/reglement',
+        },
+        {
+          label: 'RGPD',
+          to: '/rgpd',
+        },
+        {
+          label: 'Statut du site',
+          to: 'https://status.efreipara.fr',
+          target: '_blank',
+        },
+      ],
+    },
+  ]
 </script>
 
 <template>
@@ -104,7 +104,7 @@ const columns = [
       <div class="flex flex-col">
         <p class="text-muted text-sm">
           &copy; {{ new Date().getFullYear() }}
-          <UIcon name="i-efreipara-parachute" class="w-3 h-3 mx-1" />
+          <UIcon name="i-efreipara-parachute" class="mx-1 h-3 w-3" />
           Efrei Para
         </p>
         <p class="text-muted text-sm">
@@ -115,9 +115,9 @@ const columns = [
           Contenus :
           <a href="https://creativecommons.org/licenses/by-nc/4.0/">
             CC BY-NC 4.0 (sauf mention contraire)
-            <UIcon name="i-creativecommons-cc" class="w-4 h-4 ml-0.5" />
-            <UIcon name="i-creativecommons-by" class="w-4 h-4 ml-0.5" />
-            <UIcon name="i-creativecommons-nc" class="w-4 h-4 ml-0.5" />
+            <UIcon name="i-creativecommons-cc" class="ml-0.5 h-4 w-4" />
+            <UIcon name="i-creativecommons-by" class="ml-0.5 h-4 w-4" />
+            <UIcon name="i-creativecommons-nc" class="ml-0.5 h-4 w-4" />
           </a>
         </p>
         <p class="text-muted text-sm">
@@ -139,7 +139,7 @@ const columns = [
         <img
           src="~/assets/logos/efrei-white.png"
           alt="Efrei"
-          class="h-5 w-auto select-none pointer-events-none"
+          class="pointer-events-none h-5 w-auto select-none"
         />
       </UButton>
       <span class="text-muted">|</span>

@@ -1,23 +1,23 @@
 <script setup lang="ts">
-// Props optionnelle pour afficher une description sous le logo
-interface Props {
-  description?: string
-}
+  // Props optionnelle pour afficher une description sous le logo
+  interface Props {
+    description?: string
+  }
 
-defineProps<Props>()
+  defineProps<Props>()
 
-const appConfig = useAppConfig()
+  const appConfig = useAppConfig()
 
-// Récupération de l'URL du CDN pour la vidéo d'arrière-plan
-const config = useRuntimeConfig()
-const cdnUrl = config.public.cdnUrl
+  // Récupération de l'URL du CDN pour la vidéo d'arrière-plan
+  const config = useRuntimeConfig()
+  const cdnUrl = config.public.cdnUrl
 </script>
 
 <template>
   <!-- Card hero pleine hauteur avec vidéo en arrière-plan -->
   <UCard
     variant="subtle"
-    class="main-hero-card relative overflow-hidden p-0 rounded-none"
+    class="main-hero-card relative overflow-hidden rounded-none p-0"
     :ui="{
       body: 'p-0 sm:p-0',
     }"
@@ -33,7 +33,7 @@ const cdnUrl = config.public.cdnUrl
         loop
         muted
         playsinline
-        class="absolute inset-0 w-full h-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover"
         poster="~/assets/images/main-hero.jpg"
       >
         <source :src="`${cdnUrl}/main-hero.mp4`" type="video/mp4" />
@@ -44,22 +44,22 @@ const cdnUrl = config.public.cdnUrl
 
       <!-- Contenu centré : logo et description optionnelle -->
 
-      <div class="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
+      <div class="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
         <Icon
           name="i-efreipara-efreipara"
-          class="inline-block mb-6 drop-shadow-md h-10 sm:h-12 md:h-16 lg:h-20 w-78.75 sm:w-96 md:w-126 lg:w-157.5"
+          class="mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
         />
-        <p v-if="description" class="text-lg md:text-xl leading-relaxed drop-shadow-md mb-8">
+        <p v-if="description" class="mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl">
           {{ description }}
         </p>
-        <div class="flex flex-wrap gap-4 justify-center">
+        <div class="flex flex-wrap justify-center gap-4">
           <UButton
             to="/activites"
             size="xl"
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.activites.parachute"
-            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 rounded-full"
+            class="rounded-full border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/30"
           >
             Nos activités
           </UButton>
@@ -69,7 +69,7 @@ const cdnUrl = config.public.cdnUrl
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.rejoindre.rejoindre"
-            class="backdrop-blur-sm bg-white/20 hover:bg-white/30 border border-white/30 rounded-full"
+            class="rounded-full border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/30"
           >
             Nous rejoindre
           </UButton>
@@ -77,10 +77,10 @@ const cdnUrl = config.public.cdnUrl
       </div>
 
       <!-- Icône flèche animée pour inviter à scroller -->
-      <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+      <div class="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 animate-bounce">
         <Icon
           :name="appConfig.efreipara.icons.extras.caretDownFilled"
-          class="w-8 h-8 text-white drop-shadow-lg"
+          class="h-8 w-8 text-white drop-shadow-lg"
         />
       </div>
     </div>

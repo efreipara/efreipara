@@ -1,45 +1,45 @@
 <script setup lang="ts">
-/**
- * Page de contact d'Efrei Para
- * Affiche les différents moyens de contacter le club : email, adresse, réseaux sociaux
- */
+  /**
+   * Page de contact d'Efrei Para
+   * Affiche les différents moyens de contacter le club : email, adresse, réseaux sociaux
+   */
 
-// Récupération des données de contact et réseaux sociaux
-const { contact } = useContact()
-const { socials } = useSocials()
+  // Récupération des données de contact et réseaux sociaux
+  const { contact } = useContact()
+  const { socials } = useSocials()
 
-// Récupération des icônes depuis la configuration de l'app
-const appConfig = useAppConfig()
+  // Récupération des icônes depuis la configuration de l'app
+  const appConfig = useAppConfig()
 
-// Moyens de contact principaux (email et adresse)
-const contactMethods = [
-  {
-    icon: appConfig.efreipara.icons.contact.email,
-    title: 'Email',
-    description: 'Envoie-nous un email pour toute question',
-    value: contact.email,
-    url: contact.url,
-    color: 'text-efreipara-tandem',
-  },
-  {
-    icon: appConfig.efreipara.icons.contact.mapPin,
-    title: 'Adresse',
-    description: 'Notre campus Efrei',
-    value: contact.address,
-    mapUrls: contact.mapUrls,
-    color: 'text-efreipara-oa',
-  },
-]
+  // Moyens de contact principaux (email et adresse)
+  const contactMethods = [
+    {
+      icon: appConfig.efreipara.icons.contact.email,
+      title: 'Email',
+      description: 'Envoie-nous un email pour toute question',
+      value: contact.email,
+      url: contact.url,
+      color: 'text-efreipara-tandem',
+    },
+    {
+      icon: appConfig.efreipara.icons.contact.mapPin,
+      title: 'Adresse',
+      description: 'Notre campus Efrei',
+      value: contact.address,
+      mapUrls: contact.mapUrls,
+      color: 'text-efreipara-oa',
+    },
+  ]
 
-// Contact pour le support technique du site web
-const supportContact = {
-  icon: appConfig.efreipara.icons.contact.support,
-  title: 'Support Technique',
-  description: 'Un problème avec le site ?',
-  value: contact.maintainer.email,
-  url: contact.maintainer.url,
-  color: 'text-efreipara-pac',
-}
+  // Contact pour le support technique du site web
+  const supportContact = {
+    icon: appConfig.efreipara.icons.contact.support,
+    title: 'Support Technique',
+    description: 'Un problème avec le site ?',
+    value: contact.maintainer.email,
+    url: contact.maintainer.url,
+    color: 'text-efreipara-pac',
+  }
 </script>
 
 <template>
@@ -53,15 +53,15 @@ const supportContact = {
 
     <UContainer class="pb-16">
       <!-- Cartes des moyens de contact principaux (email et adresse) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         <UCard v-for="method in contactMethods" :key="method.title" variant="subtle">
           <template #header>
             <div class="flex items-start gap-3">
               <div class="shrink-0 p-2">
                 <UIcon :name="method.icon" :class="['size-6', method.color]" />
               </div>
-              <div class="flex-1 min-w-0">
-                <h2 class="text-xl font-bold mb-1">{{ method.title }}</h2>
+              <div class="min-w-0 flex-1">
+                <h2 class="mb-1 text-xl font-bold">{{ method.title }}</h2>
                 <p class="text-sm text-gray-400">{{ method.description }}</p>
               </div>
             </div>
@@ -69,7 +69,7 @@ const supportContact = {
 
           <!-- Contenu pour l'email avec bouton d'action -->
           <div v-if="method.url && !method.mapUrls" class="space-y-3">
-            <p class="text-gray-300 text-sm">{{ method.value }}</p>
+            <p class="text-sm text-gray-300">{{ method.value }}</p>
             <UButton
               :to="method.url"
               :icon="method.icon"
@@ -84,7 +84,7 @@ const supportContact = {
 
           <!-- Contenu pour l'adresse avec liens vers applications de cartographie -->
           <div v-else-if="method.mapUrls" class="space-y-3">
-            <p class="text-gray-300 text-sm">{{ method.value }}</p>
+            <p class="text-sm text-gray-300">{{ method.value }}</p>
             <div class="grid grid-cols-3 gap-2">
               <UButton
                 :to="method.mapUrls.google"
@@ -133,32 +133,32 @@ const supportContact = {
             <div class="shrink-0 p-2">
               <UIcon
                 :name="appConfig.efreipara.icons.contact.socialNetworks"
-                class="size-6 text-efreipara-soufflerie"
+                class="text-efreipara-soufflerie size-6"
               />
             </div>
-            <div class="flex-1 min-w-0">
-              <h2 class="text-xl font-bold mb-1">Réseaux sociaux</h2>
+            <div class="min-w-0 flex-1">
+              <h2 class="mb-1 text-xl font-bold">Réseaux sociaux</h2>
               <p class="text-sm text-gray-400">Suis-nous sur nos différents réseaux sociaux</p>
             </div>
           </div>
         </template>
 
         <!-- Grille des cartes de réseaux sociaux -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
           <NuxtLink
             v-for="social in socials"
             :key="social.name"
             :to="social.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="block group"
+            class="group block"
           >
             <UCard
-              class="cursor-pointer hover:bg-primary-800 transition-colors duration-200 h-full"
+              class="hover:bg-primary-800 h-full cursor-pointer transition-colors duration-200"
             >
               <div class="flex flex-col items-center gap-2 text-center">
                 <UIcon :name="social.icon" class="size-6 text-gray-400" />
-                <span class="font-semibold text-sm">{{ social.name }}</span>
+                <span class="text-sm font-semibold">{{ social.name }}</span>
               </div>
             </UCard>
           </NuxtLink>
@@ -172,8 +172,8 @@ const supportContact = {
             <div class="shrink-0 p-2">
               <UIcon :name="supportContact.icon" :class="['size-6', supportContact.color]" />
             </div>
-            <div class="flex-1 min-w-0">
-              <h2 class="text-xl font-bold mb-1">{{ supportContact.title }}</h2>
+            <div class="min-w-0 flex-1">
+              <h2 class="mb-1 text-xl font-bold">{{ supportContact.title }}</h2>
               <p class="text-sm text-gray-400">
                 {{ supportContact.description }}
               </p>
@@ -182,7 +182,7 @@ const supportContact = {
         </template>
 
         <!-- Boutons pour signaler un problème (GitHub ou email) -->
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col gap-3 sm:flex-row">
           <UButton
             to="https://github.com/efreipara/efreipara/issues/new"
             :icon="appConfig.socials.github.icon"

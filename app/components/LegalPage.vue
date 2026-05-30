@@ -1,26 +1,26 @@
 <script setup lang="ts">
-interface Props {
-  slug: string
-}
+  interface Props {
+    slug: string
+  }
 
-const props = defineProps<Props>()
+  const props = defineProps<Props>()
 
-const appConfig = useAppConfig()
+  const appConfig = useAppConfig()
 
-useSeo(props.slug)
+  useSeo(props.slug)
 
-const { data: page } = await useAsyncData(props.slug, () =>
-  queryCollection('legal').path(`/${props.slug}`).first(),
-)
+  const { data: page } = await useAsyncData(props.slug, () =>
+    queryCollection('legal').path(`/${props.slug}`).first(),
+  )
 </script>
 
 <template>
-  <UContainer class="mt-15 px-4 py-8 max-w-4xl">
+  <UContainer class="mt-15 max-w-4xl px-4 py-8">
     <div v-if="page">
       <div class="legal-content">
         <ContentRenderer :value="page" />
       </div>
-      <div v-if="page.updatedAt" class="text-sm text-gray-400 mt-12 pt-6 border-t border-gray-800">
+      <div v-if="page.updatedAt" class="mt-12 border-t border-gray-800 pt-6 text-sm text-gray-400">
         Dernière mise à jour :
         {{
           new Date(page.updatedAt).toLocaleDateString('fr-FR', {
@@ -31,14 +31,14 @@ const { data: page } = await useAsyncData(props.slug, () =>
         }}
       </div>
     </div>
-    <div v-else class="text-center py-12">
-      <h1 class="text-2xl font-title font-bold mb-4">Page non trouvée</h1>
+    <div v-else class="py-12 text-center">
+      <h1 class="font-title mb-4 text-2xl font-bold">Page non trouvée</h1>
       <p>Le contenu demandé n'existe pas.</p>
-      <div class="flex justify-center mt-4">
+      <div class="mt-4 flex justify-center">
         <ULink
           to="https://github.com/efreipara/efreipara/issues/new"
           target="_blank"
-          class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors flex items-center"
+          class="flex items-center text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
         >
           <UIcon :name="appConfig.socials.github.icon" class="mr-2" />
           Signaler l'erreur

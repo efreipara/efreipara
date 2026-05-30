@@ -1,41 +1,41 @@
 <script setup lang="ts">
-const { nextEvent, getEventBannerUI, getEventInfoUrl, getEventBannerId, shouldShowEvent } =
-  useNextEvent()
+  const { nextEvent, getEventBannerUI, getEventInfoUrl, getEventBannerId, shouldShowEvent } =
+    useNextEvent()
 
-const { getIcon } = useEventIcon()
+  const { getIcon } = useEventIcon()
 
-const bannerId = getEventBannerId()
+  const bannerId = getEventBannerId()
 
-// Récupération des icônes depuis la configuration de l'app
-const appConfig = useAppConfig()
+  // Récupération des icônes depuis la configuration de l'app
+  const appConfig = useAppConfig()
 
-// Vérifier le sessionStorage à chaque initialisation
-const getInitialClosedState = () => {
-  if (import.meta.client) {
-    return sessionStorage.getItem(`banner-${bannerId}`) === 'true'
+  // Vérifier le sessionStorage à chaque initialisation
+  const getInitialClosedState = () => {
+    if (import.meta.client) {
+      return sessionStorage.getItem(`banner-${bannerId}`) === 'true'
+    }
+    return false
   }
-  return false
-}
 
-// Utiliser useState mais toujours vérifier sessionStorage
-const isBannerClosed = useState(`banner-closed-${bannerId}`, getInitialClosedState)
+  // Utiliser useState mais toujours vérifier sessionStorage
+  const isBannerClosed = useState(`banner-closed-${bannerId}`, getInitialClosedState)
 
-// Synchroniser avec sessionStorage au montage
-onMounted(() => {
-  if (import.meta.client) {
-    isBannerClosed.value = sessionStorage.getItem(`banner-${bannerId}`) === 'true'
+  // Synchroniser avec sessionStorage au montage
+  onMounted(() => {
+    if (import.meta.client) {
+      isBannerClosed.value = sessionStorage.getItem(`banner-${bannerId}`) === 'true'
+    }
+  })
+
+  const showBanner = computed(() => shouldShowEvent() && !isBannerClosed.value)
+
+  // Gérer la fermeture de la bannière
+  const handleClose = () => {
+    isBannerClosed.value = true
+    if (import.meta.client) {
+      sessionStorage.setItem(`banner-${bannerId}`, 'true')
+    }
   }
-})
-
-const showBanner = computed(() => shouldShowEvent() && !isBannerClosed.value)
-
-// Gérer la fermeture de la bannière
-const handleClose = () => {
-  isBannerClosed.value = true
-  if (import.meta.client) {
-    sessionStorage.setItem(`banner-${bannerId}`, 'true')
-  }
-}
 </script>
 
 <template>

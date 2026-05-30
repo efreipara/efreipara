@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { ButtonProps } from '@nuxt/ui'
-import ParachuteBg from './ParachuteBg.vue'
+  import type { ButtonProps } from '@nuxt/ui'
+  import ParachuteBg from './ParachuteBg.vue'
 
-const { buildCdnUrl } = useCdnAsset()
+  const { buildCdnUrl } = useCdnAsset()
 
-// Récupération des icônes depuis la configuration de l'app
-const appConfig = useAppConfig()
+  // Récupération des icônes depuis la configuration de l'app
+  const appConfig = useAppConfig()
 
-// Configuration des boutons d'appel à l'action
-const links: ButtonProps[] = [
-  {
-    label: 'Voir nos activités',
-    to: '/activites',
-    size: 'lg',
-    color: 'neutral',
-    variant: 'subtle',
-    icon: appConfig.efreipara.icons.activites.parachute,
-    class: 'rounded-full',
-  },
-  {
-    label: 'Nous rejoindre',
-    to: '/rejoindre',
-    size: 'lg',
-    color: 'neutral',
-    icon: appConfig.efreipara.icons.rejoindre.rejoindre,
-    class: 'rounded-full',
-  },
-]
+  // Configuration des boutons d'appel à l'action
+  const links: ButtonProps[] = [
+    {
+      label: 'Voir nos activités',
+      to: '/activites',
+      size: 'lg',
+      color: 'neutral',
+      variant: 'subtle',
+      icon: appConfig.efreipara.icons.activites.parachute,
+      class: 'rounded-full',
+    },
+    {
+      label: 'Nous rejoindre',
+      to: '/rejoindre',
+      size: 'lg',
+      color: 'neutral',
+      icon: appConfig.efreipara.icons.rejoindre.rejoindre,
+      class: 'rounded-full',
+    },
+  ]
 </script>
 
 <template>
@@ -48,7 +48,7 @@ const links: ButtonProps[] = [
       <img
         :src="buildCdnUrl('rejoindre-bureau.jpg')"
         alt="Efrei Para - Rejoignez-nous"
-        class="w-full rounded-lg relative z-10"
+        class="relative z-10 w-full rounded-lg"
       />
     </UPageCTA>
   </UPageSection>
