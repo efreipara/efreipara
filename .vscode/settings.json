@@ -13,5 +13,8 @@
     "strings": "on"
   },
   "tailwindCSS.classAttributes": ["class", "ui"],
-  "tailwindCSS.classFunctions": ["defineAppConfig"]
+  "tailwindCSS.classFunctions": ["defineAppConfig"],
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  }
 }
