@@ -20,7 +20,7 @@ export const usePartners = () => {
   const partners: Partner[] = [
     {
       name: 'Efrei',
-      logo: '/partners/efrei.svg',
+      icon: 'efrei:logo-color',
       url: 'https://efrei.fr/',
     },
     {
@@ -31,7 +31,7 @@ export const usePartners = () => {
     },
     {
       name: 'iFly',
-      logo: '/partners/ifly.svg',
+      icon: 'ifly:logo-color',
       url: 'https://www.iflyfrance.com/lieux/ifly-paris/',
       activites: ['soufflerie'],
     },
