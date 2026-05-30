@@ -53,6 +53,7 @@ export default defineNuxtConfig({
     families: [
       { name: 'Outfit', provider: 'local' },
       { name: 'Racing Sans One', provider: 'local', weights: [400] },
+      { name: 'Open Dyslexic', provider: 'local', weights: [400, 700], styles: ['normal', 'italic'] },
     ],
     providers: {
       google: false,
