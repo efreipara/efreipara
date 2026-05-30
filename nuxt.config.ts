@@ -39,6 +39,7 @@ export default defineNuxtConfig({
   },
 
   colorMode: {
+    storage: 'sessionStorage',
   },
 
   // Polices hébergées localement pour de meilleures performances et confidentialité
