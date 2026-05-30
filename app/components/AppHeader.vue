@@ -160,6 +160,26 @@
       </div>
     </template>
 
+    <!-- Bouton burger animé vers croix -->
+    <template #toggle="{ open, toggle }">
+      <button
+        class="relative size-8 lg:hidden"
+        :aria-label="open ? 'Fermer le menu' : 'Ouvrir le menu'"
+        @click="toggle"
+      >
+        <Icon
+          :name="appConfig.ui.icons.menu"
+          class="absolute inset-0 m-auto size-5 transition-all duration-300"
+          :class="open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'"
+        />
+        <Icon
+          :name="appConfig.ui.icons.close"
+          class="absolute inset-0 m-auto size-5 transition-all duration-300"
+          :class="open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'"
+        />
+      </button>
+    </template>
+
     <!-- Navigation mobile avec icônes colorées pour chaque activité -->
     <template #body>
       <UNavigationMenu
