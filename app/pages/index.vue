@@ -132,7 +132,7 @@
           src="~/assets/images/avion.svg"
           alt=""
           aria-hidden="true"
-          class="hidden h-auto w-72 shrink-0 opacity-75 md:block"
+          class="hidden h-auto w-72 shrink-0 opacity-90 md:block dark:opacity-75"
         />
       </div>
     </UPageSection>
