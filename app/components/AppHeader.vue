@@ -97,7 +97,11 @@
   <UHeader>
     <!-- Logo Efrei Para -->
     <template #title>
-      <Icon name="efreipara:logo-color" class="ml-2 h-12 w-32" />
+      <Icon
+        name="efreipara:logo"
+        class="ml-2 h-12 w-32 text-[var(--color-efreipara)] dark:hidden"
+      />
+      <Icon name="efreipara:logo-color" class="ml-2 hidden h-12 w-32 dark:block" />
     </template>
 
     <!-- Navigation desktop avec menu déroulant personnalisé pour les activités -->
