@@ -156,7 +156,7 @@
         </template>
       </UNavigationMenu>
       <div class="hidden items-center gap-1 lg:flex">
-        <span class="text-muted">|</span>
+        <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <UButton
           v-if="instagram"
           :to="instagram.url"
@@ -177,7 +177,7 @@
           variant="ghost"
           class="rounded-full p-2"
         />
-        <span class="text-muted">|</span>
+        <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <UDropdownMenu :items="accessibilityItems">
           <UButton
             :icon="appConfig.ui.icons.accessibility"

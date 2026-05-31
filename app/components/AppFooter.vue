@@ -142,7 +142,7 @@
           class="pointer-events-none h-5 w-14 select-none"
         />
       </UButton>
-      <span class="text-muted">|</span>
+      <span aria-hidden="true" class="bg-accented h-4 w-px" />
       <UButton
         v-for="social in socials"
         :key="social.name"
