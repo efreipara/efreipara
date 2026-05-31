@@ -89,22 +89,8 @@
   // Menu desktop : sans les réseaux sociaux (rendus séparément en boutons ronds)
   const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
 
-  // Menu mobile : avec labels pour les réseaux sociaux (meilleure accessibilité)
-  const itemsMobile = computed<NavigationMenuItem[]>(() => [
-    ...baseItems,
-    {
-      label: 'Instagram',
-      icon: getSocialIcon('instagram'),
-      to: instagram?.url,
-      target: '_blank',
-    },
-    {
-      label: 'Discord',
-      icon: getSocialIcon('discord'),
-      to: discord?.url,
-      target: '_blank',
-    },
-  ])
+  // Menu mobile : uniquement les items de navigation de base
+  const itemsMobile = computed<NavigationMenuItem[]>(() => [...baseItems])
 </script>
 
 <template>
@@ -252,6 +238,19 @@
           <Icon :name="getIcon('pac')" :class="`text-${getColor('pac')}`" />
         </template>
       </UNavigationMenu>
+      <div class="mt-2 flex items-center gap-1 border-t pt-2">
+        <UButton
+          v-for="social in socials"
+          :key="social.name"
+          :to="social.url"
+          target="_blank"
+          :icon="social.icon"
+          :aria-label="`${social.name} Efrei Para`"
+          color="neutral"
+          variant="ghost"
+          class="rounded-full p-2"
+        />
+      </div>
     </template>
   </UHeader>
 </template>
