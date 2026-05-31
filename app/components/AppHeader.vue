@@ -191,24 +191,37 @@
       </div>
     </template>
 
-    <!-- Bouton burger animé vers croix -->
+    <!-- Bouton burger animé vers croix, avec a11y et colormode à côté -->
     <template #toggle="{ open, toggle }">
-      <button
-        class="relative size-8 lg:hidden"
-        :aria-label="open ? 'Fermer le menu' : 'Ouvrir le menu'"
-        @click="toggle"
-      >
-        <Icon
-          :name="appConfig.ui.icons.menu"
-          class="absolute inset-0 m-auto size-5 transition-all duration-300"
-          :class="open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'"
-        />
-        <Icon
-          :name="appConfig.ui.icons.close"
-          class="absolute inset-0 m-auto size-5 transition-all duration-300"
-          :class="open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'"
-        />
-      </button>
+      <div class="flex items-center gap-1 lg:hidden">
+        <UDropdownMenu :items="accessibilityItems">
+          <UButton
+            :icon="appConfig.ui.icons.accessibility"
+            :color="hasActiveFeature ? 'primary' : 'neutral'"
+            variant="ghost"
+            aria-label="Options d'accessibilité"
+            class="rounded-full p-2"
+          />
+        </UDropdownMenu>
+        <UColorModeButton class="rounded-full p-2" />
+        <span aria-hidden="true" class="bg-accented h-4 w-px" />
+        <button
+          class="relative size-8"
+          :aria-label="open ? 'Fermer le menu' : 'Ouvrir le menu'"
+          @click="toggle"
+        >
+          <Icon
+            :name="appConfig.ui.icons.menu"
+            class="absolute inset-0 m-auto size-5 transition-all duration-300"
+            :class="open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'"
+          />
+          <Icon
+            :name="appConfig.ui.icons.close"
+            class="absolute inset-0 m-auto size-5 transition-all duration-300"
+            :class="open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'"
+          />
+        </button>
+      </div>
     </template>
 
     <!-- Navigation mobile avec icônes colorées pour chaque activité -->
