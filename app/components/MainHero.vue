@@ -59,7 +59,7 @@
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.activites.parachute"
-            class="rounded-full border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/30"
+            class="rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
           >
             Nos activités
           </UButton>
@@ -69,7 +69,7 @@
             color="neutral"
             variant="soft"
             :icon="appConfig.efreipara.icons.rejoindre.rejoindre"
-            class="rounded-full border border-white/30 bg-white/20 backdrop-blur-sm hover:bg-white/30"
+            class="rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
           >
             Nous rejoindre
           </UButton>
