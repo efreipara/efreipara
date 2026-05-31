@@ -40,7 +40,7 @@
       </video>
 
       <!-- Overlay sombre pour améliorer la lisibilité du texte -->
-      <div class="absolute inset-0 bg-black/30" />
+      <div class="no-contrast absolute inset-0 bg-black/30" />
 
       <!-- Contenu centré : logo et description optionnelle -->
 

@@ -189,13 +189,13 @@
                 v-if="partner.icon"
                 :name="partner.icon"
                 :aria-label="partner.name"
-                class="h-10 w-32 md:h-14 md:w-44"
+                class="no-contrast h-10 w-32 md:h-14 md:w-44"
               />
               <img
                 v-else
                 :src="partner.logo"
                 :alt="partner.name"
-                class="h-10 w-32 object-contain md:h-14 md:w-44"
+                class="no-contrast h-10 w-32 object-contain md:h-14 md:w-44"
               />
             </div>
           </NuxtLink>
