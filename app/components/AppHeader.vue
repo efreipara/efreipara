@@ -9,6 +9,28 @@
   const { socials, getSocialIcon } = useSocials()
   const { getIcon } = useEventIcon()
   const { getColor } = useActivityColor()
+  const { features, toggle, hasActiveFeature } = useAccessibility()
+
+  const accessibilityItems = computed(() => [
+    [
+      {
+        label: 'Police dyslexique',
+        icon: 'tabler:typography',
+        type: 'checkbox' as const,
+        checked: features.value.dyslexic,
+        onUpdateChecked: () => toggle('dyslexic'),
+        onSelect: (e: Event) => e.preventDefault(),
+      },
+      {
+        label: 'Contraste élevé',
+        icon: 'tabler:contrast',
+        type: 'checkbox' as const,
+        checked: features.value.highContrast,
+        onUpdateChecked: () => toggle('highContrast'),
+        onSelect: (e: Event) => e.preventDefault(),
+      },
+    ],
+  ])
   const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
   const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
 
@@ -156,6 +178,15 @@
           class="rounded-full p-2"
         />
         <span class="text-muted">|</span>
+        <UDropdownMenu :items="accessibilityItems">
+          <UButton
+            :icon="appConfig.ui.icons.accessibility"
+            :color="hasActiveFeature ? 'primary' : 'neutral'"
+            variant="ghost"
+            aria-label="Options d'accessibilité"
+            class="rounded-full p-2"
+          />
+        </UDropdownMenu>
         <UColorModeButton class="rounded-full p-2" />
       </div>
     </template>

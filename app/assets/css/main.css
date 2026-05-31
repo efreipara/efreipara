@@ -56,3 +56,27 @@
 .legal-content h3 {
   font-family: 'Racing Sans One', 'Outfit', sans-serif;
 }
+
+/* Accessibilité : police dyslexique */
+html.a11y-dyslexic {
+  font-family: 'Open Dyslexic', sans-serif;
+  font-size-adjust: 0.45;
+}
+
+html.a11y-dyslexic .font-title,
+html.a11y-dyslexic .legal-content h1,
+html.a11y-dyslexic .legal-content h2,
+html.a11y-dyslexic .legal-content h3 {
+  font-family: 'Open Dyslexic', sans-serif;
+}
+
+/* Accessibilité : contraste élevé (exclut les photos, garde les icônes SVG) */
+html.a11y-highContrast {
+  filter: contrast(1.5);
+}
+
+html.a11y-highContrast img,
+html.a11y-highContrast video,
+html.a11y-highContrast no-contrast {
+  filter: contrast(0.667); /* annule le contrast(1.5) du parent : 1 / 1.5 */
+}
