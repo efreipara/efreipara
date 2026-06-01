@@ -167,9 +167,13 @@
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <UDropdownMenu :items="accessibilityItems">
           <UButton
-            :icon="appConfig.ui.icons.accessibility"
-            :color="hasActiveFeature ? 'primary' : 'neutral'"
-            variant="ghost"
+            :icon="
+              hasActiveFeature
+                ? appConfig.ui.icons.accessibilityFilled
+                : appConfig.ui.icons.accessibility
+            "
+            color="neutral"
+            :variant="hasActiveFeature ? 'solid' : 'ghost'"
             aria-label="Options d'accessibilité"
             class="rounded-full p-2"
           />
@@ -183,9 +187,13 @@
       <div class="flex items-center gap-1 lg:hidden">
         <UDropdownMenu :items="accessibilityItems">
           <UButton
-            :icon="appConfig.ui.icons.accessibility"
-            :color="hasActiveFeature ? 'primary' : 'neutral'"
-            variant="ghost"
+            :icon="
+              hasActiveFeature
+                ? appConfig.ui.icons.accessibilityFilled
+                : appConfig.ui.icons.accessibility
+            "
+            color="neutral"
+            :variant="hasActiveFeature ? 'solid' : 'ghost'"
             aria-label="Options d'accessibilité"
             class="rounded-full p-2"
           />
