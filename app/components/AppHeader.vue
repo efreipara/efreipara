@@ -20,6 +20,7 @@
         checked: features.value.dyslexic,
         onUpdateChecked: () => toggle('dyslexic'),
         onSelect: (e: Event) => e.preventDefault(),
+        class: 'cursor-pointer',
       },
       {
         label: 'Contraste élevé',
@@ -28,6 +29,7 @@
         checked: features.value.highContrast,
         onUpdateChecked: () => toggle('highContrast'),
         onSelect: (e: Event) => e.preventDefault(),
+        class: 'cursor-pointer',
       },
     ],
   ])
@@ -175,10 +177,10 @@
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"
             aria-label="Options d'accessibilité"
-            class="rounded-full p-2"
+            class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <UColorModeButton class="rounded-full p-2" />
+        <UColorModeButton class="cursor-pointer rounded-full p-2" />
       </div>
     </template>
 
@@ -195,10 +197,10 @@
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"
             aria-label="Options d'accessibilité"
-            class="rounded-full p-2"
+            class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <UColorModeButton class="rounded-full p-2" />
+        <UColorModeButton class="cursor-pointer rounded-full p-2" />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <button
           class="relative size-8"
