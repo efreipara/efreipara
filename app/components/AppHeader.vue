@@ -20,7 +20,7 @@
         checked: features.value.dyslexic,
         onUpdateChecked: () => toggle('dyslexic'),
         onSelect: (e: Event) => e.preventDefault(),
-        class: 'cursor-pointer',
+        class: 'cursor-pointer font-open-dyslexic',
       },
       {
         label: 'Contraste élevé',

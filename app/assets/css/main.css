@@ -58,7 +58,8 @@
 }
 
 /* Accessibilité : police dyslexique */
-html.a11y-dyslexic {
+html.a11y-dyslexic,
+.font-open-dyslexic {
   font-family: 'Open Dyslexic', sans-serif;
   font-size-adjust: 0.45;
 }
