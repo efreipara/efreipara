@@ -47,12 +47,20 @@
       <div class="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
         <Icon
           name="efreipara:efreipara"
-          class="mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
+          class="hero-slide-up mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
+          style="animation-delay: 0.1s"
         />
-        <p v-if="description" class="mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl">
+        <p
+          v-if="description"
+          class="hero-slide-up mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl"
+          style="animation-delay: 0.3s"
+        >
           {{ description }}
         </p>
-        <div class="flex flex-wrap justify-center gap-4">
+        <div
+          class="hero-slide-up flex flex-wrap justify-center gap-4"
+          style="animation-delay: 0.5s"
+        >
           <UButton
             to="/activites"
             size="xl"
@@ -86,3 +94,21 @@
     </div>
   </UCard>
 </template>
+
+<style scoped>
+  .hero-slide-up {
+    opacity: 0;
+    animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes heroSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
