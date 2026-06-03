@@ -1,11 +1,17 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
-/**
- * Configuration des collections Nuxt Content
- * Définit les schémas de validation pour les documents légaux, la FAQ, les documents et le SEO
- */
 export default defineContentConfig({
   collections: {
+    activites: defineCollection({
+      type: 'data',
+      source: 'activites/*.yml',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        label: z.string(),
+        alt: z.string(),
+      }),
+    }),
     legal: defineCollection({
       type: 'page',
       source: '{mentions-legales,reglement,rgpd}.md',
