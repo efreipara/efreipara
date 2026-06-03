@@ -94,21 +94,3 @@
     </div>
   </UCard>
 </template>
-
-<style scoped>
-  .hero-slide-up {
-    opacity: 0;
-    animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  @keyframes heroSlideUp {
-    from {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-</style>

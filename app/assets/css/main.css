@@ -81,3 +81,20 @@ html.a11y-highContrast video,
 html.a11y-highContrast no-contrast {
   filter: contrast(0.667); /* annule le contrast(1.5) du parent : 1 / 1.5 */
 }
+
+/* Animation d'entrée depuis le bas */
+.hero-slide-up {
+  opacity: 0;
+  animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
