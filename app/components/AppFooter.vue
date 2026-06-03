@@ -95,7 +95,10 @@
     <!-- Colonnes de navigation du footer -->
     <template #top>
       <UContainer>
-        <UFooterColumns :columns="columns" />
+        <UFooterColumns
+          :columns="columns"
+          :ui="{ center: 'grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:col-span-2' }"
+        />
       </UContainer>
     </template>
 
