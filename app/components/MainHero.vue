@@ -1,16 +1,10 @@
 <script setup lang="ts">
-  // Props optionnelle pour afficher une description sous le logo
-  interface Props {
-    description?: string
-  }
-
-  defineProps<Props>()
-
   const appConfig = useAppConfig()
-
-  // Récupération de l'URL du CDN pour la vidéo d'arrière-plan
   const config = useRuntimeConfig()
   const cdnUrl = config.public.cdnUrl
+
+  const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  const description = computed(() => seo.value?.pages['index']?.description)
 </script>
 
 <template>

@@ -96,7 +96,7 @@
 
 <template>
   <div>
-    <MainHero description="Défiez la gravité et vivez des sensations uniques avec Efrei Para" />
+    <MainHero />
 
     <UPageSection
       title="Qui sommes-nous ?"
