@@ -22,6 +22,20 @@
     pac: 'text-efreipara-pac',
   }
   const colorClass = colorClasses[props.activite]
+
+  const activities = Object.keys(colorClasses) as ActivityType[]
+  const currentIndex = activities.indexOf(props.activite)
+  const prevActivity = activities[(currentIndex - 1 + activities.length) % activities.length]
+  const nextActivity = activities[(currentIndex + 1) % activities.length]
+
+  const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
+    useAsyncData(`${prevActivity}-nav`, () =>
+      queryCollection('activites').where('stem', '=', `activites/${prevActivity}`).first(),
+    ),
+    useAsyncData(`${nextActivity}-nav`, () =>
+      queryCollection('activites').where('stem', '=', `activites/${nextActivity}`).first(),
+    ),
+  ])
 </script>
 
 <template>
@@ -31,6 +45,22 @@
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 dark:opacity-10"
     />
+    <NuxtLink
+      :to="`/activites/${prevActivity}`"
+      :aria-label="`Aller à ${prevPage?.label}`"
+      class="absolute bottom-0 top-2 left-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-r-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5 2xl:flex"
+    >
+      <UIcon name="tabler:chevron-left" class="size-6 text-gray-400" />
+      <span class="text-xs text-gray-400">{{ prevPage?.label }}</span>
+    </NuxtLink>
+    <NuxtLink
+      :to="`/activites/${nextActivity}`"
+      :aria-label="`Aller à ${nextPage?.label}`"
+      class="absolute bottom-0 top-2 right-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-l-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5 2xl:flex"
+    >
+      <UIcon name="tabler:chevron-right" class="size-6 text-gray-400" />
+      <span class="text-xs text-gray-400">{{ nextPage?.label }}</span>
+    </NuxtLink>
     <UContainer class="relative">
       <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
