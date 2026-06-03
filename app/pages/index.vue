@@ -2,96 +2,43 @@
   import type { ButtonProps } from '@nuxt/ui'
 
   const { getIcon } = useEventIcon()
+  const { getColor } = useActivityColor()
   const { partners } = usePartners()
   const appConfig = useAppConfig()
 
-  const activitesFeatures = [
-    {
-      title: 'Sauts en ouverture automatique (OA)',
-      description:
-        'Découvre le saut “vrai de vrai” : briefing, équipement, sortie d’avion avec ouverture automatique. Accessible et encadré.',
-      icon: getIcon('oa'),
-      to: '/activites/oa',
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Sauts en tandem',
-      description:
-        'Avec un professionnel expérimenté, profite d’une expérience inoubliable en chute libre à 200km/h à 4000m.',
-      icon: getIcon('tandem'),
-      to: '/activites/tandem',
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: 'Baptêmes en soufflerie',
-      description:
-        'Vole dans le tunnel en toute sécurité. Idéal pour débuter, progresser et s’amuser entre amis.',
-      icon: getIcon('soufflerie'),
-      to: '/activites/soufflerie',
-      class: 'text-efreipara-soufflerie',
-    },
-    {
-      title: 'Formations PAC',
-      description:
-        'La Progression Accompagnée en Chute : une formation complète vers l’autonomie en chute libre.',
-      icon: getIcon('pac'),
-      to: '/activites/pac',
-      class: 'text-efreipara-pac',
-    },
-  ]
+  const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
 
-  const activitesLink: ButtonProps[] = [
+  const activitesFeatures = computed(
+    () =>
+      home.value?.activites.items.map((item) => ({
+        title: item.title,
+        description: item.description,
+        icon: getIcon(item.type as ActivityType),
+        to: item.to,
+        class: `text-${getColor(item.type as ActivityType)}`,
+      })) ?? [],
+  )
+
+  const activitesLink = computed<ButtonProps[]>(() => [
     {
-      label: 'Découvrir toutes nos activités en détail',
-      to: '/activites',
+      label: home.value?.activites.link.label ?? '',
+      to: home.value?.activites.link.to ?? '/activites',
       color: 'neutral',
       variant: 'subtle',
       trailingIcon: appConfig.ui.icons.arrowRight,
       class: 'rounded-full',
     },
-  ]
+  ])
 
-  const stats = [
-    {
-      title: '100+',
-      description: 'Membres actifs sur Discord',
-      icon: 'tabler:users',
-    },
-    {
-      title: '4',
-      description: 'Activités proposées',
-      icon: getIcon('oa'),
-    },
-    {
-      title: '2016',
-      description: 'Année de création du club',
-      icon: 'tabler:calendar',
-    },
-  ]
-
-  const whyFeatures = [
-    {
-      title: 'Accessible à tous',
-      description:
-        'Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe de tout : briefing, équipement et encadrement.',
-      icon: 'tabler:mood-happy',
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: 'Encadrement professionnel',
-      description:
-        'Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres agréés. La sécurité avant tout.',
-      icon: 'tabler:shield-check',
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Communauté étudiante',
-      description:
-        'Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements uniques durant l’année pour vivre des expériences inoubliables ensemble.',
-      icon: 'tabler:heart',
-      class: 'text-efreipara-soufflerie',
-    },
-  ]
+  const whyFeatures = computed(
+    () =>
+      home.value?.why.map((item) => ({
+        title: item.title,
+        description: item.description,
+        icon: item.icon,
+        class: `text-${getColor(item.type as ActivityType)}`,
+      })) ?? [],
+  )
 </script>
 
 <template>
@@ -99,34 +46,13 @@
     <MainHero />
 
     <UPageSection
-      title="Qui sommes-nous ?"
+      :title="home?.sections.about"
       icon="efreipara:parachute"
       :ui="{ container: 'py-12!', title: 'font-title' }"
     >
       <div class="flex items-center gap-8">
         <div class="text-muted flex flex-col gap-4">
-          <p>
-            <b class="text-highlighted">Efrei Para</b>
-            est le club de parachutisme du BDS Efrei, fondé en
-            <b class="text-highlighted">2016</b>
-            . Repris en 2023 après l'arrêt lié au Covid, le club est aujourd'hui plus actif que
-            jamais avec plus de
-            <b class="text-highlighted">100 membres</b>
-            sur le Discord.
-          </p>
-          <p>
-            Nous organisons des
-            <b class="text-highlighted">sauts en tandem</b>
-            , des
-            <b class="text-highlighted">baptêmes en soufflerie</b>
-            et des
-            <b class="text-highlighted">sauts en OA</b>
-            tout au long de l'année.
-          </p>
-          <p>
-            Notre objectif : rendre le parachutisme accessible aux étudiants dans un cadre sécurisé
-            et convivial, sans expérience préalable requise.
-          </p>
+          <p v-for="paragraph in home?.about.paragraphs" :key="paragraph" v-html="paragraph" />
         </div>
         <img
           src="~/assets/images/avion.svg"
@@ -141,7 +67,7 @@
       <UContainer>
         <div class="divide-default grid grid-cols-3 divide-x">
           <div
-            v-for="stat in stats"
+            v-for="stat in home?.stats"
             :key="stat.description"
             class="flex flex-col items-center gap-1 py-10"
           >
@@ -158,7 +84,7 @@
     </div>
 
     <UPageSection
-      title="Nos activités"
+      :title="home?.sections.activites"
       :features="activitesFeatures"
       :links="activitesLink"
       :ui="{
@@ -168,14 +94,14 @@
     />
 
     <UPageSection
-      title="Pourquoi Efrei Para ?"
+      :title="home?.sections.why"
       :features="whyFeatures"
       :ui="{ title: 'font-title' }"
     />
 
     <div class="border-default border-t">
       <UContainer class="py-12">
-        <p class="font-title mb-8 text-center text-2xl">Nos partenaires</p>
+        <p class="font-title mb-8 text-center text-2xl">{{ home?.sections.partners }}</p>
         <div class="flex flex-wrap items-center justify-center gap-6">
           <NuxtLink
             v-for="partner in partners"

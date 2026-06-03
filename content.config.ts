@@ -2,6 +2,50 @@ import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
 export default defineContentConfig({
   collections: {
+    home: defineCollection({
+      type: 'data',
+      source: 'home.yml',
+      schema: z.object({
+        sections: z.object({
+          about: z.string(),
+          activites: z.string(),
+          why: z.string(),
+          partners: z.string(),
+        }),
+        about: z.object({
+          paragraphs: z.array(z.string()),
+        }),
+        stats: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            icon: z.string(),
+          }),
+        ),
+        activites: z.object({
+          items: z.array(
+            z.object({
+              title: z.string(),
+              description: z.string(),
+              type: z.string(),
+              to: z.string(),
+            }),
+          ),
+          link: z.object({
+            label: z.string(),
+            to: z.string(),
+          }),
+        }),
+        why: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            icon: z.string(),
+            type: z.string(),
+          }),
+        ),
+      }),
+    }),
     activites: defineCollection({
       type: 'data',
       source: 'activites/*.yml',
