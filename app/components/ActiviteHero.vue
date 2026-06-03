@@ -32,17 +32,23 @@
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 dark:opacity-10"
     />
     <UContainer class="relative">
-      <UPageHero
-        :title="title"
-        :description="description"
-        orientation="horizontal"
-        :ui="{ title: 'font-title' }"
-      >
+      <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
-          <div :class="[colorClass, 'flex items-center font-semibold']">
+          <div
+            :class="[colorClass, 'hero-slide-up flex items-center font-semibold']"
+            style="animation-delay: 0.4s"
+          >
             <UIcon :name="icon" class="mr-2 size-4" />
             {{ label }}
           </div>
+        </template>
+        <template #title>
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.1s">{{ title }}</span>
+        </template>
+        <template #description>
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.25s">
+            {{ description }}
+          </span>
         </template>
         <img :src="imageUrl" :alt="alt" class="w-full rounded-lg" />
       </UPageHero>
