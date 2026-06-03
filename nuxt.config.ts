@@ -4,6 +4,7 @@ import rehypeTargetBlank from './rehype-target-blank.mjs'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  ssr: false,
 
   alias: {
     'rehype-target-blank': fileURLToPath(new URL('./rehype-target-blank.mjs', import.meta.url)),
