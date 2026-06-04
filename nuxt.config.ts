@@ -4,7 +4,7 @@ import rehypeTargetBlank from './rehype-target-blank.mjs'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  ssr: false,
+  ssr: true,
   devtools: { enabled: true },
   vite: {
     // Minification avec esbuild pour une construction plus rapide et suppression des console.log et debugger
