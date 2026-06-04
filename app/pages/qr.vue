@@ -18,6 +18,17 @@
         :initial-presence="0.7"
         color="text-white"
       />
+      <div class="absolute top-4 left-4 z-20">
+        <UButton
+          to="/"
+          :external="true"
+          icon="efreipara:parachute"
+          variant="ghost"
+          color="neutral"
+          size="sm"
+          class="opacity-40 transition-opacity hover:opacity-100"
+        />
+      </div>
       <div class="relative z-10 flex min-h-screen items-center justify-center p-4">
         <img
           src="~/assets/images/qr.svg"
