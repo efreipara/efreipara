@@ -5,11 +5,33 @@ import rehypeTargetBlank from './rehype-target-blank.mjs'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   ssr: false,
+  devtools: { enabled: true },
+  vite: {
+    // Minification avec esbuild pour une construction plus rapide et suppression des console.log et debugger
+    build: {
+      minify: 'esbuild',
+      cssMinify: true,
+    },
+    // Configuration d'esbuild pour supprimer les commentaires légaux et les instructions de débogage en production
+    esbuild: {
+      legalComments: 'none',
+      drop: ['console', 'debugger'],
+    },
+    // Optimisation des dépendances pour éviter les problèmes de compatibilité avec les modules externes
+    optimizeDeps: {
+      include: [
+        '@plausible-analytics/tracker',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'isomorphic-dompurify',
+      ],
+    },
+  },
 
+  // Alias pour le plugin rehype qui ouvre les liens externes dans un nouvel onglet
   alias: {
     'rehype-target-blank': fileURLToPath(new URL('./rehype-target-blank.mjs', import.meta.url)),
   },
-  devtools: { enabled: true },
 
   // Modules Nuxt : UI, analytics, fonts, icônes, images et gestion de contenu
   modules: [
@@ -126,21 +148,6 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       failOnError: false,
-    },
-  },
-
-  // Configuration Vite : retirer les commentaires en production
-  vite: {
-    build: {
-      minify: 'esbuild',
-      cssMinify: true,
-    },
-    esbuild: {
-      legalComments: 'none',
-      drop: ['console', 'debugger'],
-    },
-    optimizeDeps: {
-      include: ['@plausible-analytics/tracker', '@vue/devtools-core', '@vue/devtools-kit'],
     },
   },
 })
