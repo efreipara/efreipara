@@ -39,7 +39,7 @@ export default defineAppConfig({
       info: 'tabler:info-square-rounded',
       light: 'tabler:sun',
       loading: 'tabler:loader-2',
-      menu: 'tabler:menu',
+      menu: 'tabler:menu-2',
       minus: 'tabler:minus',
       panelClose: 'tabler:layout-sidebar-left-collapse',
       panelOpen: 'tabler:layout-sidebar-left-expand',
