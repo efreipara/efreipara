@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import type { ButtonProps } from '@nuxt/ui'
+  import DOMPurify from 'isomorphic-dompurify'
 
   const { getIcon } = useEventIcon()
   const { getColor } = useActivityColor()
@@ -52,7 +53,11 @@
     >
       <div class="flex items-center gap-8">
         <div class="text-muted flex flex-col gap-4">
-          <p v-for="paragraph in home?.about.paragraphs" :key="paragraph" v-html="paragraph" />
+          <p
+            v-for="paragraph in home?.about.paragraphs"
+            :key="paragraph"
+            v-html="DOMPurify.sanitize(paragraph)"
+          />
         </div>
         <img
           src="~/assets/images/avion.svg"

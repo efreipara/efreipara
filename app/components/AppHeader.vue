@@ -185,7 +185,7 @@
     </template>
 
     <!-- Bouton burger animé vers croix, avec a11y et colormode à côté -->
-    <template #toggle="{ open, toggle }">
+    <template #toggle="{ open, toggle: toggleMenu }">
       <div class="flex items-center gap-1 lg:hidden">
         <UDropdownMenu :items="accessibilityItems">
           <UButton
@@ -205,7 +205,7 @@
         <button
           class="relative size-8"
           :aria-label="open ? 'Fermer le menu' : 'Ouvrir le menu'"
-          @click="toggle"
+          @click="toggleMenu"
         >
           <Icon
             :name="appConfig.ui.icons.menu"
