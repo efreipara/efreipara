@@ -77,9 +77,10 @@
             class="flex flex-col items-center gap-1 py-10"
           >
             <UIcon :name="stat.icon" class="text-muted mb-1 size-5" />
-            <span class="font-title text-4xl font-bold tracking-tight md:text-5xl">
-              {{ stat.title }}
-            </span>
+            <StatCounter
+              :value="stat.title"
+              class="font-title text-4xl font-bold tracking-tight md:text-5xl"
+            />
             <span class="text-muted px-2 text-center text-xs sm:text-sm">
               {{ stat.description }}
             </span>
