@@ -3,7 +3,7 @@
   const config = useRuntimeConfig()
   const cdnUrl = config.public.cdnUrl
 
-  const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  const { data: seo } = useNuxtData('seo')
   const description = computed(() => seo.value?.pages['index']?.description)
 </script>
 
