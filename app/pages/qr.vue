@@ -6,6 +6,24 @@
   useHead({
     bodyAttrs: { class: 'bg-efreipara-background' },
   })
+
+  const appConfig = useAppConfig()
+  const isFullscreen = ref(false)
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+    }
+    else {
+      document.exitFullscreen()
+    }
+  }
+
+  onMounted(() => {
+    document.addEventListener('fullscreenchange', () => {
+      isFullscreen.value = !!document.fullscreenElement
+    })
+  })
 </script>
 
 <template>
@@ -27,6 +45,16 @@
           color="neutral"
           size="sm"
           class="opacity-40 transition-opacity hover:opacity-100"
+        />
+      </div>
+      <div class="absolute top-4 right-4 z-20">
+        <UButton
+          :icon="isFullscreen ? appConfig.ui.icons.minimize : appConfig.ui.icons.maximize"
+          variant="ghost"
+          color="neutral"
+          size="sm"
+          class="opacity-40 transition-opacity hover:opacity-100"
+          @click="toggleFullscreen"
         />
       </div>
       <div class="relative z-10 flex min-h-screen items-center justify-center p-4">
