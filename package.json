@@ -14,7 +14,7 @@
     "docker:build": "export $(cat .env | xargs) && docker build --build-arg CDN_URL --build-arg PLAUSIBLE_URL --build-arg PLAUSIBLE_DOMAIN --build-arg NUXT_PUBLIC_SITE_URL -t efreipara ."
   },
   "dependencies": {
-    "isomorphic-dompurify": "^3.15.0",
+    "isomorphic-dompurify": "^3.16.0",
     "marked": "^18.0.5",
     "nuxt-lottie": "^1.0.8",
     "vue": "^3.5.35",
