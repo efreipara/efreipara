@@ -116,18 +116,20 @@
             target="_blank"
             class="group overflow-hidden rounded-xl"
           >
-            <div class="bg-white px-5 py-3 transition-transform duration-200 group-hover:scale-105">
+            <div
+              class="flex h-16 w-40 items-center justify-center bg-white px-5 py-3 transition-transform duration-200 group-hover:scale-105 md:h-20 md:w-52"
+            >
               <Icon
                 v-if="partner.icon"
                 :name="partner.icon"
                 :aria-label="partner.name"
-                class="no-contrast h-10 w-32 md:h-14 md:w-44"
+                class="no-contrast h-full w-full"
               />
               <img
                 v-else
                 :src="partner.logo"
                 :alt="partner.name"
-                class="no-contrast h-10 w-32 object-contain md:h-14 md:w-44"
+                class="no-contrast h-full w-full object-contain"
               />
             </div>
           </NuxtLink>
