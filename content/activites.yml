@@ -22,7 +22,6 @@ sections:
         icon: tabler:mood-happy
     link:
       label: Découvrir le saut en OA
-      to: /activites/oa
 
   - type: tandem
     title: Sauts en tandem
@@ -43,7 +42,6 @@ sections:
         icon: tabler:mood-happy
     link:
       label: Découvrir le saut en tandem
-      to: /activites/tandem
 
   - type: soufflerie
     title: Baptêmes en soufflerie
@@ -64,7 +62,6 @@ sections:
         icon: tabler:snowflake
     link:
       label: Découvrir le baptême en soufflerie
-      to: /activites/soufflerie
 
   - type: pac
     title: Formations PAC
@@ -85,4 +82,3 @@ sections:
         icon: tabler:stairs
     link:
       label: Découvrir la formation PAC
-      to: /activites/pac

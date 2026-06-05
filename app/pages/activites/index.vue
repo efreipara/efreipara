@@ -22,10 +22,10 @@
     queryCollection('activitesIndex').first(),
   )
 
-  const buildLinks = (link: { label: string; to: string }): ButtonProps[] => [
+  const buildLinks = (type: string, link: { label: string }): ButtonProps[] => [
     {
       label: link.label,
-      to: link.to,
+      to: `/activites/${type}`,
       color: 'neutral',
       variant: 'subtle',
       trailingIcon: appConfig.ui.icons.arrowRight,
@@ -58,7 +58,7 @@
       orientation="horizontal"
       :icon="getIcon(section.type as ActivityType)"
       :features="buildFeatures(section)"
-      :links="buildLinks(section.link)"
+      :links="buildLinks(section.type, section.link)"
       :reverse="isLargeScreen && i % 2 !== 0"
       :ui="{
         title: 'font-title',

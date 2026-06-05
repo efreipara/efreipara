@@ -69,7 +69,6 @@ export default defineContentConfig({
             ),
             link: z.object({
               label: z.string(),
-              to: z.string(),
             }),
           }),
         ),
