@@ -3,122 +3,122 @@
 
 # Valeurs par défaut appliquées à toutes les pages
 defaults:
-  siteName: 'Efrei Para'
+  siteName: Efrei Para
   separator: ' - '
   baseUrl: 'https://efreipara.fr'
-  ogImage: '/seo/efreipara.png'
-  ogType: 'website'
-  ogSiteName: 'Efrei Para'
-  twitterCard: 'summary_large_image'
-  locale: 'fr_FR'
-  themeColor: 'oklch(0.208 0.042 265.755005)'
-  author: 'Efrei Para'
+  ogImage: /seo/efreipara.png
+  ogType: website
+  ogSiteName: Efrei Para
+  twitterCard: summary_large_image
+  locale: fr_FR
+  themeColor: oklch(0.208 0.042 265.755005)
+  author: Efrei Para
 
 # Métadonnées spécifiques à chaque page
 pages:
-  # Page d'accueil
+  # Page d’accueil
   index:
-    title: 'Efrei Para'
-    description: 'Défiez la gravité et vivez des sensations uniques avec Efrei Para'
+    title: Efrei Para
+    description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
 
   # Page à propos
   about:
-    title: 'À propos du club Efrei Para'
-    description: "Découvrez le club Efrei Para, un club de parachutisme étudiant rattaché au Bureau des Sports (BDS) de l'Efrei. Nous proposons des activités de saut en ouverture automatique (OA), en tandem et en soufflerie."
+    title: À propos du club Efrei Para
+    description: Découvrez le club Efrei Para, un club de parachutisme étudiant rattaché au Bureau des Sports (BDS) de l’Efrei. Nous proposons des activités de saut en ouverture automatique (OA), en tandem et en soufflerie.
 
   # Page contact
   contact:
-    title: 'Contact'
-    description: "Contactez-nous pour toute question ou demande d'information sur Efrei Para"
+    title: Contact
+    description: Contactez-nous pour toute question ou demande d’information sur Efrei Para
 
   # Page FAQ
   faq:
-    title: 'Questions fréquentes (FAQ)'
-    description: 'Toutes les réponses à vos questions sur Efrei Para, nos activités et le parachutisme'
+    title: Questions fréquentes (FAQ)
+    description: Toutes les réponses à vos questions sur Efrei Para, nos activités et le parachutisme
 
   # Page devenir membre
   devenir-membre:
-    title: 'Devenir membre'
-    description: 'Rejoignez Efrei Para et profitez de tarifs préférentiels sur toutes nos activités'
-    ogImage: '/seo/devenir-membre.png'
+    title: Devenir membre
+    description: Rejoignez Efrei Para et profitez de tarifs préférentiels sur toutes nos activités
+    ogImage: /seo/devenir-membre.png
 
   # Page rejoindre
   rejoindre:
-    title: 'Nous rejoindre'
-    description: 'Découvrez comment rejoindre Efrei Para et participer à nos activités'
+    title: Nous rejoindre
+    description: Découvrez comment rejoindre Efrei Para et participer à nos activités
 
   # Page rejoindre le bureau
   rejoindre-bureau:
-    title: 'Rejoindre le bureau'
-    description: "Intégrez l'équipe dirigeante d'Efrei Para et contribuez au développement du club"
-    ogImage: '/seo/rejoindre-bureau.png'
+    title: Rejoindre le bureau
+    description: Intégrez l’équipe dirigeante d’Efrei Para et contribuez au développement du club
+    ogImage: /seo/rejoindre-bureau.png
 
   # Page galeries
   galeries:
-    title: 'Galeries photos'
-    description: "Découvrez les moments forts d'Efrei Para en images"
+    title: Galeries photos
+    description: Découvrez les moments forts d’Efrei Para en images
 
   # Page documents
   documents:
-    title: 'Documents'
-    description: "Téléchargez les documents utiles d'Efrei Para (règlement, fiches d'inscription, etc.)"
+    title: Documents
+    description: Téléchargez les documents utiles d’Efrei Para (règlement, fiches d’inscription, etc.)
 
   # Page règlement
   reglement:
-    title: 'Règlement intérieur'
-    description: "Consultez le règlement intérieur d'Efrei Para"
+    title: Règlement intérieur
+    description: Consultez le règlement intérieur d’Efrei Para
 
   # Page mentions légales
   mentions-legales:
-    title: 'Mentions légales'
-    description: "Informations légales concernant le site d'Efrei Para"
+    title: Mentions légales
+    description: Informations légales concernant le site d’Efrei Para
 
   # Page RGPD
   rgpd:
-    title: 'Politique de confidentialité (RGPD)'
-    description: 'Notre politique de protection des données personnelles'
+    title: Politique de confidentialité (RGPD)
+    description: Notre politique de protection des données personnelles
 
   # Page activités (liste)
   activites:
-    title: 'Nos activités'
+    title: Nos activités
     description: 'Découvrez toutes les activités proposées par Efrei Para : OA, tandem, soufflerie et PAC'
 
   # Pages activités spécifiques
   activites-oa:
-    title: 'Saut en Ouverture Automatique (OA)'
-    description: "Découvrez le saut en ouverture automatique (OA) avec Efrei Para. Vivez l'adrénaline du parachutisme en solo avec un parachute qui s'ouvre automatiquement à la sortie de l'avion."
-    ogImage: '/seo/activites-oa.png'
+    title: Saut en Ouverture Automatique (OA)
+    description: Découvrez le saut en ouverture automatique (OA) avec Efrei Para. Vivez l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
+    ogImage: /seo/activites-oa.png
 
   activites-tandem:
-    title: 'Saut en Tandem'
-    description: "Faites votre premier saut en parachute ! Chute libre de 50 secondes à 4000m d'altitude, attaché à un moniteur professionnel. Une expérience inoubliable."
-    ogImage: '/seo/activites-tandem.png'
+    title: Saut en Tandem
+    description: Faites votre premier saut en parachute ! Chute libre de 50 secondes à 4000m d’altitude, attaché à un moniteur professionnel. Une expérience inoubliable.
+    ogImage: /seo/activites-tandem.png
 
   activites-soufflerie:
-    title: 'Baptêmes en soufflerie'
-    description: 'Découvrez la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.'
-    ogImage: '/seo/activites-soufflerie.png'
+    title: Baptêmes en soufflerie
+    description: Découvrez la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.
+    ogImage: /seo/activites-soufflerie.png
 
   activites-pac:
-    title: 'Formation PAC (Progression Accompagnée en Chute)'
-    description: 'Formez-vous au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.'
-    ogImage: '/seo/activites-pac.png'
+    title: Formation PAC (Progression Accompagnée en Chute)
+    description: Formez-vous au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
+    ogImage: /seo/activites-pac.png
 
   # Redirections réseaux sociaux
   discord:
-    title: 'Rejoindre notre Discord'
-    description: 'Rejoignez la communauté Efrei Para sur Discord'
-    robots: 'noindex, nofollow'
-    ogImage: '/seo/discord.png'
+    title: Rejoindre notre Discord
+    description: Rejoignez la communauté Efrei Para sur Discord
+    robots: noindex, nofollow
+    ogImage: /seo/discord.png
 
   instagram:
-    title: 'Notre Instagram'
-    description: 'Suivez-nous sur Instagram pour ne rien rater de nos aventures'
-    robots: 'noindex, nofollow'
-    ogImage: '/seo/instagram.png'
+    title: Notre Instagram
+    description: Suivez-nous sur Instagram pour ne rien rater de nos aventures
+    robots: noindex, nofollow
+    ogImage: /seo/instagram.png
 
   # Page QR Code
   qr:
-    title: 'QR Code'
-    description: 'Scannez notre QR Code pour accéder rapidement à nos informations'
-    robots: 'noindex, nofollow'
+    title: QR Code
+    description: Scannez notre QR Code pour accéder rapidement à nos informations
+    robots: noindex, nofollow

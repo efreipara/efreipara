@@ -15,13 +15,13 @@ about:
 stats:
   - title: 100+
     description: Membres actifs sur Discord
-    icon: 'tabler:users'
+    icon: tabler:users
   - title: 4
     description: Activités proposées
-    icon: 'tabler:parachute'
+    icon: tabler:parachute
   - title: 2016
     description: Année de création du club
-    icon: 'tabler:calendar'
+    icon: tabler:calendar
 
 activites:
   items:
@@ -58,17 +58,17 @@ why:
     description: >-
       Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe
       de tout : briefing, équipement et encadrement.
-    icon: 'tabler:mood-happy'
+    icon: tabler:mood-happy
     type: tandem
   - title: Encadrement professionnel
     description: >-
       Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres
       agréés. La sécurité avant tout.
-    icon: 'tabler:shield-check'
+    icon: tabler:shield-check
     type: oa
   - title: Communauté étudiante
     description: >-
       Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements
       uniques durant l’année pour vivre des expériences inoubliables ensemble.
-    icon: 'tabler:heart'
+    icon: tabler:heart
     type: soufflerie

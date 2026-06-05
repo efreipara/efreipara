@@ -3,12 +3,12 @@ description: Retrouvez ici les réponses aux questions les plus fréquentes sur 
 categories:
   - name: Le club
     questions:
-      - question: Qu'est-ce qu'Efrei Para ?
-        answer: Efrei Para est un club de parachutisme de l'Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et de progression autonome chute libre (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
+      - question: Qu’est-ce qu’Efrei Para ?
+        answer: Efrei Para est un club de parachutisme de l’Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et de progression autonome chute libre (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
         icon: efreipara:parachute
 
-      - question: Comment puis-je contacter l'association ?
-        answer: Tu peux nous contacter via notre Discord, sur Instagram, ou par email. Tu peux également venir nous rencontrer lors de nos petits-déjeuners à l'Efrei ou lors de nos événements. Nous répondons à toutes vos demandes !
+      - question: Comment puis-je contacter l’association ?
+        answer: Tu peux nous contacter via notre Discord, sur Instagram, ou par email. Tu peux également venir nous rencontrer lors de nos petits-déjeuners à l’Efrei ou lors de nos événements. Nous répondons à toutes vos demandes !
         icon: tabler:mail
         buttons:
           - label: Rejoindre notre Discord
@@ -26,7 +26,7 @@ categories:
   - name: Rejoindre
     questions:
       - question: Comment puis-je rejoindre le club ?
-        answer: Pour rejoindre Efrei Para, il suffit d'être étudiant à l'Efrei. L'inscription se fait via un formulaire en ligne. L'adhésion te donne accès à l'espace membre sur notre Discord et d'optenir des points LXP !
+        answer: Pour rejoindre Efrei Para, il suffit d’être étudiant à l’Efrei. L’inscription se fait via un formulaire en ligne. L’adhésion te donne accès à l’espace membre sur notre Discord et d’optenir des points LXP !
         icon: tabler:user
         buttons:
           - label: Rejoindre Efrei Para
@@ -37,19 +37,19 @@ categories:
             icon: tabler:crown
             variant: subtle
 
-      - question: Faut-il avoir de l'expérience en parachutisme ?
-        answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t'accompagneront à chaque étape.
+      - question: Faut-il avoir de l’expérience en parachutisme ?
+        answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t’accompagneront à chaque étape.
         icon: tabler:school
         buttons:
           - label: Devenir membre
             to: /rejoindre
             icon: tabler:rocket
 
-      - question: Est-ce que l'adhésion à Efrei Para est payante ?
+      - question: Est-ce que l’adhésion à Efrei Para est payante ?
         answer: |
           Non. Zéro euro. Nada. Rien du tout. 😎
 
-          L'adhésion au club est entièrement gratuite pour les étudiants de l'Efrei.
+          L’adhésion au club est entièrement gratuite pour les étudiants de l’Efrei.
         icon: tabler:currency-euro
 
       - question: Puis-je rejoindre le club à n’importe quel moment de l’année ?
@@ -84,17 +84,17 @@ categories:
             icon: tabler:medal-2
 
       - question: Comment se déroule un premier saut ?
-        answer: Pour ton premier saut, nous recommandons l'ouverture automatique (OA). Tu suivras d'abord un briefing théorique complet, puis l'équipement et la préparation au sol. Ensuite, direction l'avion pour le grand saut ! Ton parachute s'ouvrira automatiquement et tu piloteras jusqu'au sol sous les consignes radio de l'instructeur.
+        answer: Pour ton premier saut, nous recommandons l’ouverture automatique (OA). Tu suivras d’abord un briefing théorique complet, puis l’équipement et la préparation au sol. Ensuite, direction l’avion pour le grand saut ! Ton parachute s’ouvrira automatiquement et tu piloteras jusqu’au sol sous les consignes radio de l’instructeur.
         icon: tabler:parachute
 
       - question: Où se déroulent les sauts ?
-        answer: Nos sauts se déroulent sur des zones de sauts agréées en Île-de-France et en région parisienne. Les lieux peuvent varier selon les activités et les disponibilités. Nous organisons également des week-ends et sorties dans d'autres régions pour diversifier les expériences.
+        answer: Nos sauts se déroulent sur des zones de sauts agréées en Île-de-France et en région parisienne. Les lieux peuvent varier selon les activités et les disponibilités. Nous organisons également des week-ends et sorties dans d’autres régions pour diversifier les expériences.
         icon: tabler:map-pin
 
   - name: Conditions
     questions:
-      - question: Quel est l'âge minimum pour sauter ?
-        answer: L'âge minimum pour pratiquer le parachutisme est de 15 ans avec une autorisation parentale. À partir de 18 ans, aucune autorisation n'est nécessaire. Il faut également présenter un certificat médical de non contre-indication à la pratique du parachutisme.
+      - question: Quel est l’âge minimum pour sauter ?
+        answer: L’âge minimum pour pratiquer le parachutisme est de 15 ans avec une autorisation parentale. À partir de 18 ans, aucune autorisation n’est nécessaire. Il faut également présenter un certificat médical de non contre-indication à la pratique du parachutisme.
         icon: tabler:calendar-check
 
       - question: Y a-t-il des conditions physiques particulières ?
