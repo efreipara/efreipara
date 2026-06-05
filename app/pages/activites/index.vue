@@ -66,11 +66,7 @@
         container: i === 0 ? 'pt-0!' : '',
       }"
     >
-      <img
-        :src="buildCdnUrl(`${section.type}.jpg`)"
-        :alt="section.alt"
-        class="w-full rounded-lg"
-      />
+      <img :src="buildCdnUrl(`${section.type}.jpg`)" :alt="section.alt" class="w-full rounded-lg" />
     </UPageSection>
     <CallToAction />
   </div>

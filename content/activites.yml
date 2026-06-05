@@ -12,10 +12,10 @@ sections:
         description: Instructeurs diplômés et procédures standardisées pour un saut sûr et fluide.
         icon: tabler:user-check
       - title: Sensations garanties
-        description: "La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous."
+        description: 'La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous.'
         icon: tabler:parachute
       - title: Briefing complet
-        description: "Tout est expliqué avant le saut : position, sécurité, gestes essentiels."
+        description: 'Tout est expliqué avant le saut : position, sécurité, gestes essentiels.'
         icon: tabler:book
       - title: Accessible à tous
         description: Pas besoin d’expérience - juste l’envie de découvrir le ciel.
