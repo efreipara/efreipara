@@ -46,6 +46,27 @@ export default defineContentConfig({
         ),
       }),
     }),
+    galeries: defineCollection({
+      type: 'data',
+      source: 'galeries.yml',
+      schema: z.object({
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+          linkLabel: z.string(),
+        }),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            type: z.string(),
+            date: z.string(),
+            location: z.string(),
+            url: z.string(),
+            photo: z.string(),
+          }),
+        ),
+      }),
+    }),
     activitesIndex: defineCollection({
       type: 'data',
       source: 'activites.yml',
