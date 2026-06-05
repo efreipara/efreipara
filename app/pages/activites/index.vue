@@ -1,139 +1,31 @@
 <script setup lang="ts">
   import type { ButtonProps } from '@nuxt/ui'
+  import type { ActivityType } from '~/composables/useActivities'
 
   const { getIcon } = useEventIcon()
+  const { getColor } = useActivityColor()
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  // Détection de la taille d'écran pour appliquer reverse uniquement sur grand écran
   const isLargeScreen = ref(false)
 
   onMounted(() => {
     const checkScreenSize = () => {
-      isLargeScreen.value = window.innerWidth >= 1024 // lg breakpoint
+      isLargeScreen.value = window.innerWidth >= 1024
     }
     checkScreenSize()
     window.addEventListener('resize', checkScreenSize)
     onUnmounted(() => window.removeEventListener('resize', checkScreenSize))
   })
 
-  const oaFeatures = ref([
-    {
-      title: 'Encadrement professionnel',
-      description: 'Instructeurs diplômés et procédures standardisées pour un saut sûr et fluide.',
-      icon: 'tabler:user-check',
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Sensations garanties',
-      description:
-        'La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous.',
-      icon: 'tabler:parachute',
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Briefing complet',
-      description: 'Tout est expliqué avant le saut : position, sécurité, gestes essentiels.',
-      icon: 'tabler:book',
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Accessible à tous',
-      description: 'Pas besoin d’expérience - juste l’envie de découvrir le ciel.',
-      icon: 'tabler:mood-happy',
-      class: 'text-efreipara-oa',
-    },
-  ])
+  const { data: page } = await useAsyncData('activites-index', () =>
+    queryCollection('activitesIndex').first(),
+  )
 
-  const tandemFeatures = ref([
+  const buildLinks = (link: { label: string; to: string }): ButtonProps[] => [
     {
-      title: "Saut à 4000 m d'altitude",
-      description: 'Décollage, vue panoramique et sortie de l’avion en binôme.',
-      icon: 'tabler:plane-tilt',
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: '200km/h de sensations',
-      description: 'Chute libre d’une cinquantaine de secondes - intense et magique.',
-      icon: 'tabler:gauge',
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: 'Souvenir possible',
-      description: 'Option vidéo/photos pour revivre ton saut.',
-      icon: 'tabler:video',
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: '100% accessible',
-      description: 'Aucune expérience nécessaire, tout est géré par le moniteur.',
-      icon: 'tabler:mood-happy',
-      class: 'text-efreipara-tandem',
-    },
-  ])
-
-  const soufflerieFeatures = ref([
-    {
-      title: 'Sensations réelles',
-      description: 'Le même flux d’air qu’en chute libre, sans altitude ni stress.',
-      icon: 'tabler:wind',
-      class: 'text-efreipara-soufflerie',
-    },
-    {
-      title: 'Fun & accessible',
-      description: 'Idéal pour une première approche ou pour s’amuser entre amis.',
-      icon: 'tabler:mood-happy',
-      class: 'text-efreipara-soufflerie',
-    },
-    {
-      title: 'Progression rapide',
-      description: 'En quelques vols, tu comprends la position, l’équilibre et la stabilité.',
-      icon: 'tabler:target',
-      class: 'text-efreipara-soufflerie',
-    },
-    {
-      title: 'Parfait pour l’hiver',
-      description: 'L’activité indoor qui prolonge la saison du parachutisme.',
-      icon: 'tabler:snowflake',
-      class: 'text-efreipara-soufflerie',
-    },
-  ])
-
-  const pacFeatures = ref([
-    {
-      title: 'Formation complète',
-      description:
-        'Théorie, séances au sol et plusieurs sauts accompagnés pour acquérir les bases du vol libre.',
-      icon: 'tabler:school',
-      class: 'text-efreipara-pac',
-    },
-    {
-      title: 'Objectifs techniques',
-      description:
-        'Tu apprends la stabilité, la gestuelle, le pilotage et la gestion de ton parachute.',
-      icon: 'tabler:target',
-      class: 'text-efreipara-pac',
-    },
-    {
-      title: 'Autonomie progressive',
-      description:
-        'À chaque saut, tu gagnes en confiance jusqu’à savoir ouvrir et contrôler ta voile seul.e.',
-      icon: 'tabler:parachute',
-      class: 'text-efreipara-pac',
-    },
-    {
-      title: 'Engagement progressif',
-      description:
-        'Chaque étape te fait avancer vers une autonomie totale, encadrée par des moniteurs expérimentés.',
-      icon: 'tabler:stairs',
-      class: 'text-efreipara-pac',
-    },
-  ])
-
-  const oaLink: ButtonProps[] = [
-    {
-      label: 'Découvrir le saut en OA',
-      to: '/activites/oa',
+      label: link.label,
+      to: link.to,
       color: 'neutral',
       variant: 'subtle',
       trailingIcon: appConfig.ui.icons.arrowRight,
@@ -141,110 +33,42 @@
     },
   ]
 
-  const tandemLink: ButtonProps[] = [
-    {
-      label: 'Découvrir le saut en tandem',
-      to: '/activites/tandem',
-      color: 'neutral',
-      variant: 'subtle',
-      trailingIcon: appConfig.ui.icons.arrowRight,
-      class: 'rounded-full',
-    },
-  ]
-
-  const soufflerieLink: ButtonProps[] = [
-    {
-      label: 'Découvrir le baptême en soufflerie',
-      to: '/activites/soufflerie',
-      color: 'neutral',
-      variant: 'subtle',
-      trailingIcon: appConfig.ui.icons.arrowRight,
-      class: 'rounded-full',
-    },
-  ]
-
-  const pacLink: ButtonProps[] = [
-    {
-      label: 'Découvrir la formation PAC',
-      to: '/activites/pac',
-      color: 'neutral',
-      variant: 'subtle',
-      trailingIcon: appConfig.ui.icons.arrowRight,
-      class: 'rounded-full',
-    },
-  ]
+  const buildFeatures = (section: {
+    type: string
+    features: { title: string; description: string; icon: string }[]
+  }) =>
+    section.features.map((f) => ({
+      ...f,
+      class: `text-${getColor(section.type as ActivityType)}`,
+    }))
 </script>
 
 <template>
   <div>
     <UPageHero
-      title="Nos activités"
-      description="Découvrez les sensations uniques du parachutisme avec Efrei Para"
+      :title="page?.hero.title"
+      :description="page?.hero.description"
       :ui="{ title: 'font-title' }"
     />
     <UPageSection
-      title="Saut en ouverture automatique (OA)"
-      description="Ton premier vrai saut en parachute - intense, encadré, inoubliable."
+      v-for="(section, i) in page?.sections"
+      :key="section.type"
+      :title="section.title"
+      :description="section.description"
       orientation="horizontal"
-      :icon="getIcon('oa')"
-      :features="oaFeatures"
-      :links="oaLink"
+      :icon="getIcon(section.type as ActivityType)"
+      :features="buildFeatures(section)"
+      :links="buildLinks(section.link)"
+      :reverse="isLargeScreen && i % 2 !== 0"
       :ui="{
         title: 'font-title',
-        leadingIcon: 'text-efreipara-oa size-10 shrink-0',
-        container: 'pt-0!',
+        leadingIcon: `text-${getColor(section.type as ActivityType)} size-10 shrink-0`,
+        container: i === 0 ? 'pt-0!' : '',
       }"
     >
       <img
-        :src="buildCdnUrl('oa.jpg')"
-        alt="Saut en ouverture automatique (OA) avec Efrei Para"
-        class="w-full rounded-lg"
-      />
-    </UPageSection>
-    <UPageSection
-      title="Sauts en tandem"
-      description="L’expérience ultime - un saut avec 50 secondes de chute libre avec un.e pro."
-      orientation="horizontal"
-      :icon="getIcon('tandem')"
-      :features="tandemFeatures"
-      :links="tandemLink"
-      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-tandem size-10 shrink-0' }"
-      :reverse="isLargeScreen"
-    >
-      <img
-        :src="buildCdnUrl('tandem.jpg')"
-        alt="Sauts en tandem avec Efrei Para"
-        class="w-full rounded-lg"
-      />
-    </UPageSection>
-    <UPageSection
-      title="Baptêmes en soufflerie"
-      description="Vole sans parachute : la chute libre, version indoor."
-      orientation="horizontal"
-      :icon="getIcon('soufflerie')"
-      :features="soufflerieFeatures"
-      :links="soufflerieLink"
-      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-soufflerie size-10 shrink-0' }"
-    >
-      <img
-        :src="buildCdnUrl('soufflerie.jpg')"
-        alt="Baptêmes en soufflerie avec Efrei Para"
-        class="w-full rounded-lg"
-      />
-    </UPageSection>
-    <UPageSection
-      title="Formations PAC"
-      description="Deviens parachutiste autonome - la formation complète vers la liberté du ciel."
-      orientation="horizontal"
-      :icon="getIcon('pac')"
-      :features="pacFeatures"
-      :links="pacLink"
-      :ui="{ title: 'font-title', leadingIcon: 'text-efreipara-pac size-10 shrink-0' }"
-      :reverse="isLargeScreen"
-    >
-      <img
-        :src="buildCdnUrl('pac.jpg')"
-        alt="Formations PAC avec Efrei Para"
+        :src="buildCdnUrl(`${section.type}.jpg`)"
+        :alt="section.alt"
         class="w-full rounded-lg"
       />
     </UPageSection>
