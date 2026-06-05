@@ -4,7 +4,7 @@
   const props = defineProps<{ activite: ActivityType }>()
 
   const { data: page } = await useAsyncData(props.activite, () =>
-    queryCollection('activites').where('stem', '=', `activites/${props.activite}`).first(),
+    queryCollection('activites').where('stem', '=', `pages/activites/${props.activite}`).first(),
   )
 </script>
 

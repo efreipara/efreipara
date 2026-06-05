@@ -4,7 +4,7 @@ export default defineContentConfig({
   collections: {
     home: defineCollection({
       type: 'data',
-      source: 'home.yml',
+      source: 'pages/home.yml',
       schema: z.object({
         sections: z.object({
           about: z.string(),
@@ -48,7 +48,7 @@ export default defineContentConfig({
     }),
     galeries: defineCollection({
       type: 'data',
-      source: 'galeries.yml',
+      source: 'pages/galeries.yml',
       schema: z.object({
         hero: z.object({
           title: z.string(),
@@ -69,7 +69,7 @@ export default defineContentConfig({
     }),
     activitesIndex: defineCollection({
       type: 'data',
-      source: 'activites.yml',
+      source: 'pages/activites.yml',
       schema: z.object({
         hero: z.object({
           title: z.string(),
@@ -97,7 +97,7 @@ export default defineContentConfig({
     }),
     activites: defineCollection({
       type: 'data',
-      source: 'activites/*.yml',
+      source: 'pages/activites/*.yml',
       schema: z.object({
         title: z.string(),
         description: z.string(),
@@ -107,7 +107,7 @@ export default defineContentConfig({
     }),
     legal: defineCollection({
       type: 'page',
-      source: '{mentions-legales,reglement,rgpd}.md',
+      source: 'pages/{mentions-legales,reglement,rgpd}.md',
       schema: z.object({
         title: z.string(),
         description: z.string(),
@@ -116,7 +116,7 @@ export default defineContentConfig({
     }),
     faq: defineCollection({
       type: 'data',
-      source: 'faq.yml',
+      source: 'pages/faq.yml',
       schema: z.object({
         title: z.string(),
         description: z.string(),
@@ -147,7 +147,7 @@ export default defineContentConfig({
     }),
     documents: defineCollection({
       type: 'data',
-      source: 'documents.yml',
+      source: 'pages/documents.yml',
       schema: z.object({
         title: z.string(),
         description: z.string(),
@@ -172,7 +172,7 @@ export default defineContentConfig({
     }),
     seo: defineCollection({
       type: 'data',
-      source: 'seo.yml',
+      source: 'global/seo.yml',
       schema: z.object({
         defaults: z.object({
           siteName: z.string(),

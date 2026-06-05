@@ -30,10 +30,10 @@
 
   const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
     useAsyncData(`${prevActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `activites/${prevActivity}`).first(),
+      queryCollection('activites').where('stem', '=', `pages/activites/${prevActivity}`).first(),
     ),
     useAsyncData(`${nextActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `activites/${nextActivity}`).first(),
+      queryCollection('activites').where('stem', '=', `pages/activites/${nextActivity}`).first(),
     ),
   ])
 </script>
