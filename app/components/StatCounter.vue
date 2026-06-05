@@ -24,7 +24,7 @@
 
     function step(now: number) {
       const progress = Math.min((now - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
+      const eased = 1 - Math.pow(1 - progress, 4)
       displayValue.value = Math.round(eased * num) + suffix
       if (progress < 1) {
         animationFrame = requestAnimationFrame(step)
