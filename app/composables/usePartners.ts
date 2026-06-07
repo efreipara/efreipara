@@ -4,42 +4,24 @@
 
 import type { ActivityType } from './useActivities'
 
-// Partenaire du club avec logo et activités associées
 export interface Partner {
   name: string
   logo?: string
   icon?: string
   url: string
-  activites?: ActivityType[] // Activités concernées (tableau vide = aucune, undefined = toutes)
+  activites?: ActivityType[]
 }
 
 /**
  * Composable pour gérer les partenaires du club
  */
-export const usePartners = () => {
-  const partners: Partner[] = [
-    {
-      name: 'Efrei',
-      icon: 'efrei:logo-color',
-      url: 'https://efrei.fr/',
-    },
-    {
-      name: 'Skydive Event Paris',
-      logo: '/partners/skydive-event.webp',
-      url: 'https://www.skydiveevent-paris.fr',
-      activites: ['tandem'],
-    },
-    {
-      name: 'iFly',
-      icon: 'ifly:logo-color',
-      url: 'https://www.iflyfrance.com/lieux/ifly-paris/',
-      activites: ['soufflerie'],
-    },
-  ]
+export const usePartners = async () => {
+  const { data } = await useAsyncData('partners', () => queryCollection('partners').first())
 
-  // Fonction pour filtrer les partenaires par activité
+  const partners = computed(() => data.value?.items ?? [])
+
   const getPartnersByActivity = (activity: ActivityType) => {
-    return partners.filter((partner) => {
+    return partners.value.filter((partner) => {
       if (partner.activites === undefined) return true
       if (partner.activites.length === 0) return false
       return partner.activites.includes(activity)
