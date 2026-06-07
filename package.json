@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "temp": "TMPDIR=/tmp nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -16,7 +17,6 @@
   "dependencies": {
     "isomorphic-dompurify": "^3.16.0",
     "marked": "^18.0.5",
-    "nuxt-lottie": "^1.0.8",
     "vue": "^3.5.35",
     "vue-router": "^5.1.0"
   },
