@@ -170,6 +170,82 @@ export default defineContentConfig({
         ),
       }),
     }),
+    nextEvent: defineCollection({
+      type: 'data',
+      source: 'global/next-event.yml',
+      schema: z.object({
+        title: z.string(),
+        date: z.string(),
+        type: z.enum(['oa', 'tandem', 'soufflerie', 'pac']),
+        url: z.string(),
+      }),
+    }),
+    partners: defineCollection({
+      type: 'data',
+      source: 'global/partners.yml',
+      schema: z.object({
+        items: z.array(
+          z.object({
+            name: z.string(),
+            icon: z.string().optional(),
+            logo: z.string().optional(),
+            url: z.string(),
+            activites: z.array(z.enum(['oa', 'tandem', 'soufflerie', 'pac'])).optional(),
+          }),
+        ),
+      }),
+    }),
+    rejoindre: defineCollection({
+      type: 'data',
+      source: 'pages/rejoindre.yml',
+      schema: z.object({
+        form: z.object({
+          redirectText: z.string(),
+          buttonLabel: z.string(),
+        }),
+        why: z.object({
+          title: z.string(),
+          features: z.array(
+            z.object({
+              title: z.string(),
+              description: z.string(),
+              icon: z.string(),
+              class: z.string(),
+            }),
+          ),
+        }),
+        options: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            icon: z.string(),
+            link: z.string(),
+            linkText: z.string(),
+            color: z.string(),
+            slug: z.string(),
+            ogImage: z.string(),
+          }),
+        ),
+      }),
+    }),
+    redirects: defineCollection({
+      type: 'data',
+      source: 'pages/redirects.yml',
+      schema: z.object({
+        discord: z.object({
+          title: z.string(),
+          redirectText: z.string(),
+          buttonLabel: z.string(),
+          iconColor: z.string(),
+        }),
+        instagram: z.object({
+          title: z.string(),
+          redirectText: z.string(),
+          buttonLabel: z.string(),
+          iconColor: z.string(),
+        }),
+      }),
+    }),
     seo: defineCollection({
       type: 'data',
       source: 'global/seo.yml',
