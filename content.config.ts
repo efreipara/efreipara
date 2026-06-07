@@ -232,17 +232,19 @@ export default defineContentConfig({
       type: 'data',
       source: 'pages/redirects.yml',
       schema: z.object({
+        rejoindre: z.object({
+          redirectText: z.string(),
+          buttonLabel: z.string(),
+        }),
         discord: z.object({
           title: z.string(),
           redirectText: z.string(),
           buttonLabel: z.string(),
-          iconColor: z.string(),
         }),
         instagram: z.object({
           title: z.string(),
           redirectText: z.string(),
           buttonLabel: z.string(),
-          iconColor: z.string(),
         }),
       }),
     }),

@@ -150,10 +150,12 @@ export default defineAppConfig({
   socials: {
     discord: {
       icon: 'simple-icons:discord',
+      iconColor: 'text-discord',
       url: 'https://discord.gg/mYKagj9XR3',
     },
     instagram: {
       icon: 'simple-icons:instagram',
+      iconColor: 'text-instagram',
       url: 'https://instagram.com/efreipara',
     },
     linkedin: {
