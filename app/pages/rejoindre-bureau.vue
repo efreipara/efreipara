@@ -1,10 +1,13 @@
 <script setup lang="ts">
-  const { getJoinOptionBySlug } = useJoinOptions()
   const appConfig = useAppConfig()
 
-  const option = getJoinOptionBySlug('rejoindre-bureau')
+  const { data: rejoindreData } = await useAsyncData('rejoindre', () =>
+    queryCollection('rejoindre').first(),
+  )
+  const option = rejoindreData.value?.options.find((o) => o.slug === 'rejoindre-bureau')
+  const form = rejoindreData.value?.form
 
-  if (!option) {
+  if (!option || !form) {
     throw createError({
       statusCode: 404,
       statusMessage: 'Page non trouvée',
@@ -27,7 +30,7 @@
             {{ option.title }}
           </h1>
           <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">
-            Redirection vers le formulaire...
+            {{ form.redirectText }}
           </p>
           <UButton
             :to="option.link"
@@ -38,7 +41,7 @@
             class="rounded-full"
             :trailing-icon="appConfig.ui.icons.external"
           >
-            Ouvrir le formulaire
+            {{ form.buttonLabel }}
           </UButton>
         </div>
       </div>
