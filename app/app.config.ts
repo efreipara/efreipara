@@ -88,12 +88,6 @@ export default defineAppConfig({
       },
       rejoindre: {
         rejoindre: 'tabler:user-plus',
-        devenirMembre: 'tabler:users-group',
-        rejoindreBureau: 'tabler:crown',
-        // Icônes de la section "Pourquoi nous rejoindre ?"
-        whyActivites: 'tabler:parachute',
-        whyCommunaute: 'tabler:users',
-        whySouvenirs: 'tabler:star',
       },
       contact: {
         email: 'tabler:mail',
