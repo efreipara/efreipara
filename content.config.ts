@@ -199,9 +199,14 @@ export default defineContentConfig({
       type: 'data',
       source: 'pages/rejoindre.yml',
       schema: z.object({
-        form: z.object({
-          redirectText: z.string(),
-          buttonLabel: z.string(),
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+        }),
+        alert: z.object({
+          title: z.string(),
+          description: z.string(),
+          actionLabel: z.string(),
         }),
         why: z.object({
           title: z.string(),

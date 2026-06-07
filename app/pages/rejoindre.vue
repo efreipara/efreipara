@@ -1,36 +1,18 @@
 <script setup lang="ts">
-  const { joinOptions } = useJoinOptions()
+  const { data: rejoindreData } = await useAsyncData('rejoindre', () =>
+    queryCollection('rejoindre').first(),
+  )
+  const joinOptions = computed(() => rejoindreData.value?.options ?? [])
   const { getSocialIcon, getSocialUrl } = useSocials()
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
-
-  const whyJoinFeatures = ref([
-    {
-      title: 'Activités uniques',
-      description: 'Sauts en parachute, soufflerie et formations',
-      icon: appConfig.efreipara.icons.rejoindre.whyActivites,
-      class: 'text-efreipara-tandem',
-    },
-    {
-      title: 'Communauté passionnée',
-      description: 'Rencontre des personnes partageant ta passion',
-      icon: appConfig.efreipara.icons.rejoindre.whyCommunaute,
-      class: 'text-efreipara-oa',
-    },
-    {
-      title: 'Expériences inoubliables',
-      description: 'Crée des souvenirs qui durent toute une vie',
-      icon: appConfig.efreipara.icons.rejoindre.whySouvenirs,
-      class: 'text-efreipara-soufflerie',
-    },
-  ])
 </script>
 
 <template>
   <div>
     <UPageHero
-      title="Rejoins Efrei Para"
-      description="Que tu souhaites simplement participer à nos activités ou t'investir dans l'organisation, il y a une place pour toi !"
+      :title="rejoindreData?.hero.title"
+      :description="rejoindreData?.hero.description"
       :ui="{ title: 'font-title' }"
     />
 
@@ -39,12 +21,12 @@
         :icon="getSocialIcon('discord')"
         color="neutral"
         variant="subtle"
-        title="Prérequis important"
-        description="Pour rejoindre le club, tu dois être membre du Discord Efrei Para. C'est notre principal canal de communication pour organiser les événements et partager les informations."
+        :title="rejoindreData?.alert.title"
+        :description="rejoindreData?.alert.description"
         class="m-0"
         :actions="[
           {
-            label: 'Rejoindre le Discord',
+            label: rejoindreData?.alert.actionLabel,
             to: getSocialUrl('discord'),
             target: '_blank',
             external: true,
@@ -103,6 +85,6 @@
       </div>
     </UContainer>
 
-    <UPageSection title="Pourquoi nous rejoindre ?" :features="whyJoinFeatures" />
+    <UPageSection :title="rejoindreData?.why.title" :features="rejoindreData?.why.features" />
   </div>
 </template>
