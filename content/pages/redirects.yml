@@ -1,0 +1,11 @@
+discord:
+  title: Rejoindre notre Discord
+  redirectText: Redirection vers Discord...
+  buttonLabel: Ouvrir Discord
+  iconColor: text-discord
+
+instagram:
+  title: Suivre sur Instagram
+  redirectText: Redirection vers Instagram...
+  buttonLabel: Ouvrir Instagram
+  iconColor: text-instagram
