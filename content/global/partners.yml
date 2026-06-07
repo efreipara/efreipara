@@ -1,0 +1,14 @@
+items:
+  - name: Efrei
+    icon: 'efrei:logo-color'
+    url: 'https://efrei.fr/'
+  - name: Skydive Event Paris
+    logo: '/partners/skydive-event.webp'
+    url: 'https://www.skydiveevent-paris.fr'
+    activites:
+      - tandem
+  - name: iFly
+    icon: 'ifly:logo-color'
+    url: 'https://www.iflyfrance.com/lieux/ifly-paris/'
+    activites:
+      - soufflerie
