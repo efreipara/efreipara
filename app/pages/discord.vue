@@ -2,9 +2,14 @@
   const { getSocialUrl } = useSocials()
   const appConfig = useAppConfig()
 
+  const { data: redirectsData } = await useAsyncData('redirects', () =>
+    queryCollection('redirects').first(),
+  )
+  const page = redirectsData.value?.discord
+
   const discordUrl = getSocialUrl('Discord')
 
-  if (!discordUrl) {
+  if (!discordUrl || !page) {
     throw createError({
       statusCode: 404,
       statusMessage: 'Page non trouvée',
@@ -24,12 +29,13 @@
         <div class="text-center">
           <UIcon
             :name="appConfig.socials.discord.icon"
-            class="mx-auto mb-6 h-20 w-20 text-[#5865F2]"
+            class="mx-auto mb-6 h-20 w-20"
+            :class="page.iconColor"
           />
           <h1 class="font-title mb-4 text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
-            Rejoindre notre Discord
+            {{ page.title }}
           </h1>
-          <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">Redirection vers Discord...</p>
+          <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">{{ page.redirectText }}</p>
           <UButton
             :to="discordUrl"
             external
@@ -39,7 +45,7 @@
             class="rounded-full"
             :trailing-icon="appConfig.ui.icons.external"
           >
-            Ouvrir Discord
+            {{ page.buttonLabel }}
           </UButton>
         </div>
       </div>
