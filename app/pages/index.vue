@@ -4,7 +4,7 @@
 
   const { getIcon } = useEventIcon()
   const { getColor } = useActivityColor()
-  const { partners } = usePartners()
+  const { partners } = await usePartners()
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
