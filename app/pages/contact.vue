@@ -4,12 +4,9 @@
    * Affiche les différents moyens de contacter le club : email, adresse, réseaux sociaux
    */
 
-  // Récupération des données de contact et réseaux sociaux
-  const { contact } = useContact()
   const { socials } = useSocials()
-
-  // Récupération des icônes depuis la configuration de l'app
   const appConfig = useAppConfig()
+  const contact = appConfig.contact
 
   // Moyens de contact principaux (email et adresse)
   const contactMethods = [
