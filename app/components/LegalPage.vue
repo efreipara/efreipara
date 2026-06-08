@@ -10,7 +10,7 @@
   useSeo(props.slug)
 
   const { data: page } = await useAsyncData(props.slug, () =>
-    queryCollection('legal').path(`/${props.slug}`).first(),
+    queryCollection('legal').where('stem', '=', `pages/legal/${props.slug}`).first(),
   )
 </script>
 
