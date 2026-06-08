@@ -3,11 +3,7 @@
 <template>
   <div>
     <UContainer>
-      <UPageHero
-        title="À propos d'Efrei Para"
-        description="Coming soon..."
-        :ui="{ title: 'font-title' }"
-      />
+      <PageHero title="À propos d'Efrei Para" description="Coming soon..." />
     </UContainer>
   </div>
 </template>

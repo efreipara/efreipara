@@ -10,10 +10,9 @@
 
 <template>
   <div>
-    <UPageHero
+    <PageHero
       title="Documents"
       description="Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme."
-      :ui="{ title: 'font-title' }"
     />
     <UContainer class="pb-16">
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">

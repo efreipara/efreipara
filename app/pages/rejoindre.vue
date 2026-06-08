@@ -10,11 +10,7 @@
 
 <template>
   <div>
-    <UPageHero
-      :title="rejoindreData?.hero.title"
-      :description="rejoindreData?.hero.description"
-      :ui="{ title: 'font-title' }"
-    />
+    <PageHero :title="rejoindreData?.hero.title" :description="rejoindreData?.hero.description" />
 
     <UContainer class="my-0 py-0">
       <UAlert

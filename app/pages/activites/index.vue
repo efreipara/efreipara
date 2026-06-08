@@ -45,11 +45,7 @@
 
 <template>
   <div>
-    <UPageHero
-      :title="page?.hero.title"
-      :description="page?.hero.description"
-      :ui="{ title: 'font-title' }"
-    />
+    <PageHero :title="page?.hero.title" :description="page?.hero.description" />
     <UPageSection
       v-for="(section, i) in page?.sections"
       :key="section.type"

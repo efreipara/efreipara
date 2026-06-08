@@ -42,10 +42,9 @@
 <template>
   <div>
     <!-- En-tête de la page -->
-    <UPageHero
+    <PageHero
       title="Nous contacter"
       description="Une question ? Une demande d'information ? N'hésite pas à nous contacter, nous te répondrons dans les plus brefs délais !"
-      :ui="{ title: 'font-title' }"
     />
 
     <UContainer class="pb-16">

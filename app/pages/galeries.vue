@@ -9,12 +9,7 @@
 
 <template>
   <div>
-    <UPageHero
-      :title="page?.hero.title"
-      :description="page?.hero.description"
-      :icon="appConfig.efreipara.icons.navigation.galeries"
-      :ui="{ title: 'font-title' }"
-    />
+    <PageHero :title="page?.hero.title" :description="page?.hero.description" />
 
     <UPageSection :ui="{ container: 'pt-0!' }">
       <UPageGrid>
