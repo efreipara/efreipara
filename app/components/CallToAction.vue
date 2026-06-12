@@ -4,29 +4,20 @@
 
   const { buildCdnUrl } = useCdnAsset()
 
-  // Récupération des icônes depuis la configuration de l'app
-  const appConfig = useAppConfig()
+  const { data: cta } = await useAsyncData('cta', () => queryCollection('cta').first())
 
-  // Configuration des boutons d'appel à l'action
-  const links: ButtonProps[] = [
-    {
-      label: 'Voir nos activités',
-      to: '/activites',
-      size: 'lg',
-      color: 'neutral',
-      variant: 'subtle',
-      icon: appConfig.efreipara.icons.activites.parachute,
-      class: 'rounded-full',
-    },
-    {
-      label: 'Nous rejoindre',
-      to: '/rejoindre',
-      size: 'lg',
-      color: 'neutral',
-      icon: appConfig.efreipara.icons.rejoindre.rejoindre,
-      class: 'rounded-full',
-    },
-  ]
+  const links = computed<ButtonProps[]>(
+    () =>
+      cta.value?.links.map((link) => ({
+        label: link.label,
+        to: link.to,
+        icon: link.icon,
+        variant: link.variant as ButtonProps['variant'],
+        size: 'lg',
+        color: 'neutral',
+        class: 'rounded-full',
+      })) ?? [],
+  )
 </script>
 
 <template>
@@ -36,8 +27,8 @@
     <ParachuteBg :count="50" :initial-presence="0.5" speed="slow" color="rgb(255 255 255 / 0.12)" />
     <!-- Section CTA (Call To Action) pour encourager les visiteurs à rejoindre le club -->
     <UPageCTA
-      title="Prêt à prendre de la hauteur ?"
-      description="Rejoignez l'équipe Efrei Para et vivez une expérience unique dans le monde du parachutisme. Que vous soyez débutant ou confirmé, nous avons une place pour vous."
+      :title="cta?.title"
+      :description="cta?.description"
       orientation="horizontal"
       variant="naked"
       :links="links"
@@ -46,8 +37,8 @@
     >
       <!-- Image depuis le CDN pour de meilleures performances -->
       <img
-        :src="buildCdnUrl('rejoindre-bureau.jpg')"
-        alt="Efrei Para - Rejoignez-nous"
+        :src="buildCdnUrl(cta?.image ?? '')"
+        :alt="cta?.alt"
         class="relative z-10 w-full rounded-lg"
       />
     </UPageCTA>

@@ -1,0 +1,13 @@
+title: Prêt à prendre de la hauteur ?
+description: Rejoignez l’équipe Efrei Para et vivez une expérience unique dans le monde du parachutisme. Que vous soyez débutant ou confirmé, nous avons une place pour vous.
+image: rejoindre-bureau.jpg
+alt: Efrei Para - Rejoignez-nous
+
+links:
+  - label: Voir nos activités
+    to: /activites
+    icon: tabler:parachute
+    variant: subtle
+  - label: Nous rejoindre
+    to: /rejoindre
+    icon: tabler:user-plus

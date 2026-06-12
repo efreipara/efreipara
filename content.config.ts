@@ -170,6 +170,24 @@ export default defineContentConfig({
         ),
       }),
     }),
+    cta: defineCollection({
+      type: 'data',
+      source: 'global/cta.yml',
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        image: z.string(),
+        alt: z.string(),
+        links: z.array(
+          z.object({
+            label: z.string(),
+            to: z.string(),
+            icon: z.string(),
+            variant: z.string().optional(),
+          }),
+        ),
+      }),
+    }),
     nextEvent: defineCollection({
       type: 'data',
       source: 'global/next-event.yml',
