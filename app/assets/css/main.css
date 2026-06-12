@@ -6,32 +6,34 @@
 }
 
 @theme {
+  /* (Convertir les HEX en OKLCH : oklch.com) */
+
   /* Couleurs Efrei Para */
-  --color-efreipara: #092954;
-  --color-efreipara-background: #010521;
-  --color-efreipara-oa: #9680dd;
-  --color-on-efreipara-oa: #ffffff;
-  --color-efreipara-tandem: #d2b841;
-  --color-on-efreipara-tandem: #000000;
-  --color-efreipara-soufflerie: #d370c3;
-  --color-on-efreipara-soufflerie: #ffffff;
-  --color-efreipara-pac: #c3042d;
-  --color-on-efreipara-pac: #ffffff;
+  --color-efreipara: oklch(0.2858 0.0865 257.33); /* #092954 */
+  --color-efreipara-background: oklch(0.1353 0.0621 265.2); /* #010521 */
+  --color-efreipara-oa: oklch(0.659 0.1363 293.17); /* #9680dd */
+  --color-on-efreipara-oa: oklch(1 0 0); /* #ffffff */
+  --color-efreipara-tandem: oklch(0.7837 0.1378 96.64); /* #d2b841 */
+  --color-on-efreipara-tandem: oklch(0 0 0); /* #000000 */
+  --color-efreipara-soufflerie: oklch(0.6851 0.1602 333.51); /* #d370c3 */
+  --color-on-efreipara-soufflerie: oklch(1 0 0); /* #ffffff */
+  --color-efreipara-pac: oklch(0.5174 0.2067 21.54); /* #c3042d */
+  --color-on-efreipara-pac: oklch(1 0 0); /* #ffffff */
 
   /* Couleur Efrei */
-  --color-efrei: #377fbc;
+  --color-efrei: oklch(0.5793 0.1183 247.25); /* #377fbc */
 
   /* Couleurs des réseaux sociaux */
-  --color-discord: #5865f2;
-  --color-on-discord: #ffffff;
-  --color-instagram: #c13584;
-  --color-on-instagram: #ffffff;
-  --color-facebook: #0165e1;
-  --color-on-facebook: #ffffff;
-  --color-linkedin: #0a66c2;
-  --color-on-linkedin: #ffffff;
-  --color-github: #000000;
-  --color-on-github: #ffffff;
+  --color-discord: oklch(0.5774 0.2091 273.85); /* #5865f2 */
+  --color-on-discord: oklch(1 0 0); /* #ffffff */
+  --color-instagram: oklch(0.563 0.1907 350.4); /* #c13584 */
+  --color-on-instagram: oklch(1 0 0); /* #ffffff */
+  --color-facebook: oklch(0.5364 0.2049 258.76); /* #0165e1 */
+  --color-on-facebook: oklch(1 0 0); /* #ffffff */
+  --color-linkedin: oklch(0.5156 0.1632 254.73); /* #0a66c2 */
+  --color-on-linkedin: oklch(1 0 0); /* #ffffff */
+  --color-github: oklch(0 0 0); /* #000000 */
+  --color-on-github: oklch(1 0 0); /* #ffffff */
 
   /* Autres couleurs */
   --color-headline: #afbae0;
