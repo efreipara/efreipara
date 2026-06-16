@@ -99,7 +99,7 @@
           :columns="columns"
           :ui="{
             center:
-              'grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:col-span-2',
+              'grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:col-span-2 sm:max-md:[&>div:nth-child(odd)]:text-end sm:max-md:[&>div:nth-child(odd)_a]:justify-end sm:max-md:[&>div:nth-child(even)]:text-start sm:max-md:[&>div:nth-child(even)_a]:justify-start md:max-lg:[&>div]:text-center md:max-lg:[&>div_a]:justify-center',
           }"
         />
       </UContainer>
