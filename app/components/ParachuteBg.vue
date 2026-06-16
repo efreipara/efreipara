@@ -1,18 +1,12 @@
 <script setup lang="ts">
   import { computed } from 'vue'
 
-  /**
-   * Composant d'arrière-plan animé avec des parachutes qui tombent
-   * Utilisé pour créer un effet visuel immersif sur les pages
-   */
-
-  // Configuration de chaque parachute animé
   interface Drop {
-    left: number // Position horizontale (en vw)
-    delay: number // Délai avant le début de l'animation (en s)
-    duration: number // Durée de la chute (en s)
-    size: number // Taille de l'icône (en px)
-    offsetX: number // Dérive horizontale vers la gauche (en px)
+    left: number
+    delay: number
+    duration: number
+    size: number
+    offsetX: number
   }
 
   const props = withDefaults(
@@ -21,8 +15,10 @@
       icon?: string
       /** Nombre d'icônes (densité) */
       count?: number
-      /** Couleur des icônes */
+      /** Couleur des icônes (light mode, ou les deux si colorDark non défini) */
       color?: string
+      /** Couleur des icônes en dark mode (par défaut : identique à color) */
+      colorDark?: string
       /** Vitesse globale de l'animation */
       speed?: 'slow' | 'normal' | 'fast'
       /** Taille min/max des icônes (en px) */
@@ -36,11 +32,17 @@
       icon: 'efreipara-parachute',
       count: 140,
       color: 'var(--ui-primary)',
+      colorDark: undefined,
       speed: 'normal',
       size: () => ({ min: 14, max: 28 }),
       drift: 24,
       initialPresence: 0,
     },
+  )
+
+  const colorMode = useColorMode()
+  const currentColor = computed(() =>
+    colorMode.value === 'dark' ? (props.colorDark ?? props.color) : props.color,
   )
 
   // Multiplicateur de vitesse selon le paramètre speed
@@ -70,9 +72,7 @@
 </script>
 
 <template>
-  <!-- Conteneur d'arrière-plan avec parachutes animés -->
-  <div class="parachute-bg" aria-hidden="true">
-    <!-- Génération d'un parachute pour chaque drop -->
+  <div class="parachute-bg" :style="{ '--drop-color': currentColor }" aria-hidden="true">
     <span
       v-for="(d, i) in drops"
       :key="i"
@@ -84,7 +84,6 @@
           '--duration': d.duration + 's',
           '--size': d.size + 'px',
           '--offsetX': d.offsetX + 'px',
-          color: props.color,
         } as any
       "
     >
@@ -119,6 +118,7 @@
     transform: translateY(-12vh);
     will-change: transform, opacity; /* Optimisation des performances */
     opacity: 0.85;
+    color: var(--drop-color);
   }
 
   /* Redimensionne l'icône SVG */

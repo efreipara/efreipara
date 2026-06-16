@@ -24,7 +24,13 @@
   <USeparator />
   <UPageSection :ui="{ container: 'p-0!' }">
     <!-- Fond de parachutes animés avec densité réduite -->
-    <ParachuteBg :count="50" :initial-presence="0.5" speed="slow" color="rgb(255 255 255 / 0.12)" />
+    <ParachuteBg
+      :count="50"
+      :initial-presence="0.5"
+      speed="slow"
+      color="rgb(9 41 84 / 0.12)"
+      color-dark="rgb(255 255 255 / 0.12)"
+    />
     <!-- Section CTA (Call To Action) pour encourager les visiteurs à rejoindre le club -->
     <UPageCTA
       :title="cta?.title"
