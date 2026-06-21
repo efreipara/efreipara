@@ -14,7 +14,7 @@
     <img
       :src="imageUrl"
       aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 dark:opacity-10"
+      class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 blur-sm dark:opacity-20"
     />
     <UContainer class="relative">
       <UPageHero :ui="{ title: 'font-title' }">
