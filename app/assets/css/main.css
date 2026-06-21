@@ -3,10 +3,75 @@
 
 :root {
   font-family: 'Outfit', sans-serif;
+
+  /* Arrière-plans */
+  --ui-bg: var(--color-navy-50);
+  --ui-bg-muted: var(--color-slate-50);
+  --ui-bg-elevated: var(--color-slate-100);
+  --ui-bg-accented: var(--color-slate-200);
+  --ui-bg-inverted: var(--color-navy-900);
+
+  /* Textes */
+  --ui-text: var(--color-navy-700);
+  --ui-text-muted: var(--color-navy-500);
+  --ui-text-dimmed: var(--color-navy-400);
+  --ui-text-toned: var(--color-navy-600);
+  --ui-text-highlighted: var(--color-navy-750);
+  --ui-text-inverted: white;
+
+  /* Bordures */
+  --ui-border: var(--color-slate-200);
+  --ui-border-muted: var(--color-slate-200);
+  --ui-border-accented: var(--color-slate-300);
+  --ui-border-inverted: var(--color-navy-900);
+}
+
+.dark {
+  /* Arrière-plans */
+  --ui-bg: var(--color-navy-900);
+  --ui-bg-muted: var(--color-navy-850);
+  --ui-bg-elevated: var(--color-navy-800);
+  --ui-bg-accented: var(--color-navy-750);
+  --ui-bg-inverted: white;
+
+  /* Textes */
+  --ui-text: var(--color-navy-100);
+  --ui-text-muted: var(--color-navy-300);
+  --ui-text-dimmed: var(--color-navy-450);
+  --ui-text-toned: var(--color-navy-200);
+  --ui-text-highlighted: white;
+  --ui-text-inverted: var(--color-navy-950);
+
+  /* Bordures */
+  --ui-border: var(--color-navy-850);
+  --ui-border-muted: var(--color-navy-800);
+  --ui-border-accented: var(--color-navy-750);
+  --ui-border-inverted: white;
 }
 
 @theme {
   /* (Convertir les HEX en OKLCH : oklch.com) */
+
+  /* Palette navy : dérivée de #092954, utilisée comme couleur primary (50→950) */
+  --color-navy-50: oklch(0.975 0.01 257);
+  --color-navy-100: oklch(0.94 0.02 257);
+  --color-navy-150: oklch(0.91 0.028 257);
+  --color-navy-200: oklch(0.88 0.035 257);
+  --color-navy-250: oklch(0.83 0.043 257);
+  --color-navy-300: oklch(0.78 0.05 257);
+  --color-navy-350: oklch(0.7 0.059 257);
+  --color-navy-400: oklch(0.62 0.068 257);
+  --color-navy-450: oklch(0.545 0.074 257);
+  --color-navy-500: oklch(0.47 0.08 257);
+  --color-navy-550: oklch(0.42 0.083 257);
+  --color-navy-600: oklch(0.37 0.086 257);
+  --color-navy-650: oklch(0.328 0.086 257);
+  --color-navy-700: oklch(0.2858 0.0865 257.33); /* = --color-efreipara = #092954 */
+  --color-navy-750: oklch(0.243 0.081 257);
+  --color-navy-800: oklch(0.2 0.075 257);
+  --color-navy-850: oklch(0.17 0.069 257);
+  --color-navy-900: oklch(0.14 0.062 257);
+  --color-navy-950: oklch(0.1 0.05 257);
 
   /* Couleurs Efrei Para */
   --color-efreipara: oklch(0.2858 0.0865 257.33); /* #092954 */
