@@ -83,7 +83,7 @@ export default defineAppConfig({
         pac: 'tabler:medal-2',
       },
       navigation: {
-        document: 'tabler:file',
+        document: 'tabler:file-description',
         galeries: 'tabler:camera',
       },
       rejoindre: {
