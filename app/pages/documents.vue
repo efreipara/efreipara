@@ -4,6 +4,17 @@
   })
 
   const appConfig = useAppConfig()
+
+  const colorMap: Record<string, { bg: string; text: string }> = {
+    blue: { bg: 'bg-blue-500/10', text: 'text-blue-500' },
+    red: { bg: 'bg-red-500/10', text: 'text-red-500' },
+    green: { bg: 'bg-green-500/10', text: 'text-green-500' },
+    purple: { bg: 'bg-purple-500/10', text: 'text-purple-500' },
+    navy: { bg: 'bg-primary/10', text: 'text-primary' },
+  }
+
+  const getCategoryColor = (color?: string) =>
+    colorMap[color ?? ''] ?? { bg: 'bg-primary/10', text: 'text-primary' }
 </script>
 
 <template>
@@ -20,49 +31,54 @@
           variant="subtle"
         >
           <template #header>
-            <div class="flex items-start gap-3">
-              <div class="shrink-0 p-2">
-                <UIcon :name="category.icon || appConfig.ui.icons.file" class="size-6" />
+            <div class="flex items-center gap-4">
+              <div
+                class="flex size-10 shrink-0 items-center justify-center rounded-xl"
+                :class="getCategoryColor(category.color).bg"
+              >
+                <UIcon
+                  :name="category.icon || appConfig.ui.icons.folder"
+                  :class="getCategoryColor(category.color).text"
+                  class="size-5"
+                />
               </div>
               <div class="min-w-0 flex-1">
-                <h2 class="mb-1 text-xl font-bold">{{ category.name }}</h2>
-                <p class="text-sm text-gray-400">
-                  {{ category.description }}
-                </p>
+                <h2 class="text-lg font-bold">{{ category.name }}</h2>
+                <p class="text-muted text-sm">{{ category.description }}</p>
               </div>
             </div>
           </template>
-          <div class="space-y-3">
-            <NuxtLink
-              v-for="(doc, docIndex) in category.documents"
-              :key="docIndex"
-              :to="doc.url"
-              :target="doc.type === 'external' ? '_blank' : undefined"
-              :rel="doc.type === 'external' ? 'noopener noreferrer' : undefined"
-              class="group block"
-            >
-              <UCard class="hover:bg-primary-800 cursor-pointer transition-colors duration-200">
-                <div class="flex items-start gap-3">
-                  <UIcon
-                    :name="doc.icon || appConfig.ui.icons.file"
-                    class="mt-0.5 size-5 shrink-0 text-gray-400"
-                  />
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-start justify-between gap-2">
-                      <h3 class="text-sm font-semibold">{{ doc.title }}</h3>
-                      <UIcon
-                        v-if="doc.type === 'external'"
-                        :name="appConfig.ui.icons.external"
-                        class="size-4 shrink-0 text-gray-400 transition-transform group-hover:translate-x-1"
-                      />
-                    </div>
-                    <p class="mt-1 text-xs text-gray-400">
-                      {{ doc.description }}
-                    </p>
-                  </div>
+
+          <div class="space-y-1">
+            <template v-for="(doc, docIndex) in category.documents" :key="docIndex">
+              <div v-if="docIndex > 0" class="border-default border-t" />
+              <NuxtLink
+                :to="doc.url"
+                :target="doc.type === 'external' ? '_blank' : undefined"
+                :rel="doc.type === 'external' ? 'noopener noreferrer' : undefined"
+                class="group hover:bg-primary/10 flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors duration-150"
+              >
+                <UIcon
+                  :name="doc.icon || appConfig.ui.icons.file"
+                  class="size-4 shrink-0"
+                  :class="getCategoryColor(category.color).text"
+                />
+                <div class="min-w-0 flex-1">
+                  <p class="font-medium leading-tight">{{ doc.title }}</p>
+                  <p v-if="doc.description" class="text-muted mt-0.5 text-sm">
+                    {{ doc.description }}
+                  </p>
                 </div>
-              </UCard>
-            </NuxtLink>
+                <UIcon
+                  :name="
+                    doc.type === 'external'
+                      ? appConfig.ui.icons.external
+                      : appConfig.ui.icons.arrowRight
+                  "
+                  class="text-muted size-4 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5"
+                />
+              </NuxtLink>
+            </template>
           </div>
         </UCard>
       </div>
