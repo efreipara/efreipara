@@ -6,7 +6,7 @@ hero:
 items:
   - title: Baptême Soufflerie
     type: soufflerie
-    date: 6 mars 2026
+    date: 2026-03-06
     location: iFly Paris - La Villette
     source: EPS
     url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2026
@@ -14,7 +14,7 @@ items:
 
   - title: Sauts en Tandem
     type: tandem
-    date: 18 mai 2025
+    date: 2025-05-18
     location: Skydive Event Paris - Péronne
     source: EPS
     url: https://efreipicturestudio.fr/gallery/sauts-en-tandem--2025
@@ -22,7 +22,7 @@ items:
 
   - title: Baptême Soufflerie
     type: soufflerie
-    date: 7 février 2025
+    date: 2025-02-07
     location: iFly Paris - La Villette
     source: EPS
     url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2025-2025
@@ -30,7 +30,7 @@ items:
 
   - title: Baptême Soufflerie
     type: soufflerie
-    date: 6 décembre 2024
+    date: 2024-12-06
     location: iFly Paris - La Villette
     source: EPS
     url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2025
@@ -38,7 +38,7 @@ items:
 
   - title: Sauts en Tandem
     type: tandem
-    date: 1er septembre 2024
+    date: 2024-09-01
     location: Skydive Event Paris - Péronne
     source: EPS
     url: https://efreipicturestudio.fr/gallery/saut-en-tandem-2024
@@ -46,7 +46,7 @@ items:
 
   - title: Baptême Soufflerie
     type: soufflerie
-    date: 26 janvier 2024
+    date: 2024-01-26
     location: iFly Paris - La Villette
     source: EPS
     url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2024
@@ -54,7 +54,7 @@ items:
 
   - title: Baptême Soufflerie
     type: soufflerie
-    date: 19 mai 2023
+    date: 2023-05-19
     location: iFly Paris - La Villette
     source: EPS
     url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie--efrei-para-2023

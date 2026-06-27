@@ -59,7 +59,7 @@ export default defineContentConfig({
           z.object({
             title: z.string(),
             type: z.string(),
-            date: z.string(),
+            date: z.string().date(),
             location: z.string(),
             url: z.string(),
             photo: z.string(),
@@ -121,11 +121,13 @@ export default defineContentConfig({
       schema: z.object({
         title: z.string(),
         description: z.string(),
-        helpcta: z.object({
-          title: z.string(),
-          description: z.string(),
-          buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
-        }).optional(),
+        helpcta: z
+          .object({
+            title: z.string(),
+            description: z.string(),
+            buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
+          })
+          .optional(),
         categories: z.array(
           z.object({
             name: z.string(),
@@ -157,11 +159,13 @@ export default defineContentConfig({
       schema: z.object({
         title: z.string(),
         description: z.string(),
-        helpcta: z.object({
-          title: z.string(),
-          description: z.string(),
-          buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
-        }).optional(),
+        helpcta: z
+          .object({
+            title: z.string(),
+            description: z.string(),
+            buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
+          })
+          .optional(),
         categories: z.array(
           z.object({
             name: z.string(),

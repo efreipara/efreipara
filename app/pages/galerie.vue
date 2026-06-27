@@ -16,14 +16,21 @@
 
   const filteredItems = computed(() => {
     if (!page.value?.items) return []
-    if (!activeFilter.value) return page.value.items
-    return page.value.items.filter((item) => item.type === activeFilter.value)
+    const items = activeFilter.value
+      ? page.value.items.filter((item) => item.type === activeFilter.value)
+      : [...page.value.items]
+    return items.sort((a, b) => b.date.localeCompare(a.date))
   })
 
   const heroItem = computed(() => filteredItems.value[0] ?? null)
   const restItems = computed(() => filteredItems.value.slice(1))
 
   const showHeroLayout = computed(() => !activeFilter.value && filteredItems.value.length >= 3)
+
+  const formatDate = (iso: string) =>
+    new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(
+      new Date(iso),
+    )
 
   const typeLabel: Record<string, string> = {
     soufflerie: 'Soufflerie',
@@ -85,7 +92,7 @@
         >
           <div
             class="aspect-3/2 w-full overflow-hidden"
-            :class="showHeroLayout ? 'lg:[aspect-ratio:unset] lg:h-full' : ''"
+            :class="showHeroLayout ? 'lg:aspect-[unset] lg:h-full' : ''"
           >
             <img
               :src="heroItem.photo"
@@ -94,7 +101,7 @@
             />
           </div>
           <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
+            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
           />
           <div class="absolute left-3 top-3">
             <div
@@ -117,7 +124,7 @@
             <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ heroItem.date }}
+                {{ formatDate(heroItem.date) }}
               </span>
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
@@ -151,7 +158,7 @@
             />
           </div>
           <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
+            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
           />
           <div class="absolute left-3 top-3">
             <div
@@ -172,7 +179,7 @@
             <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ galerie.date }}
+                {{ formatDate(galerie.date) }}
               </span>
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
