@@ -185,6 +185,42 @@ export default defineContentConfig({
         ),
       }),
     }),
+    contact: defineCollection({
+      type: 'data',
+      source: 'pages/contact.yml',
+      schema: z.object({
+        hero: z.object({
+          title: z.string(),
+          description: z.string(),
+        }),
+        email: z.object({
+          title: z.string(),
+          description: z.string(),
+          buttonLabel: z.string(),
+        }),
+        socials: z.object({
+          title: z.string(),
+          description: z.string(),
+        }),
+        address: z.object({
+          title: z.string(),
+          description: z.string(),
+          buttons: z.object({
+            google: z.string(),
+            apple: z.string(),
+            waze: z.string(),
+          }),
+        }),
+        support: z.object({
+          title: z.string(),
+          description: z.string(),
+          buttons: z.object({
+            github: z.string(),
+            email: z.string(),
+          }),
+        }),
+      }),
+    }),
     cta: defineCollection({
       type: 'data',
       source: 'global/cta.yml',

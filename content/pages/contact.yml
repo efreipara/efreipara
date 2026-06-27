@@ -1,0 +1,27 @@
+hero:
+  title: Nous contacter
+  description: Une question ? Une demande d’information ? N’hésite pas à nous contacter, nous te répondrons dans les plus brefs délais !
+
+email:
+  title: Email
+  description: Envoie-nous un email pour toute question
+  buttonLabel: Envoyer un email
+
+socials:
+  title: Nos réseaux sociaux
+  description: Suis-nous et rejoins notre communauté en ligne
+
+address:
+  title: Adresse
+  description: Notre campus Efrei
+  buttons:
+    google: Google Maps
+    apple: Apple Plans
+    waze: Waze
+
+support:
+  title: Support Technique
+  description: Un problème avec le site ?
+  buttons:
+    github: Signaler sur GitHub
+    email: Contacter par email
