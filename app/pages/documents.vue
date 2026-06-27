@@ -27,8 +27,8 @@
 <template>
   <div>
     <PageHero
-      title="Documents"
-      description="Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme."
+      :title="documentsData?.title"
+      :description="documentsData?.description"
     />
 
     <UContainer class="pb-16">
@@ -115,9 +115,10 @@
       </div>
 
       <HelpCta
-        title="Un document manquant ?"
-        description="Si vous ne trouvez pas le document que vous cherchez, n'hésitez pas à nous contacter !"
-        :buttons="['discord', 'instagram', 'github']"
+        v-if="documentsData?.helpcta"
+        :title="documentsData.helpcta.title"
+        :description="documentsData.helpcta.description"
+        :buttons="documentsData.helpcta.buttons"
       />
     </UContainer>
   </div>

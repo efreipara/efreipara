@@ -1,5 +1,12 @@
 title: Documents
 description: Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme
+helpcta:
+  title: Un document manquant ?
+  description: Si vous ne trouvez pas le document que vous cherchez, n'hésitez pas à nous contacter !
+  buttons:
+    - discord
+    - instagram
+    - github
 categories:
   - name: Documents généraux
     description: Documents administratifs et règlements du club

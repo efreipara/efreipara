@@ -124,9 +124,10 @@
       </div>
 
       <HelpCta
-        title="Une question sans réponse ?"
-        description="N'hésite pas à nous poser tes questions sur Discord ou Instagram !"
-        :buttons="['discord', 'instagram']"
+        v-if="faqData?.helpcta"
+        :title="faqData.helpcta.title"
+        :description="faqData.helpcta.description"
+        :buttons="faqData.helpcta.buttons"
       />
     </UContainer>
   </div>
