@@ -2,77 +2,195 @@
   import type { ActivityType } from '~/composables/useActivities'
 
   const { getIcon } = useEventIcon()
+  const { getColor } = useActivityColor()
   const appConfig = useAppConfig()
 
   const { data: page } = await useAsyncData('galeries', () => queryCollection('galeries').first())
+
+  const activeFilter = ref<string | null>(null)
+
+  const activityTypes = computed(() => {
+    if (!page.value?.items) return []
+    return [...new Set(page.value.items.map((item) => item.type))]
+  })
+
+  const filteredItems = computed(() => {
+    if (!page.value?.items) return []
+    if (!activeFilter.value) return page.value.items
+    return page.value.items.filter((item) => item.type === activeFilter.value)
+  })
+
+  const heroItem = computed(() => filteredItems.value[0] ?? null)
+  const restItems = computed(() => filteredItems.value.slice(1))
+
+  const showHeroLayout = computed(() => !activeFilter.value && filteredItems.value.length >= 3)
+
+  const typeLabel: Record<string, string> = {
+    soufflerie: 'Soufflerie',
+    tandem: 'Tandem',
+    oa: 'Ouverture Auto.',
+    pac: 'PAC',
+  }
 </script>
 
 <template>
   <div>
     <PageHero :title="page?.hero.title" :description="page?.hero.description" />
 
-    <UPageSection :ui="{ container: 'pt-0!' }">
-      <UPageGrid>
+    <UContainer class="pb-16">
+      <!-- Filtres par type d'activité -->
+      <div class="mb-8 flex flex-wrap gap-2">
+        <button
+          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+          :class="
+            !activeFilter
+              ? 'bg-primary text-white'
+              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
+          "
+          @click="activeFilter = null"
+        >
+          Tout voir
+        </button>
+        <button
+          v-for="type in activityTypes"
+          :key="type"
+          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+          :class="
+            activeFilter === type
+              ? 'bg-primary text-white'
+              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
+          "
+          @click="activeFilter = activeFilter === type ? null : type"
+        >
+          <UIcon
+            :name="getIcon(type as ActivityType)"
+            class="size-4"
+            :class="activeFilter === type ? 'text-white' : `text-${getColor(type as ActivityType)}`"
+          />
+          {{ typeLabel[type] ?? type }}
+        </button>
+      </div>
+
+      <!-- Grille photo -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Item hero : 2 cols × 2 lignes sur lg -->
         <NuxtLink
-          v-for="galerie in page?.items"
+          v-if="heroItem"
+          :key="heroItem.url"
+          :to="heroItem.url"
+          target="_blank"
+          external
+          class="group relative block overflow-hidden rounded-2xl"
+          :class="showHeroLayout ? 'lg:col-span-2 lg:row-span-2' : ''"
+        >
+          <div
+            class="aspect-3/2 w-full overflow-hidden"
+            :class="showHeroLayout ? 'lg:[aspect-ratio:unset] lg:h-full' : ''"
+          >
+            <img
+              :src="heroItem.photo"
+              :alt="heroItem.title"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
+          />
+          <div class="absolute left-3 top-3">
+            <div
+              class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
+            >
+              <UIcon
+                :name="getIcon(heroItem.type as ActivityType)"
+                :class="`text-${getColor(heroItem.type as ActivityType)}`"
+                class="size-3.5"
+              />
+              {{ typeLabel[heroItem.type] ?? heroItem.type }}
+            </div>
+          </div>
+          <div
+            class="absolute bottom-0 left-0 right-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
+          >
+            <h3 class="font-title mb-1.5 font-bold leading-tight" :class="showHeroLayout ? 'lg:text-xl' : 'text-base'">
+              {{ heroItem.title }}
+            </h3>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
+              <span class="flex items-center gap-1">
+                <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
+                {{ heroItem.date }}
+              </span>
+              <span class="flex items-center gap-1">
+                <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
+                {{ heroItem.location }}
+              </span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
+              {{ page?.hero.linkLabel }}
+              <UIcon
+                :name="appConfig.ui.icons.external"
+                class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </div>
+          </div>
+        </NuxtLink>
+
+        <!-- Items suivants -->
+        <NuxtLink
+          v-for="galerie in restItems"
           :key="galerie.url"
           :to="galerie.url"
           target="_blank"
           external
-          class="group block"
+          class="group relative block overflow-hidden rounded-2xl"
         >
-          <UCard
-            :ui="{
-              body: 'p-0 sm:p-0',
-            }"
-            class="h-full transition-all duration-200 hover:shadow-lg"
+          <div class="aspect-3/2 w-full overflow-hidden">
+            <img
+              :src="galerie.photo"
+              :alt="galerie.title"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
+          />
+          <div class="absolute left-3 top-3">
+            <div
+              class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
+            >
+              <UIcon
+                :name="getIcon(galerie.type as ActivityType)"
+                :class="`text-${getColor(galerie.type as ActivityType)}`"
+                class="size-3.5"
+              />
+              {{ typeLabel[galerie.type] ?? galerie.type }}
+            </div>
+          </div>
+          <div
+            class="absolute bottom-0 left-0 right-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
           >
-            <div class="aspect-3/2 w-full overflow-hidden">
-              <img
-                :src="galerie.photo"
-                :alt="galerie.title"
-                class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+            <h3 class="font-title mb-1.5 text-base font-bold leading-tight">{{ galerie.title }}</h3>
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
+              <span class="flex items-center gap-1">
+                <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
+                {{ galerie.date }}
+              </span>
+              <span class="flex items-center gap-1">
+                <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
+                {{ galerie.location }}
+              </span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
+              {{ page?.hero.linkLabel }}
+              <UIcon
+                :name="appConfig.ui.icons.external"
+                class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </div>
-            <div class="p-6 sm:p-8">
-              <!-- Titre avec icône -->
-              <div class="mb-3 flex items-center gap-2">
-                <UIcon
-                  :name="getIcon(galerie.type as ActivityType)"
-                  class="text-primary h-6 w-6 shrink-0"
-                />
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                  {{ galerie.title }}
-                </h3>
-              </div>
-
-              <!-- Date et Type -->
-              <div class="mb-3 space-y-1.5 text-sm">
-                <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                  <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-4" />
-                  <span>{{ galerie.date }}</span>
-                </div>
-                <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                  <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-4" />
-                  <span>{{ galerie.location }}</span>
-                </div>
-              </div>
-
-              <!-- Lien -->
-              <div
-                class="text-primary-500 dark:text-primary-400 flex items-center gap-2 text-sm font-semibold"
-              >
-                <span>{{ page?.hero.linkLabel }}</span>
-                <UIcon
-                  :name="appConfig.ui.icons.external"
-                  class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                />
-              </div>
-            </div>
-          </UCard>
+          </div>
         </NuxtLink>
-      </UPageGrid>
-    </UPageSection>
+      </div>
+    </UContainer>
+
     <CallToAction />
   </div>
 </template>
