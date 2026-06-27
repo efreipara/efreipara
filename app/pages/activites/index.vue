@@ -39,7 +39,7 @@
   }) =>
     section.features.map((f) => ({
       ...f,
-      class: `text-${getColor(section.type as ActivityType)}`,
+      ui: { leadingIcon: `text-${getColor(section.type as ActivityType)}` },
     }))
 </script>
 

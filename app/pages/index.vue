@@ -16,7 +16,7 @@
         description: item.description,
         icon: getIcon(item.type as ActivityType),
         to: item.to,
-        class: `text-${getColor(item.type as ActivityType)}`,
+        ui: { leadingIcon: `text-${getColor(item.type as ActivityType)}` },
       })) ?? [],
   )
 
@@ -37,7 +37,7 @@
         title: item.title,
         description: item.description,
         icon: item.icon,
-        class: `text-${getColor(item.type as ActivityType)}`,
+        ui: { leadingIcon: `text-${getColor(item.type as ActivityType)}` },
       })) ?? [],
   )
 </script>
