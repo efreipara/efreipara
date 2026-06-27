@@ -2,6 +2,7 @@ title: Questions Fréquentes
 description: Retrouvez ici les réponses aux questions les plus fréquentes sur Efrei Para
 categories:
   - name: Le club
+    color: blue
     questions:
       - question: Qu’est-ce qu’Efrei Para ?
         answer: Efrei Para est un club de parachutisme de l’Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et de progression autonome chute libre (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
@@ -24,6 +25,7 @@ categories:
             icon: tabler:mail
 
   - name: Rejoindre
+    color: green
     questions:
       - question: Comment puis-je rejoindre le club ?
         answer: Pour rejoindre Efrei Para, il suffit d’être étudiant à l’Efrei. L’inscription se fait via un formulaire en ligne. L’adhésion te donne accès à l’espace membre sur notre Discord et d’optenir des points LXP !
@@ -65,6 +67,7 @@ categories:
         icon: tabler:eye
 
   - name: Les activités
+    color: purple
     questions:
       - question: Quelles sont les activités proposées ?
         answer: Nous proposons plusieurs activités selon ton niveau. Pour débuter, il y a les sauts en ouverture automatique (OA) et les tandems. Pour progresser, nous offrons la progression autonome chute libre (PAC) et des séances en soufflerie. Toutes nos activités sont encadrées par des professionnels diplômés.
@@ -92,6 +95,7 @@ categories:
         icon: tabler:map-pin
 
   - name: Conditions
+    color: red
     questions:
       - question: Quel est l’âge minimum pour sauter ?
         answer: L’âge minimum pour pratiquer le parachutisme est de 15 ans avec une autorisation parentale. À partir de 18 ans, aucune autorisation n’est nécessaire. Il faut également présenter un certificat médical de non contre-indication à la pratique du parachutisme.
@@ -111,6 +115,7 @@ categories:
             target: _blank
 
   - name: Organisation & logistique
+    color: orange
     questions:
       - question: Comment se déroulent les déplacements vers les zones de saut ?
         answer: |
@@ -133,6 +138,7 @@ categories:
         icon: tabler:clock
 
   - name: Sécurité
+    color: gray
     questions:
       - question: Est-ce que le parachutisme est sûr ?
         answer: |
