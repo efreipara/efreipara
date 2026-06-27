@@ -16,5 +16,6 @@
   "tailwindCSS.classFunctions": ["defineAppConfig"],
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
-  }
+  },
+  "cSpell.words": ["efreipara"]
 }
