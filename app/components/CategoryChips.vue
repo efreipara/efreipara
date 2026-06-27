@@ -3,20 +3,7 @@
     categories: { name: string; icon: string; color?: string }[]
   }>()
 
-  // Tailwind scan: bg-blue-500/10 text-blue-500 bg-green-500/10 text-green-500
-  // bg-purple-500/10 text-purple-500 bg-red-500/10 text-red-500
-  // bg-orange-500/10 text-orange-500 bg-gray-500/10 text-gray-500
-  const colorMap: Record<string, { bg: string; text: string }> = {
-    blue: { bg: 'bg-blue-500/10', text: 'text-blue-500' },
-    green: { bg: 'bg-green-500/10', text: 'text-green-500' },
-    purple: { bg: 'bg-purple-500/10', text: 'text-purple-500' },
-    red: { bg: 'bg-red-500/10', text: 'text-red-500' },
-    orange: { bg: 'bg-orange-500/10', text: 'text-orange-500' },
-    gray: { bg: 'bg-gray-500/10', text: 'text-gray-500' },
-  }
-
-  const getCategoryColor = (color?: string) =>
-    colorMap[color ?? ''] ?? { bg: 'bg-primary/10', text: 'text-primary' }
+  const { getCategoryColor } = useCategoryColor()
 
   const categoryId = (name: string) =>
     name
@@ -40,8 +27,8 @@
     <button
       v-for="(category, i) in categories"
       :key="i"
-      class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-opacity hover:opacity-80"
-      :class="[getCategoryColor(category.color).bg, getCategoryColor(category.color).text]"
+      class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+      :class="[getCategoryColor(category.color).bg, getCategoryColor(category.color).text, getCategoryColor(category.color).hoverBg]"
       @click="scrollTo(categoryId(category.name))"
     >
       <UIcon :name="category.icon" class="size-4" />

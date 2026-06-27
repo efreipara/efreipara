@@ -5,15 +5,7 @@
 
   const appConfig = useAppConfig()
 
-  const colorMap: Record<string, { bg: string; text: string }> = {
-    blue: { bg: 'bg-blue-500/10', text: 'text-blue-500' },
-    red: { bg: 'bg-red-500/10', text: 'text-red-500' },
-    green: { bg: 'bg-green-500/10', text: 'text-green-500' },
-    purple: { bg: 'bg-purple-500/10', text: 'text-purple-500' },
-  }
-
-  const getCategoryColor = (color?: string) =>
-    colorMap[color ?? ''] ?? { bg: 'bg-primary/10', text: 'text-primary' }
+  const { getCategoryColor } = useCategoryColor()
 
   const categoryId = (name: string) =>
     name
