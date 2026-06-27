@@ -1,7 +1,7 @@
 hero:
-  title: Galeries Photos
-  description: Revivez nos événements en images grâce aux galeries de l'association photo Efrei Picture Studio
-  linkLabel: Voir la galerie
+  title: Nos albums photos
+  description: Revivez nos événements en images grâce aux albums de l'association photo Efrei Picture Studio
+  linkLabel: Voir l'album
 
 items:
   - title: Baptême Soufflerie

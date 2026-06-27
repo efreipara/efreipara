@@ -46,9 +46,9 @@ export default defineContentConfig({
         ),
       }),
     }),
-    galeries: defineCollection({
+    galerie: defineCollection({
       type: 'data',
-      source: 'pages/galeries.yml',
+      source: 'pages/galerie.yml',
       schema: z.object({
         hero: z.object({
           title: z.string(),

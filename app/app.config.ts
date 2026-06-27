@@ -84,7 +84,7 @@ export default defineAppConfig({
       },
       navigation: {
         document: 'tabler:file-description',
-        galeries: 'tabler:camera',
+        galerie: 'tabler:camera',
       },
       rejoindre: {
         rejoindre: 'tabler:user-plus',

@@ -5,7 +5,7 @@
   const { getColor } = useActivityColor()
   const appConfig = useAppConfig()
 
-  const { data: page } = await useAsyncData('galeries', () => queryCollection('galeries').first())
+  const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
 
   const activeFilter = ref<string | null>(null)
 

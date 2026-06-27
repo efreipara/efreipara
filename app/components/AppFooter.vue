@@ -41,8 +41,8 @@
           to: '/documents',
         },
         {
-          label: 'Galeries photos',
-          to: '/galeries',
+          label: 'Galerie',
+          to: '/galerie',
         },
         {
           label: 'Nous contacter',

@@ -77,9 +77,9 @@
       icon: appConfig.efreipara.icons.navigation.document,
     },
     {
-      label: 'Galeries',
-      to: '/galeries',
-      icon: appConfig.efreipara.icons.navigation.galeries,
+      label: 'Galerie',
+      to: '/galerie',
+      icon: appConfig.efreipara.icons.navigation.galerie,
     },
     {
       label: 'Nous rejoindre',

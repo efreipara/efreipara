@@ -53,9 +53,9 @@ pages:
     description: Intégrez l’équipe dirigeante d’Efrei Para et contribuez au développement du club
     ogImage: /seo/rejoindre-bureau.png
 
-  # Page galeries
-  galeries:
-    title: Galeries photos
+  # Page galerie
+  galerie:
+    title: Nos albums photos
     description: Découvrez les moments forts d’Efrei Para en images
 
   # Page documents
