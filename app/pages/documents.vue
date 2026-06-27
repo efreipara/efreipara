@@ -42,18 +42,16 @@
     <UContainer class="pb-16">
       <!-- Navigation rapide -->
       <div class="mb-16 flex flex-wrap gap-2">
-        <UButton
+        <button
           v-for="(category, i) in documentsData?.categories"
           :key="i"
-          :icon="category.icon"
-          color="neutral"
-          variant="subtle"
-          size="sm"
-          class="rounded-full"
+          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-opacity hover:opacity-80"
+          :class="[getCategoryColor(category.color).bg, getCategoryColor(category.color).text]"
           @click="scrollTo(categoryId(category.name))"
         >
+          <UIcon :name="category.icon || appConfig.ui.icons.folder" class="size-4" />
           {{ category.name }}
-        </UButton>
+        </button>
       </div>
 
       <!-- Sections par catégorie -->
