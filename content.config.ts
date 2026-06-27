@@ -63,6 +63,7 @@ export default defineContentConfig({
             location: z.string(),
             url: z.string(),
             photo: z.string(),
+            source: z.string().optional(),
           }),
         ),
       }),

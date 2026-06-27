@@ -125,7 +125,7 @@
               </span>
             </div>
             <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
-              {{ page?.hero.linkLabel }}
+              {{ heroItem.source ? `${page?.hero.linkLabel} sur ${heroItem.source}` : page?.hero.linkLabel }}
               <UIcon
                 :name="appConfig.ui.icons.external"
                 class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -180,7 +180,7 @@
               </span>
             </div>
             <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
-              {{ page?.hero.linkLabel }}
+              {{ galerie.source ? `${page?.hero.linkLabel} sur ${galerie.source}` : page?.hero.linkLabel }}
               <UIcon
                 :name="appConfig.ui.icons.external"
                 class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
