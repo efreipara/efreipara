@@ -23,13 +23,13 @@
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9-]/g, '')
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
-    const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 32
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
+  const categoryChips = computed(() =>
+    (documentsData.value?.categories ?? []).map((c) => ({
+      name: c.name,
+      icon: c.icon || appConfig.ui.icons.folder,
+      color: c.color,
+    })),
+  )
 </script>
 
 <template>
@@ -40,19 +40,7 @@
     />
 
     <UContainer class="pb-16">
-      <!-- Navigation rapide -->
-      <div class="mb-16 flex flex-wrap gap-2">
-        <button
-          v-for="(category, i) in documentsData?.categories"
-          :key="i"
-          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-opacity hover:opacity-80"
-          :class="[getCategoryColor(category.color).bg, getCategoryColor(category.color).text]"
-          @click="scrollTo(categoryId(category.name))"
-        >
-          <UIcon :name="category.icon || appConfig.ui.icons.folder" class="size-4" />
-          {{ category.name }}
-        </button>
-      </div>
+      <CategoryChips :categories="categoryChips" />
 
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
