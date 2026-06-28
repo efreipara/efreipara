@@ -180,7 +180,7 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <UColorModeButton class="cursor-pointer rounded-full p-2" />
+        <AppColorModeButton class="cursor-pointer rounded-full p-2" />
       </div>
     </template>
 
@@ -200,7 +200,7 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <UColorModeButton class="cursor-pointer rounded-full p-2" />
+        <AppColorModeButton class="cursor-pointer rounded-full p-2" />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <button
           class="relative size-8"
