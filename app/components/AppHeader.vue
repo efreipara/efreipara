@@ -202,22 +202,7 @@
         </UDropdownMenu>
         <AppColorModeButton class="cursor-pointer rounded-full p-2" />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
-        <button
-          class="relative size-8"
-          :aria-label="open ? 'Fermer le menu' : 'Ouvrir le menu'"
-          @click="toggleMenu"
-        >
-          <Icon
-            :name="appConfig.ui.icons.menu"
-            class="absolute inset-0 m-auto size-5 transition-all duration-300"
-            :class="open ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'"
-          />
-          <Icon
-            :name="appConfig.ui.icons.close"
-            class="absolute inset-0 m-auto size-5 transition-all duration-300"
-            :class="open ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'"
-          />
-        </button>
+        <AppBurgerButton :open="open" @click="toggleMenu" />
       </div>
     </template>
 
