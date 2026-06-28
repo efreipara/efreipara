@@ -14,10 +14,13 @@
     <div class="space-y-6 text-center">
       <div class="space-y-3">
         <div class="flex justify-center">
-          <UIcon :name="appConfig.efreipara.icons.extras.question" class="text-primary-500 size-12" />
+          <UIcon
+            :name="appConfig.efreipara.icons.extras.question"
+            class="text-primary-500 size-12"
+          />
         </div>
         <h2 class="text-2xl font-bold">{{ title }}</h2>
-        <p class="mx-auto max-w-xl text-muted">{{ description }}</p>
+        <p class="text-muted mx-auto max-w-xl">{{ description }}</p>
       </div>
       <div class="flex flex-wrap justify-center gap-3">
         <UButton

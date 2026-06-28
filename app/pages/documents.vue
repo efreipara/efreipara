@@ -26,20 +26,14 @@
 
 <template>
   <div>
-    <PageHero
-      :title="documentsData?.title"
-      :description="documentsData?.description"
-    />
+    <PageHero :title="documentsData?.title" :description="documentsData?.description" />
 
     <UContainer class="pb-16">
       <CategoryChips :categories="categoryChips" />
 
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
-        <template
-          v-for="(category, catIndex) in documentsData?.categories"
-          :key="catIndex"
-        >
+        <template v-for="(category, catIndex) in documentsData?.categories" :key="catIndex">
           <section :id="categoryId(category.name)">
             <!-- En-tête de catégorie -->
             <div class="mb-6 flex items-center gap-4">
@@ -75,7 +69,7 @@
               >
                 <UCard
                   variant="subtle"
-                  class="h-full cursor-pointer transition-colors duration-150 group-hover:bg-primary/5"
+                  class="group-hover:bg-primary/5 h-full cursor-pointer transition-colors duration-150"
                 >
                   <div class="flex gap-3">
                     <div
@@ -90,7 +84,7 @@
                     </div>
                     <div class="min-w-0 flex-1">
                       <div class="flex items-start justify-between gap-2">
-                        <p class="font-semibold leading-tight">{{ doc.title }}</p>
+                        <p class="leading-tight font-semibold">{{ doc.title }}</p>
                         <UIcon
                           :name="
                             doc.type === 'external'

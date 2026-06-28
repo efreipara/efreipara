@@ -22,7 +22,7 @@
     const distance = target - start
     const startTime = performance.now()
 
-    const ease = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+    const ease = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)
 
     const step = (now: number) => {
       const elapsed = now - startTime
@@ -41,7 +41,11 @@
       v-for="(category, i) in categories"
       :key="i"
       class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
-      :class="[getCategoryColor(category.color).bg, getCategoryColor(category.color).text, getCategoryColor(category.color).hoverBg]"
+      :class="[
+        getCategoryColor(category.color).bg,
+        getCategoryColor(category.color).text,
+        getCategoryColor(category.color).hoverBg,
+      ]"
       @click="scrollTo(categoryId(category.name))"
     >
       <UIcon :name="category.icon" class="size-4" />

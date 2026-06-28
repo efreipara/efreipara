@@ -15,7 +15,11 @@ const colorMap: Record<string, { bg: string; text: string; hoverBg: string }> = 
 
 export function useCategoryColor() {
   const getCategoryColor = (color?: string) =>
-    colorMap[color ?? ''] ?? { bg: 'bg-primary/10', text: 'text-primary', hoverBg: 'hover:bg-primary/20' }
+    colorMap[color ?? ''] ?? {
+      bg: 'bg-primary/10',
+      text: 'text-primary',
+      hoverBg: 'hover:bg-primary/20',
+    }
 
   return { getCategoryColor }
 }
