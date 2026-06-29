@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import type { NuxtError } from '#app'
-  import ParachuteBg from './components/ParachuteBg.vue'
 
   const appConfig = useAppConfig()
 
