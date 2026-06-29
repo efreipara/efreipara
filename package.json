@@ -20,22 +20,22 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.87",
+    "@iconify-json/simple-icons": "^1.2.88",
     "@iconify-json/tabler": "^1.2.35",
     "@libsql/client": "^0.17.4",
     "@nuxt/content": "^3.14.0",
     "@nuxt/eslint": "^1.16.0",
     "@nuxt/fonts": "^0.14.0",
-    "@nuxt/icon": "^2.2.4",
+    "@nuxt/icon": "^2.2.5",
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.9.0",
     "@nuxtjs/plausible": "^3.0.2",
     "@types/node": "^26.0.1",
     "eslint": "^10.6.0",
     "nuxt": "^4.4.8",
-    "prettier": "^3.9.1",
+    "prettier": "^3.9.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "tailwindcss": "^4.3.1",
+    "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "unist-util-visit": "^5.1.0"
   }
