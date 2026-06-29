@@ -26,10 +26,10 @@
 
 <template>
   <div>
-    <PageHero :title="documentsData?.title" :description="documentsData?.description" />
+    <SharedPageHero :title="documentsData?.title" :description="documentsData?.description" />
 
     <UContainer class="pb-16">
-      <CategoryChips :categories="categoryChips" />
+      <SharedCategoryChips :categories="categoryChips" />
 
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
@@ -108,7 +108,7 @@
         </template>
       </div>
 
-      <HelpCta
+      <SharedHelpCta
         v-if="documentsData?.helpcta"
         :title="documentsData.helpcta.title"
         :description="documentsData.helpcta.description"

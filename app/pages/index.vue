@@ -44,7 +44,7 @@
 
 <template>
   <div>
-    <MainHero />
+    <HomeHero />
 
     <UPageSection
       :title="home?.sections.about"
@@ -77,7 +77,7 @@
             class="flex flex-col items-center gap-1 py-10"
           >
             <UIcon :name="stat.icon" class="text-muted mb-1 size-5" />
-            <StatCounter
+            <HomeStatCounter
               :value="stat.title"
               class="font-title text-4xl font-bold tracking-tight md:text-5xl"
             />
@@ -137,6 +137,6 @@
       </UContainer>
     </div>
 
-    <CallToAction />
+    <SharedCallToAction />
   </div>
 </template>

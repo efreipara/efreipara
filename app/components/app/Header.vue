@@ -180,7 +180,7 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <AppColorModeButton class="cursor-pointer rounded-full p-2" />
+        <HeaderColorModeButton class="cursor-pointer rounded-full p-2" />
       </div>
     </template>
 
@@ -200,9 +200,9 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <AppColorModeButton class="cursor-pointer rounded-full p-2" />
+        <HeaderColorModeButton class="cursor-pointer rounded-full p-2" />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
-        <AppBurgerButton :open="open" @click="toggleMenu" />
+        <HeaderBurgerButton :open="open" @click="toggleMenu" />
       </div>
     </template>
 

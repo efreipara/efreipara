@@ -13,7 +13,7 @@
 
 <template>
   <div>
-    <PageHero :title="rejoindreData?.hero.title" :description="rejoindreData?.hero.description" />
+    <SharedPageHero :title="rejoindreData?.hero.title" :description="rejoindreData?.hero.description" />
 
     <UContainer class="pb-16">
       <!-- Bandeau Discord -->

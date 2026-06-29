@@ -8,7 +8,7 @@
 
 <template>
   <div>
-    <PageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
 
     <UContainer class="pb-16">
       <!-- Email - carte principale mise en avant -->
@@ -150,6 +150,6 @@
       </div>
     </UContainer>
 
-    <CallToAction />
+    <SharedCallToAction />
   </div>
 </template>

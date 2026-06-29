@@ -24,7 +24,7 @@
   <USeparator />
   <UPageSection :ui="{ container: 'p-0!' }">
     <!-- Fond de parachutes animés avec densité réduite -->
-    <ParachuteBg
+    <SharedParachuteBg
       :count="50"
       :initial-presence="0.5"
       speed="slow"

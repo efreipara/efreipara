@@ -45,7 +45,7 @@
 
 <template>
   <div>
-    <PageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
     <UPageSection
       v-for="(section, i) in page?.sections"
       :key="section.type"
@@ -64,6 +64,6 @@
     >
       <img :src="buildCdnUrl(`${section.type}.jpg`)" :alt="section.alt" class="w-full rounded-lg" />
     </UPageSection>
-    <CallToAction />
+    <SharedCallToAction />
   </div>
 </template>

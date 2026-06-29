@@ -25,6 +25,6 @@
         Voir nos activités
       </UButton>
     </div>
-    <CallToAction />
+    <SharedCallToAction />
   </div>
 </template>

@@ -26,7 +26,7 @@
 
 <template>
   <UApp>
-    <EventBanner v-if="showLayout" />
+    <AppEventBanner v-if="showLayout" />
     <AppHeader v-if="showLayout" />
     <UMain>
       <NuxtPage />

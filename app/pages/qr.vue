@@ -28,7 +28,7 @@
 <template>
   <UApp>
     <div class="bg-efreipara-background relative min-h-screen">
-      <ParachuteBg
+      <SharedParachuteBg
         speed="slow"
         :size="{ min: 14, max: 50 }"
         :drift="500"

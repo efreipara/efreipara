@@ -42,7 +42,7 @@
 
 <template>
   <div>
-    <PageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
 
     <UContainer class="pb-16">
       <!-- Filtres par type d'activité -->
@@ -209,6 +209,6 @@
       </div>
     </UContainer>
 
-    <CallToAction />
+    <SharedCallToAction />
   </div>
 </template>

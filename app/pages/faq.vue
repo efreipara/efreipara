@@ -41,13 +41,13 @@
 
 <template>
   <div>
-    <PageHero
+    <SharedPageHero
       :title="faqData?.title || 'Questions Fréquentes'"
       :description="faqData?.description"
     />
 
     <UContainer class="pb-16">
-      <CategoryChips :categories="categoriesData" />
+      <SharedCategoryChips :categories="categoriesData" />
 
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
@@ -122,7 +122,7 @@
         </template>
       </div>
 
-      <HelpCta
+      <SharedHelpCta
         v-if="faqData?.helpcta"
         :title="faqData.helpcta.title"
         :description="faqData.helpcta.description"

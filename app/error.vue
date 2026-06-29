@@ -56,7 +56,7 @@
 <template>
   <UApp>
     <AppHeader />
-    <ParachuteBg speed="slow" :size="{ min: 14, max: 50 }" :drift="500" :initial-presence="0.7" />
+    <SharedParachuteBg speed="slow" :size="{ min: 14, max: 50 }" :drift="500" :initial-presence="0.7" />
     <UError
       :error="customError"
       redirect="/"
