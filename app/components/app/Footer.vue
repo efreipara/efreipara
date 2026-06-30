@@ -140,7 +140,7 @@
         aria-label="Efrei"
         color="neutral"
         variant="ghost"
-        class="rounded-full p-2"
+        class="text-muted rounded-full p-2"
       >
         <Icon
           name="efrei:logo"
@@ -158,7 +158,7 @@
         :aria-label="`${social.name} Efrei Para`"
         color="neutral"
         variant="ghost"
-        class="rounded-full p-2"
+        class="text-muted rounded-full p-2"
       />
     </template>
   </UFooter>
