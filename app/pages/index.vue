@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { ButtonProps } from '@nuxt/ui'
+  import type { ActivityType } from '~/composables/useActivities'
   import DOMPurify from 'isomorphic-dompurify'
 
   const { getIcon } = useEventIcon()
@@ -9,50 +9,37 @@
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
 
-  const activitesFeatures = computed(
-    () =>
-      home.value?.activites.items.map((item) => ({
-        title: item.title,
-        description: item.description,
-        icon: getIcon(item.type as ActivityType),
-        to: item.to,
-        ui: { leadingIcon: `text-${getColor(item.type as ActivityType)}` },
-      })) ?? [],
-  )
+  const activityText = (type: string) => `text-${getColor(type as ActivityType)}`
 
-  const activitesLink = computed<ButtonProps[]>(() => [
-    {
-      label: home.value?.activites.link.label ?? '',
-      to: home.value?.activites.link.to ?? '/activites',
-      color: 'neutral',
-      variant: 'subtle',
-      trailingIcon: appConfig.ui.icons.arrowRight,
-      class: 'rounded-full',
-    },
-  ])
+  const activityCssVar: Record<string, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
+  }
+  const activityBgStyle = (type: string) => ({
+    backgroundColor: `color-mix(in oklch, ${activityCssVar[type]} 10%, transparent)`,
+  })
 
-  const whyFeatures = computed(
-    () =>
-      home.value?.why.map((item) => ({
-        title: item.title,
-        description: item.description,
-        icon: item.icon,
-        ui: { leadingIcon: `text-${getColor(item.type as ActivityType)}` },
-      })) ?? [],
-  )
+  const hoveredType = ref<string | null>(null)
+  const activityCardStyle = (type: string) =>
+    hoveredType.value === type ? activityBgStyle(type) : {}
 </script>
 
 <template>
   <div>
     <HomeHero />
 
-    <UPageSection
-      :title="home?.sections.about"
-      icon="efreipara:parachute"
-      :ui="{ container: 'py-12!', title: 'font-title' }"
-    >
-      <div class="flex items-center gap-8">
-        <div class="text-muted flex flex-col gap-4">
+    <!-- À propos -->
+    <UContainer class="py-24">
+      <h2 class="font-title mb-8 flex flex-col items-center text-center text-3xl font-bold">
+        <div class="bg-primary/10 mb-4 flex size-20 items-center justify-center rounded-2xl">
+          <UIcon name="efreipara:parachute" class="text-primary size-10" />
+        </div>
+        {{ home?.sections.about }}
+      </h2>
+      <div class="flex items-center gap-12">
+        <div class="text-muted flex flex-1 flex-col gap-4">
           <p
             v-for="paragraph in home?.about.paragraphs"
             :key="paragraph"
@@ -63,11 +50,12 @@
           src="~/assets/images/avion.svg"
           alt=""
           aria-hidden="true"
-          class="hidden h-auto w-72 shrink-0 opacity-90 md:block dark:opacity-75"
+          class="hidden h-auto w-64 shrink-0 opacity-90 md:block dark:opacity-75"
         />
       </div>
-    </UPageSection>
+    </UContainer>
 
+    <!-- Stats -->
     <div class="border-default border-y">
       <UContainer>
         <div class="divide-default grid grid-cols-3 divide-x">
@@ -89,25 +77,91 @@
       </UContainer>
     </div>
 
-    <UPageSection
-      :title="home?.sections.activites"
-      :features="activitesFeatures"
-      :links="activitesLink"
-      :ui="{
-        features: 'sm:grid-cols-2 lg:grid-cols-2 gap-8 grid',
-        title: 'font-title',
-      }"
-    />
+    <!-- Activités -->
+    <UContainer class="py-24">
+      <h2 class="font-title mb-8 text-center text-3xl font-bold">
+        {{ home?.sections.activites }}
+      </h2>
+      <div class="mb-8 grid gap-4 sm:grid-cols-2">
+        <NuxtLink
+          v-for="item in home?.activites.items"
+          :key="item.title"
+          :to="item.to"
+          class="group block"
+          @mouseenter="hoveredType = item.type"
+          @mouseleave="hoveredType = null"
+        >
+          <div
+            class="border-default relative h-full rounded-2xl border p-6 transition-colors duration-300"
+            :style="activityCardStyle(item.type)"
+          >
+            <div class="flex items-start gap-4">
+              <div
+                class="flex size-12 shrink-0 items-center justify-center rounded-2xl"
+                :style="activityBgStyle(item.type)"
+              >
+                <UIcon
+                  :name="getIcon(item.type as ActivityType)"
+                  :class="activityText(item.type)"
+                  class="size-6"
+                />
+              </div>
+              <div>
+                <h3 class="mb-1.5 font-bold">{{ item.title }}</h3>
+                <p class="text-muted mb-4 text-sm">{{ item.description }}</p>
+                <div class="text-primary flex items-center gap-1 text-sm font-semibold">
+                  <span>En savoir plus</span>
+                  <UIcon
+                    :name="appConfig.ui.icons.arrowRight"
+                    class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </NuxtLink>
+      </div>
+      <div class="text-center">
+        <UButton
+          :to="home?.activites.link.to"
+          color="neutral"
+          variant="subtle"
+          size="lg"
+          :trailing-icon="appConfig.ui.icons.arrowRight"
+          class="rounded-full"
+        >
+          {{ home?.activites.link.label }}
+        </UButton>
+      </div>
+    </UContainer>
 
-    <UPageSection
-      :title="home?.sections.why"
-      :features="whyFeatures"
-      :ui="{ title: 'font-title' }"
-    />
+    <!-- Pourquoi Efrei Para ? -->
+    <div class="border-default border-y py-24">
+      <UContainer>
+        <h2 class="font-title mb-10 text-center text-3xl font-bold">
+          {{ home?.sections.why }}
+        </h2>
+        <div class="grid gap-6 sm:grid-cols-3">
+          <UCard v-for="item in home?.why" :key="item.title" variant="subtle">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="mb-5 flex size-14 items-center justify-center rounded-2xl"
+                :style="activityBgStyle(item.type)"
+              >
+                <UIcon :name="item.icon" :class="activityText(item.type)" class="size-7" />
+              </div>
+              <h3 class="mb-2 font-bold">{{ item.title }}</h3>
+              <p class="text-muted text-sm">{{ item.description }}</p>
+            </div>
+          </UCard>
+        </div>
+      </UContainer>
+    </div>
 
+    <!-- Partenaires -->
     <div class="border-default border-t">
-      <UContainer class="py-12">
-        <p class="font-title mb-8 text-center text-2xl">{{ home?.sections.partners }}</p>
+      <UContainer class="py-24">
+        <p class="font-title mb-8 text-center text-3xl font-bold">{{ home?.sections.partners }}</p>
         <div class="flex flex-wrap items-center justify-center gap-6">
           <NuxtLink
             v-for="partner in partners"
