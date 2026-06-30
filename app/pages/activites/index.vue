@@ -22,6 +22,17 @@
   const activityBgStyle = (type: string) => ({
     backgroundColor: `color-mix(in oklch, ${activityCssVar[type as ActivityType]} 10%, transparent)`,
   })
+
+  const hoveredBtn = ref<string | null>(null)
+  const activityBtnStyle = (type: string) => ({
+    transition: 'background-color 0.2s, color 0.2s',
+    ...(hoveredBtn.value === type
+      ? {
+          backgroundColor: `color-mix(in oklch, ${activityCssVar[type as ActivityType]} 15%, transparent)`,
+          color: activityCssVar[type as ActivityType],
+        }
+      : {}),
+  })
 </script>
 
 <template>
@@ -86,6 +97,9 @@
               size="lg"
               :trailing-icon="appConfig.ui.icons.arrowRight"
               class="rounded-full"
+              :style="activityBtnStyle(section.type)"
+              @mouseenter="hoveredBtn = section.type"
+              @mouseleave="hoveredBtn = null"
             >
               {{ section.link.label }}
             </UButton>
