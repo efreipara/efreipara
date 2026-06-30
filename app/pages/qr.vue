@@ -33,7 +33,7 @@
         :size="{ min: 14, max: 50 }"
         :drift="500"
         :initial-presence="0.7"
-        color="text-white"
+        color="white"
       />
       <div class="absolute top-4 left-4 z-20">
         <UButton
