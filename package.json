@@ -30,7 +30,7 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.9.0",
     "@nuxtjs/plausible": "^3.0.2",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "nuxt": "^4.4.8",
     "prettier": "^3.9.4",
