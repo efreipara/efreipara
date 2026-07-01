@@ -15,15 +15,21 @@
   const icon = getIcon(props.activite)
   const imageUrl = buildCdnUrl(`${props.activite}.jpg`)
 
-  const colorClasses: Record<ActivityType, string> = {
-    oa: 'text-efreipara-oa',
-    tandem: 'text-efreipara-tandem',
-    soufflerie: 'text-efreipara-soufflerie',
-    pac: 'text-efreipara-pac',
+  const activityCssVar: Record<ActivityType, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
   }
-  const colorClass = colorClasses[props.activite]
 
-  const activities = Object.keys(colorClasses) as ActivityType[]
+  const iconStyle = computed(() => ({
+    color: activityCssVar[props.activite],
+  }))
+  const bgStyle = computed(() => ({
+    backgroundColor: `color-mix(in oklch, ${activityCssVar[props.activite]} 12%, transparent)`,
+  }))
+
+  const activities = Object.keys(activityCssVar) as ActivityType[]
   const currentIndex = activities.indexOf(props.activite)
   const prevActivity = activities[(currentIndex - 1 + activities.length) % activities.length]
   const nextActivity = activities[(currentIndex + 1) % activities.length]
@@ -43,8 +49,9 @@
     <img
       :src="imageUrl"
       aria-hidden="true"
-      class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 blur-sm dark:opacity-20"
+      class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-20 blur-sm dark:opacity-15"
     />
+
     <NuxtLink
       :to="`/activites/${prevActivity}`"
       :aria-label="`Aller à ${prevPage?.label}`"
@@ -61,14 +68,16 @@
       <UIcon name="tabler:chevron-right" class="size-6 text-gray-400" />
       <span class="text-xs text-gray-400">{{ nextPage?.label }}</span>
     </NuxtLink>
+
     <UContainer class="relative">
       <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
           <div
-            :class="[colorClass, 'hero-slide-up flex items-center font-semibold']"
+            class="hero-slide-up inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
+            :style="{ ...bgStyle, ...iconStyle }"
             style="animation-delay: 0.4s"
           >
-            <UIcon :name="icon" class="mr-2 size-4" />
+            <UIcon :name="icon" class="size-3.5" />
             {{ label }}
           </div>
         </template>
@@ -80,9 +89,8 @@
             {{ description }}
           </span>
         </template>
-        <img :src="imageUrl" :alt="alt" class="w-full rounded-lg" />
+        <img :src="imageUrl" :alt="alt" class="w-full rounded-2xl" />
       </UPageHero>
-      <slot />
     </UContainer>
   </div>
 </template>
