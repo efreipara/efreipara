@@ -1,79 +1,111 @@
 <script setup lang="ts">
-  const { nextEvent, getEventBannerUI, getEventInfoUrl, getEventBannerId, shouldShowEvent } =
-    useNextEvent()
+  import type { ActivityType } from '~/composables/useActivities'
 
+  const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
   const { getIcon } = useEventIcon()
-
-  const bannerId = getEventBannerId()
-
-  // Récupération des icônes depuis la configuration de l'app
   const appConfig = useAppConfig()
 
-  // Vérifier le sessionStorage à chaque initialisation
-  const getInitialClosedState = () => {
-    if (import.meta.client) {
-      return sessionStorage.getItem(`banner-${bannerId}`) === 'true'
-    }
-    return false
-  }
+  const bannerId = computed(() => getEventBannerId())
+  const isBannerClosed = ref(false)
 
-  // Utiliser useState mais toujours vérifier sessionStorage
-  const isBannerClosed = useState(`banner-closed-${bannerId}`, getInitialClosedState)
-
-  // Synchroniser avec sessionStorage au montage
   onMounted(() => {
-    if (import.meta.client) {
-      isBannerClosed.value = sessionStorage.getItem(`banner-${bannerId}`) === 'true'
-    }
+    isBannerClosed.value = sessionStorage.getItem(`banner-${bannerId.value}`) === 'true'
   })
 
-  const showBanner = computed(() => shouldShowEvent() && !isBannerClosed.value)
+  const showBanner = computed(() => !!event.value && shouldShowEvent() && !isBannerClosed.value)
 
-  // Gérer la fermeture de la bannière
   const handleClose = () => {
     isBannerClosed.value = true
     if (import.meta.client) {
-      sessionStorage.setItem(`banner-${bannerId}`, 'true')
+      sessionStorage.setItem(`banner-${bannerId.value}`, 'true')
     }
   }
+
+  const activityCssVar: Record<ActivityType, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
+  }
+
+  const color = computed(
+    () => activityCssVar[event.value?.type as ActivityType] ?? 'var(--ui-primary)',
+  )
+
+  const colorMode = useColorMode()
+  const isDark = computed(() => colorMode.value === 'dark')
+
+  const bannerStyle = computed(() => ({
+    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '18%' : '10%'}, transparent)`,
+    borderBottomColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '35%' : '20%'}, transparent)`,
+  }))
+
+  const iconBoxStyle = computed(() => ({
+    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '30%' : '20%'}, transparent)`,
+  }))
+
+  const iconColorStyle = computed(() => ({
+    color: color.value,
+  }))
 </script>
 
 <template>
   <ClientOnly>
-    <UBanner
-      v-if="showBanner"
-      :id="bannerId"
-      :title="nextEvent.title"
-      :icon="appConfig.efreipara.icons.extras.calendar"
-      :actions="[
-        {
-          label: 'Inscription',
-          to: nextEvent.url,
-          target: '_blank',
-          trailingIcon: appConfig.efreipara.icons.extras.arrowNarrowRight,
-          variant: 'solid',
-        },
-        {
-          label: 'En savoir plus',
-          to: getEventInfoUrl(nextEvent.type),
-          leadingIcon: getIcon(nextEvent.type),
-          variant: 'solid',
-        },
-      ]"
-      :ui="getEventBannerUI(nextEvent.type)"
-      :close="false"
-      :close-icon="appConfig.efreipara.icons.extras.closeCircle"
-      @close="handleClose"
+    <Transition
+      appear
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="-translate-y-full opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="-translate-y-full opacity-0"
     >
-      <template #close>
-        <UButton
-          :icon="appConfig.efreipara.icons.extras.closeCircle"
-          color="neutral"
-          variant="ghost"
-          size="md"
-          @click="handleClose"
-        />
-      </template>
-    </UBanner>
+      <div v-if="showBanner && event" class="border-b" :style="bannerStyle">
+        <UContainer>
+          <div class="flex items-center gap-3 py-2.5">
+            <div
+              class="hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
+              :style="iconBoxStyle"
+            >
+              <UIcon :name="getIcon(event.type)" class="size-4" :style="iconColorStyle" />
+            </div>
+
+            <p class="flex-1 truncate text-sm font-bold">{{ event.title }}</p>
+
+            <div class="flex shrink-0 items-center gap-2">
+              <UButton
+                :to="event.url"
+                target="_blank"
+                size="sm"
+                color="neutral"
+                variant="subtle"
+                :trailing-icon="appConfig.efreipara.icons.extras.arrowNarrowRight"
+                class="cursor-pointer rounded-full"
+              >
+                Inscription
+              </UButton>
+              <UButton
+                :to="getEventInfoUrl(event.type)"
+                size="sm"
+                color="neutral"
+                variant="ghost"
+                :leading-icon="getIcon(event.type)"
+                class="hidden cursor-pointer rounded-full sm:flex"
+              >
+                En savoir plus
+              </UButton>
+              <UButton
+                :icon="appConfig.ui.icons.close"
+                color="neutral"
+                variant="ghost"
+                size="sm"
+                class="cursor-pointer rounded-full"
+                @click="handleClose"
+              />
+            </div>
+          </div>
+        </UContainer>
+      </div>
+    </Transition>
   </ClientOnly>
 </template>
