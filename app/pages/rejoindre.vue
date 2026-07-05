@@ -7,8 +7,19 @@
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  // Tailwind scan: bg-efreipara-tandem/10 bg-efreipara-oa/10 bg-efreipara-soufflerie/10 bg-efreipara-pac/10
-  const iconBg = (colorClass: string) => colorClass.replace('text-', 'bg-') + '/10'
+  const activityCssVar: Record<string, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
+  }
+
+  const colorVar = (colorClass: string) =>
+    activityCssVar[colorClass.replace('text-efreipara-', '')] ?? 'var(--ui-primary)'
+  const colorStyle = (colorClass: string) => ({ color: colorVar(colorClass) })
+  const iconBgStyle = (colorClass: string) => ({
+    backgroundColor: `color-mix(in oklch, ${colorVar(colorClass)} 10%, transparent)`,
+  })
 </script>
 
 <template>
@@ -70,14 +81,19 @@
               <div class="mb-4 flex items-center gap-3">
                 <div
                   class="flex size-12 shrink-0 items-center justify-center rounded-2xl"
-                  :class="iconBg(option.color)"
+                  :style="iconBgStyle(option.color)"
                 >
-                  <UIcon :name="option.icon" :class="option.color" class="size-6" />
+                  <UIcon :name="option.icon" :style="colorStyle(option.color)" class="size-6" />
                 </div>
-                <h3 class="text-2xl font-bold" :class="option.color">{{ option.title }}</h3>
+                <h3 class="text-2xl font-bold" :style="colorStyle(option.color)">
+                  {{ option.title }}
+                </h3>
               </div>
               <p class="text-muted mb-8 flex-1">{{ option.description }}</p>
-              <div class="flex items-center gap-1.5 font-semibold" :class="option.color">
+              <div
+                class="flex items-center gap-1.5 font-semibold"
+                :style="colorStyle(option.color)"
+              >
                 <span>{{ option.linkText }}</span>
                 <UIcon
                   :name="appConfig.ui.icons.external"
@@ -102,9 +118,9 @@
           >
             <div
               class="mb-5 flex size-14 items-center justify-center rounded-2xl"
-              :class="iconBg(feature.class)"
+              :style="iconBgStyle(feature.class)"
             >
-              <UIcon :name="feature.icon" :class="feature.class" class="size-7" />
+              <UIcon :name="feature.icon" :style="colorStyle(feature.class)" class="size-7" />
             </div>
             <h3 class="mb-2 font-bold">{{ feature.title }}</h3>
             <p class="text-muted text-sm">{{ feature.description }}</p>

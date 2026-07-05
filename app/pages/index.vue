@@ -3,13 +3,11 @@
   import DOMPurify from 'isomorphic-dompurify'
 
   const { getIcon } = useEventIcon()
-  const { getColor } = useActivityColor()
+
   const { partners } = await usePartners()
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
-
-  const activityText = (type: string) => `text-${getColor(type as ActivityType)}`
 
   const activityCssVar: Record<string, string> = {
     oa: 'var(--color-efreipara-oa)',
@@ -102,7 +100,7 @@
               >
                 <UIcon
                   :name="getIcon(item.type as ActivityType)"
-                  :class="activityText(item.type)"
+                  :style="{ color: activityCssVar[item.type] }"
                   class="size-6"
                 />
               </div>
@@ -148,7 +146,11 @@
                 class="mb-5 flex size-14 items-center justify-center rounded-2xl"
                 :style="activityBgStyle(item.type)"
               >
-                <UIcon :name="item.icon" :class="activityText(item.type)" class="size-7" />
+                <UIcon
+                  :name="item.icon"
+                  :style="{ color: activityCssVar[item.type] }"
+                  class="size-7"
+                />
               </div>
               <h3 class="mb-2 font-bold">{{ item.title }}</h3>
               <p class="text-muted text-sm">{{ item.description }}</p>
