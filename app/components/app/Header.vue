@@ -8,7 +8,23 @@
   // Récupération des données des réseaux sociaux et des fonctions utilitaires
   const { socials, getSocialIcon } = useSocials()
   const { getIcon } = useEventIcon()
-  const { getColor } = useActivityColor()
+
+  const activityCssVar: Record<string, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
+  }
+
+  const hoveredMenuItem = ref<string | null>(null)
+  const activityMenuItemStyle = (slot: string) =>
+    hoveredMenuItem.value === slot
+      ? {
+          backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 12%, transparent)`,
+          transition: 'background-color 0.2s',
+        }
+      : { transition: 'background-color 0.2s' }
+
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
   const accessibilityItems = computed(() => [
@@ -124,11 +140,15 @@
               v-for="child in (item as any).children"
               :key="child.label"
               :to="child.to"
-              class="group hover:bg-elevated/50 flex items-start gap-2 rounded-md p-3 transition-colors"
+              class="group flex items-start gap-2 rounded-md p-3"
+              :style="activityMenuItemStyle(child.slot)"
+              @mouseenter="hoveredMenuItem = child.slot"
+              @mouseleave="hoveredMenuItem = null"
             >
               <Icon
                 :name="getIcon(child.slot as ActivityType)"
-                :class="`text-${getColor(child.slot as ActivityType)} size-5 shrink-0`"
+                :style="{ color: activityCssVar[child.slot] }"
+                class="size-5 shrink-0"
               />
               <div class="min-w-0 flex-1">
                 <p
@@ -222,16 +242,16 @@
         }"
       >
         <template #oa-leading>
-          <Icon :name="getIcon('oa')" :class="`text-${getColor('oa')}`" />
+          <Icon :name="getIcon('oa')" :style="{ color: activityCssVar['oa'] }" />
         </template>
         <template #tandem-leading>
-          <Icon :name="getIcon('tandem')" :class="`text-${getColor('tandem')}`" />
+          <Icon :name="getIcon('tandem')" :style="{ color: activityCssVar['tandem'] }" />
         </template>
         <template #soufflerie-leading>
-          <Icon :name="getIcon('soufflerie')" :class="`text-${getColor('soufflerie')}`" />
+          <Icon :name="getIcon('soufflerie')" :style="{ color: activityCssVar['soufflerie'] }" />
         </template>
         <template #pac-leading>
-          <Icon :name="getIcon('pac')" :class="`text-${getColor('pac')}`" />
+          <Icon :name="getIcon('pac')" :style="{ color: activityCssVar['pac'] }" />
         </template>
       </UNavigationMenu>
       <div class="mt-2 flex items-center gap-1 border-t pt-2">
