@@ -1,90 +1,29 @@
 <script setup lang="ts">
-  // Récupération des données des réseaux sociaux
   const { socials } = useSocials()
+  const { activitiesIndex, activities, footerPages, footerLegal, footerTitles } =
+    await useNavigation()
 
-  // Organisation du footer en 4 colonnes : Activités, Club, Réseaux, Légal
-  const columns = [
+  const columns = computed(() => [
     {
-      label: 'Activités',
+      label: footerTitles.value.activities,
       children: [
-        {
-          label: 'Nos activités',
-          to: '/activites',
-        },
-        {
-          label: 'Saut en OA',
-          to: '/activites/oa',
-        },
-        {
-          label: 'Saut en Tandem',
-          to: '/activites/tandem',
-        },
-        {
-          label: 'Soufflerie',
-          to: '/activites/soufflerie',
-        },
-        {
-          label: 'PAC',
-          to: '/activites/pac',
-        },
+        { label: activitiesIndex.value!.label, to: activitiesIndex.value!.to },
+        ...activities.value.map((a) => ({ label: a.label, to: a.to })),
       ],
     },
     {
-      label: 'Club',
-      children: [
-        {
-          label: 'À propos',
-          to: '/about',
-        },
-        {
-          label: 'Documents',
-          to: '/documents',
-        },
-        {
-          label: 'Galerie',
-          to: '/galerie',
-        },
-        {
-          label: 'Nous contacter',
-          to: '/contact',
-        },
-        {
-          label: 'FAQ',
-          to: '/faq',
-        },
-      ],
+      label: footerTitles.value.club,
+      children: footerPages.value.map((p) => ({ label: p.label, to: p.to })),
     },
     {
-      label: 'Réseaux',
-      children: socials.map((social) => ({
-        label: social.name,
-        to: social.url,
-        target: '_blank',
-      })),
+      label: footerTitles.value.social,
+      children: socials.map((s) => ({ label: s.name, to: s.url, target: '_blank' })),
     },
     {
-      label: 'Légal',
-      children: [
-        {
-          label: 'Mentions légales',
-          to: '/mentions-legales',
-        },
-        {
-          label: 'Règlement',
-          to: '/reglement',
-        },
-        {
-          label: 'RGPD',
-          to: '/rgpd',
-        },
-        {
-          label: 'Statut du site',
-          to: 'https://status.efreipara.fr',
-          target: '_blank',
-        },
-      ],
+      label: footerTitles.value.legal,
+      children: footerLegal.value.map((l) => ({ label: l.label, to: l.to, target: l.target })),
     },
-  ]
+  ])
 </script>
 
 <template>

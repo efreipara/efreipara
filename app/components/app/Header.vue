@@ -6,6 +6,7 @@
 
   const { socials, getSocialIcon } = useSocials()
   const { getIcon } = useEventIcon()
+  const { accessibility, activitiesIndex, activities, headerLinks } = await useNavigation()
 
   const activityCssVar: Record<string, string> = {
     oa: 'var(--color-efreipara-oa)',
@@ -36,94 +37,44 @@
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
+  type AccessibilityKey = Parameters<typeof toggle>[0]
+  const accessibilityClass: Record<string, string> = {
+    dyslexic: 'cursor-pointer font-open-dyslexic',
+    highContrast: 'cursor-pointer',
+  }
+
   const accessibilityItems = computed(() => [
-    [
-      {
-        label: 'Police dyslexique',
-        icon: 'tabler:typography',
-        type: 'checkbox' as const,
-        checked: features.value.dyslexic,
-        onUpdateChecked: () => toggle('dyslexic'),
-        onSelect: (e: Event) => e.preventDefault(),
-        class: 'cursor-pointer font-open-dyslexic',
-      },
-      {
-        label: 'Contraste élevé',
-        icon: 'tabler:contrast',
-        type: 'checkbox' as const,
-        checked: features.value.highContrast,
-        onUpdateChecked: () => toggle('highContrast'),
-        onSelect: (e: Event) => e.preventDefault(),
-        class: 'cursor-pointer',
-      },
-    ],
+    accessibility.value.map((item) => ({
+      label: item.label,
+      icon: item.icon,
+      type: 'checkbox' as const,
+      checked: features.value[item.key as AccessibilityKey],
+      onUpdateChecked: () => toggle(item.key as AccessibilityKey),
+      onSelect: (e: Event) => e.preventDefault(),
+      class: accessibilityClass[item.key] ?? 'cursor-pointer',
+    })),
   ])
   const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
   const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
 
-  const activities = [
+  const baseItems = computed<NavigationMenuItem[]>(() => [
     {
-      slot: 'oa',
-      label: 'Saut en OA',
-      description: 'Saut solo en ouverture automatique',
-      to: '/activites/oa',
-    },
-    {
-      slot: 'tandem',
-      label: 'Saut en Tandem',
-      description: 'Découverte avec un moniteur',
-      to: '/activites/tandem',
-    },
-    {
-      slot: 'soufflerie',
-      label: 'Soufflerie',
-      description: 'Chute libre en tunnel de vent',
-      to: '/activites/soufflerie',
-    },
-    {
-      slot: 'pac',
-      label: 'PAC',
-      description: 'Progression Accompagnée en Chute',
-      to: '/activites/pac',
-    },
-  ]
-
-  const otherLinks = [
-    {
-      label: 'Documents',
-      to: '/documents',
-      icon: appConfig.efreipara.icons.navigation.document,
-    },
-    {
-      label: 'Galerie',
-      to: '/galerie',
-      icon: appConfig.efreipara.icons.navigation.galerie,
-    },
-    {
-      label: 'Nous rejoindre',
-      to: '/rejoindre',
-      icon: appConfig.efreipara.icons.rejoindre.rejoindre,
-    },
-  ]
-
-  const baseItems = [
-    {
-      label: 'Nos activités',
-      to: '/activites',
-      icon: getIcon('oa'),
+      label: activitiesIndex.value.label,
+      to: activitiesIndex.value.to,
+      icon: activitiesIndex.value.icon,
       defaultOpen: true,
       slot: 'activities',
-      children: activities.map((a) => ({
+      children: activities.value.map((a) => ({
         label: a.label,
         description: a.description,
         to: a.to,
         slot: a.slot,
       })),
     },
-    ...otherLinks,
-  ]
+    ...headerLinks.value,
+  ])
 
-  const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
+  const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems.value])
 </script>
 
 <template>
@@ -251,11 +202,11 @@
       <div class="flex flex-col">
         <!-- Activités -->
         <NuxtLink
-          to="/activites"
+          :to="activitiesIndex.to"
           class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
         >
-          <Icon :name="getIcon('oa')" class="text-muted size-5 shrink-0" />
-          <span class="flex-1 text-sm font-medium">Nos activités</span>
+          <Icon :name="activitiesIndex.icon" class="text-muted size-5 shrink-0" />
+          <span class="flex-1 text-sm font-medium">{{ activitiesIndex.label }}</span>
           <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />
         </NuxtLink>
         <div class="border-default mb-1 ml-4 border-l pl-2">
@@ -286,12 +237,12 @@
         <!-- Autres pages -->
         <div>
           <NuxtLink
-            v-for="link in otherLinks"
+            v-for="link in headerLinks"
             :key="link.label"
             :to="link.to"
             class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
           >
-            <Icon :name="link.icon" class="text-muted size-5 shrink-0" />
+            <Icon :name="link.icon ?? ''" class="text-muted size-5 shrink-0" />
             <span class="flex-1 text-sm font-medium">{{ link.label }}</span>
             <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />
           </NuxtLink>

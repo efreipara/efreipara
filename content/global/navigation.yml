@@ -1,0 +1,67 @@
+activitiesIndex:
+  label: Nos activités
+  to: /activites
+  icon: tabler:parachute
+
+activities:
+  - slot: oa
+    label: Saut en OA
+    description: Saut solo en ouverture automatique
+    to: /activites/oa
+  - slot: tandem
+    label: Saut en Tandem
+    description: Découverte avec un moniteur
+    to: /activites/tandem
+  - slot: soufflerie
+    label: Soufflerie
+    description: Chute libre en tunnel de vent
+    to: /activites/soufflerie
+  - slot: pac
+    label: PAC
+    description: Progression Accompagnée en Chute
+    to: /activites/pac
+
+pages:
+  - label: À propos
+    to: /about
+  - label: Documents
+    to: /documents
+    icon: tabler:file-description
+    header: 1
+  - label: Galerie
+    to: /galerie
+    icon: tabler:camera
+    header: 2
+  - label: Nous rejoindre
+    to: /rejoindre
+    icon: tabler:user-plus
+    header: 3
+  - label: Nous contacter
+    to: /contact
+  - label: FAQ
+    to: /faq
+
+accessibility:
+  - key: dyslexic
+    label: Police dyslexique
+    icon: tabler:typography
+  - key: highContrast
+    label: Contraste élevé
+    icon: tabler:contrast
+
+footer:
+  activities: Activités
+  club: Club
+  social: Réseaux
+  legal: Légal
+
+legal:
+  - label: Mentions légales
+    to: /mentions-legales
+  - label: Règlement
+    to: /reglement
+  - label: RGPD
+    to: /rgpd
+  - label: Statut du site
+    to: https://status.efreipara.fr
+    target: _blank

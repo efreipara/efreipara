@@ -322,6 +322,53 @@ export default defineContentConfig({
         }),
       }),
     }),
+    navigation: defineCollection({
+      type: 'data',
+      source: 'global/navigation.yml',
+      schema: z.object({
+        accessibility: z.array(
+          z.object({
+            key: z.string(),
+            label: z.string(),
+            icon: z.string(),
+          }),
+        ),
+        activitiesIndex: z.object({
+          label: z.string(),
+          to: z.string(),
+          icon: z.string(),
+        }),
+        activities: z.array(
+          z.object({
+            slot: z.enum(['oa', 'tandem', 'soufflerie', 'pac']),
+            label: z.string(),
+            description: z.string(),
+            to: z.string(),
+          }),
+        ),
+        pages: z.array(
+          z.object({
+            label: z.string(),
+            to: z.string(),
+            icon: z.string().optional(),
+            header: z.number().optional(),
+          }),
+        ),
+        footer: z.object({
+          activities: z.string(),
+          club: z.string(),
+          social: z.string(),
+          legal: z.string(),
+        }),
+        legal: z.array(
+          z.object({
+            label: z.string(),
+            to: z.string(),
+            target: z.string().optional(),
+          }),
+        ),
+      }),
+    }),
     seo: defineCollection({
       type: 'data',
       source: 'global/seo.yml',
