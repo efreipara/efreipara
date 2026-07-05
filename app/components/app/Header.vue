@@ -2,10 +2,8 @@
   import type { NavigationMenuItem } from '@nuxt/ui'
   import type { ActivityType } from '~/composables/useActivities'
 
-  // Récupération des icônes depuis la configuration de l'app
   const appConfig = useAppConfig()
 
-  // Récupération des données des réseaux sociaux et des fonctions utilitaires
   const { socials, getSocialIcon } = useSocials()
   const { getIcon } = useEventIcon()
 
@@ -24,6 +22,17 @@
           transition: 'background-color 0.2s',
         }
       : { transition: 'background-color 0.2s' }
+
+  const hoveredMobileCard = ref<string | null>(null)
+  const mobileCardStyle = (slot: string) => ({
+    transition: 'background-color 0.2s',
+    ...(hoveredMobileCard.value === slot
+      ? { backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 12%, transparent)` }
+      : {}),
+  })
+  const mobileCardIconStyle = (slot: string) => ({
+    backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 15%, transparent)`,
+  })
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
@@ -52,41 +61,34 @@
   const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
   const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
 
-  // Items de navigation partagés entre desktop et mobile
-  const baseItems = [
+  const activities = [
     {
-      label: 'Nos activités',
-      to: '/activites',
-      icon: getIcon('oa'),
-      defaultOpen: true,
-      slot: 'activities',
-      children: [
-        {
-          label: 'Saut en OA',
-          description: 'Saut solo en ouverture automatique',
-          to: '/activites/oa',
-          slot: 'oa',
-        },
-        {
-          label: 'Saut en Tandem',
-          description: 'Découverte du parachutisme avec un moniteur',
-          to: '/activites/tandem',
-          slot: 'tandem',
-        },
-        {
-          label: 'Soufflerie',
-          description: 'Expérience de chute libre en soufflerie',
-          to: '/activites/soufflerie',
-          slot: 'soufflerie',
-        },
-        {
-          label: 'PAC',
-          description: 'Progression Accompagnée en Chute',
-          to: '/activites/pac',
-          slot: 'pac',
-        },
-      ],
+      slot: 'oa',
+      label: 'Saut en OA',
+      description: 'Saut solo en ouverture automatique',
+      to: '/activites/oa',
     },
+    {
+      slot: 'tandem',
+      label: 'Saut en Tandem',
+      description: 'Découverte avec un moniteur',
+      to: '/activites/tandem',
+    },
+    {
+      slot: 'soufflerie',
+      label: 'Soufflerie',
+      description: 'Chute libre en tunnel de vent',
+      to: '/activites/soufflerie',
+    },
+    {
+      slot: 'pac',
+      label: 'PAC',
+      description: 'Progression Accompagnée en Chute',
+      to: '/activites/pac',
+    },
+  ]
+
+  const otherLinks = [
     {
       label: 'Documents',
       to: '/documents',
@@ -104,22 +106,34 @@
     },
   ]
 
-  // Menu desktop : sans les réseaux sociaux (rendus séparément en boutons ronds)
-  const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
+  const baseItems = [
+    {
+      label: 'Nos activités',
+      to: '/activites',
+      icon: getIcon('oa'),
+      defaultOpen: true,
+      slot: 'activities',
+      children: activities.map((a) => ({
+        label: a.label,
+        description: a.description,
+        to: a.to,
+        slot: a.slot,
+      })),
+    },
+    ...otherLinks,
+  ]
 
-  // Menu mobile : uniquement les items de navigation de base
-  const itemsMobile = computed<NavigationMenuItem[]>(() => [...baseItems])
+  const itemsDesktop = computed<NavigationMenuItem[]>(() => [...baseItems])
 </script>
 
 <template>
   <UHeader>
-    <!-- Logo Efrei Para -->
     <template #title>
       <Icon name="efreipara:logo" class="text-efreipara ml-2 h-12 w-32 dark:hidden" />
       <Icon name="efreipara:logo-color" class="ml-2 hidden h-12 w-32 dark:block" />
     </template>
 
-    <!-- Navigation desktop avec menu déroulant personnalisé pour les activités -->
+    <!-- Desktop : navigation + actions -->
     <template #right>
       <UNavigationMenu
         :items="itemsDesktop"
@@ -133,7 +147,6 @@
             'text-toned group-hover:text-highlighted group-data-[active=true]:text-highlighted',
         }"
       >
-        <!-- Contenu personnalisé du menu "Nos activités" en grille 2 colonnes -->
         <template #activities-content="{ item }">
           <div class="grid grid-cols-2 gap-1 p-2">
             <ULink
@@ -145,11 +158,16 @@
               @mouseenter="hoveredMenuItem = child.slot"
               @mouseleave="hoveredMenuItem = null"
             >
-              <Icon
-                :name="getIcon(child.slot as ActivityType)"
-                :style="{ color: activityCssVar[child.slot] }"
-                class="size-5 shrink-0"
-              />
+              <div
+                class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg"
+                :style="mobileCardIconStyle(child.slot)"
+              >
+                <Icon
+                  :name="getIcon(child.slot as ActivityType)"
+                  :style="{ color: activityCssVar[child.slot] }"
+                  class="size-4"
+                />
+              </div>
               <div class="min-w-0 flex-1">
                 <p
                   class="text-toned group-hover:text-highlighted text-sm font-medium transition-colors"
@@ -164,6 +182,8 @@
           </div>
         </template>
       </UNavigationMenu>
+
+      <!-- Réseaux sociaux, accessibilité, mode sombre -->
       <div class="hidden items-center gap-1 lg:flex">
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <UButton
@@ -204,7 +224,7 @@
       </div>
     </template>
 
-    <!-- Bouton burger animé vers croix, avec a11y et colormode à côté -->
+    <!-- Mobile : accessibilité, mode sombre, burger -->
     <template #toggle="{ open, toggle: toggleMenu }">
       <div class="flex items-center gap-1 lg:hidden">
         <UDropdownMenu :items="accessibilityItems">
@@ -226,46 +246,71 @@
       </div>
     </template>
 
-    <!-- Navigation mobile avec icônes colorées pour chaque activité -->
+    <!-- Mobile : menu de navigation -->
     <template #body>
-      <UNavigationMenu
-        :items="itemsMobile"
-        orientation="vertical"
-        class="-mx-2.5"
-        :ui="{
-          link: 'text-toned hover:text-highlighted data-[active=true]:text-highlighted',
-          linkLabel:
-            'text-toned group-hover:text-highlighted group-data-[active=true]:text-highlighted',
-          linkLeadingIcon: 'text-toned',
-          childLinkLabel:
-            'text-toned group-hover:text-highlighted group-data-[active=true]:text-highlighted',
-        }"
-      >
-        <template #oa-leading>
-          <Icon :name="getIcon('oa')" :style="{ color: activityCssVar['oa'] }" />
-        </template>
-        <template #tandem-leading>
-          <Icon :name="getIcon('tandem')" :style="{ color: activityCssVar['tandem'] }" />
-        </template>
-        <template #soufflerie-leading>
-          <Icon :name="getIcon('soufflerie')" :style="{ color: activityCssVar['soufflerie'] }" />
-        </template>
-        <template #pac-leading>
-          <Icon :name="getIcon('pac')" :style="{ color: activityCssVar['pac'] }" />
-        </template>
-      </UNavigationMenu>
-      <div class="mt-2 flex items-center gap-1 border-t pt-2">
-        <UButton
-          v-for="social in socials"
-          :key="social.name"
-          :to="social.url"
-          target="_blank"
-          :icon="social.icon"
-          :aria-label="`${social.name} Efrei Para`"
-          color="neutral"
-          variant="ghost"
-          class="rounded-full p-2"
-        />
+      <div class="flex flex-col">
+        <!-- Activités -->
+        <NuxtLink
+          to="/activites"
+          class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
+        >
+          <Icon :name="getIcon('oa')" class="text-muted size-5 shrink-0" />
+          <span class="flex-1 text-sm font-medium">Nos activités</span>
+          <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />
+        </NuxtLink>
+        <div class="border-default mb-1 ml-4 border-l pl-2">
+          <NuxtLink
+            v-for="activity in activities"
+            :key="activity.slot"
+            :to="activity.to"
+            class="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors"
+            :style="mobileCardStyle(activity.slot)"
+            @mouseenter="hoveredMobileCard = activity.slot"
+            @mouseleave="hoveredMobileCard = null"
+          >
+            <div
+              class="flex size-7 shrink-0 items-center justify-center rounded-lg"
+              :style="mobileCardIconStyle(activity.slot)"
+            >
+              <Icon
+                :name="getIcon(activity.slot as ActivityType)"
+                :style="{ color: activityCssVar[activity.slot] }"
+                class="size-3.5"
+              />
+            </div>
+            <span class="flex-1 text-sm font-medium">{{ activity.label }}</span>
+            <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />
+          </NuxtLink>
+        </div>
+
+        <!-- Autres pages -->
+        <div>
+          <NuxtLink
+            v-for="link in otherLinks"
+            :key="link.label"
+            :to="link.to"
+            class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
+          >
+            <Icon :name="link.icon" class="text-muted size-5 shrink-0" />
+            <span class="flex-1 text-sm font-medium">{{ link.label }}</span>
+            <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />
+          </NuxtLink>
+        </div>
+
+        <!-- Réseaux sociaux -->
+        <div class="border-default mt-2 flex items-center gap-1 border-t pt-2">
+          <UButton
+            v-for="social in socials"
+            :key="social.name"
+            :to="social.url"
+            target="_blank"
+            :icon="social.icon"
+            :aria-label="`${social.name} Efrei Para`"
+            color="neutral"
+            variant="ghost"
+            class="rounded-full p-2"
+          />
+        </div>
       </div>
     </template>
   </UHeader>
