@@ -85,7 +85,7 @@
                 >
                   <UIcon :name="option.icon" :style="colorStyle(option.color)" class="size-6" />
                 </div>
-                <h3 class="text-2xl font-bold" :style="colorStyle(option.color)">
+                <h3 class="text-2xl font-extrabold" :style="colorStyle(option.color)">
                   {{ option.title }}
                 </h3>
               </div>
