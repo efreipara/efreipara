@@ -2,8 +2,22 @@
   import type { ActivityType } from '~/composables/useActivities'
 
   const { getIcon } = useEventIcon()
-  const { getColor } = useActivityColor()
   const appConfig = useAppConfig()
+
+  const activityCssVar: Record<string, string> = {
+    oa: 'var(--color-efreipara-oa)',
+    tandem: 'var(--color-efreipara-tandem)',
+    soufflerie: 'var(--color-efreipara-soufflerie)',
+    pac: 'var(--color-efreipara-pac)',
+  }
+
+  const chipActiveStyle = (type: string) => ({
+    backgroundColor: activityCssVar[type],
+    color: 'white',
+  })
+  const chipIconStyle = (type: string, isActive: boolean) => ({
+    color: isActive ? 'white' : activityCssVar[type],
+  })
 
   const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
 
@@ -63,16 +77,17 @@
           :key="type"
           class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
           :class="
-            activeFilter === type
-              ? 'bg-primary text-white'
-              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
+            activeFilter !== type
+              ? 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
+              : ''
           "
+          :style="activeFilter === type ? chipActiveStyle(type) : {}"
           @click="activeFilter = activeFilter === type ? null : type"
         >
           <UIcon
             :name="getIcon(type as ActivityType)"
             class="size-4"
-            :class="activeFilter === type ? 'text-white' : `text-${getColor(type as ActivityType)}`"
+            :style="chipIconStyle(type, activeFilter === type)"
           />
           {{ typeLabel[type] ?? type }}
         </button>
@@ -109,7 +124,7 @@
             >
               <UIcon
                 :name="getIcon(heroItem.type as ActivityType)"
-                :class="`text-${getColor(heroItem.type as ActivityType)}`"
+                :style="{ color: activityCssVar[heroItem.type as ActivityType] }"
                 class="size-3.5"
               />
               {{ typeLabel[heroItem.type] ?? heroItem.type }}
@@ -173,7 +188,7 @@
             >
               <UIcon
                 :name="getIcon(galerie.type as ActivityType)"
-                :class="`text-${getColor(galerie.type as ActivityType)}`"
+                :style="{ color: activityCssVar[galerie.type as ActivityType] }"
                 class="size-3.5"
               />
               {{ typeLabel[galerie.type] ?? galerie.type }}
