@@ -104,6 +104,22 @@ export default defineContentConfig({
         description: z.string(),
         label: z.string(),
         alt: z.string(),
+        imageCount: z.number().int().min(0).optional(),
+        intro: z.array(z.string()).optional(),
+        features: z
+          .array(z.object({ title: z.string(), description: z.string(), icon: z.string() }))
+          .optional(),
+        stats: z
+          .array(z.object({ value: z.string(), label: z.string(), icon: z.string() }))
+          .optional(),
+        steps: z
+          .array(z.object({ title: z.string(), description: z.string(), icon: z.string() }))
+          .optional(),
+        requirements: z
+          .array(
+            z.object({ icon: z.string(), label: z.string(), description: z.string().optional() }),
+          )
+          .optional(),
       }),
     }),
     legal: defineCollection({
