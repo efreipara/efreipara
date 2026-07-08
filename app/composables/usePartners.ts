@@ -21,11 +21,7 @@ export const usePartners = async () => {
   const partners = computed(() => data.value?.items ?? [])
 
   const getPartnersByActivity = (activity: ActivityType) => {
-    return partners.value.filter((partner) => {
-      if (partner.activites === undefined) return true
-      if (partner.activites.length === 0) return false
-      return partner.activites.includes(activity)
-    })
+    return partners.value.filter((partner) => partner.activites?.includes(activity) ?? false)
   }
 
   return { partners, getPartnersByActivity }
