@@ -13,7 +13,7 @@
   const images = computed(() =>
     Array.from({ length: props.imageCount }, (_, i) => ({
       index: i + 1,
-      url: buildCdnUrl(`${props.activite}-${i + 1}.jpg`),
+      url: buildCdnUrl(`${props.activite}/${props.activite}-${i + 1}.jpg`),
     })).filter((img) => !failedUrls.value.has(img.url)),
   )
 
