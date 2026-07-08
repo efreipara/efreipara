@@ -18,13 +18,22 @@
       :label="page.label"
       :alt="page.alt"
     />
-    <div class="my-12 text-center">
-      <UIcon name="tabler:traffic-cone" class="size-10 text-gray-500" />
-      <p class="text-lg text-gray-500">Page en construction</p>
-      <UButton :to="`/activites`" class="mt-6 rounded-full" color="neutral" variant="solid">
-        Voir nos activités
-      </UButton>
-    </div>
+    <ActiviteStats v-if="page?.stats?.length" :activite="activite" :stats="page.stats" />
+    <ActiviteIntro v-if="page?.intro?.length" :activite="activite" :paragraphs="page.intro" />
+    <ActiviteCarousel v-if="page?.imageCount" :activite="activite" :image-count="page.imageCount" />
+    <ActiviteFeatures
+      v-if="page?.features?.length"
+      :activite="activite"
+      :label="page.label"
+      :features="page.features"
+    />
+    <ActiviteSteps v-if="page?.steps?.length" :activite="activite" :steps="page.steps" />
+    <ActiviteRequirements
+      v-if="page?.requirements?.length"
+      :activite="activite"
+      :requirements="page.requirements"
+    />
+    <ActivitePartners :activite="activite" />
     <SharedCallToAction />
   </div>
 </template>
