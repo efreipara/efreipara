@@ -21,9 +21,14 @@
 
     const x = event.clientX
     const y = event.clientY
-    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    )
 
-    const transition = (document as Document & { startViewTransition: (cb: () => void) => { ready: Promise<void> } }).startViewTransition(() => {
+    const transition = (
+      document as Document & { startViewTransition: (cb: () => void) => { ready: Promise<void> } }
+    ).startViewTransition(() => {
       isDark.value = !isDark.value
     })
 
