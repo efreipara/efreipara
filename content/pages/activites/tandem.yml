@@ -2,3 +2,83 @@ title: Saut en Tandem
 description: Faites votre premier saut en parachute ! Vivez 50 secondes de chute libre à 4000m d’altitude, attaché à un moniteur professionnel. Aucune expérience requise.
 label: Tandem
 alt: Saut en tandem avec Efrei Para
+imageCount: 0
+
+features:
+  - title: Saut à 4 000 m
+    description: Panorama exceptionnel depuis l’avion et chute libre longue — le vrai tandem, en hauteur.
+    icon: tabler:mountain
+  - title: Rush à 200 km/h
+    description: Une accélération fulgurante en quelques secondes — intense, magique et inoubliable.
+    icon: tabler:gauge
+  - title: Encadrement total
+    description: Ton moniteur gère tout du début à la fin — tu n’as qu’à profiter de l’expérience.
+    icon: tabler:user-check
+  - title: 0 prérequis
+    description: Idéal pour une première expérience sans stress ni formation préalable.
+    icon: tabler:mood-happy
+
+intro:
+  - |-
+    Le tandem, c’est la manière la plus spectaculaire et accessible de découvrir la <b class="text-highlighted">chute libre</b>.
+  - |-
+    Attaché·e à un·e moniteur·rice professionnel·le, tu montes à <b class="text-highlighted">4 000 mètres</b>, tu sautes sans préparation technique, et tu profites d’une <b class="text-highlighted">cinquantaine de secondes de chute libre</b> avant d’ouvrir sous voile.
+  - |-
+    Une journée complète, intense, conviviale… et inoubliable.
+
+stats:
+  - value: '4 000m'
+    label: Altitude de saut
+    icon: tabler:mountain
+  - value: '1 journée'
+    label: Durée totale
+    icon: tabler:calendar
+  - value: '~50s'
+    label: De chute libre
+    icon: tabler:wind
+  - value: '200km/h'
+    label: Vitesse en chute libre
+    icon: tabler:gauge
+
+steps:
+  - title: Départ et covoiturage organisé
+    description: Départ le matin depuis l’Efrei en groupes organisés — répartition des places en voiture, ambiance conviviale dès le trajet.
+    icon: tabler:car
+  - title: Arrivée sur place & briefing
+    description: Accueil, enregistrement, mini-briefing sécurité, démonstration de position et équipement avec le harnais.
+    icon: tabler:clipboard-list
+  - title: Planning des passages
+    description: Selon le nombre d’étudiants inscrits, plusieurs groupes successifs sont définis. Tu peux voir les autres sauter avant ton tour.
+    icon: tabler:clock
+  - title: Montée en avion — direction 4 000 m
+    description: 10 à 15 minutes d’ascension avec vue imprenable. Dernière vérification du harnais. Le moment où tout devient réel.
+    icon: tabler:plane-tilt
+  - title: Chute libre — 50 secondes à 200 km/h
+    description: Tu quittes l’avion et tout s’accélère — 200 km/h en quelques secondes, une sensation de flotter dans le vide que tu n’oublieras jamais.
+    icon: tabler:wind
+  - title: Ouverture & descente sous voile
+    description: À ~1 500 m, le parachute s’ouvre. Retour au calme, vue panoramique et vol doux jusqu’en bas.
+    icon: tabler:parachute
+  - title: Atterrissage & déjeuner prévu
+    description: Récupération du matériel, déjeuner prévu pour tous les participants, débriefing du saut et photos/vidéos à chaud.
+    icon: tabler:tools-kitchen-2
+  - title: Animations
+    description: Selon les associations présentes — musique, mini-activités, challenges — pour renforcer l’expérience de groupe.
+    icon: tabler:confetti
+  - title: Retour vers Paris
+    description: Fin d’après-midi, retour en covoiturage avec les récits épiques du jour et l’impression d’avoir vécu un moment hors du temps.
+    icon: tabler:home
+
+requirements:
+  - icon: tabler:user
+    label: 15 ans minimum (autorisation parentale si mineur)
+  - icon: tabler:weight
+    label: Poids inférieur à 100 kg
+  - icon: tabler:heart-rate-monitor
+    label: Certificat médical recommandé — pas de contre-indication sérieuse
+  - icon: tabler:cloud
+    label: Sauts soumis aux conditions météo — report possible si vent défavorable
+  - icon: tabler:shirt
+    label: Tenue confortable, baskets, polaire ou coupe-vent selon la saison
+  - icon: tabler:id-badge
+    label: Pièce d’identité au cas où
