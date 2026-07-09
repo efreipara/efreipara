@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "isomorphic-dompurify": "^3.18.0",
-    "marked": "^18.0.5",
+    "marked": "^18.0.6",
     "vue": "^3.5.39",
     "vue-router": "^5.1.0"
   },
@@ -30,13 +30,13 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.9.0",
     "@nuxtjs/plausible": "^3.0.2",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "eslint": "^10.6.0",
     "nuxt": "^4.4.8",
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "tailwindcss": "^4.3.2",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "unist-util-visit": "^5.1.0"
   }
 }
