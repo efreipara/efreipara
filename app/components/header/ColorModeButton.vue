@@ -78,4 +78,9 @@
   ::view-transition-old(root) {
     z-index: 1;
   }
+
+  ::view-transition-old(home-hero),
+  ::view-transition-new(home-hero) {
+    animation: none;
+  }
 </style>

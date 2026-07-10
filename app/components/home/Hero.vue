@@ -12,6 +12,7 @@
   <UCard
     variant="subtle"
     class="main-hero-card relative overflow-hidden rounded-none p-0"
+    style="view-transition-name: home-hero"
     :ui="{
       body: 'p-0 sm:p-0',
     }"
