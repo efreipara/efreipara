@@ -50,7 +50,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       cdnUrl: process.env.CDN_URL || '',
-      cdnDevToken: process.env.CDN_DEV_TOKEN || '',
+      cdnDevToken: process.env.NODE_ENV === 'development' ? process.env.CDN_DEV_TOKEN || '' : '',
       plausibleUrl: process.env.PLAUSIBLE_URL || '',
     },
   },
