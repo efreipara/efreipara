@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import DOMPurify from 'isomorphic-dompurify'
   import type { ActivityType } from '~/composables/useActivities'
 
   defineProps<{
@@ -22,7 +23,7 @@
         :key="i"
         :style="{ '--activity-color': activityCssVar[activite] }"
         class="[&_b]:font-semibold"
-        v-html="paragraph"
+        v-html="DOMPurify.sanitize(paragraph)"
       />
     </div>
   </UContainer>
