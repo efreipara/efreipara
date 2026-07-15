@@ -4,10 +4,6 @@ activitiesIndex:
   icon: tabler:parachute
 
 activities:
-  - slot: oa
-    label: Saut en OA
-    description: Saut solo en ouverture automatique
-    to: /activites/oa
   - slot: tandem
     label: Saut en Tandem
     description: Découverte avec un moniteur
@@ -20,6 +16,10 @@ activities:
     label: PAC
     description: Progression Accompagnée en Chute
     to: /activites/pac
+  - slot: oa
+    label: Saut en OA
+    description: Saut solo en ouverture automatique
+    to: /activites/oa
 
 pages:
   - label: À propos

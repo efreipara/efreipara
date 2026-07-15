@@ -79,9 +79,6 @@ categories:
         answer: Nous proposons plusieurs activités selon ton niveau. Pour débuter, il y a les sauts en ouverture automatique (OA) et les tandems. Pour progresser, nous offrons la progression autonome chute libre (PAC) et des séances en soufflerie. Toutes nos activités sont encadrées par des professionnels diplômés.
         icon: tabler:plane-tilt
         buttons:
-          - label: Sauts OA
-            to: /activites/oa
-            icon: tabler:parachute
           - label: Sauts Tandem
             to: /activites/tandem
             icon: tabler:users
@@ -91,6 +88,9 @@ categories:
           - label: PAC
             to: /activites/pac
             icon: tabler:medal-2
+          - label: Sauts OA
+            to: /activites/oa
+            icon: tabler:parachute
 
       - question: Comment se déroule un premier saut ?
         answer: Pour ton premier saut, nous recommandons l’ouverture automatique (OA). Tu suivras d’abord un briefing théorique complet, puis l’équipement et la préparation au sol. Ensuite, direction l’avion pour le grand saut ! Ton parachute s’ouvrira automatiquement et tu piloteras jusqu’au sol sous les consignes radio de l’instructeur.

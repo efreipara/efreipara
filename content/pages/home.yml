@@ -25,12 +25,6 @@ stats:
 
 activites:
   items:
-    - title: Sauts en ouverture automatique (OA)
-      description: >-
-        Découvre le saut "vrai de vrai" : briefing, équipement, sortie d’avion
-        avec ouverture automatique. Accessible et encadré.
-      type: oa
-      to: /activites/oa
     - title: Sauts en tandem
       description: >-
         Avec un professionnel expérimenté, profite d’une expérience inoubliable
@@ -49,6 +43,12 @@ activites:
         l’autonomie en chute libre.
       type: pac
       to: /activites/pac
+    - title: Sauts en ouverture automatique (OA)
+      description: >-
+        Découvre le saut "vrai de vrai" : briefing, équipement, sortie d’avion
+        avec ouverture automatique. Accessible et encadré.
+      type: oa
+      to: /activites/oa
   link:
     label: Découvrir toutes nos activités en détail
     to: /activites

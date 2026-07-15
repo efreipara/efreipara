@@ -3,26 +3,6 @@ hero:
   description: Découvrez les sensations uniques du parachutisme avec Efrei Para
 
 sections:
-  - type: oa
-    title: Saut en ouverture automatique (OA)
-    description: Ton premier vrai saut en parachute - intense, encadré, inoubliable.
-    alt: Saut en ouverture automatique (OA) avec Efrei Para
-    features:
-      - title: Encadrement professionnel
-        description: Instructeurs diplômés et procédures standardisées pour un saut sûr et fluide.
-        icon: tabler:user-check
-      - title: Sensations garanties
-        description: 'La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous.'
-        icon: tabler:parachute
-      - title: Briefing complet
-        description: 'Tout est expliqué avant le saut : position, sécurité, gestes essentiels.'
-        icon: tabler:book
-      - title: Accessible à tous
-        description: Pas besoin d’expérience - juste l’envie de découvrir le ciel.
-        icon: tabler:mood-happy
-    link:
-      label: Découvrir le saut en OA
-
   - type: tandem
     title: Sauts en tandem
     description: L’expérience ultime - un saut avec 50 secondes de chute libre avec un.e pro.
@@ -82,3 +62,23 @@ sections:
         icon: tabler:stairs
     link:
       label: Découvrir la formation PAC
+
+  - type: oa
+    title: Saut en ouverture automatique (OA)
+    description: Ton premier vrai saut en parachute - intense, encadré, inoubliable.
+    alt: Saut en ouverture automatique (OA) avec Efrei Para
+    features:
+      - title: Encadrement professionnel
+        description: Instructeurs diplômés et procédures standardisées pour un saut sûr et fluide.
+        icon: tabler:user-check
+      - title: Sensations garanties
+        description: 'La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous.'
+        icon: tabler:parachute
+      - title: Briefing complet
+        description: 'Tout est expliqué avant le saut : position, sécurité, gestes essentiels.'
+        icon: tabler:book
+      - title: Accessible à tous
+        description: Pas besoin d’expérience - juste l’envie de découvrir le ciel.
+        icon: tabler:mood-happy
+    link:
+      label: Découvrir le saut en OA
