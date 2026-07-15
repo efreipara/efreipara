@@ -91,6 +91,17 @@ export default defineNuxtConfig({
 
   // Collections d'icônes personnalisées (Efrei Para, Efrei, Creative Commons, Logos partenaires)
   icon: {
+    // Toutes les icônes doivent donc être embarquées dans le bundle client au build.
+    fallbackToApi: false,
+    clientBundle: {
+      // Le scanner par défaut ne lit que les templates : ajouter les YAML de contenu
+      // et les .ts (app.config.ts) où les icônes sont déclarées en chaînes
+      scan: {
+        globInclude: ['app/**/*.{vue,ts}', 'content/**/*.{yml,md}'],
+      },
+      includeCustomCollections: true,
+      sizeLimitKb: 512,
+    },
     customCollections: [
       {
         prefix: 'efreipara',
