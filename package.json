@@ -16,8 +16,8 @@
   "dependencies": {
     "isomorphic-dompurify": "^3.18.0",
     "marked": "^18.0.6",
-    "vue": "^3.5.39",
-    "vue-router": "^5.1.0"
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "@iconify-json/simple-icons": "^1.2.90",
@@ -28,14 +28,14 @@
     "@nuxt/fonts": "^0.14.0",
     "@nuxt/icon": "^2.3.1",
     "@nuxt/image": "^2.0.0",
-    "@nuxt/ui": "^4.9.0",
+    "@nuxt/ui": "^4.10.0",
     "@nuxtjs/plausible": "^3.0.2",
     "@types/node": "^26.1.1",
     "eslint": "^10.7.0",
     "nuxt": "^4.4.8",
     "prettier": "^3.9.5",
-    "prettier-plugin-tailwindcss": "^0.8.0",
-    "tailwindcss": "^4.3.2",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "unist-util-visit": "^5.1.0"
   }
