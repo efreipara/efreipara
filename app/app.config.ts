@@ -55,22 +55,6 @@ export default defineAppConfig({
       upload: 'tabler:upload',
       warning: 'tabler:alert-triangle',
     },
-    footerColumns: {
-      slots: {
-        root: 'lg:grid lg:grid-cols-2 lg:gap-8 xl:grid-cols-2 xl:gap-8',
-        left: 'mb-10 lg:mb-0',
-        center:
-          'flex flex-col md:grid grid-flow-col auto-cols-fr gap-8 md:col-span-2 lg:col-span-2 text-center md:text-left',
-        right: 'mt-10 lg:mt-0',
-        label: 'text-sm font-semibold',
-        list: 'mt-6 space-y-4',
-        item: 'relative',
-        link: 'group text-sm flex items-center justify-center md:justify-start gap-1.5 focus-visible:outline-primary',
-        linkLeadingIcon: 'size-5 shrink-0',
-        linkLabel: 'truncate',
-        linkLabelExternalIcon: 'size-3 absolute top-0 text-dimmed inline-block',
-      },
-    },
   },
 
   efreipara: {
