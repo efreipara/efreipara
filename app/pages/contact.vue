@@ -26,7 +26,7 @@
             </div>
           </div>
           <UButton
-            :to="contact.url"
+            :to="`mailto:${contact.email}`"
             :icon="appConfig.efreipara.icons.contact.email"
             color="primary"
             class="shrink-0 rounded-full"
@@ -137,7 +137,7 @@
               {{ page?.support.buttons.github }}
             </UButton>
             <UButton
-              :to="contact.maintainer.url"
+              :to="`mailto:${contact.maintainer.email}`"
               :icon="appConfig.efreipara.icons.contact.support"
               size="sm"
               color="neutral"

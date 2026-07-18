@@ -151,8 +151,7 @@ export default defineAppConfig({
   },
 
   contact: {
-    email: 'contact@efreipara.fr',
-    url: 'mailto:contact@efreipara.fr',
+    email: 'efrei-para@groupe-efrei.net',
     address: 'Efrei, 30-32 Avenue de la République, 94800 Villejuif',
     mapUrls: {
       google:
@@ -162,7 +161,6 @@ export default defineAppConfig({
     },
     maintainer: {
       email: 'support.efreipara@loye.fr',
-      url: 'mailto:support.efreipara@loye.fr',
     },
   },
 })
