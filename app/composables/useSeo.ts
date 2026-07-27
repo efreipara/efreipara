@@ -8,7 +8,7 @@
 
 export const useSeo = (pageKey: MaybeRefOrGetter<string>) => {
   // Récupération des données SEO depuis le fichier seo.yml
-  const { data: seoData, pending } = useAsyncData('seo', () => queryCollection('seo').first())
+  const { data: seoData, status } = useAsyncData('seo', () => queryCollection('seo').first())
 
   // Computed pour les métadonnées (réactif mais exécuté immédiatement en SSR)
   const seoMeta = computed(() => {
@@ -99,5 +99,5 @@ export const useSeo = (pageKey: MaybeRefOrGetter<string>) => {
     ),
   })
 
-  return { pending }
+  return { status }
 }

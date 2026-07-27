@@ -1,6 +1,8 @@
 <script setup lang="ts">
   const route = useRoute()
-  const showLayout = computed(() => route.meta.layout !== false)
+  // useLayout (Nuxt 4.5) : layout résolu de la route, réactif à la navigation et aux route rules
+  const layout = useLayout()
+  const showLayout = computed(() => layout.value !== false)
 
   const { features, init } = useAccessibility()
   onMounted(init)

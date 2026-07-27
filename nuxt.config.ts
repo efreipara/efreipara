@@ -3,19 +3,24 @@ import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: '2026-07-19',
   ssr: true, // Nuxt content a besoin du SSR
   devtools: { enabled: true },
   vite: {
-    // Minification avec esbuild pour une construction plus rapide et suppression des console.log et debugger
+    // Minification avec Oxc (défaut Vite 8) : suppression des console.log, debugger et commentaires légaux en production
     build: {
-      minify: 'esbuild',
       cssMinify: true,
-    },
-    // Configuration d'esbuild pour supprimer les commentaires légaux et les instructions de débogage en production
-    esbuild: {
-      legalComments: 'none',
-      drop: ['console', 'debugger'],
+      rolldownOptions: {
+        output: {
+          comments: { legal: false },
+          minify: {
+            compress: {
+              dropConsole: true,
+              dropDebugger: true,
+            },
+          },
+        },
+      },
     },
     // Optimisation des dépendances pour éviter les problèmes de compatibilité avec les modules externes
     optimizeDeps: {
