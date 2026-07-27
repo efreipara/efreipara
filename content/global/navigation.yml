@@ -35,11 +35,13 @@ pages:
   - label: Nous rejoindre
     to: /rejoindre
     icon: tabler:user-plus
-    header: 3
+    header: 4
   - label: Nous contacter
     to: /contact
   - label: FAQ
     to: /faq
+    icon: tabler:help
+    header: 3
 
 accessibility:
   - key: dyslexic
