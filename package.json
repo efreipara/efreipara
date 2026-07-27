@@ -24,7 +24,7 @@
     "@unhead/vue": "^3.1.8"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.91",
+    "@iconify-json/simple-icons": "^1.2.92",
     "@iconify-json/tabler": "^1.2.37",
     "@libsql/client": "^0.17.4",
     "@nuxt/content": "^3.15.2",
@@ -34,9 +34,9 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.10.0",
     "@nuxtjs/plausible": "^3.0.2",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "eslint": "^10.8.0",
-    "nuxt": "^4.5.0",
+    "nuxt": "^4.5.1",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
