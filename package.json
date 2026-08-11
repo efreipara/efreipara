@@ -14,9 +14,9 @@
     "docker:build": "export $(cat .env | xargs) && docker build --build-arg CDN_URL --build-arg PLAUSIBLE_URL --build-arg PLAUSIBLE_DOMAIN --build-arg NUXT_PUBLIC_SITE_URL -t efreipara ."
   },
   "dependencies": {
-    "isomorphic-dompurify": "^3.21.0",
-    "marked": "^18.0.7",
-    "vue": "^3.5.40",
+    "isomorphic-dompurify": "^3.22.0",
+    "marked": "^18.0.9",
+    "vue": "^3.5.41",
     "vue-router": "^5.2.0"
   },
   "//": "overrides @unhead/vue : @nuxt/ui 4.10 dépend encore de la v2 alors que Nuxt 4.5 requiert la v3 (build cassé sinon). À retirer quand Nuxt UI publiera une version alignée sur Nuxt 4.5.",
@@ -24,23 +24,23 @@
     "@unhead/vue": "^3.1.8"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.92",
+    "@iconify-json/simple-icons": "^1.2.93",
     "@iconify-json/tabler": "^1.2.38",
     "@libsql/client": "^0.17.4",
     "@nuxt/content": "^3.15.2",
-    "@nuxt/eslint": "^1.16.0",
+    "@nuxt/eslint": "^1.17.0",
     "@nuxt/fonts": "^0.14.0",
-    "@nuxt/icon": "^2.4.1",
+    "@nuxt/icon": "^2.5.0",
     "@nuxt/image": "^2.1.0",
     "@nuxt/ui": "^4.10.0",
-    "@nuxtjs/plausible": "^3.0.2",
-    "@types/node": "^26.1.2",
-    "eslint": "^10.8.0",
-    "nuxt": "^4.5.1",
+    "@nuxtjs/plausible": "^4.0.0",
+    "@types/node": "^26.2.0",
+    "eslint": "^10.8.1",
+    "nuxt": "^4.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "unist-util-visit": "^5.1.0"
   }
 }
