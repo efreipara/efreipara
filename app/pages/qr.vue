@@ -48,7 +48,11 @@
       </div>
       <div class="absolute top-4 right-4 z-20">
         <UButton
-          :icon="isFullscreen ? appConfig.ui.icons.minimize : appConfig.ui.icons.maximize"
+          :icon="
+            isFullscreen
+              ? appConfig.efreipara.icons.extras.minimize
+              : appConfig.efreipara.icons.extras.maximize
+          "
           variant="ghost"
           color="neutral"
           size="sm"

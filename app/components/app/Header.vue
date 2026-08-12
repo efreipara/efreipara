@@ -162,8 +162,8 @@
           <UButton
             :icon="
               hasActiveFeature
-                ? appConfig.ui.icons.accessibilityFilled
-                : appConfig.ui.icons.accessibility
+                ? appConfig.efreipara.icons.extras.accessibilityFilled
+                : appConfig.efreipara.icons.extras.accessibility
             "
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"
@@ -182,8 +182,8 @@
           <UButton
             :icon="
               hasActiveFeature
-                ? appConfig.ui.icons.accessibilityFilled
-                : appConfig.ui.icons.accessibility
+                ? appConfig.efreipara.icons.extras.accessibilityFilled
+                : appConfig.efreipara.icons.extras.accessibility
             "
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"

@@ -51,6 +51,57 @@ export default defineNuxtConfig({
   ],
   css: ['~/assets/css/main.css'],
 
+  // Icônes NuxtUI remplacées par leurs équivalents Tabler
+  appConfig: {
+    ui: {
+      icons: {
+        arrowDown: 'tabler:arrow-down',
+        arrowLeft: 'tabler:arrow-left',
+        arrowRight: 'tabler:arrow-right',
+        arrowUp: 'tabler:arrow-up',
+        caution: 'tabler:alert-square-rounded',
+        check: 'tabler:check',
+        chevronDoubleLeft: 'tabler:chevrons-left',
+        chevronDoubleRight: 'tabler:chevrons-right',
+        chevronDown: 'tabler:chevron-down',
+        chevronLeft: 'tabler:chevron-left',
+        chevronRight: 'tabler:chevron-right',
+        chevronUp: 'tabler:chevron-up',
+        close: 'tabler:x',
+        copy: 'tabler:copy',
+        copyCheck: 'tabler:copy-check',
+        dark: 'tabler:moon',
+        drag: 'tabler:grip-vertical',
+        ellipsis: 'tabler:dots',
+        error: 'tabler:square-rounded-x',
+        external: 'tabler:external-link',
+        eye: 'tabler:eye',
+        eyeOff: 'tabler:eye-off',
+        file: 'tabler:file',
+        folder: 'tabler:folder',
+        folderOpen: 'tabler:folder-open',
+        hash: 'tabler:hash',
+        info: 'tabler:info-square-rounded',
+        light: 'tabler:sun',
+        loading: 'tabler:loader-2',
+        menu: 'tabler:menu-2',
+        minus: 'tabler:minus',
+        panelClose: 'tabler:layout-sidebar-left-collapse',
+        panelOpen: 'tabler:layout-sidebar-left-expand',
+        plus: 'tabler:plus',
+        reload: 'tabler:reload',
+        search: 'tabler:search',
+        star: 'tabler:star',
+        stop: 'tabler:player-stop',
+        success: 'tabler:square-rounded-check',
+        system: 'tabler:device-desktop',
+        tip: 'tabler:bulb',
+        upload: 'tabler:upload',
+        warning: 'tabler:alert-triangle',
+      },
+    },
+  },
+
   // Variables d'environnement accessibles côté client
   runtimeConfig: {
     public: {
@@ -99,10 +150,11 @@ export default defineNuxtConfig({
     // Toutes les icônes doivent donc être embarquées dans le bundle client au build.
     fallbackToApi: false,
     clientBundle: {
-      // Le scanner par défaut ne lit que les templates : ajouter les YAML de contenu
-      // et les .ts (app.config.ts) où les icônes sont déclarées en chaînes
+      // Le scanner par défaut ne lit que les templates : ajouter les YAML de contenu,
+      // les .ts (icônes déclarées en chaînes) et nuxt.config.ts (mapping appConfig.ui.icons —
+      // le hook de Nuxt UI ignore les collections non-lucide, seul le scan les embarque)
       scan: {
-        globInclude: ['app/**/*.{vue,ts}', 'content/**/*.{yml,md}'],
+        globInclude: ['app/**/*.{vue,ts}', 'content/**/*.{yml,md}', 'nuxt.config.ts'],
       },
       includeCustomCollections: true,
       sizeLimitKb: 512,
