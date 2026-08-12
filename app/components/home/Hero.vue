@@ -8,14 +8,10 @@
 </script>
 
 <template>
-  <!-- Card hero pleine hauteur avec vidéo en arrière-plan -->
-  <UCard
-    variant="subtle"
-    class="main-hero-card relative overflow-hidden rounded-none p-0"
+  <!-- Section hero pleine hauteur avec vidéo en arrière-plan -->
+  <section
+    class="main-hero-card relative overflow-hidden"
     style="view-transition-name: home-hero"
-    :ui="{
-      body: 'p-0 sm:p-0',
-    }"
   >
     <!-- Conteneur avec hauteur calculée (viewport - header) -->
     <div
@@ -87,5 +83,5 @@
         />
       </div>
     </div>
-  </UCard>
+  </section>
 </template>
