@@ -1,0 +1,13 @@
+# Source unique : nginx n'hérite pas des add_header dès qu'un location en déclare un,
+# donc chaque location posant un Cache-Control doit ré-inclure ce fichier.
+
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
+
+# Pas de includeSubDomains/preload tant que tous les sous-domaines ne sont pas garantis HTTPS à vie.
+add_header Strict-Transport-Security "max-age=31536000" always;
+
+# unsafe-inline requis par les chunks inline de Nuxt.
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: ${CDN_URL} https://efreipicturestudio.fr; font-src 'self' data:; media-src 'self' ${CDN_URL}; connect-src 'self' ${PLAUSIBLE_URL}; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';" always;

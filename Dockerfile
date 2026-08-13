@@ -28,7 +28,8 @@ ARG PLAUSIBLE_URL
 ENV CDN_URL=${CDN_URL}
 ENV PLAUSIBLE_URL=$PLAUSIBLE_URL
 
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+COPY nginx/security-headers.conf.template /etc/nginx/templates/security-headers.conf.template
 COPY --from=builder /app/.output/public /usr/share/nginx/html
 
 EXPOSE 8080
