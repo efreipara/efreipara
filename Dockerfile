@@ -1,5 +1,5 @@
 # Étape 1 : Construction
-FROM oven/bun:1.3-alpine AS builder
+FROM oven/bun:1.4-alpine AS builder
 
 WORKDIR /app
 
