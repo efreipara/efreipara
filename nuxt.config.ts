@@ -221,6 +221,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       failOnError: false,
+      // Routes sans lien entrant : le crawler ne les trouve pas seul.
+      routes: ['/devenir-membre', '/discord', '/instagram', '/rejoindre-bureau'],
     },
   },
 })
