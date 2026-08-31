@@ -1,0 +1,64 @@
+server {
+    listen 8080;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    server_tokens off;
+    charset utf-8;
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/javascript application/json image/svg+xml application/wasm;
+
+    include /etc/nginx/conf.d/security-headers.conf;
+
+    error_page 404 /404.html;
+    error_page 403 =404 /404.html;
+
+    # Placé avant les autres regex : prioritaire même sous /_nuxt/ ou pour un .xxx.js
+    location ~ /\. {
+        deny all;
+    }
+
+    location = /404.html {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "no-cache" always;
+    }
+
+    # Noms hachés par build
+    location ~* ^/_nuxt/ {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        access_log off;
+    }
+
+    # Contenu du site sous nom stable : doit se revalider à chaque publication
+    location ~* ^/__nuxt_content/ {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "no-cache" always;
+    }
+
+    # Nom stable mais identité = la police elle-même : un changement passe par un renommage
+    location ~* \.woff2?$ {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        access_log off;
+    }
+
+    # Noms stables et remplaçables (favicon, robots.txt, og:image) : propagation en heures
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp|avif|webm|mp4|wasm|txt)$ {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "public, max-age=3600" always;
+        access_log off;
+    }
+
+    location / {
+        include /etc/nginx/conf.d/security-headers.conf;
+        add_header Cache-Control "no-cache" always;
+        try_files $uri $uri/index.html $uri.html =404;
+    }
+}

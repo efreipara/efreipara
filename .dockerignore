@@ -1,0 +1,29 @@
+# .dockerignore
+# Indication des fichiers et dossiers à ignorer lors de la construction de l'image Docker
+
+# Métadonnées Git et fichiers de configuration non utiles dans l'image
+.git
+.gitignore
+.github
+
+# Dépendances locales installées sur la machine hôte
+node_modules
+
+# Artefacts générés par Nuxt ou lors des builds locaux
+.nuxt
+.output
+dist
+.data
+
+# Variables d'environnement locales et fichiers d'éditeur
+.env
+.vscode
+
+# Fichiers temporaires et logs locaux
+*.log
+npm-debug.log*
+.DS_Store
+temp.txt
+
+# Ressources non nécessaires au build Docker
+assets

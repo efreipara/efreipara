@@ -1,0 +1,83 @@
+title: Documents
+description: Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme
+helpcta:
+  title: Un document manquant ?
+  description: Si vous ne trouvez pas le document que vous cherchez, n'hésitez pas à nous contacter !
+  buttons:
+    - discord
+    - instagram
+    - github
+categories:
+  - name: Documents généraux
+    description: Documents administratifs et règlements du club
+    icon: tabler:file-description
+    color: blue
+    documents:
+      - title: Règlement intérieur
+        description: Règlement intérieur du club Efrei Para
+        url: /reglement
+        icon: tabler:scale
+        type: internal
+
+      - title: Mentions légales
+        description: Mentions légales du site web
+        url: /mentions-legales
+        icon: tabler:info-circle
+        type: internal
+
+      - title: Politique RGPD
+        description: Politique de protection des données personnelles
+        url: /rgpd
+        icon: tabler:shield-check-filled
+        type: internal
+
+  - name: Documents médicaux
+    description: Certificats et informations médicales obligatoires
+    icon: tabler:heartbeat
+    color: red
+    documents:
+      - title: Contre-indications médicales
+        description: Liste des contre-indications à la pratique du parachutisme (FFP)
+        url: https://www.ffp.asso.fr/wp-content/uploads/2021/06/contre-indication-para-NEW.pdf
+        icon: tabler:clipboard-heart
+        type: external
+
+      - title: Espace médical FFP
+        description: Informations médicales et certificats sur le site de la FFP
+        url: https://www.ffp.asso.fr/espace-medical/
+        icon: tabler:building-hospital
+        type: external
+
+      - title: Modèle de certificat médical
+        description: Modèle de certificat médical de non contre-indication
+        url: https://drive.google.com/file/d/1QBVjmEVeXmjfrWxLlDbNHoHzhHQSHeL_/view
+        icon: tabler:certificate
+        type: external
+
+  - name: Parachutisme
+    description: Documents et informations sur les activités de parachutisme
+    icon: tabler:parachute
+    color: green
+    documents:
+      - title: Fédération Française de Parachutisme
+        description: Site officiel de la FFP
+        url: https://www.ffp.asso.fr/
+        icon: tabler:world-www
+        type: external
+
+      - title: Questionnaire de santé pour le Tandem
+        description: Questionnaire de santé obligatoire avant un saut en tandem
+        url: https://www.ecole-parachutisme.fr/questionnaire-sante
+        icon: tabler:file-description
+        type: external
+
+  - name: Soufflerie
+    description: Documents et informations sur les activités en soufflerie
+    icon: tabler:wind
+    color: purple
+    documents:
+      - title: Site de iFly Paris
+        description: Site officiel de la soufflerie iFly Paris
+        url: https://iflyparis.fr/
+        icon: tabler:world-www
+        type: external

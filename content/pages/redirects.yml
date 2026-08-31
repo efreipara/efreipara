@@ -1,0 +1,13 @@
+rejoindre:
+  redirectText: Redirection vers le formulaire...
+  buttonLabel: Ouvrir le formulaire
+
+discord:
+  title: Rejoindre notre Discord
+  redirectText: Redirection vers Discord...
+  buttonLabel: Ouvrir Discord
+
+instagram:
+  title: Suivre sur Instagram
+  redirectText: Redirection vers Instagram...
+  buttonLabel: Ouvrir Instagram

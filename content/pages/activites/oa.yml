@@ -1,0 +1,78 @@
+title: Saut en Ouverture Automatique (OA)
+description: Vivez l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
+label: OA
+alt: Saut en ouverture automatique (OA) avec Efrei Para
+imageCount: 0
+
+features:
+  - title: Encadrement professionnel
+    description: Théorie, gestes de sécurité et accompagnement complet par des instructeurs expérimentés.
+    icon: tabler:user-check
+  - title: Vraie sortie d’avion
+    description: Tu fais le grand pas dans le vide seul·e — sensations garanties dès la première fois.
+    icon: tabler:parachute
+  - title: Ouverture automatique
+    description: Le matériel s’occupe de l’ouverture — tu te concentres sur le geste et le plaisir du vol.
+    icon: tabler:shield-check
+  - title: Accessible à tous
+    description: Aucun prérequis — juste l’envie de découvrir le ciel dans un cadre sérieux et bienveillant.
+    icon: tabler:mood-happy
+
+intro:
+  - |-
+    L’OA est la meilleure porte d’entrée dans le parachutisme : tu apprends les bases, tu comprends le geste, puis tu vis une vraie sortie d’avion à <b class="text-highlighted">1 200 mètres</b>, avec un parachute qui s’ouvre automatiquement.
+  - |-
+    Un <b class="text-highlighted">week-end complet</b>, pédagogique, convivial… et riche en sensations.
+  - |-
+    L’OA est pensée pour les personnes qui veulent vivre un vrai saut sans devoir gérer la chute libre dès le premier jour. Tu découvres la discipline pas à pas, avec un cadre sécurisé et une pédagogie progressive.
+
+stats:
+  - value: '1 200m'
+    label: Altitude de saut
+    icon: tabler:mountain
+  - value: '1 week-end'
+    label: Durée totale
+    icon: tabler:calendar-week
+  - value: '1 saut'
+    label: Inclus dans la formule
+    icon: tabler:parachute
+  - value: '~5s'
+    label: De chute libre avant ouverture
+    icon: tabler:wind
+
+steps:
+  - title: Cours théorique à l’Efrei (quelques jours avant)
+    description: En soirée à l’école — bases du parachutisme, positions correctes, règles de sécurité, fonctionnement du parachute et conditions météo.
+    icon: tabler:school
+  - title: Samedi matin — arrivée sur la zone de saut
+    description: Installation sur place, réunion d’accueil et récupération de l’équipement. L’ambiance est conviviale — on part et s’installe ensemble.
+    icon: tabler:map-pin
+  - title: Samedi — cours pratique sur zone
+    description: Simulation de sortie d’avion au sol, entraînement à la position correcte et répétition de la procédure de secours. Les gestes sont répétés jusqu’à devenir naturels.
+    icon: tabler:repeat
+  - title: Les sauts
+    description: En fonction de la météo, les sauts ont lieu le samedi ou le dimanche. Un saut supplémentaire est possible sur place (~30–35 €).
+    icon: tabler:wind
+  - title: Descente sous voile & atterrissage
+    description: Après l’ouverture, descente calme et panoramique guidée par radio depuis le sol — posée, agréable, presque contemplative.
+    icon: tabler:target
+  - title: Nuit en dortoir sur place
+    description: Des dortoirs sont disponibles et inclus sur la zone de saut. Parfait pour décompresser ou être prêt pour un saut le dimanche.
+    icon: tabler:bed
+  - title: Dimanche — derniers sauts & retour
+    description: Dernier créneau de sauts selon les conditions, débriefing, rangement du matériel et retour sur Paris dans l’après-midi.
+    icon: tabler:home
+
+requirements:
+  - icon: tabler:user
+    label: 15 ans minimum (autorisation parentale si mineur)
+  - icon: tabler:weight
+    label: Poids inférieur à 95 kg
+  - icon: tabler:heart-rate-monitor
+    label: Certificat médical recommandé — pas de contre-indication cardiaque ou neurologique
+  - icon: tabler:cloud
+    label: Sauts soumis aux conditions météo — report possible si vent défavorable
+  - icon: tabler:shirt
+    label: Tenue confortable, baskets et gants fins selon la saison
+  - icon: tabler:bed
+    label: Prévoir un sac de nuit pour le dortoir
