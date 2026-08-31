@@ -202,6 +202,10 @@ export default defineNuxtConfig({
       type: 'libsql',
       url: 'file:.data/content/contents.db',
     },
+    // Sans ce connecteur, Content réclame better-sqlite3 quand le postinstall tourne sous Node.
+    experimental: {
+      sqliteConnector: 'native',
+    },
     build: {
       markdown: {
         rehypePlugins: {

@@ -20,6 +20,7 @@
     "vue-router": "^5.2.0"
   },
   "//": "overrides @unhead/vue : @nuxt/ui 4.10 dépend encore de la v2 alors que Nuxt 4.5 requiert la v3 (build cassé sinon). À retirer quand Nuxt UI publiera une version alignée sur Nuxt 4.5.",
+  "//typescript": "typescript bloqué en 6.0.x : typescript-eslint ne supporte pas encore TS 7.",
   "overrides": {
     "@unhead/vue": "^3.1.8"
   },
@@ -40,7 +41,7 @@
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "~7.0.2",
+    "typescript": "~6.0.3",
     "unist-util-visit": "^5.1.0"
   }
 }
