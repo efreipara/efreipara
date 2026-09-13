@@ -1,12 +1,21 @@
-![Efrei Para](./assets/banner.png)
+<div align="center">
+
+[![Efrei Para banner](./assets/banner.png)](https://efreipara.fr)
 
 # Efrei Para 🪂
 
-Ce dépôt contient le code source du site web d'[Efrei Para](https://efreipara.fr), le club de parachutisme de l'école [Efrei](https://efrei.fr).
+**Le site du club de parachutisme de l'[Efrei](https://efrei.fr)**
 
-Le site est développé avec [Nuxt 4](https://nuxt.com) et [Nuxt UI 4](https://ui.nuxt.com).
+[![Nuxt 4](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
+[![Nuxt UI 4](https://img.shields.io/badge/Nuxt_UI-4-00DC82?logo=nuxt&logoColor=white)](https://ui.nuxt.com)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Bun](https://img.shields.io/badge/Bun-1.4-fbf0df?logo=bun&logoColor=white)](https://bun.sh)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-Il utilise [Bun](https://bun.sh) comme runtime et [Docker](https://www.docker.com) pour la conteneurisation.
+[**efreipara.fr**](https://efreipara.fr) · [activités](https://efreipara.fr/activites) · [galerie](https://efreipara.fr/galerie) · [rejoindre](https://efreipara.fr/rejoindre) · [faq](https://efreipara.fr/faq)
+
+</div>
 
 ## 🎯 À propos du site
 
