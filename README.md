@@ -1,18 +1,27 @@
-![Efrei Para](./assets/banner.png)
+<div align="center">
+
+[![Efrei Para banner](./assets/banner.png)](https://efreipara.fr)
 
 # Efrei Para 🪂
 
-Ce dépôt contient le code source du site web d'[Efrei Para](https://efreipara.fr), le club de parachutisme de l'école [Efrei](https://efrei.fr).
+**Le site du club de parachutisme de l'[Efrei](https://efrei.fr)**
 
-Le site est développé avec [Nuxt 4](https://nuxt.com) et [Nuxt UI 4](https://ui.nuxt.com).
+[![Nuxt 4](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
+[![Nuxt UI 4](https://img.shields.io/badge/Nuxt_UI-4-00DC82?logo=nuxt&logoColor=white)](https://ui.nuxt.com)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Bun](https://img.shields.io/badge/Bun-1.4-fbf0df?logo=bun&logoColor=white)](https://bun.sh)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-Il utilise [Bun](https://bun.sh) comme runtime et [Docker](https://www.docker.com) pour la conteneurisation.
+[**efreipara.fr**](https://efreipara.fr) · [activités](https://efreipara.fr/activites) · [galerie](https://efreipara.fr/galerie) · [rejoindre](https://efreipara.fr/rejoindre) · [faq](https://efreipara.fr/faq)
+
+</div>
 
 ## 🎯 À propos du site
 
 Le site Efrei Para est la vitrine numérique du club de parachutisme de l'Efrei. Il permet aux étudiants et visiteurs de :
 
-- Découvrir les activités proposées (PAC, tandem, OA, soufflerie)
+- Découvrir les activités proposées (Tandem, Soufflerie, PAC, OA)
 - Consulter les informations pratiques et le règlement
 - Voir les galeries photos des sauts
 - Contacter le bureau et devenir membre
@@ -41,8 +50,8 @@ efreipara/
 Ce projet utilise les technologies et modules suivants :
 
 - **[Bun](https://bun.sh)** - Runtime JavaScript rapide pour le développement et la production
-- **[Nuxt 4](https://nuxt.com)** - Framework Vue.js full-stack
-- **[Nuxt UI 4](https://ui.nuxt.com)** - Bibliothèque de composants UI
+- **[Nuxt](https://nuxt.com)** - Framework Vue.js full-stack
+- **[Nuxt UI](https://ui.nuxt.com)** - Bibliothèque de composants UI
 - **[Nuxt Content](https://content.nuxt.com)** - Gestion de contenu basée sur les fichiers
 - **[Plausible Analytics](https://plausible.io)** - Analytiques respectueuses de la vie privée
 - **[TailwindCSS](https://tailwindcss.com)** - Framework CSS utility-first
@@ -159,10 +168,10 @@ Pour vérifier les mises à jour disponibles :
 bun outdated
 ```
 
-Pour mettre à jour toutes les dépendances :
+Pour mettre à jour toutes les dépendances de façon interactive :
 
 ```bash
-bun update --latest
+bun update -i
 ```
 
 Pour mettre à jour une dépendance spécifique :
@@ -176,7 +185,7 @@ bun update <package-name> --latest
 Le site est déployé automatiquement via Docker. La configuration se trouve dans :
 
 - `Dockerfile` - Configuration de l'image Docker
-- `nginx.conf` - Configuration du serveur web
+- `nginx/` - Configuration du serveur web
 
 ## 📝 Licence
 
