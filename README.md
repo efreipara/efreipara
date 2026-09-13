@@ -21,7 +21,7 @@
 
 Le site Efrei Para est la vitrine numérique du club de parachutisme de l'Efrei. Il permet aux étudiants et visiteurs de :
 
-- Découvrir les activités proposées (PAC, tandem, OA, soufflerie)
+- Découvrir les activités proposées (Tandem, Soufflerie, PAC, OA)
 - Consulter les informations pratiques et le règlement
 - Voir les galeries photos des sauts
 - Contacter le bureau et devenir membre
@@ -50,8 +50,8 @@ efreipara/
 Ce projet utilise les technologies et modules suivants :
 
 - **[Bun](https://bun.sh)** - Runtime JavaScript rapide pour le développement et la production
-- **[Nuxt 4](https://nuxt.com)** - Framework Vue.js full-stack
-- **[Nuxt UI 4](https://ui.nuxt.com)** - Bibliothèque de composants UI
+- **[Nuxt](https://nuxt.com)** - Framework Vue.js full-stack
+- **[Nuxt UI](https://ui.nuxt.com)** - Bibliothèque de composants UI
 - **[Nuxt Content](https://content.nuxt.com)** - Gestion de contenu basée sur les fichiers
 - **[Plausible Analytics](https://plausible.io)** - Analytiques respectueuses de la vie privée
 - **[TailwindCSS](https://tailwindcss.com)** - Framework CSS utility-first
@@ -168,10 +168,10 @@ Pour vérifier les mises à jour disponibles :
 bun outdated
 ```
 
-Pour mettre à jour toutes les dépendances :
+Pour mettre à jour toutes les dépendances de façon interactive :
 
 ```bash
-bun update --latest
+bun update -i
 ```
 
 Pour mettre à jour une dépendance spécifique :
@@ -185,7 +185,7 @@ bun update <package-name> --latest
 Le site est déployé automatiquement via Docker. La configuration se trouve dans :
 
 - `Dockerfile` - Configuration de l'image Docker
-- `nginx.conf` - Configuration du serveur web
+- `nginx/` - Configuration du serveur web
 
 ## 📝 Licence
 
