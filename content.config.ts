@@ -62,7 +62,7 @@ export default defineContentConfig({
             date: z.string().date(),
             location: z.string(),
             url: z.string(),
-            photo: z.string(),
+            photo: z.string().optional(),
             source: z.string().optional(),
           }),
         ),

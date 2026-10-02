@@ -2,6 +2,7 @@
   import type { ActivityType } from '~/composables/useActivities'
 
   const { getIcon } = useEventIcon()
+  const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
   const activityCssVar: Record<string, string> = {
@@ -40,6 +41,39 @@
   const restItems = computed(() => filteredItems.value.slice(1))
 
   const showHeroLayout = computed(() => !activeFilter.value && filteredItems.value.length >= 3)
+
+  // `photo` en priorité ; repli sur le CDN (<type>/<date>.jpg) si absente ou en erreur
+  const failedPhotos = ref(new Set<string>())
+  // Chargées ou définitivement en échec : le squelette disparaît
+  const settledPhotos = ref(new Set<string>())
+
+  const photoSrc = (item: { url: string; type: string; date: string; photo?: string }) => {
+    if (item.photo && !failedPhotos.value.has(item.url)) return item.photo
+    return buildCdnUrl(`${item.type}/${item.date}.jpg`) || item.photo
+  }
+
+  const onPhotoLoad = (item: { url: string }) => {
+    settledPhotos.value.add(item.url)
+  }
+
+  const onPhotoError = (item: { url: string; type: string; date: string; photo?: string }) => {
+    if (item.photo && !failedPhotos.value.has(item.url)) {
+      failedPhotos.value.add(item.url)
+      if (buildCdnUrl(`${item.type}/${item.date}.jpg`)) return
+    }
+    settledPhotos.value.add(item.url)
+  }
+
+  // Un chargement ou une erreur survenus avant l'hydratation ne sont pas captés par @load/@error
+  const checkPhoto = (
+    el: unknown,
+    item: { url: string; type: string; date: string; photo?: string },
+  ) => {
+    if (!(el instanceof HTMLImageElement) || !el.complete || settledPhotos.value.has(item.url))
+      return
+    if (el.naturalWidth > 0) onPhotoLoad(item)
+    else onPhotoError(item)
+  }
 
   const formatDate = (iso: string) =>
     new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(
@@ -106,13 +140,21 @@
           :class="showHeroLayout ? 'lg:col-span-2 lg:row-span-2' : ''"
         >
           <div
-            class="aspect-3/2 w-full overflow-hidden"
+            class="relative aspect-3/2 w-full overflow-hidden"
             :class="showHeroLayout ? 'lg:aspect-[unset] lg:h-full' : ''"
           >
+            <USkeleton
+              v-if="!settledPhotos.has(heroItem.url)"
+              class="absolute inset-0 rounded-none"
+            />
             <img
-              :src="heroItem.photo"
+              :ref="(el) => checkPhoto(el, heroItem!)"
+              :src="photoSrc(heroItem)"
               :alt="heroItem.title"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
+              :class="settledPhotos.has(heroItem.url) ? 'opacity-100' : 'opacity-0'"
+              @load="onPhotoLoad(heroItem)"
+              @error="onPhotoError(heroItem)"
             />
           </div>
           <div
@@ -172,11 +214,19 @@
           external
           class="group relative block overflow-hidden rounded-2xl"
         >
-          <div class="aspect-3/2 w-full overflow-hidden">
+          <div class="relative aspect-3/2 w-full overflow-hidden">
+            <USkeleton
+              v-if="!settledPhotos.has(galerie.url)"
+              class="absolute inset-0 rounded-none"
+            />
             <img
-              :src="galerie.photo"
+              :ref="(el) => checkPhoto(el, galerie)"
+              :src="photoSrc(galerie)"
               :alt="galerie.title"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
+              :class="settledPhotos.has(galerie.url) ? 'opacity-100' : 'opacity-0'"
+              @load="onPhotoLoad(galerie)"
+              @error="onPhotoError(galerie)"
             />
           </div>
           <div
