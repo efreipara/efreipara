@@ -128,7 +128,7 @@
           </div>
           <div class="flex flex-wrap gap-2">
             <UButton
-              to="https://github.com/efreipara/efreipara/issues/new"
+              :to="appConfig.socials.github.issues"
               :icon="appConfig.socials.github.icon"
               size="sm"
               color="neutral"

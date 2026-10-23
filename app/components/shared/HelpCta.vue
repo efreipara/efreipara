@@ -47,7 +47,7 @@
         </UButton>
         <UButton
           v-if="buttons.includes('github')"
-          to="https://github.com/efreipara/efreipara/issues/new"
+          :to="appConfig.socials.github.issues"
           target="_blank"
           size="lg"
           :icon="getSocialIcon('GitHub')"

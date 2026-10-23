@@ -36,7 +36,7 @@
       <p>Le contenu demandé n'existe pas.</p>
       <div class="mt-4 flex justify-center">
         <ULink
-          to="https://github.com/efreipara/efreipara/issues/new"
+          :to="appConfig.socials.github.issues"
           target="_blank"
           class="flex items-center text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
         >
