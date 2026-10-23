@@ -122,6 +122,10 @@ bun lint
 # Pour formatter le code avec Prettier
 bun format
 
+# Tests : logique et contenu (Vitest), puis site généré (Playwright, sur Brave ou Chromium)
+bun run test
+bun run generate && bun run test:e2e
+
 # Pour construire l'image Docker (les variables d'environnement doivent être définies)
 bun docker:build
 ```
