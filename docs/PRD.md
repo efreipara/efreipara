@@ -142,6 +142,10 @@ Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'ic
 
 Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, 403, 401, 400, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub).
 
+### Référencement
+
+Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont exclues (`robots.txt` et balise `noindex`), mais gardent titre, description et image de partage pour les réseaux.
+
 ## 4. Mesure d'audience
 
 Plausible compte les pages vues et les clics vers les liens externes, sans cookie ni bandeau de consentement.

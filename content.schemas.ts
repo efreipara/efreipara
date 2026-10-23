@@ -408,6 +408,7 @@ export const collections = {
         locale: z.string(),
         themeColor: z.string(),
         author: z.string(),
+        robots: z.string().optional(),
       }),
       pages: z.record(
         z.object({

@@ -124,9 +124,9 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 ## SEO
 
 - `app.vue` appelle `useSeo` avec une clé tirée du chemin : `/` → `index`, sinon le chemin sans `/` initial, les `/` remplacés par `-` (`/activites/tandem` → `activites-tandem`). `LegalPage` l'appelle aussi avec son slug.
-- `useSeo` fusionne `seo.yml` (`defaults` puis `pages.<clé>`) : titre « {page} - Efrei Para » (accueil : nom seul), description, OpenGraph, Twitter, `robots` (défaut `index, follow`), `lang`, `theme-color`, lien canonique (`baseUrl` + chemin, `activites-` redevient `activites/`).
+- `useSeo` fusionne `seo.yml` (`defaults` puis `pages.<clé>`) : titre « {page} - Efrei Para » (accueil : nom seul), description, OpenGraph, Twitter, `robots` (page, sinon `defaults.robots`, sinon `index, follow`), `lang`, `theme-color`, lien canonique (`baseUrl` + chemin, `activites-` redevient `activites/`).
 - Images OpenGraph dans `public/seo/`. `baseUrl` est écrit dans `seo.yml` : le canonique pointe toujours vers la production, quel que soit l'environnement.
-- `public/robots.txt` n'autorise aujourd'hui que la racine.
+- Seule l'accueil est destinée aux moteurs de recherche : `public/robots.txt` n'autorise que la racine, et `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`).
 
 ## CDN
 

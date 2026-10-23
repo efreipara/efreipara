@@ -13,6 +13,8 @@ defaults:
   locale: fr_FR
   themeColor: oklch(0.208 0.042 265.755005)
   author: Efrei Para
+  # Seule l'accueil est indexée (voir aussi public/robots.txt)
+  robots: noindex, follow
 
 # Métadonnées spécifiques à chaque page
 pages:
@@ -20,6 +22,7 @@ pages:
   index:
     title: Efrei Para
     description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
+    robots: index, follow
 
   # Page à propos
   about:

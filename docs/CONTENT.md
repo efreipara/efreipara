@@ -38,7 +38,7 @@ Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le cont
 ### Points notables par collection
 
 - **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. `activities[].slot` est une clé d'activité. `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
-- **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée (`title`, `description`, `ogImage` et `robots` facultatifs). `pages.index.description` est aussi la phrase du hero d'accueil.
+- **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
 - **`home`** : `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `activites.items[].type` et `why[].type` donnent la teinte.

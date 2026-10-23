@@ -10,6 +10,7 @@ export interface SeoData {
     locale: string
     themeColor: string
     author: string
+    robots?: string
   }
   pages: Record<string, { title: string; description: string; ogImage?: string; robots?: string }>
 }
@@ -52,7 +53,7 @@ export const buildSeoMeta = (seoData: SeoData, key: string) => {
     twitterDescription: description,
     twitterImage: ogImage,
 
-    robots: pageSeo?.robots || 'index, follow',
+    robots: pageSeo?.robots || defaults.robots || 'index, follow',
 
     htmlLang: defaults.locale?.split('_')[0] || 'fr',
     themeColor: defaults.themeColor,

@@ -10,6 +10,11 @@ test.describe('pages', () => {
 
       const canonical = path === '/' ? 'https://efreipara.fr' : `https://efreipara.fr${path}`
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonical)
+      // Seule l'accueil est indexée
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        'content',
+        path === '/' ? 'index, follow' : /^noindex/,
+      )
       expect(await page.locator('h1').count()).toBeLessThanOrEqual(1)
       expect(consoleErrors).toEqual([])
     })

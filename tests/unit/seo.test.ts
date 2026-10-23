@@ -71,6 +71,12 @@ describe('buildSeoMeta', () => {
     expect(buildSeoMeta(seoData, 'qr').robots).toBe('noindex, nofollow')
   })
 
+  it('applique le robots des valeurs par défaut aux pages qui n’en ont pas', () => {
+    const data = { ...seoData, defaults: { ...seoData.defaults, robots: 'noindex, follow' } }
+    expect(buildSeoMeta(data, 'faq').robots).toBe('noindex, follow')
+    expect(buildSeoMeta(data, 'qr').robots).toBe('noindex, nofollow')
+  })
+
   it('se rabat sur le nom du site pour une page sans entrée', () => {
     const meta = buildSeoMeta(seoData, 'inconnue')
     expect(meta.title).toBe('Efrei Para - Efrei Para')
