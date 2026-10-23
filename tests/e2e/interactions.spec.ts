@@ -53,6 +53,14 @@ test.describe('thème et accessibilité', () => {
     await page.reload()
     await page.waitForFunction(() => document.documentElement.classList.contains('a11y-dyslexic'))
   })
+
+  test('le contraste élevé épargne les éléments .no-contrast', async ({ page }) => {
+    await gotoReady(page, '/')
+    await visible(page, page.getByRole('button', { name: "Options d'accessibilité" })).click()
+    await page.getByRole('menuitemcheckbox', { name: 'Contraste élevé' }).click()
+    await expect(page.locator('html')).toHaveClass(/a11y-highContrast/)
+    await expect(page.locator('.no-contrast').first()).toHaveCSS('filter', 'contrast(0.667)')
+  })
 })
 
 test.describe('galerie', () => {

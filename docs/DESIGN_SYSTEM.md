@@ -110,7 +110,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 ### Accessibilité
 
 - Options du visiteur : classes `a11y-dyslexic` et `a11y-highContrast` posées sur `<html>` par `app.vue`.
-- **Contraste élevé** : `filter: contrast(1.5)` sur toute la page, compensé (`contrast(0.667)`) sur les `img` et `video`. La classe `no-contrast` est prévue pour épargner d'autres éléments (logos partenaires, voile du hero), mais son sélecteur dans `main.css` est écrit sans point et ne s'applique pas.
+- **Contraste élevé** : `filter: contrast(1.5)` sur toute la page, compensé (`contrast(0.667)`) sur les `img` et `video`. La classe `no-contrast` épargne de la même façon d'autres éléments (logos partenaires, voile du hero).
 - Boutons d'icône seuls : toujours un `aria-label` en français. Images décoratives : `alt=""` et `aria-hidden="true"`.
 
 ### Grilles

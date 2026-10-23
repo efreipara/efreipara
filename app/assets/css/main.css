@@ -145,7 +145,7 @@ html.a11y-highContrast {
 
 html.a11y-highContrast img,
 html.a11y-highContrast video,
-html.a11y-highContrast no-contrast {
+html.a11y-highContrast .no-contrast {
   filter: contrast(0.667); /* annule le contrast(1.5) du parent : 1 / 1.5 */
 }
 
