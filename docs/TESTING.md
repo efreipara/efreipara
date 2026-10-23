@@ -1,13 +1,39 @@
 # Efrei Para — Tests et vérifications
 
-> **Périmètre** : stratégie de test et vérifications à faire avant de livrer.
-> **À mettre à jour** dès qu'un outil de test, un script de vérification ou la liste des contrôles change.
+> **Périmètre** : stratégie de test, organisation des tests, vérifications à faire avant de livrer.
+> **À mettre à jour** dès qu'un outil de test, l'organisation de `tests/`, un script ou la liste des contrôles change.
 
 ## Stratégie
 
-- **Aucun test automatisé** aujourd'hui (ni unitaire, ni de composant, ni end-to-end), **pas de script `typecheck`** et pas de CI : la qualité repose sur le lint, le typage vérifié par l'éditeur, la génération complète du site et un contrôle visuel.
-- Le schéma Zod de chaque collection valide le contenu à chaque build : une donnée invalide fait échouer `dev` et `generate`.
-- Si des tests sont ajoutés, ils viseront d'abord la logique pure (règle d'affichage de la bannière, clé SEO tirée du chemin, `buildCdnUrl`, analyse des statistiques), extraite des composants pour être testable ; ce document décrira alors l'outil et l'organisation.
+- **Vitest** pour la **logique pure** de `app/utils/` et des plugins. Environnement `node`, **sans Nuxt** ([`vitest.config.ts`](../vitest.config.ts)) : ni auto-imports, ni composables, ni composants.
+- Conséquence sur le code : une règle qui mérite un test (calcul, tri, filtre, règle d'affichage) est écrite comme une fonction pure dans `app/utils/`, puis appelée par le composant ou le composable ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)). Une règle enfouie dans un composant n'est pas testable ici.
+- Pas de tests de composants.
+- Le schéma Zod de chaque collection valide aussi le contenu à chaque build : une donnée invalide fait échouer `dev` et `generate`.
+- Pas de script `typecheck` ni de CI : les vérifications se font en local.
+
+## Organisation
+
+- `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
+- Un `describe` par fonction, cas décrits en français.
+
+## Ce qui doit être testé
+
+- clé SEO, canonique et fusion des métadonnées (`seo`) ;
+- affichage et clé de fermeture de la bannière d'événement (`event`) ;
+- adresse CDN et jeton de développement (`cdn`) ;
+- valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
+- filtre, tri et mise en avant de la galerie (`gallery`) ;
+- liens de l'en-tête (`navigation`), activité précédente / suivante (`activities`), couleurs de catégorie (`category-color`) ;
+- plugin `rehype-target-blank`.
+
+Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.
+
+## Commandes
+
+```bash
+bun run test         # tests Vitest
+bun run test:watch   # mode interactif
+```
 
 ## Vérifications avant de livrer
 
@@ -15,6 +41,7 @@ Dans cet ordre, tout doit passer :
 
 ```bash
 bun run lint
+bun run test
 bun run generate     # relire le journal : les erreurs de prérendu ne font pas échouer le build
 bun run preview      # parcourir le site généré
 bun run docker:build # quand le Dockerfile, nginx, les variables ou les dépendances changent

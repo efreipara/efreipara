@@ -120,6 +120,7 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 bun install
 bun dev               # développement sur http://localhost:3000
 bun run lint          # ESLint (lint:fix pour corriger)
+bun run test          # Vitest : logique pure
 bun run format        # Prettier sur tout le dépôt
 bun run generate      # génère le site statique dans .output/public
 bun run preview       # sert le site généré
