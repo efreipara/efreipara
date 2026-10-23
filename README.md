@@ -43,6 +43,20 @@ efreipara/
 └── content.config.ts    # Configuration de Nuxt Content
 ```
 
+## 📚 Documentation
+
+La documentation détaillée du projet est dans le dossier [`docs/`](docs/) :
+
+| Document                                  | Contenu                                                       |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| [PRD.md](docs/PRD.md)                     | Ce que fait le site : pages, sections, comportements          |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md)   | Stack, organisation du code, génération, Docker, nginx        |
+| [CONTENT.md](docs/CONTENT.md)             | Collections de contenu, formats, fichiers attendus sur le CDN |
+| [DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | Thème, couleurs, polices, icônes, composants réutilisables    |
+| [SECURITY.md](docs/SECURITY.md)           | Modèle de menace et règles à respecter                        |
+| [CODE_STYLE.md](docs/CODE_STYLE.md)       | Conventions de code, formatage, commits                       |
+| [TESTING.md](docs/TESTING.md)             | Vérifications avant de livrer                                 |
+
 ## 🚀 Pour les développeurs
 
 ### Technologies utilisées
@@ -152,11 +166,18 @@ Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt
 
 ### Pages éditables
 
-- **FAQ** : `content/faq.yml` - Questions fréquemment posées
-- **Documents** : `content/documents.yml` - Liste des documents téléchargeables
-- **Règlement** : `content/reglement.md` - Règlement intérieur du club
-- **Mentions légales** : `content/mentions-legales.md`
-- **RGPD** : `content/rgpd.md` - Politique de confidentialité
+Tous les textes du site sont éditables. Les plus courants :
+
+- **Prochain événement** : `content/global/next-event.yml` - Bannière en haut du site
+- **Galerie** : `content/pages/galerie.yml` - Albums photos
+- **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
+- **Documents** : `content/pages/documents.yml` - Liste des documents téléchargeables
+- **Activités** : `content/pages/activites/*.yml` - Une page par activité
+- **Règlement** : `content/pages/legal/reglement.md` - Règlement intérieur du club
+- **Mentions légales** : `content/pages/legal/mentions-legales.md`
+- **RGPD** : `content/pages/legal/rgpd.md` - Politique de confidentialité
+
+La liste complète des fichiers, leurs champs et les conventions sont décrits dans [docs/CONTENT.md](docs/CONTENT.md).
 
 ## 🔧 Maintenance
 
