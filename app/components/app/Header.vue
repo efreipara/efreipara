@@ -169,7 +169,7 @@
         <!-- Activités -->
         <NuxtLink
           :to="activitiesIndex.to"
-          class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
+          class="text-toned hover:text-highlighted hover:bg-elevated/50 aria-[current=page]:text-highlighted aria-[current=page]:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
         >
           <Icon :name="activitiesIndex.icon" class="text-muted size-5 shrink-0" />
           <span class="flex-1 text-sm font-medium">{{ activitiesIndex.label }}</span>
@@ -180,7 +180,7 @@
             v-for="activity in activities"
             :key="activity.slot"
             :to="activity.to"
-            class="hover:bg-tint-12 flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors duration-200"
+            class="hover:bg-tint-12 aria-[current=page]:bg-tint-12 flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors duration-200"
             :class="activityClass(activity.slot)"
           >
             <div class="bg-tint-15 flex size-7 shrink-0 items-center justify-center rounded-lg">
@@ -197,7 +197,7 @@
             v-for="link in headerLinks"
             :key="link.label"
             :to="link.to"
-            class="text-toned hover:text-highlighted hover:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
+            class="text-toned hover:text-highlighted hover:bg-elevated/50 aria-[current=page]:text-highlighted aria-[current=page]:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors"
           >
             <Icon :name="link.icon ?? ''" class="text-muted size-5 shrink-0" />
             <span class="flex-1 text-sm font-medium">{{ link.label }}</span>

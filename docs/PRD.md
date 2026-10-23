@@ -31,7 +31,7 @@ L'ordre du menu est celui de `navigation.yml` (tandem, soufflerie, PAC, OA) ; la
 
 - Logo Efrei Para (version claire ou sombre selon le thème), lien vers l'accueil.
 - **Grand écran (`lg` et plus)** : menu « Nos activités » qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`), puis Instagram et Discord, le menu d'accessibilité et le bouton clair / sombre.
-- **Petit écran** : accessibilité, clair / sombre et bouton burger. Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux.
+- **Petit écran** : accessibilité, clair / sombre et bouton burger. Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
 
 ### Bannière d'événement
 

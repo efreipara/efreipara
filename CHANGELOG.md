@@ -2,6 +2,24 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.2.0 — 24 octobre 2026
+
+### Ajouts
+
+- Menu mobile : la page en cours est mise en évidence.
+
+### Modifications
+
+- Filtres de la galerie, pastilles de catégories (Documents, FAQ) et réseaux de la page Contact : on voit où l'on se trouve en naviguant au clavier, et le filtre actif est annoncé aux lecteurs d'écran.
+- Cartes des activités, des documents et de « Nous rejoindre » : toute la carte est cliquable, avec un contour visible au clavier.
+- Couleurs harmonisées avec le thème du site (filtres de la galerie, séparateurs de la FAQ en sombre, liens « Signaler l'erreur »).
+
+### Corrections
+
+- Pages légales : le trait au-dessus de la date de mise à jour n'est plus noir en thème clair, et la date est plus lisible.
+- Logos des partenaires : chaque lien porte le nom du partenaire pour les lecteurs d'écran.
+- Bannière d'événement : la croix de fermeture est annoncée « Fermer la bannière ».
+
 ## 1.1.2 — 24 octobre 2026
 
 ### Modifications
