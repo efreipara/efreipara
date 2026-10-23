@@ -12,7 +12,7 @@ La documentation est découpée par usage dans `docs/`. **Lire le ou les documen
 | ------------------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
 | [`docs/PRD.md`](docs/PRD.md)                     | Ce que fait le site : pages, sections, comportements visibles    | modifier ou ajouter une page, une section, un comportement         |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)   | Stack, organisation du code, SEO, CDN, génération, Docker, nginx | toucher à `nuxt.config.ts`, un composable, le build, le conteneur  |
-| [`docs/CONTENT.md`](docs/CONTENT.md)             | Collections, champs, formats, fichiers attendus sur le CDN       | modifier `content/`, `content.config.ts`, ajouter une activité     |
+| [`docs/CONTENT.md`](docs/CONTENT.md)             | Collections, champs, formats, fichiers attendus sur le CDN       | modifier `content/`, `content.schemas.ts`, ajouter une activité    |
 | [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) | Thème, couleurs, polices, icônes, composants réutilisables       | toucher à l'interface                                              |
 | [`docs/SECURITY.md`](docs/SECURITY.md)           | Modèle de menace, invariants (secrets, `v-html`, CSP, dépôt)     | ajouter une variable, un `v-html`, une origine externe, un en-tête |
 | [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md)       | Conventions de code, Prettier, ESLint, format des commits        | écrire du code ou un commit                                        |
@@ -24,16 +24,16 @@ Installation et variables d'environnement : `README.md` ; historique des version
 
 **Toute modification qui change ce qu'un document décrit met à jour ce document dans le même commit.** Une tâche n'est pas terminée tant que la documentation ne reflète pas le code.
 
-| Ce qui est modifié                                                        | Document à mettre à jour     |
-| ------------------------------------------------------------------------- | ---------------------------- |
-| Page, section, comportement visible, bannière, redirection, accessibilité | `docs/PRD.md`                |
-| Module, composable, `nuxt.config.ts`, organisation du code, Docker, nginx | `docs/ARCHITECTURE.md`       |
-| `content.config.ts`, collection, champ, format, nommage des images du CDN | `docs/CONTENT.md`            |
-| Couleur, police, icône, règle visuelle, composant réutilisable            | `docs/DESIGN_SYSTEM.md`      |
-| Secret, `v-html`, origine externe, CSP, en-tête, image Docker             | `docs/SECURITY.md`           |
-| Convention, Prettier, ESLint, format des commits                          | `docs/CODE_STYLE.md`         |
-| Outil de test, script ou liste de vérifications                           | `docs/TESTING.md`            |
-| Variable d'environnement, installation, édition de contenu                | `README.md` + `.env.example` |
+| Ce qui est modifié                                                         | Document à mettre à jour     |
+| -------------------------------------------------------------------------- | ---------------------------- |
+| Page, section, comportement visible, bannière, redirection, accessibilité  | `docs/PRD.md`                |
+| Module, composable, `nuxt.config.ts`, organisation du code, Docker, nginx  | `docs/ARCHITECTURE.md`       |
+| `content.schemas.ts`, collection, champ, format, nommage des images du CDN | `docs/CONTENT.md`            |
+| Couleur, police, icône, règle visuelle, composant réutilisable             | `docs/DESIGN_SYSTEM.md`      |
+| Secret, `v-html`, origine externe, CSP, en-tête, image Docker              | `docs/SECURITY.md`           |
+| Convention, Prettier, ESLint, format des commits                           | `docs/CODE_STYLE.md`         |
+| Outil de test, script ou liste de vérifications                            | `docs/TESTING.md`            |
+| Variable d'environnement, installation, édition de contenu                 | `README.md` + `.env.example` |
 
 - Chaque information n'est écrite qu'à **un seul endroit** ; les autres documents y renvoient par un lien.
 - Les documents décrivent l'**état actuel** : corriger le texte existant, ne pas ajouter de note datée (l'historique va dans `CHANGELOG.md`).

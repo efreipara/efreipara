@@ -48,7 +48,8 @@ app/
 content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
-content.config.ts     # déclaration et schéma Zod de chaque collection
+content.schemas.ts    # source et schéma Zod de chaque collection (importés aussi par les tests)
+content.config.ts     # déclare les collections (defineCollection) à partir de content.schemas.ts
 nuxt.config.ts        # modules, icônes, polices, Content, Plausible, prérendu, minification
 rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
 public/               # polices, favicon, robots.txt, images OpenGraph (seo/), logos partenaires
@@ -89,7 +90,7 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | `useCategoryColor`                                 | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                          |
 | `useAccessibility`                                 | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                          |
 
-`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.config.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`), `app.config.ts` et dans la table `activityCssVar` de chaque composant qui teinte par activité. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.schemas.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`), `app.config.ts` et dans la table `activityCssVar` de chaque composant qui teinte par activité. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
 
 ### Fonctions pures
 
@@ -114,6 +115,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour les collections à plusieurs fichiers : activités, pages légales). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
 - **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
 - Les clés en place : `seo`, `navigation`, `partners`, `nextEvent`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, la clé de l'activité (`tandem`…), `<activité>-nav` (liens précédent / suivant) et le slug d'une page légale.
+- Nuxt Content **ne valide pas** les données contre le schéma : il les enregistre telles quelles (un nombre reste un nombre là où le schéma attend du texte). Le schéma sert aux types et aux colonnes SQL ; la validation est faite par les tests de contenu ([TESTING.md](TESTING.md)).
 - Base de Content : SQLite (`.data/content/contents.db`, connecteur natif), reconstruite à chaque build, jamais versionnée.
 
 ## SEO

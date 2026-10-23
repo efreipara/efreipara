@@ -5,15 +5,16 @@
 
 ## Stratégie
 
-- **Vitest** pour la **logique pure** de `app/utils/` et des plugins. Environnement `node`, **sans Nuxt** ([`vitest.config.ts`](../vitest.config.ts)) : ni auto-imports, ni composables, ni composants.
+- **Vitest** pour la **logique pure** de `app/utils/` et des plugins, et pour le **contenu** (`content/`). Environnement `node`, **sans Nuxt** ([`vitest.config.ts`](../vitest.config.ts)) : ni auto-imports, ni composables, ni composants.
 - Conséquence sur le code : une règle qui mérite un test (calcul, tri, filtre, règle d'affichage) est écrite comme une fonction pure dans `app/utils/`, puis appelée par le composant ou le composable ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)). Une règle enfouie dans un composant n'est pas testable ici.
 - Pas de tests de composants.
-- Le schéma Zod de chaque collection valide aussi le contenu à chaque build : une donnée invalide fait échouer `dev` et `generate`.
+- Nuxt Content ne valide pas le contenu contre ses schémas au build : ce sont les tests de contenu qui le font, avec les icônes, les liens et la cohérence ([CONTENT.md](CONTENT.md#vérifier-le-contenu)).
 - Pas de script `typecheck` ni de CI : les vérifications se font en local.
 
 ## Organisation
 
 - `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
+- `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (clés d'activité, redirections, accessibilité). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
 - Un `describe` par fonction, cas décrits en français.
 
 ## Ce qui doit être testé
@@ -24,14 +25,15 @@
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - liens de l'en-tête (`navigation`), activité précédente / suivante (`activities`), couleurs de catégorie (`category-color`) ;
-- plugin `rehype-target-blank`.
+- plugin `rehype-target-blank` ;
+- contenu : schémas, icônes, liens internes, entrées SEO, clés d'activité, redirections.
 
 Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.
 
 ## Commandes
 
 ```bash
-bun run test         # tests Vitest
+bun run test         # tests Vitest (logique pure et contenu)
 bun run test:watch   # mode interactif
 ```
 

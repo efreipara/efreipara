@@ -1,12 +1,12 @@
 # Efrei Para — Contenu
 
 > **Périmètre** : modèle de contenu — collections Nuxt Content, fichiers sources, champs, formats acceptés, fichiers attendus sur le CDN.
-> **À mettre à jour** dès qu'une collection, un schéma de `content.config.ts`, une convention de nommage d'image ou la règle « texte dans `content/` » change.
+> **À mettre à jour** dès qu'une collection, un schéma de `content.schemas.ts`, une convention de nommage d'image ou la règle « texte dans `content/` » change.
 > L'usage de chaque page est dans [PRD.md](PRD.md), le chargement des données dans [ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu).
 
 ## Principe
 
-Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts) avec un schéma Zod : un champ manquant ou mal typé fait échouer le build.
+Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts), avec sa source et son schéma Zod dans [`content.schemas.ts`](../content.schemas.ts). Nuxt Content ne vérifie pas le schéma au build : c'est `bun run test` qui le fait, avec d'autres contrôles (voir [Vérifier le contenu](#vérifier-le-contenu)).
 
 Ce qui n'est pas dans `content/` :
 
@@ -91,7 +91,7 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 ## Ajouter une collection
 
 1. Créer le fichier dans `content/global/` (commun à plusieurs pages) ou `content/pages/`.
-2. Déclarer la collection et son schéma Zod dans `content.config.ts`.
+2. Ajouter sa source et son schéma Zod dans `content.schemas.ts`, puis `nom: defineCollection(collections.nom)` dans `content.config.ts`.
 3. La lire avec `useAsyncData('<clé unique>', () => queryCollection('<nom>').first())`.
 4. Ajouter l'entrée SEO si c'est une nouvelle page, et la mettre à jour ici.
 
@@ -100,7 +100,7 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le code. Il faut toucher :
 
 - `content/pages/activites/<clé>.yml`, une section dans `activites.yml`, une entrée dans `navigation.yml`, `seo.yml` (`activites-<clé>`) et `home.yml` ;
-- `content.config.ts` : les enums `['oa', 'tandem', 'soufflerie', 'pac']` (`nextEvent`, `partners`, `navigation`) ;
+- `content.schemas.ts` : les enums `['oa', 'tandem', 'soufflerie', 'pac']` (`nextEvent`, `partners`, `navigation`) ;
 - `app/composables/useActivities.ts` (`ActivityType`, `useActivityColor`), `app/utils/activities.ts` (`ACTIVITY_ORDER`), `app/pages/activites/[activite].vue` (liste validée) ;
 - `app/app.config.ts` (`efreipara.icons.activites`, `efreipara.colors`) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>` et `--color-on-efreipara-<clé>`) ;
@@ -111,4 +111,16 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 - Modifier le fichier YAML ou Markdown, respecter l'indentation (deux espaces) et mettre entre guillemets un texte qui contient `:` suivi d'un espace ou commence par un caractère spécial.
 - Les apostrophes typographiques (`’`) sont la norme dans les textes.
-- Vérifier le rendu avec `bun dev` ; une erreur de schéma s'affiche dans le terminal avec le champ en cause.
+- Vérifier le rendu avec `bun dev`, puis lancer `bun run test` (voir ci-dessous).
+
+## Vérifier le contenu
+
+`bun run test` lance les tests de `tests/content/`, qui attrapent les erreurs d'édition que le build laisse passer :
+
+- chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), et chaque fichier de `content/` appartient à une collection ;
+- chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
+- chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
+- chaque page a son entrée dans `seo.yml`, et chaque image de partage existe ;
+- les clés d'activité citées (galerie, événement, partenaires, accueil, menu) existent, et chaque option de « Nous rejoindre » a sa redirection prérendue.
+
+Le message d’échec donne le fichier et le chemin du champ en cause.

@@ -40,7 +40,8 @@ efreipara/
 ├── content/             # Contenu en Markdown/YAML
 ├── public/              # Fichiers publics statiques
 ├── nuxt.config.ts       # Configuration principale de Nuxt
-└── content.config.ts    # Configuration de Nuxt Content
+├── content.config.ts    # Configuration de Nuxt Content
+└── content.schemas.ts   # Schémas des collections de contenu
 ```
 
 ## 📚 Documentation
