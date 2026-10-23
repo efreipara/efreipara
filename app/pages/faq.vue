@@ -17,7 +17,7 @@
     return faqData.value.categories.map((category, catIndex) => {
       return {
         name: category.name,
-        color: (category as unknown as { color?: string }).color,
+        color: category.color,
         icon: category.questions[0]?.icon || appConfig.efreipara.icons.extras.question,
         questions: category.questions.map((question, i) => ({
           label: question.question,

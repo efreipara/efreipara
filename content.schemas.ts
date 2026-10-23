@@ -154,6 +154,7 @@ export const collections = {
       categories: z.array(
         z.object({
           name: z.string(),
+          color: z.string().optional(),
           questions: z.array(
             z.object({
               question: z.string(),
