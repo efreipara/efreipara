@@ -7,14 +7,6 @@
 
   const { getCategoryColor } = useCategoryColor()
 
-  const categoryId = (name: string) =>
-    name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-
   const categoryChips = computed(() =>
     (documentsData.value?.categories ?? []).map((c) => ({
       name: c.name,
@@ -34,7 +26,7 @@
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
         <template v-for="(category, catIndex) in documentsData?.categories" :key="catIndex">
-          <section :id="categoryId(category.name)">
+          <section :id="toAnchorId(category.name)">
             <!-- En-tête de catégorie -->
             <div class="mb-6 flex items-center gap-4">
               <div

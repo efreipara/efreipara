@@ -24,23 +24,16 @@
 
   const activeFilter = ref<string | null>(null)
 
-  const activityTypes = computed(() => {
-    if (!page.value?.items) return []
-    return [...new Set(page.value.items.map((item) => item.type))]
-  })
+  const activityTypes = computed(() => galleryTypes(page.value?.items ?? []))
 
-  const filteredItems = computed(() => {
-    if (!page.value?.items) return []
-    const items = activeFilter.value
-      ? page.value.items.filter((item) => item.type === activeFilter.value)
-      : [...page.value.items]
-    return items.sort((a, b) => b.date.localeCompare(a.date))
-  })
+  const filteredItems = computed(() => filterGallery(page.value?.items ?? [], activeFilter.value))
 
   const heroItem = computed(() => filteredItems.value[0] ?? null)
   const restItems = computed(() => filteredItems.value.slice(1))
 
-  const showHeroLayout = computed(() => !activeFilter.value && filteredItems.value.length >= 3)
+  const showHeroLayout = computed(() =>
+    hasGalleryHeroLayout(activeFilter.value, filteredItems.value.length),
+  )
 
   // `photo` en priorité ; repli sur le CDN (<type>/<date>.jpg) si absente ou en erreur
   const failedPhotos = ref(new Set<string>())
@@ -49,7 +42,7 @@
 
   const photoSrc = (item: { url: string; type: string; date: string; photo?: string }) => {
     if (item.photo && !failedPhotos.value.has(item.url)) return item.photo
-    return buildCdnUrl(`${item.type}/${item.date}.jpg`) || item.photo
+    return buildCdnUrl(galleryFallbackPath(item)) || item.photo
   }
 
   const onPhotoLoad = (item: { url: string }) => {
@@ -59,7 +52,7 @@
   const onPhotoError = (item: { url: string; type: string; date: string; photo?: string }) => {
     if (item.photo && !failedPhotos.value.has(item.url)) {
       failedPhotos.value.add(item.url)
-      if (buildCdnUrl(`${item.type}/${item.date}.jpg`)) return
+      if (buildCdnUrl(galleryFallbackPath(item))) return
     }
     settledPhotos.value.add(item.url)
   }

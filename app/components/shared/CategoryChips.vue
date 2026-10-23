@@ -5,14 +5,6 @@
 
   const { getCategoryColor } = useCategoryColor()
 
-  const categoryId = (name: string) =>
-    name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
-
   const scrollTo = (id: string, duration = 800) => {
     const el = document.getElementById(id)
     if (!el) return
@@ -46,7 +38,7 @@
         getCategoryColor(category.color).text,
         getCategoryColor(category.color).hoverBg,
       ]"
-      @click="scrollTo(categoryId(category.name))"
+      @click="scrollTo(toAnchorId(category.name))"
     >
       <UIcon :name="category.icon" class="size-4" />
       {{ category.name }}

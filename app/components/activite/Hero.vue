@@ -29,10 +29,7 @@
     backgroundColor: `color-mix(in oklch, ${activityCssVar[props.activite]} 12%, transparent)`,
   }))
 
-  const activities = Object.keys(activityCssVar) as ActivityType[]
-  const currentIndex = activities.indexOf(props.activite)
-  const prevActivity = activities[(currentIndex - 1 + activities.length) % activities.length]
-  const nextActivity = activities[(currentIndex + 1) % activities.length]
+  const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)
 
   const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
     useAsyncData(`${prevActivity}-nav`, () =>

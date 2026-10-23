@@ -52,18 +52,9 @@ export const useNextEvent = () => {
     return `/activites/${type}`
   }
 
-  const shouldShowEvent = (): boolean => {
-    if (!event.value) return false
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const eventDate = new Date(event.value.date)
-    eventDate.setHours(0, 0, 0, 0)
-    return eventDate >= today
-  }
+  const shouldShowEvent = (): boolean => !!event.value && isUpcomingEvent(event.value.date)
 
-  const getEventBannerId = (): string => {
-    return `event-${event.value?.date}-${event.value?.type}`
-  }
+  const getEventBannerId = (): string => eventBannerId(event.value)
 
   return {
     event,

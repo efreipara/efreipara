@@ -5,11 +5,7 @@ export const useNavigation = async () => {
   const activitiesIndex = computed(() => data.value!.activitiesIndex)
   const activities = computed(() => data.value?.activities ?? [])
 
-  const headerLinks = computed(() =>
-    (data.value?.pages ?? [])
-      .filter((p) => p.header !== undefined)
-      .sort((a, b) => (a.header ?? 0) - (b.header ?? 0)),
-  )
+  const headerLinks = computed(() => sortHeaderLinks(data.value?.pages ?? []))
 
   const footerPages = computed(() => data.value?.pages ?? [])
   const footerLegal = computed(() => data.value?.legal ?? [])

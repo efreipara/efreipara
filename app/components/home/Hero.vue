@@ -9,10 +9,7 @@
 
 <template>
   <!-- Section hero pleine hauteur avec vidéo en arrière-plan -->
-  <section
-    class="main-hero-card relative overflow-hidden"
-    style="view-transition-name: home-hero"
-  >
+  <section class="main-hero-card relative overflow-hidden" style="view-transition-name: home-hero">
     <!-- Conteneur avec hauteur calculée (viewport - header) -->
     <div
       class="relative flex items-center justify-center"

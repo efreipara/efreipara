@@ -18,6 +18,7 @@
 - Templates : composants en `PascalCase`, toutes les balises sans contenu auto-fermantes (`<UIcon … />`, `<img … />`).
 - Composants rangés par zone dans `components/<zone>/`, nommés sans répéter la zone (`activite/Hero.vue` → `<ActiviteHero>`).
 - Composables : un fichier `useXxx.ts` dans `app/composables/`, `export const useXxx = () => { … }`, qui renvoie un objet. Les types partagés sont exportés du composable qui les porte (`ActivityType` depuis `useActivities.ts`).
+- Logique testable (calcul, tri, filtre, règle d'affichage) : une fonction pure dans `app/utils/`, appelée par le composant ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)).
 - Données : `await useAsyncData('<clé unique>', () => queryCollection(…))` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)) ; les champs facultatifs se lisent avec `?.` et un repli.
 - Variables inutilisées interdites ; un argument volontairement ignoré commence par `_`.
 
@@ -25,7 +26,7 @@
 
 - Icône Nuxt UI générique : `appConfig.ui.icons.<nom>` ; icône propre au site : `appConfig.efreipara.icons.<groupe>.<nom>` ; icône d'activité : `useEventIcon().getIcon(type)`. Écrire un nom `tabler:*` en dur seulement quand aucune entrée n'existe, et toujours en entier (scan des icônes).
 - Couleurs sémantiques Nuxt UI plutôt que des teintes Tailwind ; teinte d'activité par `color-mix` ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md#teinte-dactivité)).
-- Une classe Tailwind construite dynamiquement doit apparaître **en entier** quelque part dans les fichiers scannés, sinon elle n'est pas générée (voir le commentaire en tête de `useCategoryColor.ts`).
+- Une classe Tailwind construite dynamiquement doit apparaître **en entier** quelque part dans les fichiers scannés, sinon elle n'est pas générée (voir le commentaire en tête de `app/utils/category-color.ts`).
 - L'ordre des classes est fixé par `prettier-plugin-tailwindcss`.
 - Pour personnaliser un composant Nuxt UI, passer par sa prop `ui` (ou `app.config.ts` pour un réglage global) plutôt que surcharger son CSS.
 

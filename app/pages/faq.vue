@@ -29,14 +29,6 @@
       }
     })
   })
-
-  const categoryId = (name: string) =>
-    name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
 </script>
 
 <template>
@@ -52,7 +44,7 @@
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
         <template v-for="(category, catIndex) in categoriesData" :key="catIndex">
-          <section :id="categoryId(category.name)">
+          <section :id="toAnchorId(category.name)">
             <!-- En-tête de catégorie -->
             <div class="mb-4 flex items-center gap-4">
               <div

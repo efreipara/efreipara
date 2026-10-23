@@ -43,7 +43,8 @@ app/
 │   └── images/       # avion.svg, qr.svg, main-hero.jpg (affiche de la vidéo)
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
-└── pages/            # routes (noms en français)
+├── pages/            # routes (noms en français)
+└── utils/            # fonctions pures, sans Nuxt, testées par Vitest
 content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
@@ -84,11 +85,29 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | `useNextEvent`, `useEventIcon`, `useActivityColor` | (`useActivities.ts`) prochain événement et règle d'affichage, icône d'une activité ; type `ActivityType`. `useActivityColor` n'est utilisé nulle part |
 | `useSocials`                                       | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                                                              |
 | `useSeo`                                           | Métadonnées d'une page depuis `seo.yml`                                                                                                               |
-| `useCdnAsset`                                      | `buildCdnUrl(chemin)` : adresse complète sur le CDN                                                                                                   |
+| `useCdnAsset`                                      | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                          |
 | `useCategoryColor`                                 | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                          |
 | `useAccessibility`                                 | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                          |
 
-`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.config.ts` (enums), `pages/activites/[activite].vue`, `app.config.ts` et dans la table `activityCssVar` de chaque composant qui teinte par activité. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.config.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`), `app.config.ts` et dans la table `activityCssVar` de chaque composant qui teinte par activité. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+
+### Fonctions pures
+
+Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à Nuxt : composants et composables les appellent, Vitest les importe directement ([TESTING.md](TESTING.md)). Nuxt les auto-importe ; leur nom ne doit pas reprendre celui d'une variable locale courante ni commencer par `use`.
+
+| Module              | Fonctions                                                                      | Utilisé par                           |
+| ------------------- | ------------------------------------------------------------------------------ | ------------------------------------- |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                          | `app.vue`, `useSeo`                   |
+| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                             | `useNextEvent`                        |
+| `cdn.ts`            | `resolveCdnUrl`                                                                | `useCdnAsset`                         |
+| `stat.ts`           | `parseStatValue`                                                               | `HomeStatCounter`                     |
+| `anchor.ts`         | `toAnchorId`                                                                   | Documents, FAQ, `SharedCategoryChips` |
+| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath` | galerie                               |
+| `navigation.ts`     | `sortHeaderLinks`                                                              | `useNavigation`                       |
+| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`                                         | `ActiviteHero`                        |
+| `category-color.ts` | `categoryColorClasses`                                                         | `useCategoryColor`                    |
+
+Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 
 ## Chargement du contenu
 
@@ -106,7 +125,7 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ## CDN
 
-`useCdnAsset().buildCdnUrl(chemin)` renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. La vidéo d'accueil lit `runtimeConfig.public.cdnUrl` directement. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
+`useCdnAsset().buildCdnUrl(chemin)` (règle : `resolveCdnUrl`) renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. La vidéo d'accueil lit `runtimeConfig.public.cdnUrl` directement. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
 
 ## Icônes
 

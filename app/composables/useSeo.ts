@@ -11,55 +11,9 @@ export const useSeo = (pageKey: MaybeRefOrGetter<string>) => {
   const { data: seoData, status } = useAsyncData('seo', () => queryCollection('seo').first())
 
   // Computed pour les métadonnées (réactif mais exécuté immédiatement en SSR)
-  const seoMeta = computed(() => {
-    if (!seoData.value) return null
-
-    const key = toValue(pageKey)
-    const defaults = seoData.value.defaults
-    const pageSeo = seoData.value.pages[key]
-
-    // Fusion des données : defaults < page
-    const title = pageSeo?.title || defaults.siteName
-    const description = pageSeo?.description || ''
-    const ogImage = pageSeo?.ogImage || defaults.ogImage
-
-    // Construction du titre complet avec le nom du site
-    const fullTitle = key === 'index' ? title : `${title}${defaults.separator}${defaults.siteName}`
-
-    // Construction de l'URL canonique
-    const canonicalUrl = defaults.baseUrl
-      ? `${defaults.baseUrl}${key === 'index' ? '' : '/' + key.replace('activites-', 'activites/')}`
-      : undefined
-
-    return {
-      title: fullTitle,
-      description,
-      author: defaults.author,
-
-      // OpenGraph
-      ogTitle: fullTitle,
-      ogDescription: description,
-      ogImage,
-      ogType: defaults.ogType as 'website',
-      ogSiteName: defaults.ogSiteName,
-      ogUrl: canonicalUrl,
-      ogLocale: defaults.locale,
-
-      // Twitter
-      twitterCard: defaults.twitterCard as 'summary_large_image',
-      twitterTitle: fullTitle,
-      twitterDescription: description,
-      twitterImage: ogImage,
-
-      // Robots
-      robots: pageSeo?.robots || 'index, follow',
-
-      // HTML attrs
-      htmlLang: defaults.locale?.split('_')[0] || 'fr',
-      themeColor: defaults.themeColor,
-      canonicalUrl,
-    }
-  })
+  const seoMeta = computed(() =>
+    seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey)) : null,
+  )
 
   // Application des métadonnées SEO
   useSeoMeta({

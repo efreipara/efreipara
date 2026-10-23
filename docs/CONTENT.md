@@ -101,7 +101,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 - `content/pages/activites/<clé>.yml`, une section dans `activites.yml`, une entrée dans `navigation.yml`, `seo.yml` (`activites-<clé>`) et `home.yml` ;
 - `content.config.ts` : les enums `['oa', 'tandem', 'soufflerie', 'pac']` (`nextEvent`, `partners`, `navigation`) ;
-- `app/composables/useActivities.ts` (`ActivityType`, `useActivityColor`), `app/pages/activites/[activite].vue` (liste validée) ;
+- `app/composables/useActivities.ts` (`ActivityType`, `useActivityColor`), `app/utils/activities.ts` (`ACTIVITY_ORDER`), `app/pages/activites/[activite].vue` (liste validée) ;
 - `app/app.config.ts` (`efreipara.icons.activites`, `efreipara.colors`) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>` et `--color-on-efreipara-<clé>`) ;
 - chaque table `activityCssVar` (`grep -rn activityCssVar app`) et `typeLabel` de `galerie.vue` ;
