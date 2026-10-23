@@ -28,4 +28,4 @@ export const activityTint = (type: string | undefined, percent: number) =>
 
 // Classe qui pose --activity (main.css) : ses descendants l'utilisent via bg-tint-*, text-activity, bg-activity
 export const activityClass = (type?: string) =>
-  type && type in ACTIVITY_CSS_VAR ? `activity-${type}` : ''
+  type && Object.hasOwn(ACTIVITY_CSS_VAR, type) ? `activity-${type}` : ''

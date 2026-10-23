@@ -45,6 +45,7 @@ describe('activityClass', () => {
 
   it('ne donne aucune classe pour un type inconnu ou absent (repli sur la couleur primaire)', () => {
     expect(activityClass('inconnu')).toBe('')
+    expect(activityClass('constructor')).toBe('')
     expect(activityClass(undefined)).toBe('')
   })
 })
