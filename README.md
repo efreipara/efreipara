@@ -208,6 +208,10 @@ Le site est déployé automatiquement via Docker. La configuration se trouve dan
 - `Dockerfile` - Configuration de l'image Docker
 - `nginx/` - Configuration du serveur web
 
+## 🏷️ Versions
+
+Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/) : la version courante est dans `package.json`, l'historique dans [CHANGELOG.md](CHANGELOG.md), et chaque version a son tag git `vX.Y.Z`.
+
 ## 📝 Licence
 
 ### Code source

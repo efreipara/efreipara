@@ -18,7 +18,7 @@ La documentation est découpée par usage dans `docs/`. **Lire le ou les documen
 | [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md)       | Conventions de code, Prettier, ESLint, format des commits        | écrire du code ou un commit                                        |
 | [`docs/TESTING.md`](docs/TESTING.md)             | Vérifications avant de livrer                                    | terminer une livraison                                             |
 
-Installation et variables d'environnement : `README.md`.
+Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md`.
 
 ### Documentation à jour (obligatoire)
 
@@ -36,7 +36,7 @@ Installation et variables d'environnement : `README.md`.
 | Variable d'environnement, installation, édition de contenu                | `README.md` + `.env.example` |
 
 - Chaque information n'est écrite qu'à **un seul endroit** ; les autres documents y renvoient par un lien.
-- Les documents décrivent l'**état actuel** : corriger le texte existant, ne pas ajouter de note datée.
+- Les documents décrivent l'**état actuel** : corriger le texte existant, ne pas ajouter de note datée (l'historique va dans `CHANGELOG.md`).
 - Un `refactor`, `style` ou `chore` qui ne change rien à ce qui est décrit ne touche pas la documentation.
 - `docs/` est public : jamais d'adresse de préproduction, d'hébergeur, d'IP ni de chemin de déploiement ([SECURITY.md](docs/SECURITY.md#7-dépôt-public)).
 - En fin de réponse, indiquer les documents mis à jour (ou « documentation inchangée »).
@@ -96,10 +96,23 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 
 - Commiter l'avancement au fil de l'eau (une étape cohérente = un commit), au format Conventional Commits en français (`feat(scope): …`, `fix(scope): …`, `docs(scope): …`, `chore(bun): …`).
 - Travailler sur `dev` ; `main` est la production.
-- **Jamais de push. Jamais de tag. Jamais de ligne `Co-Authored-By`** ni autre mention de Claude dans les messages de commit.
+- **Jamais de push. Jamais de ligne `Co-Authored-By`** ni autre mention de Claude dans les messages de commit.
 - `CLAUDE.md` et `.claude/` (skills) sont versionnés : une modification des conventions ou des skills se commite comme le reste.
 - Jamais commités : `CLAUDE.local.md`, `.claude/settings.local.json` et tout fichier ignoré par git (ne jamais forcer un `git add -f`).
 - Ne pas inclure dans un commit des modifications du dépôt qu'on n'a pas faites soi-même.
+
+## Versions
+
+- Versionnage **SemVer** ; source unique : le champ `version` de `package.json`.
+- **À chaque commit, évaluer l'impact sur la version** d'après son type :
+  - `feat` → version **mineure** (1.1.0 → 1.2.0) ;
+  - `fix` ou `perf` visible par le visiteur → version **corrective** (1.1.0 → 1.1.1) ;
+  - changement incompatible (adresse publique supprimée ou renommée, `!` dans le type) → version **majeure** ;
+  - `docs`, `refactor`, `style`, `chore`, `test` sans effet visible → version inchangée.
+  - Une modification de contenu visible (`feat(content)`, `fix(content)`) compte comme le reste.
+- **Une version par livraison** : quand une demande produit plusieurs commits, incrémenter une seule fois, dans le **dernier commit du lot**, au niveau le plus haut des commits du lot. Ce commit met à jour `package.json` **et** `CHANGELOG.md` (entrée datée, rubriques « Ajouts », « Modifications », « Corrections », en français, rédigées pour un visiteur ou un membre du bureau).
+- Poser ensuite un **tag git local annoté** `vX.Y.Z` sur ce commit, sur `dev` (`git tag -a vX.Y.Z -m "Efrei Para X.Y.Z"`). Jamais de push : les tags partent avec `git push --follow-tags`.
+- En fin de réponse, indiquer la nouvelle version (ou « version inchangée »).
 
 ## Commandes
 
