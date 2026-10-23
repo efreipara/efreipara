@@ -19,30 +19,40 @@
 
     <UContainer class="pb-16">
       <!-- Bandeau Discord -->
-      <div
-        class="border-discord/20 bg-discord/10 mb-12 flex flex-col gap-4 rounded-2xl border p-6 sm:flex-row sm:items-center"
+      <UAlert
+        :title="rejoindreData?.alert.title"
+        :description="rejoindreData?.alert.description"
+        :actions="[
+          {
+            label: rejoindreData?.alert.actionLabel,
+            to: getSocialUrl('discord'),
+            target: '_blank',
+            icon: getSocialIcon('discord') ?? 'simple-icons:discord',
+            color: 'neutral',
+            size: 'md',
+            class: 'rounded-full',
+          },
+        ]"
+        color="neutral"
+        variant="outline"
+        orientation="horizontal"
+        class="border-discord/20 bg-discord/10 text-default mb-12 rounded-2xl border p-6 ring-0"
+        :ui="{
+          root: 'flex-col items-stretch gap-4 sm:flex-row sm:items-center',
+          title: 'mb-0.5 text-base font-bold',
+          description: 'text-muted mt-0 opacity-100',
+          actions: 'flex-col items-stretch sm:flex-row sm:items-center',
+        }"
       >
-        <div class="bg-discord/20 flex size-12 shrink-0 items-center justify-center rounded-xl">
-          <UIcon
-            :name="getSocialIcon('discord') ?? 'simple-icons:discord'"
-            class="text-discord size-6"
-          />
-        </div>
-        <div class="flex-1">
-          <p class="mb-0.5 font-bold">{{ rejoindreData?.alert.title }}</p>
-          <p class="text-muted text-sm">{{ rejoindreData?.alert.description }}</p>
-        </div>
-        <UButton
-          :to="getSocialUrl('discord')"
-          target="_blank"
-          external
-          :icon="getSocialIcon('discord') ?? 'simple-icons:discord'"
-          color="neutral"
-          class="shrink-0 rounded-full"
-        >
-          {{ rejoindreData?.alert.actionLabel }}
-        </UButton>
-      </div>
+        <template #leading>
+          <div class="bg-discord/20 flex size-12 shrink-0 items-center justify-center rounded-xl">
+            <UIcon
+              :name="getSocialIcon('discord') ?? 'simple-icons:discord'"
+              class="text-discord size-6"
+            />
+          </div>
+        </template>
+      </UAlert>
 
       <!-- Devenir membre / Rejoindre le bureau -->
       <div class="grid gap-6 sm:grid-cols-2">
