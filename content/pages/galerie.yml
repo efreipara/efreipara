@@ -3,6 +3,13 @@ hero:
   description: Revivez nos événements en images
   linkLabel: Voir l'album
 
+# Libellé de chaque type d'activité (filtres et étiquettes des albums)
+typeLabels:
+  soufflerie: Soufflerie
+  tandem: Tandem
+  oa: Ouverture Auto.
+  pac: PAC
+
 items:
   - title: Baptême Soufflerie
     type: soufflerie

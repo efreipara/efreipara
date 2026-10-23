@@ -66,12 +66,7 @@
       new Date(iso),
     )
 
-  const typeLabel: Record<string, string> = {
-    soufflerie: 'Soufflerie',
-    tandem: 'Tandem',
-    oa: 'Ouverture Auto.',
-    pac: 'PAC',
-  }
+  const typeLabel = (type: string) => page.value?.typeLabels[type as ActivityType] ?? type
 </script>
 
 <template>
@@ -109,7 +104,7 @@
             class="size-4"
             :style="chipIconStyle(type, activeFilter === type)"
           />
-          {{ typeLabel[type] ?? type }}
+          {{ typeLabel(type) }}
         </button>
       </div>
 
@@ -155,7 +150,7 @@
                 :style="{ color: activityColor(heroItem.type) }"
                 class="size-3.5"
               />
-              {{ typeLabel[heroItem.type] ?? heroItem.type }}
+              {{ typeLabel(heroItem.type) }}
             </div>
           </div>
           <div
@@ -227,7 +222,7 @@
                 :style="{ color: activityColor(galerie.type) }"
                 class="size-3.5"
               />
-              {{ typeLabel[galerie.type] ?? galerie.type }}
+              {{ typeLabel(galerie.type) }}
             </div>
           </div>
           <div

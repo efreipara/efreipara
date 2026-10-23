@@ -11,7 +11,7 @@ Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les co
 Ce qui n'est pas dans `content/` :
 
 - **`app/app.config.ts`** : URL des réseaux sociaux, e-mail et adresse du club, liens cartographiques, e-mail du mainteneur, registre d'icônes et teintes d'activité.
-- **Libellés encore écrits dans le code** : boutons du hero de l'accueil (« Nos activités », « Nous rejoindre »), « En savoir plus » et « Inscription » (cartes et bannière), titres des sections d'activité (« Pourquoi choisir … ? », « Comment ça se passe ? », « Prérequis », « Nos partenaires »), libellés des types de la galerie (`typeLabel` de `galerie.vue`), « Tout voir », compteurs (« docs », « questions »), boutons de `SharedHelpCta`, messages d'erreur (`error.vue`), pied de page (licences), page À propos.
+- **Libellés encore écrits dans le code** : boutons du hero de l'accueil (« Nos activités », « Nous rejoindre »), « En savoir plus » et « Inscription » (cartes et bannière), titres des sections d'activité (« Pourquoi choisir … ? », « Comment ça se passe ? », « Prérequis », « Nos partenaires »), « Tout voir », compteurs (« docs », « questions »), boutons de `SharedHelpCta`, messages d'erreur (`error.vue`), pied de page (licences), page À propos.
 
 Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le contenu met à jour cette liste.
 
@@ -43,7 +43,7 @@ Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le cont
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
 - **`home`** : `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `activites.items[].type` et `why[].type` donnent la teinte.
 - **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). Seuls `title`, `description`, `label` et `alt` sont obligatoires ; `intro`, `stats`, `features`, `steps`, `requirements` sont facultatifs et leur section disparaît s'ils sont absents. `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
-- **`galerie`** : `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
+- **`galerie`** : `typeLabels` (libellé de chaque clé d'activité, utilisé par les filtres et les étiquettes des albums) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
 - **`documents`** : catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon).
 - **`faq`** : catégories (`name`, `questions[]`) ; une question a `question`, `answer`, `icon` (l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`). Le fichier donne aussi un `color` aux catégories, que le schéma ne déclare pas ; la page le lit malgré tout.
 - **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta.buttons` ⊂ `discord`, `instagram`, `github`.
@@ -104,7 +104,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - `app/composables/useActivities.ts` (`ActivityType`), `app/utils/activities.ts` (`ACTIVITY_ORDER`, `ACTIVITY_CSS_VAR`), `app/pages/activites/[activite].vue` (liste validée) ;
 - `app/app.config.ts` (`efreipara.icons.activites`, `efreipara.colors`) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>` et `--color-on-efreipara-<clé>`) ;
-- `typeLabel` de `galerie.vue` ;
+- `typeLabels` de `galerie.yml` ;
 - les photos sur le CDN et `public/seo/activites-<clé>.png`.
 
 ## Pour les éditeurs de contenu

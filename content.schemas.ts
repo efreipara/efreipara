@@ -56,6 +56,12 @@ export const collections = {
         description: z.string(),
         linkLabel: z.string(),
       }),
+      typeLabels: z.object({
+        oa: z.string(),
+        tandem: z.string(),
+        soufflerie: z.string(),
+        pac: z.string(),
+      }),
       items: z.array(
         z.object({
           title: z.string(),
