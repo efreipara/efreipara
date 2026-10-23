@@ -106,15 +106,24 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 ## Versions
 
 - Versionnage **SemVer** ; source unique : le champ `version` de `package.json`.
-- **À chaque commit, évaluer l'impact sur la version** d'après son type :
-  - `feat` → version **mineure** (1.1.0 → 1.2.0) ;
-  - `fix` ou `perf` visible par le visiteur → version **corrective** (1.1.0 → 1.1.1) ;
-  - changement incompatible (adresse publique supprimée ou renommée, `!` dans le type) → version **majeure** ;
-  - `docs`, `refactor`, `style`, `chore`, `test` sans effet visible → version inchangée.
-  - Une modification de contenu visible (`feat(content)`, `fix(content)`) compte comme le reste.
-- **Une version par livraison** : quand une demande produit plusieurs commits, incrémenter une seule fois, dans le **dernier commit du lot**, au niveau le plus haut des commits du lot. Ce commit met à jour `package.json` **et** `CHANGELOG.md` (entrée datée, rubriques « Ajouts », « Modifications », « Corrections », en français, rédigées pour un visiteur ou un membre du bureau).
+- **Le type du commit se choisit d'après son effet sur le site livré** (ce que `generate` produit et que nginx sert), et la version en découle. Claude décide lui-même, à chaque livraison, sans attendre qu'on le lui demande.
+
+| Type                                         | Quand                                                                                                                                                               | Version                        |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `feat`                                       | nouvelle page, section, fonctionnalité, comportement ou contenu visible ajouté                                                                                      | **mineure** (1.1.0 → 1.2.0)    |
+| `fix`                                        | correction visible (bogue, contenu faux, accessibilité), faille corrigée dans le site livré                                                                         | **corrective** (1.1.0 → 1.1.1) |
+| `perf`                                       | site livré plus rapide ou plus léger                                                                                                                                | **corrective**                 |
+| `build`                                      | dépendances, `Dockerfile`, nginx, config de build : **corrective** si ce qui est servi change (dépendance embarquée dans le site, image, en-têtes), sinon inchangée | corrective ou inchangée        |
+| `refactor`                                   | code réécrit, site généré identique (sinon ce n'est pas un refactor)                                                                                                | inchangée                      |
+| `style`                                      | mise en forme du code uniquement (Prettier) ; un changement d'apparence est un `feat` ou un `fix`                                                                   | inchangée                      |
+| `test`, `docs`, `ci`, `chore`                | tests, documentation, outillage de dev (Vitest, Playwright, ESLint…), configuration Claude                                                                          | inchangée                      |
+| `!` après le type, ou pied `BREAKING CHANGE` | changement incompatible : adresse publique supprimée ou renommée sans redirection                                                                                   | **majeure** (1.1.0 → 2.0.0)    |
+
+- Une mise à jour de dépendances qui ne touche que l'outillage (Vitest, Playwright, ESLint, Prettier, types) reste un `chore(bun)` ; dès qu'une dépendance embarquée dans le site ou utilisée pour le générer change, c'est un `build(bun)`.
+- En cas de doute sur l'effet, comparer le site généré avant et après (HTML, payloads, CSS, liste des fichiers).
+- **Une version par livraison** : quand une demande produit plusieurs commits, incrémenter une seule fois, dans le **dernier commit du lot**, au niveau le plus haut des commits du lot (un `fix` et un `feat` donnent une mineure). Ce commit met à jour `package.json` **et** `CHANGELOG.md` (entrée datée, rubriques « Ajouts », « Modifications », « Corrections », en français, rédigées pour un visiteur ou un membre du bureau).
 - Poser ensuite un **tag git local annoté** `vX.Y.Z` sur ce commit, sur `dev` (`git tag -a vX.Y.Z -m "Efrei Para X.Y.Z"`). Jamais de push : les tags partent avec `git push --follow-tags`.
-- En fin de réponse, indiquer la nouvelle version (ou « version inchangée »).
+- En fin de réponse, indiquer la version et sa raison en une ligne (« 1.1.1 : faille DOMPurify corrigée dans le site ») ou « version inchangée : rien de livré ne change ».
 
 ## Commandes
 

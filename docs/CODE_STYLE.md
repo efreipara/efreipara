@@ -38,8 +38,8 @@
 ## Commits
 
 - Format **Conventional Commits en français** : `type(scope): description` au présent ou à l'infinitif, en minuscules, sans point final.
-  - Types : `feat`, `fix`, `refactor`, `style` (formatage, apparence sans changement de comportement), `docs`, `chore`.
-  - Scope : la zone touchée, au singulier ou tel qu'en usage : `header`, `footer`, `activites`, `galerie`, `documents`, `faq`, `rejoindre`, `contact`, `qr`, `mainhero`, `content`, `icons`, `nginx`, `dockerfile`, `nuxt`, `readme`… ; `chore(bun): mise à jour des dépendances` pour les paquets.
+  - Types : `feat`, `fix`, `perf`, `build`, `refactor`, `style`, `test`, `docs`, `ci`, `chore`, choisis d'après l'effet sur le site livré ; leur sens et leur effet sur la version sont dans le tableau de la section « Versions » de [`CLAUDE.md`](../CLAUDE.md#versions). `style` ne désigne que la mise en forme du code : un changement d'apparence est un `feat` ou un `fix`.
+  - Scope : la zone touchée, au singulier ou tel qu'en usage : `header`, `footer`, `activites`, `galerie`, `documents`, `faq`, `rejoindre`, `contact`, `qr`, `mainhero`, `content`, `icons`, `nginx`, `dockerfile`, `nuxt`, `readme`… ; `build(bun): mise à jour des dépendances` quand une dépendance du site change, `chore(bun)` quand seul l'outillage de dev change.
 - Un commit = une étape cohérente ; la documentation concernée est mise à jour dans le même commit.
 - Le type du commit décide de l'impact sur la version (SemVer, `package.json`, `CHANGELOG.md`, tag `vX.Y.Z`) : règle dans la section « Versions » de [`CLAUDE.md`](../CLAUDE.md#versions).
 - On travaille sur `dev` ; `main` correspond à la production ([ARCHITECTURE.md](ARCHITECTURE.md#environnements-et-déploiement)).
