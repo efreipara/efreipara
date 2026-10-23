@@ -77,7 +77,7 @@
                   trigger: 'text-base font-medium py-4 cursor-pointer gap-4',
                   leadingIcon: getCategoryColor(category.color).text,
                   body: 'text-muted pb-4',
-                  item: 'border-b border-neutral-200 dark:border-neutral-800 last:border-b-0',
+                  item: 'dark:border-accented',
                 }"
               >
                 <template #body="{ item }">

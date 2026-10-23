@@ -61,17 +61,7 @@
       :drift="500"
       :initial-presence="0.7"
     />
-    <UError
-      :error="customError"
-      redirect="/"
-      :clear="{
-        label: 'Retour à l\'accueil',
-        color: 'neutral',
-        size: 'lg',
-        icon: appConfig.ui.icons.arrowLeft,
-        class: 'rounded-full cursor-pointer',
-      }"
-    >
+    <UError :error="customError">
       <template #links>
         <UButton
           label="Retour à l'accueil"

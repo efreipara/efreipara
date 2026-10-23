@@ -39,7 +39,7 @@ Défini dans [`app/app.config.ts`](../app/app.config.ts) et [`app/assets/css/mai
 
 Chaque couleur a sa valeur hexadécimale d'origine en commentaire ; la conversion se fait sur oklch.com. Tailwind génère les utilitaires (`bg-efreipara-oa`, `text-discord`…).
 
-Utiliser les couleurs sémantiques de Nuxt UI (`text-muted`, `text-toned`, `text-highlighted`, `bg-elevated`, `bg-muted`, `border-default`, `primary`…) plutôt que des teintes Tailwind en dur. Quelques composants utilisent encore `gray-*` / `neutral-*` avec leur variante `dark:` (filtres de la galerie, pages légales, redirections, erreur).
+Utiliser les couleurs sémantiques de Nuxt UI (`text-muted`, `text-toned`, `text-highlighted`, `bg-elevated`, `bg-muted`, `border-default`, `primary`…) plutôt que des teintes Tailwind en dur. Seule exception : le nom d'un partenaire sans logo, en `text-gray-700` sur la tuile blanche (`bg-white`) des logos, identique dans les deux thèmes.
 
 ## Polices
 

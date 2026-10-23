@@ -76,10 +76,10 @@
       <div class="pt-24 pb-16 sm:pt-32 sm:pb-24">
         <div class="text-center">
           <UIcon :name="icon" class="mx-auto mb-6 h-20 w-20" :class="iconColor" />
-          <h1 class="font-title mb-4 text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
+          <h1 class="font-title text-highlighted mb-4 text-4xl font-bold sm:text-5xl">
             {{ title }}
           </h1>
-          <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">
+          <p class="text-muted mb-8 text-lg">
             {{ redirectText }}
           </p>
           <UButton

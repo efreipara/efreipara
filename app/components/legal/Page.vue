@@ -20,7 +20,7 @@
       <div class="legal-content">
         <ContentRenderer :value="page" />
       </div>
-      <div v-if="page.updatedAt" class="mt-12 border-t border-gray-800 pt-6 text-sm text-gray-400">
+      <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
         Dernière mise à jour :
         {{
           new Date(page.updatedAt).toLocaleDateString('fr-FR', {

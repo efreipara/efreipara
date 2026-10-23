@@ -40,16 +40,16 @@
       :aria-label="`Aller à ${prevPage?.label}`"
       class="absolute top-2 bottom-0 left-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-r-lg transition-colors hover:bg-black/5 2xl:flex dark:hover:bg-white/5"
     >
-      <UIcon name="tabler:chevron-left" class="size-6 text-gray-400" />
-      <span class="text-xs text-gray-400">{{ prevPage?.label }}</span>
+      <UIcon name="tabler:chevron-left" class="text-dimmed size-6" />
+      <span class="text-dimmed text-xs">{{ prevPage?.label }}</span>
     </NuxtLink>
     <NuxtLink
       :to="`/activites/${nextActivity}`"
       :aria-label="`Aller à ${nextPage?.label}`"
       class="absolute top-2 right-0 bottom-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-l-lg transition-colors hover:bg-black/5 2xl:flex dark:hover:bg-white/5"
     >
-      <UIcon name="tabler:chevron-right" class="size-6 text-gray-400" />
-      <span class="text-xs text-gray-400">{{ nextPage?.label }}</span>
+      <UIcon name="tabler:chevron-right" class="text-dimmed size-6" />
+      <span class="text-dimmed text-xs">{{ nextPage?.label }}</span>
     </NuxtLink>
 
     <UContainer class="relative">
