@@ -16,10 +16,10 @@ stats:
   - title: 100+
     description: Membres actifs sur Discord
     icon: tabler:users
-  - title: 4
+  - title: '4'
     description: Activités proposées
     icon: tabler:parachute
-  - title: 2016
+  - title: '2016'
     description: Année de création du club
     icon: tabler:calendar
 
