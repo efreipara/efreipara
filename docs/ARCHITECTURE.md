@@ -150,7 +150,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ### Dockerfile
 
-- **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN`, `NUXT_PUBLIC_SITE_URL` passés en variables d'environnement, puis `bun run generate`.
+- **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN` passés en variables d'environnement, puis `bun run generate`.
 - **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web.
 - `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `assets/` (bannière du README).
 - `bun run docker:build` construit l'image en local à partir du `.env`.
@@ -175,13 +175,12 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 Lues au build (sauf mention). Liste commentée dans [`.env.example`](../.env.example) et le README.
 
-| Variable               | Usage                                                                                   |
-| ---------------------- | --------------------------------------------------------------------------------------- |
-| `CDN_URL`              | `runtimeConfig.public.cdnUrl` ; au démarrage du conteneur, CSP `img-src` et `media-src` |
-| `CDN_DEV_TOKEN`        | Développement uniquement : jeton anti-hotlink du CDN                                    |
-| `PLAUSIBLE_URL`        | Instance Plausible ; au démarrage du conteneur, CSP `connect-src`                       |
-| `PLAUSIBLE_DOMAIN`     | Domaine déclaré à Plausible                                                             |
-| `NUXT_PUBLIC_SITE_URL` | Passée en build arg, lue par aucun code aujourd'hui (le canonique vient de `seo.yml`)   |
+| Variable           | Usage                                                                                   |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| `CDN_URL`          | `runtimeConfig.public.cdnUrl` ; au démarrage du conteneur, CSP `img-src` et `media-src` |
+| `CDN_DEV_TOKEN`    | Développement uniquement : jeton anti-hotlink du CDN                                    |
+| `PLAUSIBLE_URL`    | Instance Plausible ; au démarrage du conteneur, CSP `connect-src`                       |
+| `PLAUSIBLE_DOMAIN` | Domaine déclaré à Plausible                                                             |
 
 Toute nouvelle variable est ajoutée à `.env.example`, au README et, si elle sert au build Docker, aux `ARG` du `Dockerfile` et au script `docker:build`.
 

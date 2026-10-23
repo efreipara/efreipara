@@ -148,9 +148,6 @@ PLAUSIBLE_URL=https://...
 
 # Domaine pour Plausible Analytics
 PLAUSIBLE_DOMAIN=...
-
-# URL du site (pour le SEO et autres métadonnées)
-NUXT_PUBLIC_SITE_URL=https://...
 ```
 
 #### Pour Docker Compose
