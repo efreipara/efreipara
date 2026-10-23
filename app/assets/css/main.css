@@ -119,6 +119,14 @@
   );
 }
 
+@utility border-tint-* {
+  border-color: color-mix(
+    in oklch,
+    var(--activity, var(--ui-primary)) calc(--value(integer) * 1%),
+    transparent
+  );
+}
+
 @utility text-activity {
   color: var(--activity, var(--ui-primary));
 }

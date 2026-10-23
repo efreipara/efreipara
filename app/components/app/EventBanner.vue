@@ -12,30 +12,14 @@
 
   const showBanner = computed(() => !!event.value && shouldShowEvent() && !isBannerClosed.value)
 
+  // Fermeture gérée ici et non par UBanner : sessionStorage (UBanner utilise localStorage)
+  // et animation de sortie de la Transition
   const handleClose = () => {
     isBannerClosed.value = true
     if (import.meta.client) {
       sessionStorage.setItem(`banner-${bannerId.value}`, 'true')
     }
   }
-
-  const color = computed(() => activityColor(event.value?.type))
-
-  const colorMode = useColorMode()
-  const isDark = computed(() => colorMode.value === 'dark')
-
-  const bannerStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '18%' : '10%'}, transparent)`,
-    borderBottomColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '35%' : '20%'}, transparent)`,
-  }))
-
-  const iconBoxStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '30%' : '20%'}, transparent)`,
-  }))
-
-  const iconColorStyle = computed(() => ({
-    color: color.value,
-  }))
 </script>
 
 <template>
@@ -49,52 +33,61 @@
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-full opacity-0"
     >
-      <div v-if="showBanner && event" class="border-b" :style="bannerStyle">
-        <UContainer>
-          <div class="flex items-center gap-3 py-2.5">
-            <div
-              class="hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
-              :style="iconBoxStyle"
-            >
-              <UIcon :name="getIcon(event.type)" class="size-4" :style="iconColorStyle" />
-            </div>
-
-            <p class="flex-1 truncate text-sm font-bold">{{ event.title }}</p>
-
-            <div class="flex shrink-0 items-center gap-2">
-              <UButton
-                :to="event.url"
-                target="_blank"
-                size="sm"
-                color="neutral"
-                variant="subtle"
-                :trailing-icon="appConfig.efreipara.icons.extras.arrowNarrowRight"
-                class="cursor-pointer rounded-full"
-              >
-                Inscription
-              </UButton>
-              <UButton
-                :to="getEventInfoUrl(event.type)"
-                size="sm"
-                color="neutral"
-                variant="ghost"
-                :leading-icon="getIcon(event.type)"
-                class="hidden cursor-pointer rounded-full sm:flex"
-              >
-                En savoir plus
-              </UButton>
-              <UButton
-                :icon="appConfig.ui.icons.close"
-                color="neutral"
-                variant="ghost"
-                size="sm"
-                class="cursor-pointer rounded-full"
-                @click="handleClose"
-              />
-            </div>
+      <UBanner
+        v-if="showBanner && event"
+        :title="event.title"
+        :actions="[
+          {
+            label: 'Inscription',
+            to: event.url,
+            target: '_blank',
+            size: 'sm',
+            variant: 'subtle',
+            trailingIcon: appConfig.efreipara.icons.extras.arrowNarrowRight,
+            class: 'rounded-full',
+          },
+          {
+            label: 'En savoir plus',
+            to: getEventInfoUrl(event.type),
+            size: 'sm',
+            variant: 'ghost',
+            leadingIcon: getIcon(event.type),
+            class: 'hidden rounded-full sm:flex',
+          },
+        ]"
+        :class="[
+          activityClass(event.type),
+          'bg-tint-10 dark:bg-tint-18 border-tint-20 dark:border-tint-35 border-b',
+        ]"
+        :ui="{
+          root: 'z-auto',
+          container: 'h-auto gap-2 py-2.5',
+          left: 'hidden lg:hidden',
+          center: 'flex-1 gap-3',
+          title: 'text-default flex-1 font-bold',
+          actions: 'gap-2',
+          right: 'flex-none lg:flex-none',
+        }"
+      >
+        <template #leading>
+          <div
+            class="bg-tint-20 dark:bg-tint-30 hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
+          >
+            <UIcon :name="getIcon(event.type)" class="text-activity size-4" />
           </div>
-        </UContainer>
-      </div>
+        </template>
+        <template #close>
+          <UButton
+            :icon="appConfig.ui.icons.close"
+            color="neutral"
+            variant="ghost"
+            size="sm"
+            aria-label="Fermer la bannière"
+            class="cursor-pointer rounded-full"
+            @click="handleClose"
+          />
+        </template>
+      </UBanner>
     </Transition>
   </ClientOnly>
 </template>
