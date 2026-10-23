@@ -63,16 +63,16 @@ Les déclarations `@font-face`, avec des polices de repli aux métriques ajusté
 
 ### Teinte d'activité
 
-Tout élément lié à une activité prend sa couleur par une **teinte transparente** calculée avec `color-mix` sur la variable CSS de l'activité :
+Tout élément lié à une activité prend sa couleur par une **teinte transparente** calculée avec `color-mix` sur la variable CSS de l'activité, via `activityTint` (`app/utils/activities.ts`) :
 
 ```ts
-backgroundColor: `color-mix(in oklch, var(--color-efreipara-tandem) 10%, transparent)`
+backgroundColor: activityTint('tandem', 10) // color-mix(in oklch, var(--color-efreipara-tandem) 10%, transparent)
 ```
 
 - Fond d'une pastille d'icône : 10 à 15 % ; fond d'une carte de point fort : 8 % ; survol d'une carte ou d'un menu : 10 à 12 % ; bannière d'événement : 10 % en clair, 18 % en sombre (bordure 20 / 35 %).
-- L'icône ou le texte prend la couleur pleine (`color: var(--color-efreipara-<activité>)`).
+- L'icône ou le texte prend la couleur pleine (`color: activityColor('<activité>')`).
 - Le survol teinté se fait par un état `hovered…` et un `:style`, car la couleur dépend de la donnée.
-- La correspondance clé → variable est la table `activityCssVar` présente dans chaque composant concerné.
+- La correspondance clé → variable est la table `ACTIVITY_CSS_VAR` de `app/utils/activities.ts` ; une clé inconnue retombe sur `var(--ui-primary)`.
 
 Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind (`useCategoryColor`) : fond `/10`, texte `-500`, survol `/20`.
 

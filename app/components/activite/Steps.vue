@@ -5,13 +5,6 @@
     activite: ActivityType
     steps: { title: string; description: string; icon: string }[]
   }>()
-
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
 </script>
 
 <template>
@@ -30,10 +23,10 @@
         <div
           class="flex size-8 items-center justify-center rounded-full"
           :style="{
-            backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 15%, transparent)`,
+            backgroundColor: activityTint(activite, 15),
           }"
         >
-          <UIcon :name="item.icon" class="size-4" :style="{ color: activityCssVar[activite] }" />
+          <UIcon :name="item.icon" class="size-4" :style="{ color: activityColor(activite) }" />
         </div>
       </template>
     </UTimeline>

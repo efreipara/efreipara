@@ -7,18 +7,10 @@
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  const activityCssVar: Record<string, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
-  const colorVar = (colorClass: string) =>
-    activityCssVar[colorClass.replace('text-efreipara-', '')] ?? 'var(--ui-primary)'
-  const colorStyle = (colorClass: string) => ({ color: colorVar(colorClass) })
+  const activityOf = (colorClass: string) => colorClass.replace('text-efreipara-', '')
+  const colorStyle = (colorClass: string) => ({ color: activityColor(activityOf(colorClass)) })
   const iconBgStyle = (colorClass: string) => ({
-    backgroundColor: `color-mix(in oklch, ${colorVar(colorClass)} 10%, transparent)`,
+    backgroundColor: activityTint(activityOf(colorClass), 10),
   })
 </script>
 

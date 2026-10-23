@@ -9,18 +9,11 @@
     queryCollection('activitesIndex').first(),
   )
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
   const activityIconStyle = (type: string) => ({
-    color: activityCssVar[type as ActivityType],
+    color: activityColor(type),
   })
   const activityBgStyle = (type: string) => ({
-    backgroundColor: `color-mix(in oklch, ${activityCssVar[type as ActivityType]} 10%, transparent)`,
+    backgroundColor: activityTint(type, 10),
   })
 
   const hoveredBtn = ref<string | null>(null)
@@ -28,8 +21,8 @@
     transition: 'background-color 0.2s, color 0.2s',
     ...(hoveredBtn.value === type
       ? {
-          backgroundColor: `color-mix(in oklch, ${activityCssVar[type as ActivityType]} 15%, transparent)`,
-          color: activityCssVar[type as ActivityType],
+          backgroundColor: activityTint(type, 15),
+          color: activityColor(type),
         }
       : {}),
   })

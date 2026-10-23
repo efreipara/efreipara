@@ -29,7 +29,7 @@
 - adresse CDN et jeton de développement (`cdn`) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
-- liens de l'en-tête (`navigation`), activité précédente / suivante (`activities`), couleurs de catégorie (`category-color`) ;
+- liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, entrées SEO, clés d'activité, redirections ;
 - site généré : chaque page répond sans erreur console, avec titre et canonique ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » ; filtres de la galerie ; FAQ ; ancres ; sections facultatives des activités ;

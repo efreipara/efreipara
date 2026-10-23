@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
-
   const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
   const { getIcon } = useEventIcon()
   const appConfig = useAppConfig()
@@ -21,16 +19,7 @@
     }
   }
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
-  const color = computed(
-    () => activityCssVar[event.value?.type as ActivityType] ?? 'var(--ui-primary)',
-  )
+  const color = computed(() => activityColor(event.value?.type))
 
   const colorMode = useColorMode()
   const isDark = computed(() => colorMode.value === 'dark')

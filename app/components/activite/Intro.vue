@@ -6,13 +6,6 @@
     activite: ActivityType
     paragraphs: string[]
   }>()
-
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
 </script>
 
 <template>
@@ -21,7 +14,7 @@
       <p
         v-for="(paragraph, i) in paragraphs"
         :key="i"
-        :style="{ '--activity-color': activityCssVar[activite] }"
+        :style="{ '--activity-color': activityColor(activite) }"
         class="[&_b]:font-semibold"
         v-html="DOMPurify.sanitize(paragraph)"
       />

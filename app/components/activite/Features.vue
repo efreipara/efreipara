@@ -6,13 +6,6 @@
     label: string
     features: { title: string; description: string; icon: string }[]
   }>()
-
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
 </script>
 
 <template>
@@ -24,16 +17,16 @@
         :key="feature.title"
         class="flex gap-4 rounded-2xl p-5"
         :style="{
-          backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 8%, transparent)`,
+          backgroundColor: activityTint(activite, 8),
         }"
       >
         <div
           class="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl"
           :style="{
-            backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 15%, transparent)`,
+            backgroundColor: activityTint(activite, 15),
           }"
         >
-          <UIcon :name="feature.icon" class="size-5" :style="{ color: activityCssVar[activite] }" />
+          <UIcon :name="feature.icon" class="size-5" :style="{ color: activityColor(activite) }" />
         </div>
         <div>
           <p class="mb-1 font-semibold">{{ feature.title }}</p>

@@ -15,18 +15,11 @@
   const icon = getIcon(props.activite)
   const imageUrl = buildCdnUrl(`${props.activite}.jpg`)
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
   const iconStyle = computed(() => ({
-    color: activityCssVar[props.activite],
+    color: activityColor(props.activite),
   }))
   const bgStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${activityCssVar[props.activite]} 12%, transparent)`,
+    backgroundColor: activityTint(props.activite, 12),
   }))
 
   const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)

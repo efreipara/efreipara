@@ -81,35 +81,35 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ### Composables
 
-| Composable                                         | Rôle                                                                                                                                                  |
-| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useNavigation`                                    | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                             |
-| `usePartners`                                      | Collection `partners`, filtre par activité                                                                                                            |
-| `useNextEvent`, `useEventIcon`, `useActivityColor` | (`useActivities.ts`) prochain événement et règle d'affichage, icône d'une activité ; type `ActivityType`. `useActivityColor` n'est utilisé nulle part |
-| `useSocials`                                       | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                                                              |
-| `useSeo`                                           | Métadonnées d'une page depuis `seo.yml`                                                                                                               |
-| `useCdnAsset`                                      | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                          |
-| `useCategoryColor`                                 | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                          |
-| `useAccessibility`                                 | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                          |
+| Composable                     | Rôle                                                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `useNavigation`                | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                |
+| `usePartners`                  | Collection `partners`, filtre par activité                                                               |
+| `useNextEvent`, `useEventIcon` | (`useActivities.ts`) prochain événement et règle d'affichage, icône d'une activité ; type `ActivityType` |
+| `useSocials`                   | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                 |
+| `useSeo`                       | Métadonnées d'une page depuis `seo.yml`                                                                  |
+| `useCdnAsset`                  | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)             |
+| `useCategoryColor`             | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                             |
+| `useAccessibility`             | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                             |
 
-`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.schemas.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`), `app.config.ts` et dans la table `activityCssVar` de chaque composant qui teinte par activité. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.schemas.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`, `ACTIVITY_CSS_VAR`) et `app.config.ts`. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
 
 ### Fonctions pures
 
 Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à Nuxt : composants et composables les appellent, Vitest les importe directement ([TESTING.md](TESTING.md)). Nuxt les auto-importe ; leur nom ne doit pas reprendre celui d'une variable locale courante ni commencer par `use`.
 
-| Module              | Fonctions                                                                      | Utilisé par                           |
-| ------------------- | ------------------------------------------------------------------------------ | ------------------------------------- |
-| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                          | `app.vue`, `useSeo`                   |
-| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                             | `useNextEvent`                        |
-| `cdn.ts`            | `resolveCdnUrl`                                                                | `useCdnAsset`                         |
-| `stat.ts`           | `parseStatValue`                                                               | `HomeStatCounter`                     |
-| `anchor.ts`         | `toAnchorId`                                                                   | Documents, FAQ, `SharedCategoryChips` |
-| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath` | galerie                               |
-| `navigation.ts`     | `sortHeaderLinks`                                                              | `useNavigation`                       |
-| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`                                         | `ActiviteHero`                        |
-| `category-color.ts` | `categoryColorClasses`                                                         | `useCategoryColor`                    |
-| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                | `HomeStatCounter`, `ColorModeButton`  |
+| Module              | Fonctions                                                                                   | Utilisé par                                        |
+| ------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                       | `app.vue`, `useSeo`                                |
+| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                          | `useNextEvent`                                     |
+| `cdn.ts`            | `resolveCdnUrl`                                                                             | `useCdnAsset`                                      |
+| `stat.ts`           | `parseStatValue`                                                                            | `HomeStatCounter`                                  |
+| `anchor.ts`         | `toAnchorId`                                                                                | Documents, FAQ, `SharedCategoryChips`              |
+| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`              | galerie                                            |
+| `navigation.ts`     | `sortHeaderLinks`                                                                           | `useNavigation`                                    |
+| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint` | `ActiviteHero`, tout composant teinté par activité |
+| `category-color.ts` | `categoryColorClasses`                                                                      | `useCategoryColor`                                 |
+| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                             | `HomeStatCounter`, `ColorModeButton`               |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 

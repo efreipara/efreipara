@@ -5,19 +5,12 @@
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  const activityCssVar: Record<string, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
   const chipActiveStyle = (type: string) => ({
-    backgroundColor: activityCssVar[type],
+    backgroundColor: activityColor(type),
     color: 'white',
   })
   const chipIconStyle = (type: string, isActive: boolean) => ({
-    color: isActive ? 'white' : activityCssVar[type],
+    color: isActive ? 'white' : activityColor(type),
   })
 
   const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
@@ -159,7 +152,7 @@
             >
               <UIcon
                 :name="getIcon(heroItem.type as ActivityType)"
-                :style="{ color: activityCssVar[heroItem.type as ActivityType] }"
+                :style="{ color: activityColor(heroItem.type) }"
                 class="size-3.5"
               />
               {{ typeLabel[heroItem.type] ?? heroItem.type }}
@@ -231,7 +224,7 @@
             >
               <UIcon
                 :name="getIcon(galerie.type as ActivityType)"
-                :style="{ color: activityCssVar[galerie.type as ActivityType] }"
+                :style="{ color: activityColor(galerie.type) }"
                 class="size-3.5"
               />
               {{ typeLabel[galerie.type] ?? galerie.type }}

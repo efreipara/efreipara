@@ -8,18 +8,11 @@
   const { getIcon } = useEventIcon()
   const { accessibility, activitiesIndex, activities, headerLinks } = await useNavigation()
 
-  const activityCssVar: Record<string, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
   const hoveredMenuItem = ref<string | null>(null)
   const activityMenuItemStyle = (slot: string) =>
     hoveredMenuItem.value === slot
       ? {
-          backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 12%, transparent)`,
+          backgroundColor: activityTint(slot, 12),
           transition: 'background-color 0.2s',
         }
       : { transition: 'background-color 0.2s' }
@@ -27,12 +20,10 @@
   const hoveredMobileCard = ref<string | null>(null)
   const mobileCardStyle = (slot: string) => ({
     transition: 'background-color 0.2s',
-    ...(hoveredMobileCard.value === slot
-      ? { backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 12%, transparent)` }
-      : {}),
+    ...(hoveredMobileCard.value === slot ? { backgroundColor: activityTint(slot, 12) } : {}),
   })
   const mobileCardIconStyle = (slot: string) => ({
-    backgroundColor: `color-mix(in oklch, ${activityCssVar[slot]} 15%, transparent)`,
+    backgroundColor: activityTint(slot, 15),
   })
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
@@ -115,7 +106,7 @@
               >
                 <Icon
                   :name="getIcon(child.slot as ActivityType)"
-                  :style="{ color: activityCssVar[child.slot] }"
+                  :style="{ color: activityColor(child.slot) }"
                   class="size-4"
                 />
               </div>
@@ -225,7 +216,7 @@
             >
               <Icon
                 :name="getIcon(activity.slot as ActivityType)"
-                :style="{ color: activityCssVar[activity.slot] }"
+                :style="{ color: activityColor(activity.slot) }"
                 class="size-3.5"
               />
             </div>

@@ -9,14 +9,8 @@
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
 
-  const activityCssVar: Record<string, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
   const activityBgStyle = (type: string) => ({
-    backgroundColor: `color-mix(in oklch, ${activityCssVar[type]} 10%, transparent)`,
+    backgroundColor: activityTint(type, 10),
   })
 
   const hoveredType = ref<string | null>(null)
@@ -100,7 +94,7 @@
               >
                 <UIcon
                   :name="getIcon(item.type as ActivityType)"
-                  :style="{ color: activityCssVar[item.type] }"
+                  :style="{ color: activityColor(item.type) }"
                   class="size-6"
                 />
               </div>
@@ -148,7 +142,7 @@
               >
                 <UIcon
                   :name="item.icon"
-                  :style="{ color: activityCssVar[item.type] }"
+                  :style="{ color: activityColor(item.type) }"
                   class="size-7"
                 />
               </div>
