@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "bunx",
+      "args": [
+        "@playwright/mcp@0.0.83",
+        "--browser",
+        "chromium",
+        "--executable-path",
+        "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+        "--isolated",
+        "--output-dir",
+        "test-results/mcp"
+      ]
+    }
+  }
+}

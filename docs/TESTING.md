@@ -75,3 +75,16 @@ Un changement visible se vérifie dans un vrai navigateur :
 - sur une largeur de **téléphone** et de **desktop** (le menu bascule à `lg`) ;
 - avec les options **Police dyslexique** et **Contraste élevé** quand la typographie ou les couleurs changent ;
 - pour une page d'activité, sur au moins deux activités (teintes, sections facultatives absentes).
+
+## Vérification par Claude dans le navigateur
+
+Le serveur MCP **Playwright** (`.mcp.json`) donne à Claude un navigateur Brave à piloter : profil temporaire en mémoire (`--isolated`), jamais le profil Brave habituel ; captures et fichiers dans `test-results/mcp/`.
+
+Pour un changement visible, en plus des tests :
+
+1. lancer `bun dev` (ou `generate` puis `bun tests/e2e/serve.ts` pour le site généré) ;
+2. ouvrir la page modifiée, à 390 px puis à 1280 px de large, en clair puis en sombre (`browser_emulate_media`) ;
+3. lire la console (`browser_console_messages`) et faire une capture des états touchés ;
+4. résumer ce qui a été vu dans la réponse.
+
+Le serveur se charge au démarrage d'une session Claude Code ouverte dans le projet, après approbation.

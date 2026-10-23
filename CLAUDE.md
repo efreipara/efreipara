@@ -60,6 +60,8 @@ Les serveurs MCP **Nuxt** et **Nuxt UI** sont disponibles. Les utiliser systéma
 - pour les icônes : `search-icons` ;
 - pour la configuration Nuxt, Nuxt Content, les modules, le prérendu : outils du MCP Nuxt.
 
+Le serveur MCP **Playwright** (`.mcp.json`) pilote Brave pour vérifier une page en local : à utiliser pour tout changement visible ([TESTING.md](docs/TESTING.md#vérification-par-claude-dans-le-navigateur)).
+
 Ne jamais supposer une API de mémoire quand le MCP peut la confirmer : les versions évoluent vite (Nuxt, Nuxt UI, Nuxt Content, Tailwind).
 
 ## Skills

@@ -55,6 +55,7 @@ rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
 public/               # polices, favicon, robots.txt, images OpenGraph (seo/), logos partenaires
 nginx/                # templates de configuration (serveur, en-têtes de sécurité)
 tests/                # unit/ et content/ (Vitest), e2e/ (Playwright) : voir TESTING.md
+.mcp.json             # serveurs MCP du projet (Playwright sur Brave, pour Claude Code)
 Dockerfile            # build Bun puis service nginx
 ```
 
