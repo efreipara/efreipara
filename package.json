@@ -15,6 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:headed": "PW_SLOWMO=400 playwright test --headed --workers=1",
     "test:all": "bun run generate && bun run test && bun run test:e2e",
     "docker:build": "export $(cat .env | xargs) && docker build --build-arg CDN_URL --build-arg PLAUSIBLE_URL --build-arg PLAUSIBLE_DOMAIN --build-arg NUXT_PUBLIC_SITE_URL -t efreipara ."
   },

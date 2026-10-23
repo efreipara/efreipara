@@ -16,7 +16,8 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${port}`,
     locale: 'fr-FR',
-    launchOptions: { executablePath },
+    // PW_SLOWMO ralentit chaque action (mode visible : test:e2e:headed)
+    launchOptions: { executablePath, slowMo: Number(process.env.PW_SLOWMO ?? 0) },
     trace: 'retain-on-failure',
   },
   projects: [

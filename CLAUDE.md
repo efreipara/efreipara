@@ -60,7 +60,7 @@ Les serveurs MCP **Nuxt** et **Nuxt UI** sont disponibles. Les utiliser systéma
 - pour les icônes : `search-icons` ;
 - pour la configuration Nuxt, Nuxt Content, les modules, le prérendu : outils du MCP Nuxt.
 
-Le serveur MCP **Playwright** (`.mcp.json`) pilote Brave pour vérifier une page en local : à utiliser pour tout changement visible ([TESTING.md](docs/TESTING.md#vérification-par-claude-dans-le-navigateur)).
+Le serveur MCP **Playwright** (`.mcp.json`) pilote Brave pour vérifier une page en local, **en fenêtre visible** (sans lui : script `playwright-core`, `headless: false`, `slowMo`), sur un port à part, jamais sur le serveur ni le profil de l'utilisateur : à utiliser pour tout changement visible ([TESTING.md](docs/TESTING.md#vérification-par-claude-dans-le-navigateur)).
 
 Ne jamais supposer une API de mémoire quand le MCP peut la confirmer : les versions évoluent vite (Nuxt, Nuxt UI, Nuxt Content, Tailwind).
 
@@ -124,6 +124,7 @@ bun dev               # développement sur http://localhost:3000
 bun run lint          # ESLint (lint:fix pour corriger)
 bun run test          # Vitest : logique pure et contenu
 bun run test:e2e      # Playwright sur le site généré (après generate)
+bun run test:e2e:headed  # les mêmes dans une fenêtre Brave visible
 bun run test:all      # generate + test + test:e2e
 bun run format        # Prettier sur tout le dépôt
 bun run generate      # génère le site statique dans .output/public

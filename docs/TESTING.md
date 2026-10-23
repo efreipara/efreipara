@@ -42,7 +42,8 @@ Une correction de bogue dans une de ces zones s'accompagne d'un test qui échoua
 ```bash
 bun run test         # tests Vitest (logique pure et contenu)
 bun run test:watch   # mode interactif
-bun run test:e2e     # tests Playwright, sur le site déjà généré
+bun run test:e2e     # tests Playwright, sur le site déjà généré (headless)
+bun run test:e2e:headed  # les mêmes dans une fenêtre Brave visible, ralentis (PW_SLOWMO=400)
 bun run test:all     # generate, puis test, puis test:e2e
 ```
 
@@ -78,13 +79,15 @@ Un changement visible se vérifie dans un vrai navigateur :
 
 ## Vérification par Claude dans le navigateur
 
-Le serveur MCP **Playwright** (`.mcp.json`) donne à Claude un navigateur Brave à piloter : profil temporaire en mémoire (`--isolated`), jamais le profil Brave habituel ; captures et fichiers dans `test-results/mcp/`.
+Pour un changement visible, Claude vérifie la page dans **Brave, en fenêtre visible** : l'utilisateur voit chaque clic et chaque changement en direct. Le mode headless ne s'utilise que sur demande.
 
-Pour un changement visible, en plus des tests :
+- **Avec le serveur MCP Playwright** (`.mcp.json`, chargé au démarrage d'une session ouverte dans le projet, après approbation) : fenêtre visible, chaque action est un appel distinct. Profil temporaire en mémoire (`--isolated`) ; captures dans `test-results/mcp/`.
+- **Sans le MCP** : un script `playwright-core` (fourni par `@playwright/test`) écrit dans le scratchpad de la session, avec `chromium.launch({ executablePath: '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser', headless: false, slowMo: 400 })` et un contexte neuf.
+- **Jamais** le profil Brave de l'utilisateur, et jamais son serveur : un `bun dev` déjà lancé sur le port 3000 n'est ni arrêté ni réutilisé. Claude sert la page sur un port à part : `bun tests/e2e/serve.ts` (4173, site généré, après `generate`) ou `bun dev --port 3001`.
 
-1. lancer `bun dev` (ou `generate` puis `bun tests/e2e/serve.ts` pour le site généré) ;
-2. ouvrir la page modifiée, à 390 px puis à 1280 px de large, en clair puis en sombre (`browser_emulate_media`) ;
-3. lire la console (`browser_console_messages`) et faire une capture des états touchés ;
+Déroulé :
+
+1. servir la page sur un port à part (ci-dessus) ;
+2. l'ouvrir à 390 px puis à 1280 px de large, en clair puis en sombre, et refaire les interactions touchées ;
+3. lire la console et faire une capture des états touchés ;
 4. résumer ce qui a été vu dans la réponse.
-
-Le serveur se charge au démarrage d'une session Claude Code ouverte dans le projet, après approbation.
