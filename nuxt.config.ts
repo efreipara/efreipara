@@ -45,7 +45,6 @@ export default defineNuxtConfig({
     '@nuxtjs/plausible',
     '@nuxt/fonts',
     '@nuxt/icon',
-    '@nuxt/image',
     '@nuxt/content',
     '@nuxt/eslint',
   ],
@@ -177,14 +176,6 @@ export default defineNuxtConfig({
         dir: './app/assets/icons/ifly',
       },
     ],
-  },
-
-  // Configuration CDN pour les images (CDN Cloudflare)
-  image: {
-    domains: [process.env.CDN_URL?.replace('https://', '') || ''],
-    alias: {
-      cdn: process.env.CDN_URL || '',
-    },
   },
 
   // Plausible Analytics : analytique respectueuse de la vie privée

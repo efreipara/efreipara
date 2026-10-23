@@ -21,7 +21,7 @@
 | HTML du contenu  | `marked` (Markdown de la FAQ) + `isomorphic-dompurify` (nettoyage avant `v-html`) |
 | Qualité          | ESLint (`@nuxt/eslint`) + Prettier (plugin Tailwind)                              |
 
-`typescript` est bloqué en `6.0.x` (commentaire dans `package.json`) tant que `typescript-eslint` ne gère pas TS 7. `@nuxt/image` est installé et configuré (domaine et alias `cdn`) mais aucun composant ne l'utilise : les images sont des `<img>` simples.
+`typescript` est bloqué en `6.0.x` (commentaire dans `package.json`) tant que `typescript-eslint` ne gère pas TS 7. Les images sont des `<img>` simples pointant vers le CDN (pas de `@nuxt/image`).
 
 ### Contraintes structurantes
 
@@ -175,13 +175,13 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 Lues au build (sauf mention). Liste commentée dans [`.env.example`](../.env.example) et le README.
 
-| Variable               | Usage                                                                                                             |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `CDN_URL`              | `runtimeConfig.public.cdnUrl`, domaine de `@nuxt/image` ; au démarrage du conteneur, CSP `img-src` et `media-src` |
-| `CDN_DEV_TOKEN`        | Développement uniquement : jeton anti-hotlink du CDN                                                              |
-| `PLAUSIBLE_URL`        | Instance Plausible ; au démarrage du conteneur, CSP `connect-src`                                                 |
-| `PLAUSIBLE_DOMAIN`     | Domaine déclaré à Plausible                                                                                       |
-| `NUXT_PUBLIC_SITE_URL` | Passée en build arg, lue par aucun code aujourd'hui (le canonique vient de `seo.yml`)                             |
+| Variable               | Usage                                                                                   |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| `CDN_URL`              | `runtimeConfig.public.cdnUrl` ; au démarrage du conteneur, CSP `img-src` et `media-src` |
+| `CDN_DEV_TOKEN`        | Développement uniquement : jeton anti-hotlink du CDN                                    |
+| `PLAUSIBLE_URL`        | Instance Plausible ; au démarrage du conteneur, CSP `connect-src`                       |
+| `PLAUSIBLE_DOMAIN`     | Domaine déclaré à Plausible                                                             |
+| `NUXT_PUBLIC_SITE_URL` | Passée en build arg, lue par aucun code aujourd'hui (le canonique vient de `seo.yml`)   |
 
 Toute nouvelle variable est ajoutée à `.env.example`, au README et, si elle sert au build Docker, aux `ARG` du `Dockerfile` et au script `docker:build`.
 
