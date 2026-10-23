@@ -135,32 +135,7 @@
     <div class="border-default border-t">
       <UContainer class="py-24">
         <p class="font-title mb-8 text-center text-3xl font-bold">{{ home?.sections.partners }}</p>
-        <div class="flex flex-wrap items-center justify-center gap-6">
-          <NuxtLink
-            v-for="partner in partners"
-            :key="partner.name"
-            :to="partner.url"
-            target="_blank"
-            class="group overflow-hidden rounded-xl"
-          >
-            <div
-              class="flex h-16 w-40 items-center justify-center bg-white px-5 py-3 transition-transform duration-200 group-hover:scale-105 md:h-20 md:w-52"
-            >
-              <Icon
-                v-if="partner.icon"
-                :name="partner.icon"
-                :aria-label="partner.name"
-                class="no-contrast h-full w-full"
-              />
-              <img
-                v-else
-                :src="partner.logo"
-                :alt="partner.name"
-                class="no-contrast h-full w-full object-contain"
-              />
-            </div>
-          </NuxtLink>
-        </div>
+        <SharedPartnerLogos :partners="partners" class="justify-center" />
       </UContainer>
     </div>
 

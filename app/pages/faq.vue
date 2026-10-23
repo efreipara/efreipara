@@ -46,25 +46,13 @@
         <template v-for="(category, catIndex) in categoriesData" :key="catIndex">
           <section :id="toAnchorId(category.name)">
             <!-- En-tête de catégorie -->
-            <div class="mb-4 flex items-center gap-4">
-              <div
-                class="flex size-12 shrink-0 items-center justify-center rounded-2xl"
-                :class="getCategoryColor(category.color).bg"
-              >
-                <UIcon
-                  :name="category.icon"
-                  class="size-6"
-                  :class="getCategoryColor(category.color).text"
-                />
-              </div>
-              <div class="min-w-0 flex-1">
-                <h2 class="font-title text-xl font-bold">{{ category.name }}</h2>
-              </div>
-              <UBadge color="neutral" variant="subtle" size="sm" class="shrink-0">
-                {{ category.questions.length }}
-                question{{ category.questions.length > 1 ? 's' : '' }}
-              </UBadge>
-            </div>
+            <SharedCategoryHeader
+              :name="category.name"
+              :icon="category.icon"
+              :color="category.color"
+              :count="`${category.questions.length} question${category.questions.length > 1 ? 's' : ''}`"
+              class="mb-4"
+            />
 
             <!-- Accordéon des questions -->
             <UCard variant="subtle">

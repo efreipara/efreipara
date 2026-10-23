@@ -13,9 +13,6 @@
 
   const filteredItems = computed(() => filterGallery(page.value?.items ?? [], activeFilter.value))
 
-  const heroItem = computed(() => filteredItems.value[0] ?? null)
-  const restItems = computed(() => filteredItems.value.slice(1))
-
   const showHeroLayout = computed(() =>
     hasGalleryHeroLayout(activeFilter.value, filteredItems.value.length),
   )
@@ -98,32 +95,29 @@
 
       <!-- Grille photo -->
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Item hero : 2 cols × 2 lignes sur lg -->
+        <!-- Premier élément : 2 colonnes × 2 lignes sur lg quand la mise en avant s'applique -->
         <NuxtLink
-          v-if="heroItem"
-          :key="heroItem.url"
-          :to="heroItem.url"
+          v-for="(item, index) in filteredItems"
+          :key="item.url"
+          :to="item.url"
           target="_blank"
           external
           class="group relative block overflow-hidden rounded-2xl"
-          :class="showHeroLayout ? 'lg:col-span-2 lg:row-span-2' : ''"
+          :class="index === 0 && showHeroLayout && 'lg:col-span-2 lg:row-span-2'"
         >
           <div
             class="relative aspect-3/2 w-full overflow-hidden"
-            :class="showHeroLayout ? 'lg:aspect-[unset] lg:h-full' : ''"
+            :class="index === 0 && showHeroLayout && 'lg:aspect-[unset] lg:h-full'"
           >
-            <USkeleton
-              v-if="!settledPhotos.has(heroItem.url)"
-              class="absolute inset-0 rounded-none"
-            />
+            <USkeleton v-if="!settledPhotos.has(item.url)" class="absolute inset-0 rounded-none" />
             <img
-              :ref="(el) => checkPhoto(el, heroItem!)"
-              :src="photoSrc(heroItem)"
-              :alt="heroItem.title"
+              :ref="(el) => checkPhoto(el, item)"
+              :src="photoSrc(item)"
+              :alt="item.title"
               class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
-              :class="settledPhotos.has(heroItem.url) ? 'opacity-100' : 'opacity-0'"
-              @load="onPhotoLoad(heroItem)"
-              @error="onPhotoError(heroItem)"
+              :class="settledPhotos.has(item.url) ? 'opacity-100' : 'opacity-0'"
+              @load="onPhotoLoad(item)"
+              @error="onPhotoError(item)"
             />
           </div>
           <div
@@ -132,13 +126,10 @@
           <div class="absolute top-3 left-3">
             <div
               class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
+              :class="activityClass(item.type)"
             >
-              <UIcon
-                :name="getIcon(heroItem.type as ActivityType)"
-                :style="{ color: activityColor(heroItem.type) }"
-                class="size-3.5"
-              />
-              {{ typeLabel(heroItem.type) }}
+              <UIcon :name="getIcon(item.type as ActivityType)" class="text-activity size-3.5" />
+              {{ typeLabel(item.type) }}
             </div>
           </div>
           <div
@@ -146,92 +137,23 @@
           >
             <h3
               class="font-title mb-1.5 leading-tight font-bold"
-              :class="showHeroLayout ? 'lg:text-xl' : 'text-base'"
+              :class="index === 0 && showHeroLayout ? 'lg:text-xl' : 'text-base'"
             >
-              {{ heroItem.title }}
+              {{ item.title }}
             </h3>
             <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ formatDate(heroItem.date) }}
+                {{ formatDate(item.date) }}
               </span>
               <span class="flex items-center gap-1">
                 <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
-                {{ heroItem.location }}
+                {{ item.location }}
               </span>
             </div>
             <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
               {{
-                heroItem.source
-                  ? `${page?.hero.linkLabel} sur ${heroItem.source}`
-                  : page?.hero.linkLabel
-              }}
-              <UIcon
-                :name="appConfig.ui.icons.external"
-                class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </div>
-          </div>
-        </NuxtLink>
-
-        <!-- Items suivants -->
-        <NuxtLink
-          v-for="galerie in restItems"
-          :key="galerie.url"
-          :to="galerie.url"
-          target="_blank"
-          external
-          class="group relative block overflow-hidden rounded-2xl"
-        >
-          <div class="relative aspect-3/2 w-full overflow-hidden">
-            <USkeleton
-              v-if="!settledPhotos.has(galerie.url)"
-              class="absolute inset-0 rounded-none"
-            />
-            <img
-              :ref="(el) => checkPhoto(el, galerie)"
-              :src="photoSrc(galerie)"
-              :alt="galerie.title"
-              class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
-              :class="settledPhotos.has(galerie.url) ? 'opacity-100' : 'opacity-0'"
-              @load="onPhotoLoad(galerie)"
-              @error="onPhotoError(galerie)"
-            />
-          </div>
-          <div
-            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
-          />
-          <div class="absolute top-3 left-3">
-            <div
-              class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
-            >
-              <UIcon
-                :name="getIcon(galerie.type as ActivityType)"
-                :style="{ color: activityColor(galerie.type) }"
-                class="size-3.5"
-              />
-              {{ typeLabel(galerie.type) }}
-            </div>
-          </div>
-          <div
-            class="absolute right-0 bottom-0 left-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
-          >
-            <h3 class="font-title mb-1.5 text-base leading-tight font-bold">{{ galerie.title }}</h3>
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ formatDate(galerie.date) }}
-              </span>
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
-                {{ galerie.location }}
-              </span>
-            </div>
-            <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
-              {{
-                galerie.source
-                  ? `${page?.hero.linkLabel} sur ${galerie.source}`
-                  : page?.hero.linkLabel
+                item.source ? `${page?.hero.linkLabel} sur ${item.source}` : page?.hero.linkLabel
               }}
               <UIcon
                 :name="appConfig.ui.icons.external"
