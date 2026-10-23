@@ -1,0 +1,151 @@
+# Efrei Para — Produit
+
+> **Périmètre** : ce que le site montre et fait pour le visiteur — pages, comportements, règles visibles.
+> **À mettre à jour** dès qu'un comportement visible change (page, section, filtre, bannière, redirection, option d'accessibilité).
+> Le « comment » est dans [ARCHITECTURE.md](ARCHITECTURE.md), les textes et leur structure dans [CONTENT.md](CONTENT.md), l'apparence dans [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md).
+
+## 1. Contexte
+
+Site vitrine du club de parachutisme de l'Efrei (rattaché au BDS). Il présente le club et ses activités, et oriente vers les canaux où tout se passe réellement : le Discord, Instagram et des formulaires externes (Google Forms) pour l'inscription aux événements et l'adhésion.
+
+- Public : étudiants de l'Efrei et curieux, souvent sur téléphone. Le ton tutoie le visiteur.
+- Site **public et statique** : pas de compte, pas de saisie enregistrée par le site, pas de back-office. Le contenu est modifié dans le dépôt (voir [CONTENT.md](CONTENT.md)).
+- Interface **100 % en français**.
+
+### Activités
+
+Le club propose quatre activités. Chacune a une couleur et une icône propres, reprises partout (menus, cartes, bannière, galerie) :
+
+| Clé          | Libellé        | Description courte                 |
+| ------------ | -------------- | ---------------------------------- |
+| `tandem`     | Saut en Tandem | Découverte avec un moniteur        |
+| `soufflerie` | Soufflerie     | Chute libre en tunnel de vent      |
+| `pac`        | PAC            | Progression Accompagnée en Chute   |
+| `oa`         | Saut en OA     | Saut solo en ouverture automatique |
+
+L'ordre du menu est celui de `navigation.yml` (tandem, soufflerie, PAC, OA) ; la navigation précédent / suivant des pages d'activité suit l'ordre OA, tandem, soufflerie, PAC.
+
+## 2. Structure générale
+
+### En-tête
+
+- Logo Efrei Para (version claire ou sombre selon le thème), lien vers l'accueil.
+- **Grand écran (`lg` et plus)** : menu « Nos activités » qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`), puis Instagram et Discord, le menu d'accessibilité et le bouton clair / sombre.
+- **Petit écran** : accessibilité, clair / sombre et bouton burger. Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux.
+
+### Bannière d'événement
+
+Au-dessus de l'en-tête, une bannière annonce le prochain événement (`next-event.yml`).
+
+- Affichée seulement si la date de l'événement est aujourd'hui ou plus tard.
+- Teintée par la couleur de l'activité, avec son icône (masquée sur téléphone), le titre, un bouton « Inscription » (formulaire externe, nouvel onglet), « En savoir plus » vers la page de l'activité (masqué sur téléphone) et une croix.
+- Fermée, elle ne revient pas pendant la session du navigateur pour cet événement ; un nouvel événement (autre date ou autre type) la fait réapparaître.
+- Rendue côté navigateur uniquement, elle glisse depuis le haut à l'apparition.
+
+### Pied de page
+
+- Quatre colonnes : **Activités** (page des activités + les quatre activités), **Club** (toutes les pages de `navigation.yml`, dont À propos et Nous contacter), **Réseaux** (Discord, Instagram, LinkedIn, Bento, GitHub), **Légal** (Mentions légales, Règlement, RGPD, Statut du site — ce dernier dans un nouvel onglet).
+- À gauche : copyright de l'année en cours et licences (code MIT, contenus CC BY-NC 4.0, photos, vidéos et logos tous droits réservés).
+- À droite : logo Efrei (lien vers efrei.fr) et icônes des réseaux.
+
+### Appel à l'action
+
+En bas de l'accueil, de la page des activités, de chaque activité, de la galerie et du contact : bloc « Prêt à prendre de la hauteur ? » avec deux boutons (activités, nous rejoindre) et une photo, sur un fond de parachutes qui tombent.
+
+### Accessibilité et thème
+
+- **Menu d'accessibilité** (icône dans l'en-tête, pleine quand une option est active) : cases « Police dyslexique » (Open Dyslexic partout, titres compris) et « Contraste élevé » (contraste renforcé, photos et vidéos épargnées). Les choix sont gardés sur l'appareil.
+- **Clair / sombre** : bouton dans l'en-tête, avec une transition en cercle depuis le bouton quand le navigateur le permet. Par défaut, le thème du système ; un choix manuel vaut pour la session du navigateur.
+- Changement de page en fondu.
+
+## 3. Pages
+
+### Accueil — `/`
+
+- **Hero** plein écran (hauteur de la fenêtre moins l'en-tête) : vidéo en boucle, muette, logo Efrei Para, phrase d'accroche (description SEO de l'accueil), boutons « Nos activités » et « Nous rejoindre », flèche animée vers le bas.
+- **Qui sommes-nous ?** : paragraphes de présentation (mots clés en gras), illustration d'avion à partir de `md`.
+- **Chiffres** : trois statistiques (membres, activités, année de création) ; le nombre défile de 0 à sa valeur (2,5 s) quand le bloc devient visible, le suffixe (« + ») est conservé.
+- **Nos activités** : quatre cartes (titre, description, « En savoir plus »), teintées de la couleur de l'activité au survol, et un bouton vers la page des activités.
+- **Pourquoi Efrei Para ?** : trois cartes.
+- **Nos partenaires** : logos sur tuiles blanches, liens externes.
+
+### Activités — `/activites`
+
+Une section par activité, image et texte alternés gauche / droite sur grand écran : photo, icône, titre, description, quatre points forts, bouton vers la page de l'activité (teinté au survol).
+
+### Page d'une activité — `/activites/[activite]`
+
+Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute autre adresse donne une 404. Les sections suivantes s'affichent dans l'ordre, chacune seulement si son contenu existe :
+
+1. **Hero** : badge de l'activité, titre, description, photo, fond flouté de la même photo. Sur très grand écran (`2xl`), liens latéraux vers l'activité précédente et suivante.
+2. **Chiffres** clés (altitude, durée, vitesse…).
+3. **Introduction** : paragraphes, mots clés en gras.
+4. **Carrousel** de photos : défilement automatique (3 s), en boucle, 1 / 2 / 3 photos visibles selon la largeur ; une photo introuvable est retirée.
+5. **Pourquoi choisir {activité} ?** : points forts.
+6. **Comment ça se passe ?** : frise des étapes, alternée gauche / droite à partir de `md`.
+7. **Prérequis**.
+8. **Nos partenaires** liés à l'activité.
+9. Appel à l'action.
+
+### Galerie — `/galerie`
+
+Albums photo des événements, hébergés sur des sites externes (principalement Efrei Picture Studio).
+
+- **Filtres** : « Tout voir » et une pastille par type d'activité présent ; la pastille active prend la couleur de l'activité, un second clic revient à « Tout voir ».
+- Albums triés du plus récent au plus ancien. Sans filtre et à partir de trois albums, le premier est mis en avant (deux colonnes sur deux lignes en `lg`).
+- **Carte** : photo de couverture, badge du type, titre, date (« 6 mars 2026 »), lieu, « Voir l'album sur {source} ». Un clic ouvre l'album dans un nouvel onglet.
+- **Photo** : celle de l'album si elle se charge, sinon une photo de repli du CDN ; un squelette s'affiche jusqu'au chargement ou à l'échec définitif.
+
+### Documents — `/documents`
+
+- Pastilles des catégories en tête : un clic fait défiler en douceur jusqu'à la catégorie (sous l'en-tête).
+- Une section par catégorie : icône teintée, nom, description, nombre de documents (« 3 docs »), puis les documents en grille (deux colonnes à partir de `sm`).
+- Un document **interne** (page du site) s'ouvre dans l'onglet, un document **externe** dans un nouvel onglet, avec une icône de lien externe.
+- En bas, encadré « Un document manquant ? » avec les boutons Discord, Instagram et « Signaler sur GitHub ».
+
+### FAQ — `/faq`
+
+- Mêmes pastilles de catégories que Documents.
+- Par catégorie : nombre de questions, puis un accordéon (une seule question ouverte à la fois, refermable). La réponse accepte la mise en forme Markdown (gras, liens, retours à la ligne) et peut avoir des boutons d'action.
+- En bas, encadré « Une question sans réponse ? » (Discord, Instagram).
+
+### Nous rejoindre — `/rejoindre`
+
+- Bandeau « Prérequis important » : il faut être sur le Discord, avec un bouton pour le rejoindre.
+- Deux cartes : **Devenir membre** et **Rejoindre le bureau** (photo, icône, titre et lien teintés), qui ouvrent chacune un formulaire externe dans un nouvel onglet.
+- **Pourquoi nous rejoindre ?** : trois points.
+
+### Nous contacter — `/contact`
+
+- Carte e-mail mise en avant (adresse du club, bouton `mailto:`).
+- Réseaux sociaux en pastilles (nouvel onglet).
+- **Adresse** du campus avec liens Google Maps, Apple Plans et Waze.
+- **Support technique** du site : signaler sur GitHub, ou écrire au mainteneur.
+
+### À propos — `/about`
+
+Page provisoire : titre et « Coming soon... ». Elle figure dans la colonne Club du pied de page.
+
+### QR code — `/qr`
+
+Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club : fond bleu nuit, parachutes blancs qui tombent, QR code centré, bouton discret vers l'accueil en haut à gauche, bouton plein écran en haut à droite. Non indexée.
+
+### Pages légales — `/mentions-legales`, `/reglement`, `/rgpd`
+
+Texte mis en forme depuis le Markdown, titres dans la police de titre, « Dernière mise à jour : » suivi de la date en toutes lettres, en bas, quand elle est renseignée. Les liens externes s'ouvrent dans un nouvel onglet.
+
+### Redirections — `/discord`, `/instagram`, `/devenir-membre`, `/rejoindre-bureau`
+
+Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'icône, un titre, « Redirection vers… » et un bouton de secours, puis envoie aussitôt le navigateur vers la cible : le Discord, l'Instagram, ou le formulaire de l'option correspondante de « Nous rejoindre ». En développement, `?noRedirect` dans l'adresse garde la page affichée.
+
+### Erreurs
+
+Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, 403, 401, 400, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub).
+
+## 4. Mesure d'audience
+
+Plausible compte les pages vues et les clics vers les liens externes, sans cookie ni bandeau de consentement.
+
+## 5. Hors périmètre
+
+Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, calendrier d'événements, galerie hébergée sur le site, traduction, recherche.
