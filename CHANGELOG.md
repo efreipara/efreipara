@@ -2,6 +2,19 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.1.2 — 24 octobre 2026
+
+### Modifications
+
+- Seule la page d'accueil est proposée aux moteurs de recherche : les autres pages le signalent désormais aussi dans leurs métadonnées.
+- Site un peu plus léger : retrait d'un module d'images inutilisé.
+
+### Corrections
+
+- Contraste élevé : le voile de la vidéo d'accueil et les logos des partenaires ne sont plus sur-contrastés.
+- Le réglage système « réduire les animations » est respecté partout : apparitions, transitions, compteurs de l'accueil et bascule clair / sombre.
+- Prochain événement : le saut en tandem est bien classé comme tandem (couleur et lien vers la bonne activité).
+
 ## 1.1.1 — 23 octobre 2026
 
 ### Modifications
