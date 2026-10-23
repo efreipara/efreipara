@@ -14,7 +14,7 @@
   })
 
   const toggle = (event: MouseEvent): void => {
-    if (!('startViewTransition' in document)) {
+    if (!('startViewTransition' in document) || prefersReducedMotion()) {
       isDark.value = !isDark.value
       return
     }

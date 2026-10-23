@@ -63,6 +63,20 @@ test.describe('thème et accessibilité', () => {
   })
 })
 
+test.describe('réduire les animations', () => {
+  test.use({ reducedMotion: 'reduce' })
+
+  test('les compteurs de l’accueil affichent directement leur valeur', async ({ page }) => {
+    await gotoReady(page, '/')
+    const counter = page
+      .getByText('Année de création du club')
+      .locator('xpath=preceding-sibling::span[1]')
+    await counter.scrollIntoViewIfNeeded()
+    await page.waitForTimeout(500)
+    expect(await counter.textContent()).toBe('2016')
+  })
+})
+
 test.describe('galerie', () => {
   const items = readYaml<{ items: { type: string }[] }>('pages/galerie.yml').items
   const cards = (page: import('@playwright/test').Page) =>

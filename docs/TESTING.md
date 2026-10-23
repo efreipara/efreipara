@@ -32,7 +32,7 @@
 - liens de l'en-tête (`navigation`), activité précédente / suivante (`activities`), couleurs de catégorie (`category-color`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, entrées SEO, clés d'activité, redirections ;
-- site généré : chaque page répond sans erreur console, avec titre et canonique ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité ; filtres de la galerie ; FAQ ; ancres ; sections facultatives des activités ;
+- site généré : chaque page répond sans erreur console, avec titre et canonique ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » ; filtres de la galerie ; FAQ ; ancres ; sections facultatives des activités ;
 - accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test. Corriger une violation connue retire sa ligne de la liste.
 
 Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.

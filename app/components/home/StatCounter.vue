@@ -30,6 +30,8 @@
   }
 
   onMounted(() => {
+    if (prefersReducedMotion()) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {

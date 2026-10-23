@@ -149,6 +149,18 @@ html.a11y-highContrast .no-contrast {
   filter: contrast(0.667); /* annule le contrast(1.5) du parent : 1 / 1.5 */
 }
 
+/* Réglage système « réduire les animations » : animations et transitions quasi instantanées */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Animation d'entrée depuis le bas */
 .hero-slide-up {
   opacity: 0;
