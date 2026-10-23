@@ -9,30 +9,23 @@
 </script>
 
 <template>
-  <UContainer class="py-12">
+  <UContainer class="py-12" :class="activityClass(activite)">
     <h2 class="font-title mb-8 text-2xl font-bold">Pourquoi choisir {{ label }} ?</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      <div
+      <UPageFeature
         v-for="feature in features"
         :key="feature.title"
-        class="flex gap-4 rounded-2xl p-5"
-        :style="{
-          backgroundColor: activityTint(activite, 8),
+        :icon="feature.icon"
+        :title="feature.title"
+        :description="feature.description"
+        class="bg-tint-8 gap-4 rounded-2xl p-5"
+        :ui="{
+          leading: 'bg-tint-15 mt-0.5 size-10 shrink-0 rounded-xl p-0',
+          leadingIcon: 'text-activity',
+          title: 'text-default mb-1 text-wrap',
+          description: 'mt-0 text-sm text-wrap',
         }"
-      >
-        <div
-          class="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl"
-          :style="{
-            backgroundColor: activityTint(activite, 15),
-          }"
-        >
-          <UIcon :name="feature.icon" class="size-5" :style="{ color: activityColor(activite) }" />
-        </div>
-        <div>
-          <p class="mb-1 font-semibold">{{ feature.title }}</p>
-          <p class="text-muted text-sm">{{ feature.description }}</p>
-        </div>
-      </div>
+      />
     </div>
   </UContainer>
 </template>

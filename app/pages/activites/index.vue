@@ -9,97 +9,58 @@
     queryCollection('activitesIndex').first(),
   )
 
-  const activityIconStyle = (type: string) => ({
-    color: activityColor(type),
-  })
-  const activityBgStyle = (type: string) => ({
-    backgroundColor: activityTint(type, 10),
-  })
-
-  const hoveredBtn = ref<string | null>(null)
-  const activityBtnStyle = (type: string) => ({
-    transition: 'background-color 0.2s, color 0.2s',
-    ...(hoveredBtn.value === type
-      ? {
-          backgroundColor: activityTint(type, 15),
-          color: activityColor(type),
-        }
-      : {}),
-  })
+  const featureUi = {
+    root: 'gap-3',
+    leading: 'bg-tint-10 mt-0.5 size-9 shrink-0 rounded-xl p-0',
+    leadingIcon: 'text-activity size-4',
+    title: 'text-default text-sm text-wrap',
+    description: 'mt-0 text-sm text-wrap',
+  }
 </script>
 
 <template>
   <div>
     <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
 
-    <div
+    <!-- Image à gauche puis à droite en alternance (lg) ; toujours au-dessus du texte sur mobile -->
+    <UPageSection
       v-for="(section, i) in page?.sections"
       :key="section.type"
-      :class="i % 2 !== 0 ? 'border-default border-y' : ''"
+      :title="section.title"
+      :description="section.description"
+      :features="section.features.map((feature) => ({ ...feature, ui: featureUi }))"
+      :links="[
+        {
+          label: section.link.label,
+          to: `/activites/${section.type}`,
+          color: 'neutral',
+          variant: 'subtle',
+          trailingIcon: appConfig.ui.icons.arrowRight,
+          class: 'hover:bg-tint-15 hover:text-activity rounded-full duration-200',
+        },
+      ]"
+      orientation="horizontal"
+      :class="[activityClass(section.type), i % 2 !== 0 && 'border-default border-y']"
+      :ui="{
+        container: 'gap-12 py-20 sm:gap-12 sm:py-20 lg:py-20',
+        wrapper: ['order-last', i % 2 !== 0 && 'lg:order-first'],
+        header: 'flex flex-wrap items-center gap-x-3 gap-y-4',
+        leading: 'bg-tint-10 mb-0 size-14 justify-center rounded-2xl',
+        title:
+          'font-title text-default min-w-0 flex-1 text-3xl tracking-normal text-wrap sm:text-3xl lg:text-3xl',
+        description: 'mt-0 basis-full text-base sm:text-base',
+        features: 'gap-5 sm:grid-cols-2',
+      }"
     >
-      <UContainer class="py-20">
-        <div class="grid items-center gap-12 lg:grid-cols-2">
-          <div :class="i % 2 !== 0 ? 'lg:order-2' : ''">
-            <img
-              :src="buildCdnUrl(`${section.type}.jpg`)"
-              :alt="section.alt"
-              class="aspect-4/3 w-full rounded-2xl object-cover"
-            />
-          </div>
-          <div :class="i % 2 !== 0 ? 'lg:order-1' : ''">
-            <div class="mb-4 flex items-center gap-3">
-              <div
-                class="flex size-14 shrink-0 items-center justify-center rounded-2xl"
-                :style="activityBgStyle(section.type)"
-              >
-                <UIcon
-                  :name="getIcon(section.type as ActivityType)"
-                  :style="activityIconStyle(section.type)"
-                  class="size-7"
-                />
-              </div>
-              <h2 class="font-title text-3xl font-bold">{{ section.title }}</h2>
-            </div>
-            <p class="text-muted mb-8">{{ section.description }}</p>
-            <div class="mb-8 grid gap-5 sm:grid-cols-2">
-              <div
-                v-for="feature in section.features"
-                :key="feature.title"
-                class="flex items-start gap-3"
-              >
-                <div
-                  class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-xl"
-                  :style="activityBgStyle(section.type)"
-                >
-                  <UIcon
-                    :name="feature.icon"
-                    :style="activityIconStyle(section.type)"
-                    class="size-4"
-                  />
-                </div>
-                <div>
-                  <p class="text-sm font-semibold">{{ feature.title }}</p>
-                  <p class="text-muted text-sm">{{ feature.description }}</p>
-                </div>
-              </div>
-            </div>
-            <UButton
-              :to="`/activites/${section.type}`"
-              color="neutral"
-              variant="subtle"
-              size="lg"
-              :trailing-icon="appConfig.ui.icons.arrowRight"
-              class="rounded-full"
-              :style="activityBtnStyle(section.type)"
-              @mouseenter="hoveredBtn = section.type"
-              @mouseleave="hoveredBtn = null"
-            >
-              {{ section.link.label }}
-            </UButton>
-          </div>
-        </div>
-      </UContainer>
-    </div>
+      <template #leading>
+        <UIcon :name="getIcon(section.type as ActivityType)" class="text-activity size-7" />
+      </template>
+      <img
+        :src="buildCdnUrl(`${section.type}.jpg`)"
+        :alt="section.alt"
+        class="aspect-4/3 w-full rounded-2xl object-cover"
+      />
+    </UPageSection>
 
     <SharedCallToAction />
   </div>
