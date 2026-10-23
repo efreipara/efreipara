@@ -17,7 +17,7 @@ test.describe('navigation', () => {
     test.skip(!isMobile, 'menu mobile')
     await gotoReady(page, '/')
     await page.getByRole('button', { name: 'Ouvrir le menu' }).first().click()
-    await page.getByRole('link', { name: 'Galerie' }).locator('visible=true').first().click()
+    await page.getByRole('dialog').getByRole('link', { name: 'Galerie' }).click()
     await expect(page).toHaveURL(/\/galerie$/)
   })
 
