@@ -35,14 +35,16 @@
       <h1 class="font-title mb-4 text-2xl font-bold">Page non trouvée</h1>
       <p>Le contenu demandé n'existe pas.</p>
       <div class="mt-4 flex justify-center">
-        <ULink
+        <UButton
           :to="appConfig.socials.github.issues"
           target="_blank"
-          class="flex items-center text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          :icon="appConfig.socials.github.icon"
+          color="neutral"
+          variant="link"
+          size="lg"
         >
-          <UIcon :name="appConfig.socials.github.icon" class="mr-2" />
           Signaler l'erreur
-        </ULink>
+        </UButton>
       </div>
     </div>
   </UContainer>

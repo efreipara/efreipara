@@ -43,17 +43,19 @@
           <p class="text-muted text-sm">{{ page?.socials.description }}</p>
         </div>
         <div class="flex flex-wrap justify-center gap-3">
-          <NuxtLink
+          <UButton
             v-for="social in socials"
             :key="social.name"
             :to="social.url"
             target="_blank"
-            rel="noopener noreferrer"
-            class="bg-muted/50 hover:bg-muted flex items-center gap-3 rounded-2xl px-4 py-3.5 transition-colors"
+            :icon="social.icon"
+            color="neutral"
+            variant="ghost"
+            class="bg-muted/50 hover:bg-muted text-default gap-3 rounded-2xl px-4 py-3.5 font-semibold"
+            :ui="{ label: 'truncate' }"
           >
-            <UIcon :name="social.icon" class="size-5 shrink-0" />
-            <span class="truncate text-sm font-semibold">{{ social.name }}</span>
-          </NuxtLink>
+            {{ social.name }}
+          </UButton>
         </div>
       </div>
 

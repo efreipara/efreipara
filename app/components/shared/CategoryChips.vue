@@ -29,19 +29,22 @@
 
 <template>
   <div class="mb-16 flex flex-wrap gap-2">
-    <button
+    <UButton
       v-for="(category, i) in categories"
       :key="i"
-      class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+      :icon="category.icon"
+      color="neutral"
+      variant="ghost"
+      class="cursor-pointer rounded-full px-3"
       :class="[
         getCategoryColor(category.color).bg,
         getCategoryColor(category.color).text,
         getCategoryColor(category.color).hoverBg,
       ]"
+      :ui="{ leadingIcon: 'size-4' }"
       @click="scrollTo(toAnchorId(category.name))"
     >
-      <UIcon :name="category.icon" class="size-4" />
       {{ category.name }}
-    </button>
+    </UButton>
   </div>
 </template>

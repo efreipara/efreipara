@@ -81,14 +81,16 @@
           class="cursor-pointer rounded-full"
           to="/"
         />
-        <ULink
+        <UButton
           :to="appConfig.socials.github.issues"
           target="_blank"
-          class="flex items-center text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          :icon="appConfig.socials.github.icon"
+          color="neutral"
+          variant="link"
+          size="lg"
         >
-          <UIcon :name="appConfig.socials.github.icon" class="mr-2" />
           Signaler l'erreur
-        </ULink>
+        </UButton>
       </template>
     </UError>
   </UApp>

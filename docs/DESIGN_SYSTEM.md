@@ -87,7 +87,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 - Boutons : `rounded-full` (y compris les boutons d'icône `p-2`), `cursor-pointer` sur les boutons sans lien.
 - Pastille d'icône : carré `size-8` à `size-14`, `rounded-xl` ou `rounded-2xl`, icône centrée à environ la moitié de la taille.
 - Cartes : `UCard variant="subtle"` ou bloc `rounded-2xl` ; images `rounded-lg` à `rounded-2xl`.
-- Filtres et ancres de catégories : pastilles `rounded-full`, `px-3 py-1.5 text-sm font-medium`.
+- Filtres et ancres de catégories : `UButton` `rounded-full px-3` (taille `md`, icône `size-4`) ; filtre actif signalé par `aria-pressed`. Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante).
 
 ### Liens et survol
 

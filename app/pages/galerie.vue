@@ -5,14 +5,6 @@
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  const chipActiveStyle = (type: string) => ({
-    backgroundColor: activityColor(type),
-    color: 'white',
-  })
-  const chipIconStyle = (type: string, isActive: boolean) => ({
-    color: isActive ? 'white' : activityColor(type),
-  })
-
   const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
 
   const activeFilter = ref<string | null>(null)
@@ -76,36 +68,32 @@
     <UContainer class="pb-16">
       <!-- Filtres par type d'activité -->
       <div class="mb-8 flex flex-wrap gap-2">
-        <button
-          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
-          :class="
-            !activeFilter
-              ? 'bg-primary text-white'
-              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
-          "
+        <UButton
+          :color="activeFilter ? 'neutral' : 'primary'"
+          :variant="activeFilter ? 'soft' : 'solid'"
+          :aria-pressed="!activeFilter"
+          class="cursor-pointer rounded-full px-3"
           @click="activeFilter = null"
         >
           Tout voir
-        </button>
-        <button
+        </UButton>
+        <UButton
           v-for="type in activityTypes"
           :key="type"
-          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+          :icon="getIcon(type as ActivityType)"
+          color="neutral"
+          variant="soft"
+          :aria-pressed="activeFilter === type"
+          class="cursor-pointer rounded-full px-3"
           :class="
-            activeFilter !== type
-              ? 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
-              : ''
+            activeFilter === type && 'bg-activity hover:bg-activity active:bg-activity text-white'
           "
-          :style="activeFilter === type ? chipActiveStyle(type) : {}"
+          :ui="{ leadingIcon: ['size-4', activeFilter === type ? 'text-white' : 'text-activity'] }"
+          :style="activityVars(type)"
           @click="activeFilter = activeFilter === type ? null : type"
         >
-          <UIcon
-            :name="getIcon(type as ActivityType)"
-            class="size-4"
-            :style="chipIconStyle(type, activeFilter === type)"
-          />
           {{ typeLabel(type) }}
-        </button>
+        </UButton>
       </div>
 
       <!-- Grille photo -->
