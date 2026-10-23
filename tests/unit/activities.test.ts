@@ -3,6 +3,7 @@ import {
   ACTIVITY_ORDER,
   activityColor,
   activityTint,
+  activityVars,
   adjacentActivities,
 } from '../../app/utils/activities'
 
@@ -34,5 +35,12 @@ describe('activityTint', () => {
     expect(activityTint('pac', 15)).toBe(
       'color-mix(in oklch, var(--color-efreipara-pac) 15%, transparent)',
     )
+  })
+})
+
+describe('activityVars', () => {
+  it('pose la variable --activity lue par les utilitaires de teinte', () => {
+    expect(activityVars('oa')).toEqual({ '--activity': 'var(--color-efreipara-oa)' })
+    expect(activityVars(undefined)).toEqual({ '--activity': 'var(--ui-primary)' })
   })
 })

@@ -15,13 +15,6 @@
   const icon = getIcon(props.activite)
   const imageUrl = buildCdnUrl(`${props.activite}.jpg`)
 
-  const iconStyle = computed(() => ({
-    color: activityColor(props.activite),
-  }))
-  const bgStyle = computed(() => ({
-    backgroundColor: activityTint(props.activite, 12),
-  }))
-
   const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)
 
   const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
@@ -35,7 +28,7 @@
 </script>
 
 <template>
-  <div class="relative overflow-hidden">
+  <div class="relative overflow-hidden" :style="activityVars(activite)">
     <img
       :src="imageUrl"
       aria-hidden="true"
@@ -63,8 +56,7 @@
       <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
           <div
-            class="hero-slide-up inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
-            :style="{ ...bgStyle, ...iconStyle }"
+            class="hero-slide-up bg-tint-12 text-activity inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
             style="animation-delay: 0.4s"
           >
             <UIcon :name="icon" class="size-3.5" />

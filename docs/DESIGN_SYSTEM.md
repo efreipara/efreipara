@@ -63,15 +63,21 @@ Les déclarations `@font-face`, avec des polices de repli aux métriques ajusté
 
 ### Teinte d'activité
 
-Tout élément lié à une activité prend sa couleur par une **teinte transparente** calculée avec `color-mix` sur la variable CSS de l'activité, via `activityTint` (`app/utils/activities.ts`) :
+Tout élément lié à une activité prend sa couleur par une **teinte transparente** de la variable CSS de l'activité. La teinte se pose en CSS, ce qui permet de la passer dans les `class` et `ui` des composants Nuxt UI :
 
-```ts
-backgroundColor: activityTint('tandem', 10) // color-mix(in oklch, var(--color-efreipara-tandem) 10%, transparent)
+```vue
+<div :style="activityVars('tandem')">
+  <!-- --activity: var(--color-efreipara-tandem) -->
+  <div class="bg-tint-10 hover:bg-tint-12"><UIcon class="text-activity" /></div>
+</div>
 ```
 
+- `activityVars(type)` (`app/utils/activities.ts`) pose `--activity` une fois, sur la carte ou la section ; les descendants la lisent.
+- Utilitaires de `main.css` : `bg-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
 - Fond d'une pastille d'icône : 10 à 15 % ; fond d'une carte de point fort : 8 % ; survol d'une carte ou d'un menu : 10 à 12 % ; bannière d'événement : 10 % en clair, 18 % en sombre (bordure 20 / 35 %).
-- L'icône ou le texte prend la couleur pleine (`color: activityColor('<activité>')`).
-- Le survol teinté se fait par un état `hovered…` et un `:style`, car la couleur dépend de la donnée.
+- L'icône ou le texte prend la couleur pleine (`text-activity`).
+- Le survol teinté est une classe `hover:bg-tint-…` : pas d'état JavaScript.
+- `activityColor(type)` et `activityTint(type, %)` donnent les mêmes valeurs en JavaScript, pour un style qu'aucune classe ne couvre.
 - La correspondance clé → variable est la table `ACTIVITY_CSS_VAR` de `app/utils/activities.ts` ; une clé inconnue retombe sur `var(--ui-primary)`.
 
 Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind (`useCategoryColor`) : fond `/10`, texte `-500`, survol `/20`.

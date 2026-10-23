@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <UContainer class="overflow-x-hidden py-12">
+  <UContainer class="overflow-x-hidden py-12" :style="activityVars(activite)">
     <h2 class="font-title mb-8 text-2xl font-bold">Comment ça se passe ?</h2>
     <UTimeline
       :items="steps.map((s, i) => ({ ...s, value: i }))"
@@ -20,13 +20,8 @@
       }"
     >
       <template #indicator="{ item }">
-        <div
-          class="flex size-8 items-center justify-center rounded-full"
-          :style="{
-            backgroundColor: activityTint(activite, 15),
-          }"
-        >
-          <UIcon :name="item.icon" class="size-4" :style="{ color: activityColor(activite) }" />
+        <div class="bg-tint-15 flex size-8 items-center justify-center rounded-full">
+          <UIcon :name="item.icon" class="text-activity size-4" />
         </div>
       </template>
     </UTimeline>

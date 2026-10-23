@@ -98,18 +98,18 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à Nuxt : composants et composables les appellent, Vitest les importe directement ([TESTING.md](TESTING.md)). Nuxt les auto-importe ; leur nom ne doit pas reprendre celui d'une variable locale courante ni commencer par `use`.
 
-| Module              | Fonctions                                                                                   | Utilisé par                                        |
-| ------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                       | `app.vue`, `useSeo`                                |
-| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                          | `useNextEvent`                                     |
-| `cdn.ts`            | `resolveCdnUrl`                                                                             | `useCdnAsset`                                      |
-| `stat.ts`           | `parseStatValue`                                                                            | `HomeStatCounter`                                  |
-| `anchor.ts`         | `toAnchorId`                                                                                | Documents, FAQ, `SharedCategoryChips`              |
-| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`              | galerie                                            |
-| `navigation.ts`     | `sortHeaderLinks`                                                                           | `useNavigation`                                    |
-| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint` | `ActiviteHero`, tout composant teinté par activité |
-| `category-color.ts` | `categoryColorClasses`                                                                      | `useCategoryColor`                                 |
-| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                             | `HomeStatCounter`, `ColorModeButton`               |
+| Module              | Fonctions                                                                                                   | Utilisé par                                        |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                                       | `app.vue`, `useSeo`                                |
+| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                          | `useNextEvent`                                     |
+| `cdn.ts`            | `resolveCdnUrl`                                                                                             | `useCdnAsset`                                      |
+| `stat.ts`           | `parseStatValue`                                                                                            | `HomeStatCounter`                                  |
+| `anchor.ts`         | `toAnchorId`                                                                                                | Documents, FAQ, `SharedCategoryChips`              |
+| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                              | galerie                                            |
+| `navigation.ts`     | `sortHeaderLinks`                                                                                           | `useNavigation`                                    |
+| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityVars` | `ActiviteHero`, tout composant teinté par activité |
+| `category-color.ts` | `categoryColorClasses`                                                                                      | `useCategoryColor`                                 |
+| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                             | `HomeStatCounter`, `ColorModeButton`               |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 

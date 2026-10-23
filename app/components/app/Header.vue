@@ -8,24 +8,6 @@
   const { getIcon } = useEventIcon()
   const { accessibility, activitiesIndex, activities, headerLinks } = await useNavigation()
 
-  const hoveredMenuItem = ref<string | null>(null)
-  const activityMenuItemStyle = (slot: string) =>
-    hoveredMenuItem.value === slot
-      ? {
-          backgroundColor: activityTint(slot, 12),
-          transition: 'background-color 0.2s',
-        }
-      : { transition: 'background-color 0.2s' }
-
-  const hoveredMobileCard = ref<string | null>(null)
-  const mobileCardStyle = (slot: string) => ({
-    transition: 'background-color 0.2s',
-    ...(hoveredMobileCard.value === slot ? { backgroundColor: activityTint(slot, 12) } : {}),
-  })
-  const mobileCardIconStyle = (slot: string) => ({
-    backgroundColor: activityTint(slot, 15),
-  })
-
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
   type AccessibilityKey = Parameters<typeof toggle>[0]
@@ -95,20 +77,13 @@
               v-for="child in (item as any).children"
               :key="child.label"
               :to="child.to"
-              class="group flex items-start gap-2 rounded-md p-3"
-              :style="activityMenuItemStyle(child.slot)"
-              @mouseenter="hoveredMenuItem = child.slot"
-              @mouseleave="hoveredMenuItem = null"
+              class="group hover:bg-tint-12 flex items-start gap-2 rounded-md p-3 transition-colors duration-200"
+              :style="activityVars(child.slot)"
             >
               <div
-                class="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg"
-                :style="mobileCardIconStyle(child.slot)"
+                class="bg-tint-15 mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg"
               >
-                <Icon
-                  :name="getIcon(child.slot as ActivityType)"
-                  :style="{ color: activityColor(child.slot) }"
-                  class="size-4"
-                />
+                <Icon :name="getIcon(child.slot as ActivityType)" class="text-activity size-4" />
               </div>
               <div class="min-w-0 flex-1">
                 <p
@@ -205,20 +180,11 @@
             v-for="activity in activities"
             :key="activity.slot"
             :to="activity.to"
-            class="flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors"
-            :style="mobileCardStyle(activity.slot)"
-            @mouseenter="hoveredMobileCard = activity.slot"
-            @mouseleave="hoveredMobileCard = null"
+            class="hover:bg-tint-12 flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors duration-200"
+            :style="activityVars(activity.slot)"
           >
-            <div
-              class="flex size-7 shrink-0 items-center justify-center rounded-lg"
-              :style="mobileCardIconStyle(activity.slot)"
-            >
-              <Icon
-                :name="getIcon(activity.slot as ActivityType)"
-                :style="{ color: activityColor(activity.slot) }"
-                class="size-3.5"
-              />
+            <div class="bg-tint-15 flex size-7 shrink-0 items-center justify-center rounded-lg">
+              <Icon :name="getIcon(activity.slot as ActivityType)" class="text-activity size-3.5" />
             </div>
             <span class="flex-1 text-sm font-medium">{{ activity.label }}</span>
             <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />

@@ -19,7 +19,7 @@
       :alt="page.alt"
     />
     <ActiviteStats v-if="page?.stats?.length" :activite="activite" :stats="page.stats" />
-    <ActiviteIntro v-if="page?.intro?.length" :activite="activite" :paragraphs="page.intro" />
+    <ActiviteIntro v-if="page?.intro?.length" :paragraphs="page.intro" />
     <ActiviteCarousel v-if="page?.imageCount" :activite="activite" :image-count="page.imageCount" />
     <ActiviteFeatures
       v-if="page?.features?.length"

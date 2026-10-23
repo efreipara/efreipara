@@ -1,9 +1,7 @@
 <script setup lang="ts">
   import DOMPurify from 'isomorphic-dompurify'
-  import type { ActivityType } from '~/composables/useActivities'
 
   defineProps<{
-    activite: ActivityType
     paragraphs: string[]
   }>()
 </script>
@@ -14,7 +12,6 @@
       <p
         v-for="(paragraph, i) in paragraphs"
         :key="i"
-        :style="{ '--activity-color': activityColor(activite) }"
         class="[&_b]:font-semibold"
         v-html="DOMPurify.sanitize(paragraph)"
       />
