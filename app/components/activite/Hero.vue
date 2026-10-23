@@ -28,7 +28,7 @@
 </script>
 
 <template>
-  <div class="relative overflow-hidden" :style="activityVars(activite)">
+  <div class="relative overflow-hidden" :class="activityClass(activite)">
     <img
       :src="imageUrl"
       aria-hidden="true"

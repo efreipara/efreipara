@@ -103,7 +103,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - `content.schemas.ts` : les enums `['oa', 'tandem', 'soufflerie', 'pac']` (`nextEvent`, `partners`, `navigation`) ;
 - `app/composables/useActivities.ts` (`ActivityType`), `app/utils/activities.ts` (`ACTIVITY_ORDER`, `ACTIVITY_CSS_VAR`), `app/pages/activites/[activite].vue` (liste validée) ;
 - `app/app.config.ts` (`efreipara.icons.activites`, `efreipara.colors`) ;
-- `app/assets/css/main.css` (`--color-efreipara-<clé>` et `--color-on-efreipara-<clé>`) ;
+- `app/assets/css/main.css` (`--color-efreipara-<clé>`, `--color-on-efreipara-<clé>` et la liste `@source inline('activity-{…}')`) ;
 - `typeLabels` de `galerie.yml` ;
 - les photos sur le CDN et `public/seo/activites-<clé>.png`.
 

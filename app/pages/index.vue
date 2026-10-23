@@ -8,14 +8,6 @@
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
-
-  const activityBgStyle = (type: string) => ({
-    backgroundColor: activityTint(type, 10),
-  })
-
-  const hoveredType = ref<string | null>(null)
-  const activityCardStyle = (type: string) =>
-    hoveredType.value === type ? activityBgStyle(type) : {}
 </script>
 
 <template>
@@ -75,43 +67,35 @@
         {{ home?.sections.activites }}
       </h2>
       <div class="mb-8 grid gap-4 sm:grid-cols-2">
-        <NuxtLink
+        <UPageCard
           v-for="item in home?.activites.items"
           :key="item.title"
           :to="item.to"
-          class="group block"
-          @mouseenter="hoveredType = item.type"
-          @mouseleave="hoveredType = null"
+          :title="item.title"
+          class="group"
+          :class="activityClass(item.type)"
+          :ui="{
+            root: 'border-default hover:bg-tint-10 rounded-2xl border ring-0 duration-300',
+            container: 'p-6 sm:p-6',
+            wrapper: 'flex-row gap-4',
+            leading: 'bg-tint-10 mb-0 size-12 shrink-0 justify-center rounded-2xl',
+          }"
         >
-          <div
-            class="border-default relative h-full rounded-2xl border p-6 transition-colors duration-300"
-            :style="activityCardStyle(item.type)"
-          >
-            <div class="flex items-start gap-4">
-              <div
-                class="flex size-12 shrink-0 items-center justify-center rounded-2xl"
-                :style="activityBgStyle(item.type)"
-              >
-                <UIcon
-                  :name="getIcon(item.type as ActivityType)"
-                  :style="{ color: activityColor(item.type) }"
-                  class="size-6"
-                />
-              </div>
-              <div>
-                <h3 class="mb-1.5 font-bold">{{ item.title }}</h3>
-                <p class="text-muted mb-4 text-sm">{{ item.description }}</p>
-                <div class="text-primary flex items-center gap-1 text-sm font-semibold">
-                  <span>En savoir plus</span>
-                  <UIcon
-                    :name="appConfig.ui.icons.arrowRight"
-                    class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                  />
-                </div>
-              </div>
+          <template #leading>
+            <UIcon :name="getIcon(item.type as ActivityType)" class="text-activity size-6" />
+          </template>
+          <template #body>
+            <h3 class="mb-1.5 font-bold">{{ item.title }}</h3>
+            <p class="text-muted mb-4 text-sm">{{ item.description }}</p>
+            <div class="text-primary flex items-center gap-1 text-sm font-semibold">
+              <span>En savoir plus</span>
+              <UIcon
+                :name="appConfig.ui.icons.arrowRight"
+                class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              />
             </div>
-          </div>
-        </NuxtLink>
+          </template>
+        </UPageCard>
       </div>
       <div class="text-center">
         <UButton
@@ -135,16 +119,9 @@
         </h2>
         <div class="grid gap-6 sm:grid-cols-3">
           <UCard v-for="item in home?.why" :key="item.title" variant="subtle">
-            <div class="flex flex-col items-center text-center">
-              <div
-                class="mb-5 flex size-14 items-center justify-center rounded-2xl"
-                :style="activityBgStyle(item.type)"
-              >
-                <UIcon
-                  :name="item.icon"
-                  :style="{ color: activityColor(item.type) }"
-                  class="size-7"
-                />
+            <div class="flex flex-col items-center text-center" :class="activityClass(item.type)">
+              <div class="bg-tint-10 mb-5 flex size-14 items-center justify-center rounded-2xl">
+                <UIcon :name="item.icon" class="text-activity size-7" />
               </div>
               <h3 class="mb-2 font-bold">{{ item.title }}</h3>
               <p class="text-muted text-sm">{{ item.description }}</p>

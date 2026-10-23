@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <UContainer class="overflow-x-hidden py-12" :style="activityVars(activite)">
+  <UContainer class="overflow-x-hidden py-12" :class="activityClass(activite)">
     <h2 class="font-title mb-8 text-2xl font-bold">Comment ça se passe ?</h2>
     <UTimeline
       :items="steps.map((s, i) => ({ ...s, value: i }))"

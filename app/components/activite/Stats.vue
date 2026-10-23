@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="bg-elevated/50" :style="activityVars(activite)">
+  <div class="bg-elevated/50" :class="activityClass(activite)">
     <UContainer class="py-12">
       <dl class="grid grid-cols-2 gap-8 lg:grid-cols-4">
         <div

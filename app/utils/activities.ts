@@ -26,5 +26,6 @@ export const activityColor = (type?: string) =>
 export const activityTint = (type: string | undefined, percent: number) =>
   `color-mix(in oklch, ${activityColor(type)} ${percent}%, transparent)`
 
-// Pose la teinte sur un élément : ses descendants l'utilisent via bg-tint-*, text-activity, bg-activity
-export const activityVars = (type?: string) => ({ '--activity': activityColor(type) })
+// Classe qui pose --activity (main.css) : ses descendants l'utilisent via bg-tint-*, text-activity, bg-activity
+export const activityClass = (type?: string) =>
+  type && type in ACTIVITY_CSS_VAR ? `activity-${type}` : ''

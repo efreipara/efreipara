@@ -3,7 +3,7 @@ import {
   ACTIVITY_ORDER,
   activityColor,
   activityTint,
-  activityVars,
+  activityClass,
   adjacentActivities,
 } from '../../app/utils/activities'
 
@@ -38,9 +38,13 @@ describe('activityTint', () => {
   })
 })
 
-describe('activityVars', () => {
-  it('pose la variable --activity lue par les utilitaires de teinte', () => {
-    expect(activityVars('oa')).toEqual({ '--activity': 'var(--color-efreipara-oa)' })
-    expect(activityVars(undefined)).toEqual({ '--activity': 'var(--ui-primary)' })
+describe('activityClass', () => {
+  it('donne la classe qui pose la variable --activity', () => {
+    expect(activityClass('oa')).toBe('activity-oa')
+  })
+
+  it('ne donne aucune classe pour un type inconnu ou absent (repli sur la couleur primaire)', () => {
+    expect(activityClass('inconnu')).toBe('')
+    expect(activityClass(undefined)).toBe('')
   })
 })

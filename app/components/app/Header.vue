@@ -78,7 +78,7 @@
               :key="child.label"
               :to="child.to"
               class="group hover:bg-tint-12 flex items-start gap-2 rounded-md p-3 transition-colors duration-200"
-              :style="activityVars(child.slot)"
+              :class="activityClass(child.slot)"
             >
               <div
                 class="bg-tint-15 mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg"
@@ -181,7 +181,7 @@
             :key="activity.slot"
             :to="activity.to"
             class="hover:bg-tint-12 flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors duration-200"
-            :style="activityVars(activity.slot)"
+            :class="activityClass(activity.slot)"
           >
             <div class="bg-tint-15 flex size-7 shrink-0 items-center justify-center rounded-lg">
               <Icon :name="getIcon(activity.slot as ActivityType)" class="text-activity size-3.5" />

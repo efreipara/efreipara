@@ -66,13 +66,13 @@ Les déclarations `@font-face`, avec des polices de repli aux métriques ajusté
 Tout élément lié à une activité prend sa couleur par une **teinte transparente** de la variable CSS de l'activité. La teinte se pose en CSS, ce qui permet de la passer dans les `class` et `ui` des composants Nuxt UI :
 
 ```vue
-<div :style="activityVars('tandem')">
-  <!-- --activity: var(--color-efreipara-tandem) -->
+<div :class="activityClass('tandem')">
+  <!-- activity-tandem : --activity: var(--color-efreipara-tandem) -->
   <div class="bg-tint-10 hover:bg-tint-12"><UIcon class="text-activity" /></div>
 </div>
 ```
 
-- `activityVars(type)` (`app/utils/activities.ts`) pose `--activity` une fois, sur la carte ou la section ; les descendants la lisent.
+- `activityClass(type)` (`app/utils/activities.ts`) donne la classe `activity-<clé>`, qui pose `--activity` ; elle se met une fois, sur la carte ou la section, et les descendants lisent la variable. C'est une classe et non un `style` : un composant Nuxt UI avec lien (`UPageCard :to`…) envoie ses attributs, `style` compris, au lien et pas à la racine, alors que `class` va bien à la racine. Les classes sont générées par `@source inline(...)` dans `main.css` (voir [Ajouter une activité](CONTENT.md#ajouter-une-activité)).
 - Utilitaires de `main.css` : `bg-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
 - Fond d'une pastille d'icône : 10 à 15 % ; fond d'une carte de point fort : 8 % ; survol d'une carte ou d'un menu : 10 à 12 % ; bannière d'événement : 10 % en clair, 18 % en sombre (bordure 20 / 35 %).
 - L'icône ou le texte prend la couleur pleine (`text-activity`).

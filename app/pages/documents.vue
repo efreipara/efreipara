@@ -51,48 +51,48 @@
 
             <!-- Grille de documents -->
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <NuxtLink
+              <UPageCard
                 v-for="(doc, docIndex) in category.documents"
                 :key="docIndex"
                 :to="doc.url"
                 :target="doc.type === 'external' ? '_blank' : undefined"
-                :rel="doc.type === 'external' ? 'noopener noreferrer' : undefined"
+                :title="doc.title"
+                variant="subtle"
                 class="group"
+                :ui="{
+                  root: 'hover:bg-primary/5 hover:ring-default duration-150',
+                  wrapper: 'flex-row gap-3',
+                  leading: [
+                    'mb-0 size-10 shrink-0 justify-center rounded-xl',
+                    getCategoryColor(category.color).bg,
+                  ],
+                  body: 'min-w-0',
+                }"
               >
-                <UCard
-                  variant="subtle"
-                  class="group-hover:bg-primary/5 h-full cursor-pointer transition-colors duration-150"
-                >
-                  <div class="flex gap-3">
-                    <div
-                      class="flex size-10 shrink-0 items-center justify-center rounded-xl"
-                      :class="getCategoryColor(category.color).bg"
-                    >
-                      <UIcon
-                        :name="doc.icon || appConfig.ui.icons.file"
-                        class="size-5"
-                        :class="getCategoryColor(category.color).text"
-                      />
-                    </div>
-                    <div class="min-w-0 flex-1">
-                      <div class="flex items-start justify-between gap-2">
-                        <p class="leading-tight font-semibold">{{ doc.title }}</p>
-                        <UIcon
-                          :name="
-                            doc.type === 'external'
-                              ? appConfig.ui.icons.external
-                              : appConfig.ui.icons.arrowRight
-                          "
-                          class="text-muted mt-0.5 size-4 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5"
-                        />
-                      </div>
-                      <p v-if="doc.description" class="text-muted mt-1 text-sm">
-                        {{ doc.description }}
-                      </p>
-                    </div>
+                <template #leading>
+                  <UIcon
+                    :name="doc.icon || appConfig.ui.icons.file"
+                    class="size-5"
+                    :class="getCategoryColor(category.color).text"
+                  />
+                </template>
+                <template #body>
+                  <div class="flex items-start justify-between gap-2">
+                    <p class="leading-tight font-semibold">{{ doc.title }}</p>
+                    <UIcon
+                      :name="
+                        doc.type === 'external'
+                          ? appConfig.ui.icons.external
+                          : appConfig.ui.icons.arrowRight
+                      "
+                      class="text-muted mt-0.5 size-4 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5"
+                    />
                   </div>
-                </UCard>
-              </NuxtLink>
+                  <p v-if="doc.description" class="text-muted mt-1 text-sm">
+                    {{ doc.description }}
+                  </p>
+                </template>
+              </UPageCard>
             </div>
           </section>
 

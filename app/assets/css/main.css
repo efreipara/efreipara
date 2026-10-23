@@ -104,7 +104,13 @@
   --color-headline: #afbae0;
 }
 
-/* Teinte d'activité : --activity est posée par activityVars() (app/utils/activities.ts) */
+/* Teinte d'activité : activityClass() (app/utils/activities.ts) pose --activity, lue par les utilitaires suivants */
+@source inline('activity-{oa,tandem,soufflerie,pac}');
+
+@utility activity-* {
+  --activity: --value(--color-efreipara-*);
+}
+
 @utility bg-tint-* {
   background-color: color-mix(
     in oklch,

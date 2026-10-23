@@ -85,11 +85,11 @@
           variant="soft"
           :aria-pressed="activeFilter === type"
           class="cursor-pointer rounded-full px-3"
-          :class="
-            activeFilter === type && 'bg-activity hover:bg-activity active:bg-activity text-white'
-          "
+          :class="[
+            activityClass(type),
+            activeFilter === type && 'bg-activity hover:bg-activity active:bg-activity text-white',
+          ]"
           :ui="{ leadingIcon: ['size-4', activeFilter === type ? 'text-white' : 'text-activity'] }"
-          :style="activityVars(type)"
           @click="activeFilter = activeFilter === type ? null : type"
         >
           {{ typeLabel(type) }}
