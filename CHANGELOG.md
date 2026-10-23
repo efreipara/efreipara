@@ -2,6 +2,17 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.1.1 — 23 octobre 2026
+
+### Modifications
+
+- Bibliothèques du site mises à jour (Nuxt, Nuxt UI, gestion des polices).
+- Polices de repli plus fidèles en mode « Police dyslexique », le temps que la police se charge.
+
+### Corrections
+
+- Faille de sécurité corrigée dans le nettoyage du texte mis en forme de l'accueil, des activités et de la FAQ (DOMPurify).
+
 ## 1.1.0 — 3 octobre 2026
 
 ### Modifications

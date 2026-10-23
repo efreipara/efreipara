@@ -45,6 +45,8 @@ Utiliser les couleurs sémantiques de Nuxt UI (`text-muted`, `text-toned`, `text
 
 Servies localement par `@nuxt/fonts` (fichiers `woff2` de `public/`, fournisseur Google désactivé).
 
+Les déclarations `@font-face`, avec des polices de repli aux métriques ajustées (contre le décalage de mise en page), sont injectées dans chaque page HTML. Une police introuvable fait échouer le build. Outfit n'est déclarée qu'en graisse 400 : le fournisseur local ne reprend pas la plage `100 900` de `fonts.defaults`, et le gras d'Outfit est donc simulé par le navigateur.
+
 | Police              | Usage                                                                                                                                                                  |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Outfit**          | texte (`font-family` de `:root`), graisses 100 à 900                                                                                                                   |
