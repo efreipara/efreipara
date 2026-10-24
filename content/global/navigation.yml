@@ -25,6 +25,12 @@ pages:
     icon: tabler:help
     header: 3
 
+# Bouton du menu d’accessibilité (icône pleine quand une option est active)
+accessibilityMenu:
+  label: Options d’accessibilité
+  icon: tabler:accessible
+  activeIcon: tabler:accessible-filled
+
 accessibility:
   - key: dyslexic
     label: Police dyslexique

@@ -6,6 +6,7 @@ export const useNavigation = async () => {
   ])
 
   const accessibility = computed(() => data.value!.accessibility)
+  const accessibilityMenu = computed(() => data.value!.accessibilityMenu)
   const activitiesIndex = computed(() => data.value!.activitiesIndex)
   const activities = computed(() =>
     activityList.value.map((activity) => ({
@@ -24,6 +25,7 @@ export const useNavigation = async () => {
 
   return {
     accessibility,
+    accessibilityMenu,
     activitiesIndex,
     activities,
     headerLinks,

@@ -27,11 +27,6 @@ export const useActivities = async () => {
 export const useNextEvent = () => {
   const { data: event } = useAsyncData('nextEvent', () => queryCollection('nextEvent').first())
 
-  const getEventBannerUI = (type: ActivityType) => {
-    const appConfig = useAppConfig()
-    return appConfig.efreipara.colors[type]
-  }
-
   const getEventInfoUrl = (type: ActivityType): string => {
     return `/activites/${type}`
   }
@@ -42,7 +37,6 @@ export const useNextEvent = () => {
 
   return {
     event,
-    getEventBannerUI,
     getEventInfoUrl,
     getEventBannerId,
     shouldShowEvent,

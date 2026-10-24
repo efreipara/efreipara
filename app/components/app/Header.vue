@@ -1,11 +1,10 @@
 <script setup lang="ts">
   import type { NavigationMenuItem } from '@nuxt/ui'
 
-  const appConfig = useAppConfig()
-
-  const { socials, getSocialIcon } = useSocials()
+  const { socials, getSocial } = await useClub()
   const { getIcon } = await useActivities()
-  const { accessibility, activitiesIndex, activities, headerLinks } = await useNavigation()
+  const { accessibility, accessibilityMenu, activitiesIndex, activities, headerLinks } =
+    await useNavigation()
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
@@ -26,8 +25,8 @@
       class: accessibilityClass[item.key] ?? 'cursor-pointer',
     })),
   ])
-  const discord = socials.find((s) => s.name.toLowerCase() === 'discord')
-  const instagram = socials.find((s) => s.name.toLowerCase() === 'instagram')
+  const discord = computed(() => getSocial('discord'))
+  const instagram = computed(() => getSocial('instagram'))
 
   const baseItems = computed<NavigationMenuItem[]>(() => [
     {
@@ -106,7 +105,7 @@
           v-if="instagram"
           :to="instagram.url"
           target="_blank"
-          :icon="getSocialIcon('instagram')"
+          :icon="instagram.icon"
           aria-label="Instagram Efrei Para"
           color="neutral"
           variant="ghost"
@@ -116,7 +115,7 @@
           v-if="discord"
           :to="discord.url"
           target="_blank"
-          :icon="getSocialIcon('discord')"
+          :icon="discord.icon"
           aria-label="Discord Efrei Para"
           color="neutral"
           variant="ghost"
@@ -125,14 +124,10 @@
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
         <UDropdownMenu :items="accessibilityItems">
           <UButton
-            :icon="
-              hasActiveFeature
-                ? appConfig.efreipara.icons.extras.accessibilityFilled
-                : appConfig.efreipara.icons.extras.accessibility
-            "
+            :icon="hasActiveFeature ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"
-            aria-label="Options d'accessibilité"
+            :aria-label="accessibilityMenu.label"
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
@@ -145,14 +140,10 @@
       <div class="flex items-center gap-1 lg:hidden">
         <UDropdownMenu :items="accessibilityItems">
           <UButton
-            :icon="
-              hasActiveFeature
-                ? appConfig.efreipara.icons.extras.accessibilityFilled
-                : appConfig.efreipara.icons.extras.accessibility
-            "
+            :icon="hasActiveFeature ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
             color="neutral"
             :variant="hasActiveFeature ? 'solid' : 'ghost'"
-            aria-label="Options d'accessibilité"
+            :aria-label="accessibilityMenu.label"
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>

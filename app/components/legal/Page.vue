@@ -5,7 +5,7 @@
 
   const props = defineProps<Props>()
 
-  const appConfig = useAppConfig()
+  const { club, getSocial } = await useClub()
 
   useSeo(props.slug)
 
@@ -36,9 +36,9 @@
       <p>Le contenu demandé n'existe pas.</p>
       <div class="mt-4 flex justify-center">
         <UButton
-          :to="appConfig.socials.github.issues"
+          :to="club.github.issues"
           target="_blank"
-          :icon="appConfig.socials.github.icon"
+          :icon="getSocial('github')?.icon"
           color="neutral"
           variant="link"
           size="lg"

@@ -95,6 +95,7 @@
         v-if="documentsData?.helpcta"
         :title="documentsData.helpcta.title"
         :description="documentsData.helpcta.description"
+        :icon="documentsData.helpcta.icon"
         :buttons="documentsData.helpcta.buttons"
       />
     </UContainer>

@@ -174,7 +174,8 @@ Tous les textes du site sont éditables. Les plus courants :
 - **Galerie** : `content/pages/galerie.yml` - Albums photos
 - **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
 - **Documents** : `content/pages/documents.yml` - Liste des documents téléchargeables
-- **Activités** : `content/pages/activites/*.yml` - Une page par activité
+- **Activités** : `content/pages/activites/*.yml` - Une page par activité, et tout ce qui la présente ailleurs (menu, accueil, galerie)
+- **Coordonnées et réseaux** : `content/global/club.yml` - E-mail, adresse, Discord, Instagram…
 - **Règlement** : `content/pages/legal/reglement.md` - Règlement intérieur du club
 - **Mentions légales** : `content/pages/legal/mentions-legales.md`
 - **RGPD** : `content/pages/legal/rgpd.md` - Politique de confidentialité

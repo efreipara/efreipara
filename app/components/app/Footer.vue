@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  const { socials } = useSocials()
-  const { version, socials: socialLinks } = useAppConfig()
+  const { socials, club } = await useClub()
+  const { version } = useAppConfig()
   const { activitiesIndex, activities, footerPages, footerLegal, footerTitles } =
     await useNavigation()
 
@@ -18,7 +18,7 @@
     },
     {
       label: footerTitles.value.social,
-      children: socials.map((s) => ({ label: s.name, to: s.url, target: '_blank' })),
+      children: socials.value.map((s) => ({ label: s.name, to: s.url, target: '_blank' })),
     },
     {
       label: footerTitles.value.legal,
@@ -66,7 +66,7 @@
         <p class="text-muted text-sm">
           Code source
           <a
-            :href="`${socialLinks.github.repo}/blob/main/CHANGELOG.md`"
+            :href="`${club.github.repo}/blob/main/CHANGELOG.md`"
             target="_blank"
             :aria-label="`v${version}, historique des versions`"
             class="text-xs"

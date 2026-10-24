@@ -24,7 +24,7 @@
 
 ## Icônes, couleurs et classes
 
-- Icône Nuxt UI générique : `appConfig.ui.icons.<nom>` ; icône propre au site : `appConfig.efreipara.icons.<groupe>.<nom>` ; icône d'activité : `getIcon(type)` de `useActivities()`. Écrire un nom `tabler:*` en dur seulement quand aucune entrée n'existe, et toujours en entier (scan des icônes).
+- Icône Nuxt UI générique : `appConfig.ui.icons.<nom>` ; icône propre au site : un champ `icon` dans le fichier de contenu de la page ou du composant qui l'affiche ; icône d'activité : `getIcon(type)` de `useActivities()` ; icône d'un réseau : `getSocial(key).icon` de `useClub()`. Écrire un nom `tabler:*` en dur seulement quand aucune entrée n'existe, et toujours en entier (scan des icônes).
 - Couleurs sémantiques Nuxt UI plutôt que des teintes Tailwind ; teinte d'activité par `color-mix` ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md#teinte-dactivité)).
 - Une classe Tailwind construite dynamiquement doit apparaître **en entier** quelque part dans les fichiers scannés, sinon elle n'est pas générée (voir le commentaire en tête de `app/utils/category-color.ts`).
 - L'ordre des classes est fixé par `prettier-plugin-tailwindcss`.

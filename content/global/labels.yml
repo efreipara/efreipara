@@ -1,0 +1,6 @@
+# Libellés des composants communs à plusieurs pages
+banner:
+  register: Inscription
+  registerIcon: tabler:arrow-narrow-right
+  info: En savoir plus
+  close: Fermer la bannière

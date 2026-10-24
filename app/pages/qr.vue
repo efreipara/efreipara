@@ -7,7 +7,7 @@
     bodyAttrs: { class: 'bg-efreipara-background' },
   })
 
-  const appConfig = useAppConfig()
+  const { data: page } = await useAsyncData('qr', () => queryCollection('qr').first())
   const isFullscreen = ref(false)
 
   function toggleFullscreen() {
@@ -39,7 +39,7 @@
         <UButton
           to="/"
           :external="true"
-          icon="efreipara:parachute"
+          :icon="page?.homeIcon"
           variant="ghost"
           color="neutral"
           size="sm"
@@ -48,11 +48,7 @@
       </div>
       <div class="absolute top-4 right-4 z-20">
         <UButton
-          :icon="
-            isFullscreen
-              ? appConfig.efreipara.icons.extras.minimize
-              : appConfig.efreipara.icons.extras.maximize
-          "
+          :icon="isFullscreen ? page?.fullscreen.exitIcon : page?.fullscreen.enterIcon"
           variant="ghost"
           color="neutral"
           size="sm"
@@ -63,7 +59,7 @@
       <div class="relative z-10 flex min-h-screen items-center justify-center p-4">
         <img
           src="~/assets/images/qr.svg"
-          alt="QR Code Efrei Para"
+          :alt="page?.alt"
           class="h-auto max-h-[90vh] w-full max-w-md object-contain"
         />
       </div>

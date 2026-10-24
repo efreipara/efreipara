@@ -27,7 +27,7 @@
 ### 3. Liens externes
 
 - Un lien externe s'ouvre dans un nouvel onglet avec `rel="noopener noreferrer"` : `NuxtLink` / `UButton` l'ajoutent pour une URL externe ; le Markdown de Content passe par `rehype-target-blank.mjs` ; un lien écrit à la main avec `target="_blank"` porte le `rel`.
-- Les redirections (`RedirectPage`) n'envoient que vers des URL du dépôt (`app.config.ts`, `rejoindre.yml`), jamais vers une adresse lue dans la query string.
+- Les redirections (`RedirectPage`) n'envoient que vers des URL du dépôt (`club.yml`, `rejoindre.yml`), jamais vers une adresse lue dans la query string.
 
 ### 4. CSP et origines externes
 

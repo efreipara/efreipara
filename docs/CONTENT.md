@@ -10,7 +10,7 @@ Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les co
 
 Ce qui n'est pas dans `content/` :
 
-- **`app/app.config.ts`** : URL des réseaux sociaux, e-mail et adresse du club, liens cartographiques, e-mail du mainteneur, registre d'icônes et teintes d'activité.
+- **`app/app.config.ts`** : le thème Nuxt UI seulement (couleurs, réglages globaux des composants). Coordonnées, réseaux, icônes et options d'une page sont dans `content/`.
 - **Libellés encore écrits dans le code** : boutons du hero de l'accueil (« Nos activités », « Nous rejoindre »), « En savoir plus » et « Inscription » (cartes et bannière), titres des sections d'activité (« Pourquoi choisir … ? », « Comment ça se passe ? », « Prérequis », « Nos partenaires »), « Tout voir », compteurs (« docs », « questions »), boutons de `SharedHelpCta`, messages d'erreur (`error.vue`), pied de page (licences), page À propos.
 
 Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le contenu met à jour cette liste.
@@ -23,6 +23,8 @@ Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le cont
 | `seo`            | data | `global/seo.yml`                 | toutes les pages (`useSeo`), phrase du hero d'accueil                                                        |
 | `cta`            | data | `global/cta.yml`                 | appel à l'action en bas de page                                                                              |
 | `partners`       | data | `global/partners.yml`            | accueil, pages d'activité                                                                                    |
+| `club`           | data | `global/club.yml`                | e-mail, adresse, réseaux et dépôt GitHub : en-tête, pied de page, contact, rejoindre, redirections, erreurs  |
+| `labels`         | data | `global/labels.yml`              | libellés des composants communs (bannière d'événement)                                                       |
 | `nextEvent`      | data | `global/next-event.yml`          | bannière d'événement                                                                                         |
 | `home`           | data | `pages/home.yml`                 | `/`                                                                                                          |
 | `activitesIndex` | data | `pages/activites.yml`            | hero de `/activites`                                                                                         |
@@ -33,24 +35,29 @@ Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le cont
 | `rejoindre`      | data | `pages/rejoindre.yml`            | `/rejoindre`, `/devenir-membre`, `/rejoindre-bureau`                                                         |
 | `contact`        | data | `pages/contact.yml`              | `/contact`                                                                                                   |
 | `redirects`      | data | `pages/redirects.yml`            | pages de redirection                                                                                         |
+| `qr`             | data | `pages/qr.yml`                   | `/qr`                                                                                                        |
 | `legal`          | page | `pages/legal/<slug>.md`          | `/mentions-legales`, `/reglement`, `/rgpd`                                                                   |
 
 ### Points notables par collection
 
-- **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. Les activités du menu viennent de leurs fichiers (`menu`). `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
+- **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. Les activités du menu viennent de leurs fichiers (`menu`). `accessibilityMenu` règle le bouton du menu d'accessibilité (`label`, `icon`, `activeIcon` quand une option est active) ; `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
 - **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
-- **`home`** : `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`).
+- **`home`** : `hero.links` (boutons sous la phrase d'accroche) et `hero.scrollIcon` (flèche vers le bas) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`).
 - **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`.
   - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `features[]`, `linkLabel` : section de `/activites`, qui reprend `alt` pour la photo).
   - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
-- **`galerie`** : `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
+- **`galerie`** : `albumIcons` (`date`, `location` : icônes des cartes) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
 - **`documents`** : catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon).
-- **`faq`** : catégories (`name`, `color`, `questions[]`) ; une question a `question`, `answer`, `icon` (l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`).
-- **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta.buttons` ⊂ `discord`, `instagram`, `github`.
+- **`faq`** : catégories (`name`, `color`, `questions[]`) ; une question a `question`, `answer`, `icon` (obligatoire ; l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`).
+- **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta` : `title`, `description`, `icon`, `buttons` ⊂ `discord`, `instagram`, `github` (libellés et liens tirés de `club`).
 - **`rejoindre`** : `options[].slug` (`devenir-membre`, `rejoindre-bureau`) est à la fois le nom de la route de redirection et celui de la photo sur le CDN ; `link` est le formulaire externe ; `color` et `why.features[].class` sont des classes `text-efreipara-<activité>` dont seule la clé d'activité est lue.
-- **`redirects`** : textes des pages de redirection ; les cibles viennent de `app.config.ts` (Discord, Instagram) ou de `rejoindre.options[].link`.
+- **`club`** : `socials[]` (`key`, `name`, `icon`, `url`) dans l'ordre d'affichage, la `key` sert à retrouver un réseau (`discord`, `instagram`, `github`…) ; `address` est écrite une fois, les liens Google Maps, Apple Plans et Waze en sont calculés (`mapUrls`) ; `github.repo` (historique des versions) et `github.issues` (signalement).
+- **`contact`** : chaque bloc a son `icon` ; `address.buttons.<carte>` a `label` et `icon`. Les adresses viennent de `club`.
+- **`labels`** : `banner` (`register`, `registerIcon`, `info`, `close`).
+- **`qr`** : `alt` du QR code, `homeIcon`, `fullscreen` (`enterIcon`, `exitIcon`).
+- **`redirects`** : textes des pages de redirection ; les cibles viennent de `club.yml` (Discord, Instagram) ou de `rejoindre.options[].link`.
 - **`legal`** : front-matter `title`, `description`, `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
 
 ## Formats acceptés
@@ -103,7 +110,6 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 - `content/pages/activites/<clé>.yml` (tous les champs obligatoires ci-dessus) et l'entrée `activites-<clé>` de `seo.yml` ;
 - `ACTIVITY_KEYS` dans `app/utils/activities.ts` (la place de la clé donne l'ordre d'affichage) ;
-- `app/app.config.ts` (`efreipara.colors`) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>`, `--color-on-efreipara-<clé>` et la liste `@source inline('activity-{…}')`) ;
 - les photos sur le CDN et `public/seo/activites-<clé>.png`.
 

@@ -3,10 +3,14 @@ import { ACTIVITY_KEYS } from './app/utils/activities'
 
 const activity = z.enum(ACTIVITY_KEYS)
 
+// Bouton dont seul le libellé et l'icône viennent du contenu
+const link = z.object({ label: z.string(), icon: z.string() })
+
 // Encadré d'aide en bas de Documents et FAQ
 const helpCta = z.object({
   title: z.string(),
   description: z.string(),
+  icon: z.string(),
   buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
 })
 
@@ -17,6 +21,10 @@ export const collections = {
     type: 'data' as const,
     source: 'pages/home.yml',
     schema: z.object({
+      hero: z.object({
+        links: z.array(z.object({ label: z.string(), to: z.string(), icon: z.string() })),
+        scrollIcon: z.string(),
+      }),
       sections: z.object({
         about: z.string(),
         activites: z.string(),
@@ -58,6 +66,7 @@ export const collections = {
         description: z.string(),
         linkLabel: z.string(),
       }),
+      albumIcons: z.object({ date: z.string(), location: z.string() }),
       items: z.array(
         z.object({
           title: z.string(),
@@ -143,7 +152,7 @@ export const collections = {
             z.object({
               question: z.string(),
               answer: z.string(),
-              icon: z.string().optional(),
+              icon: z.string(),
               buttons: z
                 .array(
                   z.object({
@@ -199,6 +208,7 @@ export const collections = {
         title: z.string(),
         description: z.string(),
         buttonLabel: z.string(),
+        icon: z.string(),
       }),
       socials: z.object({
         title: z.string(),
@@ -207,15 +217,17 @@ export const collections = {
       address: z.object({
         title: z.string(),
         description: z.string(),
+        icon: z.string(),
         buttons: z.object({
-          google: z.string(),
-          apple: z.string(),
-          waze: z.string(),
+          google: link,
+          apple: link,
+          waze: link,
         }),
       }),
       support: z.object({
         title: z.string(),
         description: z.string(),
+        icon: z.string(),
         buttons: z.object({
           github: z.string(),
           email: z.string(),
@@ -239,6 +251,31 @@ export const collections = {
           variant: z.string().optional(),
         }),
       ),
+    }),
+  },
+  club: {
+    type: 'data' as const,
+    source: 'global/club.yml',
+    schema: z.object({
+      email: z.string().email(),
+      address: z.string(),
+      maintainerEmail: z.string().email(),
+      socials: z.array(
+        z.object({ key: z.string(), name: z.string(), icon: z.string(), url: z.string().url() }),
+      ),
+      github: z.object({ repo: z.string().url(), issues: z.string().url() }),
+    }),
+  },
+  labels: {
+    type: 'data' as const,
+    source: 'global/labels.yml',
+    schema: z.object({
+      banner: z.object({
+        register: z.string(),
+        registerIcon: z.string(),
+        info: z.string(),
+        close: z.string(),
+      }),
     }),
   },
   nextEvent: {
@@ -304,6 +341,15 @@ export const collections = {
       ),
     }),
   },
+  qr: {
+    type: 'data' as const,
+    source: 'pages/qr.yml',
+    schema: z.object({
+      alt: z.string(),
+      homeIcon: z.string(),
+      fullscreen: z.object({ enterIcon: z.string(), exitIcon: z.string() }),
+    }),
+  },
   redirects: {
     type: 'data' as const,
     source: 'pages/redirects.yml',
@@ -328,6 +374,7 @@ export const collections = {
     type: 'data' as const,
     source: 'global/navigation.yml',
     schema: z.object({
+      accessibilityMenu: z.object({ label: z.string(), icon: z.string(), activeIcon: z.string() }),
       accessibility: z.array(
         z.object({
           key: z.string(),

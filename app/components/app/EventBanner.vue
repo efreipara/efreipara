@@ -2,6 +2,7 @@
   const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
   const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
+  const { data: labels } = await useAsyncData('labels', () => queryCollection('labels').first())
 
   const bannerId = computed(() => getEventBannerId())
   const isBannerClosed = ref(false)
@@ -40,16 +41,16 @@
             :title="event.title"
             :actions="[
               {
-                label: 'Inscription',
+                label: labels?.banner.register,
                 to: event.url,
                 target: '_blank',
                 size: 'sm',
                 variant: 'subtle',
-                trailingIcon: appConfig.efreipara.icons.extras.arrowNarrowRight,
+                trailingIcon: labels?.banner.registerIcon,
                 class: 'rounded-full',
               },
               {
-                label: 'En savoir plus',
+                label: labels?.banner.info,
                 to: getEventInfoUrl(event.type),
                 size: 'sm',
                 variant: 'ghost',
@@ -84,7 +85,7 @@
                 color="neutral"
                 variant="ghost"
                 size="sm"
-                aria-label="Fermer la bannière"
+                :aria-label="labels?.banner.close"
                 class="cursor-pointer rounded-full"
                 @click="handleClose"
               />

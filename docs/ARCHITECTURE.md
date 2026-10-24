@@ -35,7 +35,7 @@
 ```
 app/
 ├── app.vue           # racine : bannière, en-tête, page, pied ; classes d'accessibilité ; useSeo
-├── app.config.ts     # couleurs Nuxt UI, registre d'icônes, teintes d'activité, réseaux, contact
+├── app.config.ts     # thème Nuxt UI (couleurs, réglages globaux des composants)
 ├── error.vue         # page d'erreur (messages en français)
 ├── assets/
 │   ├── css/main.css  # Tailwind + Nuxt UI, palette navy, couleurs, utilitaires, accessibilité
@@ -86,7 +86,7 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                         |
 | `usePartners`                   | Collection `partners`, filtre par activité                                                                                        |
 | `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`) ; prochain événement et règle d'affichage |
-| `useSocials`                    | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                                          |
+| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                            |
 | `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                           |
 | `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                      |
 | `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                      |
@@ -108,6 +108,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                   |
 | `anchor.ts`         | `toAnchorId`                                                                                                                                 | Documents, FAQ, `SharedCategoryChips`                               |
 | `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                               | galerie                                                             |
+| `contact.ts`        | `mapUrls`                                                                                                                                    | `useClub`                                                           |
 | `navigation.ts`     | `sortHeaderLinks`                                                                                                                            | `useNavigation`                                                     |
 | `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité |
 | `category-color.ts` | `categoryColorClasses`                                                                                                                       | `useCategoryColor`                                                  |
@@ -119,7 +120,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité, page légale ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
 - **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
-- Les clés en place : `seo`, `navigation`, `partners`, `nextEvent`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
+- Les clés en place : `seo`, `navigation`, `club`, `labels`, `partners`, `nextEvent`, `qr`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
 - Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Dans un `<script setup>`, les `await` successifs restent sûrs.
 - Nuxt Content **ne valide pas** les données contre le schéma : il les enregistre telles quelles (un nombre reste un nombre là où le schéma attend du texte). Le schéma sert aux types et aux colonnes SQL ; la validation est faite par les tests de contenu ([TESTING.md](TESTING.md)).
 - Base de Content : SQLite (`.data/content/contents.db`, connecteur natif), reconstruite à chaque build, jamais versionnée.

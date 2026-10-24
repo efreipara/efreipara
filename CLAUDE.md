@@ -91,7 +91,7 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 - **Interface 100 % en français** ; le texte visible va dans `content/`, pas dans les composants.
 - Code en anglais, URL et clés de contenu en français, **commentaires en français et rares**.
 - Préférer les composants Nuxt UI aux composants maison ; réutiliser les composants listés dans `docs/DESIGN_SYSTEM.md`.
-- Icônes via `appConfig` quand une entrée existe ; teintes d'activité par `color-mix`.
+- `app.config.ts` ne garde que le thème Nuxt UI : icônes, liens et options d'une page vont dans son fichier de `content/` ; teintes d'activité par `color-mix`.
 - `v-html` uniquement après `DOMPurify.sanitize()` ; toute nouvelle origine externe ajoutée à la CSP nginx.
 
 ## Commits

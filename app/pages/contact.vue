@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  const { socials } = useSocials()
-  const appConfig = useAppConfig()
-  const contact = appConfig.contact
+  const { club, socials, maps, getSocial } = await useClub()
 
   const { data: page } = await useAsyncData('contact', () => queryCollection('contact').first())
 </script>
@@ -18,16 +16,16 @@
             <div
               class="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-2xl"
             >
-              <UIcon :name="appConfig.efreipara.icons.contact.email" class="text-primary size-6" />
+              <UIcon :name="page?.email.icon" class="text-primary size-6" />
             </div>
             <div>
               <h2 class="text-lg font-bold">{{ page?.email.title }}</h2>
-              <p class="text-muted text-sm">{{ contact.email }}</p>
+              <p class="text-muted text-sm">{{ club.email }}</p>
             </div>
           </div>
           <UButton
-            :to="`mailto:${contact.email}`"
-            :icon="appConfig.efreipara.icons.contact.email"
+            :to="`mailto:${club.email}`"
+            :icon="page?.email.icon"
             color="primary"
             class="shrink-0 rounded-full"
           >
@@ -67,47 +65,44 @@
             <div
               class="bg-efreipara-oa/10 flex size-10 shrink-0 items-center justify-center rounded-xl"
             >
-              <UIcon
-                :name="appConfig.efreipara.icons.contact.mapPin"
-                class="text-efreipara-oa size-5"
-              />
+              <UIcon :name="page?.address.icon" class="text-efreipara-oa size-5" />
             </div>
             <div>
               <h2 class="font-bold">{{ page?.address.title }}</h2>
               <p class="text-muted text-xs">{{ page?.address.description }}</p>
             </div>
           </div>
-          <p class="text-muted mb-4 text-sm">{{ contact.address }}</p>
+          <p class="text-muted mb-4 text-sm">{{ club.address }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
-              :to="contact.mapUrls.google"
+              :to="maps.google"
               target="_blank"
-              :icon="appConfig.efreipara.icons.contact.googleMaps"
+              :icon="page?.address.buttons.google.icon"
               size="sm"
               color="neutral"
               class="rounded-full"
             >
-              {{ page?.address.buttons.google }}
+              {{ page?.address.buttons.google.label }}
             </UButton>
             <UButton
-              :to="contact.mapUrls.apple"
+              :to="maps.apple"
               target="_blank"
-              :icon="appConfig.efreipara.icons.contact.apple"
+              :icon="page?.address.buttons.apple.icon"
               size="sm"
               color="neutral"
               class="rounded-full"
             >
-              {{ page?.address.buttons.apple }}
+              {{ page?.address.buttons.apple.label }}
             </UButton>
             <UButton
-              :to="contact.mapUrls.waze"
+              :to="maps.waze"
               target="_blank"
-              :icon="appConfig.efreipara.icons.contact.waze"
+              :icon="page?.address.buttons.waze.icon"
               size="sm"
               color="neutral"
               class="rounded-full"
             >
-              {{ page?.address.buttons.waze }}
+              {{ page?.address.buttons.waze.label }}
             </UButton>
           </div>
         </UCard>
@@ -118,10 +113,7 @@
             <div
               class="bg-efreipara-pac/10 flex size-10 shrink-0 items-center justify-center rounded-xl"
             >
-              <UIcon
-                :name="appConfig.efreipara.icons.contact.support"
-                class="text-efreipara-pac size-5"
-              />
+              <UIcon :name="page?.support.icon" class="text-efreipara-pac size-5" />
             </div>
             <div>
               <h2 class="font-bold">{{ page?.support.title }}</h2>
@@ -130,8 +122,8 @@
           </div>
           <div class="flex flex-wrap gap-2">
             <UButton
-              :to="appConfig.socials.github.issues"
-              :icon="appConfig.socials.github.icon"
+              :to="club.github.issues"
+              :icon="getSocial('github')?.icon"
               size="sm"
               color="neutral"
               class="rounded-full"
@@ -139,8 +131,8 @@
               {{ page?.support.buttons.github }}
             </UButton>
             <UButton
-              :to="`mailto:${contact.maintainer.email}`"
-              :icon="appConfig.efreipara.icons.contact.support"
+              :to="`mailto:${club.maintainerEmail}`"
+              :icon="page?.support.icon"
               size="sm"
               color="neutral"
               class="rounded-full"

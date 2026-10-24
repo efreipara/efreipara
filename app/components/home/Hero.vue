@@ -1,5 +1,9 @@
 <script setup lang="ts">
-  const appConfig = useAppConfig()
+  defineProps<{
+    links: { label: string; to: string; icon: string }[]
+    scrollIcon: string
+  }>()
+
   const config = useRuntimeConfig()
   const cdnUrl = config.public.cdnUrl
 
@@ -50,34 +54,23 @@
           style="animation-delay: 0.25s"
         >
           <UButton
-            to="/activites"
+            v-for="link in links"
+            :key="link.to"
+            :to="link.to"
             size="xl"
             color="neutral"
             variant="soft"
-            :icon="appConfig.efreipara.icons.activites.parachute"
+            :icon="link.icon"
             class="rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
           >
-            Nos activités
-          </UButton>
-          <UButton
-            to="/rejoindre"
-            size="xl"
-            color="neutral"
-            variant="soft"
-            :icon="appConfig.efreipara.icons.rejoindre.rejoindre"
-            class="rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
-          >
-            Nous rejoindre
+            {{ link.label }}
           </UButton>
         </div>
       </div>
 
       <!-- Icône flèche animée pour inviter à scroller -->
       <div class="absolute bottom-3 left-1/2 z-10 -translate-x-1/2 animate-bounce">
-        <Icon
-          :name="appConfig.efreipara.icons.extras.caretDownFilled"
-          class="h-8 w-8 text-white drop-shadow-lg"
-        />
+        <Icon :name="scrollIcon" class="h-8 w-8 text-white drop-shadow-lg" />
       </div>
     </div>
   </section>

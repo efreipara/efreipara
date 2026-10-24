@@ -6,6 +6,7 @@ email:
   title: Email
   description: Envoie-nous un email pour toute question
   buttonLabel: Envoyer un email
+  icon: tabler:mail
 
 socials:
   title: Nos réseaux sociaux
@@ -14,14 +15,22 @@ socials:
 address:
   title: Adresse
   description: Notre campus Efrei
+  icon: tabler:map-pin
   buttons:
-    google: Google Maps
-    apple: Apple Plans
-    waze: Waze
+    google:
+      label: Google Maps
+      icon: simple-icons:googlemaps
+    apple:
+      label: Apple Plans
+      icon: simple-icons:apple
+    waze:
+      label: Waze
+      icon: simple-icons:waze
 
 support:
   title: Support Technique
   description: Un problème avec le site ?
+  icon: tabler:tool
   buttons:
     github: Signaler sur GitHub
     email: Contacter par email

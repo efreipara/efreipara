@@ -1,3 +1,14 @@
+# Hero : boutons sous la phrase d’accroche (description SEO de l’accueil), flèche vers le bas
+hero:
+  links:
+    - label: Nos activités
+      to: /activites
+      icon: tabler:parachute
+    - label: Nous rejoindre
+      to: /rejoindre
+      icon: tabler:user-plus
+  scrollIcon: tabler:caret-down-filled
+
 sections:
   about: Qui sommes-nous ?
   activites: Nos activités

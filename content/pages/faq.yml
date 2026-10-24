@@ -3,6 +3,7 @@ description: Retrouvez ici les réponses aux questions les plus fréquentes sur 
 helpcta:
   title: Une question sans réponse ?
   description: N'hésite pas à nous poser tes questions sur Discord ou Instagram !
+  icon: tabler:question-mark
   buttons:
     - discord
     - instagram

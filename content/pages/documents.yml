@@ -3,6 +3,7 @@ description: Retrouvez ici tous les documents relatifs au club et aux activités
 helpcta:
   title: Un document manquant ?
   description: Si vous ne trouvez pas le document que vous cherchez, n'hésitez pas à nous contacter !
+  icon: tabler:question-mark
   buttons:
     - discord
     - instagram

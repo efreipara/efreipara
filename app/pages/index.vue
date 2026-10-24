@@ -15,7 +15,7 @@
 
 <template>
   <div>
-    <HomeHero />
+    <HomeHero :links="home?.hero.links ?? []" :scroll-icon="home?.hero.scrollIcon ?? ''" />
 
     <!-- À propos -->
     <UContainer class="py-24">

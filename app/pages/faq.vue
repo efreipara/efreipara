@@ -3,8 +3,6 @@
   import DOMPurify from 'isomorphic-dompurify'
 
   const { data: faqData } = await useAsyncData('faq', () => queryCollection('faq').first())
-  const appConfig = useAppConfig()
-
   const parseMarkdown = (text: string) => {
     const html = marked(text, { breaks: true }) as string
     return DOMPurify.sanitize(html)
@@ -18,11 +16,11 @@
       return {
         name: category.name,
         color: category.color,
-        icon: category.questions[0]?.icon || appConfig.efreipara.icons.extras.question,
+        icon: category.questions[0]?.icon,
         questions: category.questions.map((question, i) => ({
           label: question.question,
           content: question.answer,
-          icon: question.icon || appConfig.efreipara.icons.extras.question,
+          icon: question.icon,
           value: `${catIndex}-${i}`,
           buttons: question.buttons,
         })),
@@ -109,6 +107,7 @@
         v-if="faqData?.helpcta"
         :title="faqData.helpcta.title"
         :description="faqData.helpcta.description"
+        :icon="faqData.helpcta.icon"
         :buttons="faqData.helpcta.buttons"
       />
     </UContainer>

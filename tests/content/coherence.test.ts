@@ -8,7 +8,6 @@ describe('activités', () => {
     const files = sourceFiles('pages/activites/*.yml').map((f) => basename(f, '.yml'))
     expect(files.sort()).toEqual([...ACTIVITY_KEYS].sort())
   })
-
 })
 
 describe('redirections et options', () => {

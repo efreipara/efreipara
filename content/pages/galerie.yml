@@ -3,6 +3,11 @@ hero:
   description: Revivez nos événements en images
   linkLabel: Voir l'album
 
+# Icônes de la date et du lieu sur chaque album
+albumIcons:
+  date: tabler:calendar-week
+  location: tabler:map-pin
+
 items:
   - title: Baptême Soufflerie
     type: soufflerie

@@ -155,11 +155,11 @@
               </h3>
               <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
                 <span class="flex items-center gap-1">
-                  <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
+                  <UIcon :name="page?.albumIcons.date" class="size-3" />
                   {{ formatDate(item.date) }}
                 </span>
                 <span class="flex items-center gap-1">
-                  <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
+                  <UIcon :name="page?.albumIcons.location" class="size-3" />
                   {{ item.location }}
                 </span>
               </div>

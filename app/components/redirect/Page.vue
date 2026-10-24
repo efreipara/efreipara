@@ -9,7 +9,13 @@
   const key = props.redirectKey
 
   const appConfig = useAppConfig()
-  const { getSocialUrl } = useSocials()
+  const { getSocial } = await useClub()
+
+  // Couleur de marque de l'icône des redirections vers un réseau
+  const brandColor: Record<string, string> = {
+    discord: 'text-discord',
+    instagram: 'text-instagram',
+  }
 
   const { data: redirectsData } = await useAsyncData('redirects', () =>
     queryCollection('redirects').first(),
@@ -31,8 +37,11 @@
 
   if (key === 'discord' || key === 'instagram') {
     const social = redirectsData.value?.[key]
-    const url = getSocialUrl(key)
-    redirect = social && url ? { ...social, ...appConfig.socials[key], url } : undefined
+    const network = getSocial(key)
+    redirect =
+      social && network
+        ? { ...social, icon: network.icon, iconColor: brandColor[key], url: network.url }
+        : undefined
   } else {
     const option = rejoindreData.value?.options.find((o) => o.slug === key)
     const form = redirectsData.value?.rejoindre

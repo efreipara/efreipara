@@ -3,7 +3,8 @@
     queryCollection('rejoindre').first(),
   )
   const joinOptions = computed(() => rejoindreData.value?.options ?? [])
-  const { getSocialIcon, getSocialUrl } = useSocials()
+  const { getSocial } = await useClub()
+  const discord = computed(() => getSocial('discord'))
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
@@ -25,9 +26,9 @@
         :actions="[
           {
             label: rejoindreData?.alert.actionLabel,
-            to: getSocialUrl('discord'),
+            to: discord?.url,
             target: '_blank',
-            icon: getSocialIcon('discord') ?? 'simple-icons:discord',
+            icon: discord?.icon,
             color: 'neutral',
             size: 'md',
             class: 'rounded-full',
@@ -46,10 +47,7 @@
       >
         <template #leading>
           <div class="bg-discord/20 flex size-12 shrink-0 items-center justify-center rounded-xl">
-            <UIcon
-              :name="getSocialIcon('discord') ?? 'simple-icons:discord'"
-              class="text-discord size-6"
-            />
+            <UIcon :name="discord?.icon" class="text-discord size-6" />
           </div>
         </template>
       </UAlert>

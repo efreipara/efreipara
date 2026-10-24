@@ -2,6 +2,7 @@
   import type { NuxtError } from '#app'
 
   const appConfig = useAppConfig()
+  const { club, getSocial } = await useClub()
 
   const props = defineProps<{
     error: NuxtError
@@ -72,9 +73,9 @@
           to="/"
         />
         <UButton
-          :to="appConfig.socials.github.issues"
+          :to="club.github.issues"
           target="_blank"
-          :icon="appConfig.socials.github.icon"
+          :icon="getSocial('github')?.icon"
           color="neutral"
           variant="link"
           size="lg"
