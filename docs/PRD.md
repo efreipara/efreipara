@@ -23,7 +23,7 @@ Le club propose quatre activités. Chacune a une couleur et une icône propres, 
 | `pac`        | PAC            | Progression Accompagnée en Chute   |
 | `oa`         | Saut en OA     | Saut solo en ouverture automatique |
 
-L'ordre du menu est celui de `navigation.yml` (tandem, soufflerie, PAC, OA) ; la navigation précédent / suivant des pages d'activité suit l'ordre OA, tandem, soufflerie, PAC.
+Partout (menus, accueil, `/activites`, précédent / suivant des pages d'activité), les activités suivent le même ordre : tandem, soufflerie, PAC, OA.
 
 ## 2. Structure générale
 

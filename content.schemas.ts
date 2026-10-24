@@ -96,7 +96,6 @@ export const collections = {
       section: z.object({
         title: z.string(),
         description: z.string(),
-        alt: z.string(),
         linkLabel: z.string(),
         features: z.array(
           z.object({ title: z.string(), description: z.string(), icon: z.string() }),

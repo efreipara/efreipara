@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import {
-  ACTIVITY_ORDER,
   activityColor,
   activityTint,
   activityClass,
@@ -9,14 +8,13 @@ import {
 } from '../../app/utils/activities'
 
 describe('adjacentActivities', () => {
-  it('donne les voisines dans l’ordre OA, tandem, soufflerie, PAC', () => {
-    expect(ACTIVITY_ORDER).toEqual(['oa', 'tandem', 'soufflerie', 'pac'])
-    expect(adjacentActivities('tandem')).toEqual({ prev: 'oa', next: 'soufflerie' })
+  it('donne les voisines dans l’ordre d’affichage : tandem, soufflerie, PAC, OA', () => {
+    expect(adjacentActivities('soufflerie')).toEqual({ prev: 'tandem', next: 'pac' })
   })
 
   it('boucle aux deux bouts de la liste', () => {
+    expect(adjacentActivities('tandem')).toEqual({ prev: 'oa', next: 'soufflerie' })
     expect(adjacentActivities('oa')).toEqual({ prev: 'pac', next: 'tandem' })
-    expect(adjacentActivities('pac')).toEqual({ prev: 'soufflerie', next: 'oa' })
   })
 })
 

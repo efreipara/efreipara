@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
   const { getIcon } = await useActivities()
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
@@ -8,10 +7,15 @@
     queryCollection('activitesIndex').first(),
   )
   const { data: entries } = await useAsyncData('activites-sections', () =>
-    queryCollection('activites').select('stem', 'section').all(),
+    queryCollection('activites').select('stem', 'alt', 'section').all(),
   )
   const sections = computed(() =>
-    orderActivities(entries.value ?? []).map(({ key, to, section }) => ({ ...section, key, to })),
+    orderActivities(entries.value ?? []).map(({ key, to, alt, section }) => ({
+      ...section,
+      key,
+      to,
+      alt,
+    })),
   )
 
   const featureUi = {

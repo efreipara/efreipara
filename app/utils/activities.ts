@@ -16,15 +16,13 @@ export const orderActivities = <T extends { stem: string }>(items: T[]) =>
     .filter((item) => isActivity(item.key))
     .sort((a, b) => ACTIVITY_KEYS.indexOf(a.key) - ACTIVITY_KEYS.indexOf(b.key))
 
-// Ordre de la navigation précédent / suivant des pages d'activité
-export const ACTIVITY_ORDER: ActivityType[] = ['oa', 'tandem', 'soufflerie', 'pac']
-
+// Activités voisines (précédent / suivant), en boucle
 export const adjacentActivities = (type: ActivityType) => {
-  const index = ACTIVITY_ORDER.indexOf(type)
-  const count = ACTIVITY_ORDER.length
+  const index = ACTIVITY_KEYS.indexOf(type)
+  const count = ACTIVITY_KEYS.length
   return {
-    prev: ACTIVITY_ORDER[(index - 1 + count) % count] as ActivityType,
-    next: ACTIVITY_ORDER[(index + 1) % count] as ActivityType,
+    prev: ACTIVITY_KEYS[(index - 1 + count) % count] as ActivityType,
+    next: ACTIVITY_KEYS[(index + 1) % count] as ActivityType,
   }
 }
 
