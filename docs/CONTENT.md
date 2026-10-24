@@ -56,7 +56,7 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`club`** : `socials[]` (`key`, `name`, `icon`, `url`) dans l'ordre d'affichage, la `key` sert à retrouver un réseau (`discord`, `instagram`, `github`…) ; `address` est écrite une fois, les liens Google Maps, Apple Plans et Waze en sont calculés (`mapUrls`) ; `github.repo` (historique des versions) et `github.issues` (signalement).
 - **`contact`** : chaque bloc a son `icon` ; `address.buttons.<carte>` a `label` et `icon`. Les adresses viennent de `club`.
 - **`labels`** : `banner` (`register`, `registerIcon`, `info`, `close`) ; `socialLink` (`{name}`) ; `activity` (`goTo` et `features` avec `{label}`, `steps`, `requirements`, `partners`) ; `helpCta.github` ; `legal.updatedAt` ; `error` (`home`, `report`, `messages` par code HTTP, dont `default` obligatoire).
-- **`qr`** : `alt` du QR code, `homeIcon`, `fullscreen` (`enterIcon`, `exitIcon`).
+- **`qr`** : `alt` du QR code, `home` (`label`, `icon` du bouton vers l'accueil), `fullscreen` (`enterLabel`, `exitLabel`, `enterIcon`, `exitIcon`) ; les libellés sont lus par les lecteurs d'écran.
 - **`redirects`** : textes des pages de redirection ; les cibles viennent de `club.yml` (Discord, Instagram) ou de `rejoindre.options[].link`.
 - **`legal`** : front-matter `title`, `description`, `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
 

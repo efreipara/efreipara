@@ -39,7 +39,8 @@
         <UButton
           to="/"
           :external="true"
-          :icon="page?.homeIcon"
+          :icon="page?.home.icon"
+          :aria-label="page?.home.label"
           variant="ghost"
           color="neutral"
           size="sm"
@@ -49,6 +50,7 @@
       <div class="absolute top-4 right-4 z-20">
         <UButton
           :icon="isFullscreen ? page?.fullscreen.exitIcon : page?.fullscreen.enterIcon"
+          :aria-label="isFullscreen ? page?.fullscreen.exitLabel : page?.fullscreen.enterLabel"
           variant="ghost"
           color="neutral"
           size="sm"

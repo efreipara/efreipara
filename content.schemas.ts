@@ -369,8 +369,13 @@ export const collections = {
     source: 'pages/qr.yml',
     schema: z.object({
       alt: z.string(),
-      homeIcon: z.string(),
-      fullscreen: z.object({ enterIcon: z.string(), exitIcon: z.string() }),
+      home: z.object({ label: z.string(), icon: z.string() }),
+      fullscreen: z.object({
+        enterLabel: z.string(),
+        exitLabel: z.string(),
+        enterIcon: z.string(),
+        exitIcon: z.string(),
+      }),
     }),
   },
   redirects: {

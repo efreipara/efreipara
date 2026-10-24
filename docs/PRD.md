@@ -128,7 +128,7 @@ Page provisoire : titre et « Coming soon... ». Elle figure dans la colonne Clu
 
 ### QR code — `/qr`
 
-Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club : fond bleu nuit, parachutes blancs qui tombent, QR code centré, bouton discret vers l'accueil en haut à gauche, bouton plein écran en haut à droite. Non indexée.
+Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club : fond bleu nuit, parachutes blancs qui tombent, QR code centré, bouton discret vers l'accueil en haut à gauche, bouton plein écran en haut à droite, tous deux nommés pour les lecteurs d'écran. Non indexée.
 
 ### Pages légales — `/mentions-legales`, `/reglement`, `/rgpd`
 
