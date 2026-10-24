@@ -2,6 +2,17 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.6.0 — 24 octobre 2026
+
+### Modifications
+
+- En-tête : le menu est centré, entre le logo à gauche et les boutons à droite (Instagram, Discord, accessibilité, clair / sombre).
+- Pied de page : sur téléphone, les liens s'affichent sur deux colonnes alignées à gauche, au lieu d'une seule colonne centrée.
+
+### Corrections
+
+- En-tête : le lien du logo est annoncé « Efrei Para, accueil » par les lecteurs d'écran (il était annoncé « Nuxt UI »).
+
 ## 1.5.0 — 24 octobre 2026
 
 ### Ajouts
