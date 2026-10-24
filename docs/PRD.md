@@ -40,7 +40,7 @@ Au-dessus de l'en-tête, une bannière annonce le prochain événement (`next-ev
 - Affichée seulement si la date de l'événement est aujourd'hui ou plus tard.
 - Teintée par la couleur de l'activité, avec son icône (masquée sur téléphone), le titre, un bouton « Inscription » (formulaire externe, nouvel onglet), « En savoir plus » vers la page de l'activité (masqué sur téléphone) et une croix « Fermer la bannière ».
 - Fermée, elle ne revient pas pendant la session du navigateur pour cet événement ; un nouvel événement (autre date ou autre type) la fait réapparaître.
-- Rendue côté navigateur uniquement, elle glisse depuis le haut à l'apparition.
+- Rendue côté navigateur uniquement, elle s'ouvre en douceur en poussant la page, et se referme de la même façon.
 
 ### Pied de page
 
