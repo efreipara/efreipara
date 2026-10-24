@@ -211,12 +211,17 @@ export default defineNuxtConfig({
     },
   },
 
+  // Ancienne page À propos, retirée : l'adresse publique mène à l'accueil
+  routeRules: {
+    '/about': { redirect: '/' },
+  },
+
   // Configuration Nitro : ne pas échouer si une page ne peut pas être pré-rendue
   nitro: {
     prerender: {
       failOnError: false,
       // Redirections, sans lien entrant : le crawler ne les trouve pas seul.
-      routes: redirectRoutes(),
+      routes: [...redirectRoutes(), '/about'],
     },
   },
 })

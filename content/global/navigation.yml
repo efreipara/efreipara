@@ -4,8 +4,6 @@ activitiesIndex:
   icon: tabler:parachute
 
 pages:
-  - label: À propos
-    to: /about
   - label: Documents
     to: /documents
     icon: tabler:file-description

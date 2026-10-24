@@ -24,10 +24,6 @@ pages:
     description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
     robots: index, follow
 
-  # Page à propos
-  about:
-    title: À propos du club Efrei Para
-    description: Découvrez le club Efrei Para, un club de parachutisme étudiant rattaché au Bureau des Sports (BDS) de l’Efrei. Nous proposons des activités de saut en ouverture automatique (OA), en tandem et en soufflerie.
 
   # Page contact
   contact:

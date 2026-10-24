@@ -26,3 +26,8 @@ test.describe('redirections', () => {
     })
   }
 })
+
+test('/about, page retirée, mène à l’accueil', async ({ page }) => {
+  await page.goto('/about')
+  await expect(page).toHaveURL(/\/$/)
+})

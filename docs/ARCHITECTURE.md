@@ -71,14 +71,14 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ### Routes
 
-| Fichier                                                                                      | Routes                                                                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pages/index.vue`                                                                            | `/`                                                                                                                                                                                                         |
-| `pages/activites/index.vue`                                                                  | `/activites`                                                                                                                                                                                                |
-| `pages/activites/[activite].vue`                                                             | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : `isActivity`, autre clé → 404)                                                                                                              |
-| `pages/[slug].vue`                                                                           | page légale dont le `path` vaut `/<slug>` (`LegalPage`), sinon redirection décrite par le contenu (`RedirectPage` : réseau de `redirects.yml › socials`, ou option de `rejoindre.yml`) ; autre valeur → 404 |
-| `pages/galerie.vue`, `documents.vue`, `faq.vue`, `rejoindre.vue`, `contact.vue`, `about.vue` | page du même nom                                                                                                                                                                                            |
-| `pages/qr.vue`                                                                               | `/qr`, sans layout (`definePageMeta({ layout: false })`) : `app.vue` masque bannière, en-tête et pied via `useLayout()`                                                                                     |
+| Fichier                                                                         | Routes                                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pages/index.vue`                                                               | `/`                                                                                                                                                                                                         |
+| `pages/activites/index.vue`                                                     | `/activites`                                                                                                                                                                                                |
+| `pages/activites/[activite].vue`                                                | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : `isActivity`, autre clé → 404)                                                                                                              |
+| `pages/[slug].vue`                                                              | page légale dont le `path` vaut `/<slug>` (`LegalPage`), sinon redirection décrite par le contenu (`RedirectPage` : réseau de `redirects.yml › socials`, ou option de `rejoindre.yml`) ; autre valeur → 404 |
+| `pages/galerie.vue`, `documents.vue`, `faq.vue`, `rejoindre.vue`, `contact.vue` | page du même nom                                                                                                                                                                                            |
+| `pages/qr.vue`                                                                  | `/qr`, sans layout (`definePageMeta({ layout: false })`) : `app.vue` masque bannière, en-tête et pied via `useLayout()`                                                                                     |
 
 ### Composables
 
@@ -148,6 +148,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 ## Génération et prérendu
 
 - `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les redirections, qu'aucun lien n'atteint : `nitro.prerender.routes` les reçoit de `redirectRoutes()` (`content.routes.ts`), qui lit `redirects.yml › socials` et les options de `rejoindre.yml`. Une redirection ajoutée au contenu est donc prérendue sans toucher au code ; une autre page sans lien entrant s'ajoute à cette liste.
+- `/about` (ancienne page À propos) est redirigée vers l'accueil par `routeRules` ; prérendue (`nitro.prerender.routes`), elle devient une page `meta refresh`.
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).
 - Le numéro de version du pied de page vient de `package.json`, lu au build dans `nuxt.config.ts` (`appConfig.version`) : seule cette chaîne est embarquée dans le site.
