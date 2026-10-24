@@ -1,14 +1,16 @@
 import { existsSync, globSync, readFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import { parse } from 'yaml'
+import { redirectRoutes } from '../../content.routes'
 
 export const root = join(import.meta.dirname, '../..')
 export const contentDir = join(root, 'content')
 
 export const readText = (path: string) => readFileSync(join(root, path), 'utf8')
 
-// Fichiers d'une source de collection (`pages/activites/*.yml`), relatifs à content/
-export const sourceFiles = (source: string) => globSync(source, { cwd: contentDir }).sort()
+// Fichiers d'une source de collection (`pages/activites/*.yml` ou `{ include }`), relatifs à content/
+export const sourceFiles = (source: string | { include: string }) =>
+  globSync(typeof source === 'string' ? source : source.include, { cwd: contentDir }).sort()
 
 // YAML, ou front-matter d'un Markdown
 export const readContent = (file: string): unknown => {
@@ -43,8 +45,6 @@ export const publicFileExists = (path: string) => existsSync(join(root, 'public'
 export const siteRoutes = () => {
   const activities = sourceFiles('pages/activites/*.yml').map((f) => basename(f, '.yml'))
   const legal = sourceFiles('pages/legal/*.md').map((f) => basename(f, '.md'))
-  const rejoindre = readYaml<{ options: { slug: string }[] }>('pages/rejoindre.yml')
-  const redirects = Object.keys(readYaml('pages/redirects.yml')).filter((k) => k !== 'rejoindre')
   const pages = globSync('*.vue', { cwd: join(root, 'app/pages') })
     .map((f) => basename(f, '.vue'))
     .filter((name) => !name.startsWith('['))
@@ -55,7 +55,6 @@ export const siteRoutes = () => {
     '/activites',
     ...activities.map((a) => `/activites/${a}`),
     ...legal.map((slug) => `/${slug}`),
-    ...rejoindre.options.map((o) => `/${o.slug}`),
-    ...redirects.map((key) => `/${key}`),
+    ...redirectRoutes(),
   ]
 }

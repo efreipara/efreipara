@@ -6,7 +6,7 @@ describe('schémas des collections', () => {
   for (const [name, collection] of Object.entries(collections)) {
     const files = sourceFiles(collection.source)
 
-    it(`${name} : la source ${collection.source} existe`, () => {
+    it(`${name} : la source de la collection existe`, () => {
       expect(files.length).toBeGreaterThan(0)
     })
 

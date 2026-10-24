@@ -1,6 +1,10 @@
 import { readYaml } from '../content/helpers'
 import { expect, gotoReady, test, visible } from './fixtures'
 
+const accessibilityMenu = readYaml<{ accessibilityMenu: { label: string } }>(
+  'global/navigation.yml',
+).accessibilityMenu.label
+
 test.describe('navigation', () => {
   test('le menu Activités mène à une activité (desktop)', async ({ page, isMobile }) => {
     test.skip(isMobile, 'menu desktop')
@@ -46,7 +50,7 @@ test.describe('thème et accessibilité', () => {
     page,
   }) => {
     await gotoReady(page, '/')
-    await visible(page, page.getByRole('button', { name: "Options d'accessibilité" })).click()
+    await visible(page, page.getByRole('button', { name: accessibilityMenu })).click()
     await page.getByRole('menuitemcheckbox', { name: 'Police dyslexique' }).click()
     await expect(page.locator('html')).toHaveClass(/a11y-dyslexic/)
 
@@ -56,7 +60,7 @@ test.describe('thème et accessibilité', () => {
 
   test('le contraste élevé épargne les éléments .no-contrast', async ({ page }) => {
     await gotoReady(page, '/')
-    await visible(page, page.getByRole('button', { name: "Options d'accessibilité" })).click()
+    await visible(page, page.getByRole('button', { name: accessibilityMenu })).click()
     await page.getByRole('menuitemcheckbox', { name: 'Contraste élevé' }).click()
     await expect(page.locator('html')).toHaveClass(/a11y-highContrast/)
     await expect(page.locator('.no-contrast').first()).toHaveCSS('filter', 'contrast(0.667)')

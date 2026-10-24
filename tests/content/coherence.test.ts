@@ -10,27 +10,6 @@ describe('activités', () => {
   })
 })
 
-describe('redirections et options', () => {
-  it('chaque option de « Nous rejoindre » a sa route de redirection', () => {
-    const page = readText('app/pages/[page].vue')
-    const slugs = readYaml<{ options: { slug: string }[] }>('pages/rejoindre.yml').options.map(
-      (o) => o.slug,
-    )
-    expect(slugs.filter((slug) => !page.includes(`'${slug}'`))).toEqual([])
-  })
-
-  it('les redirections sont prérendues', () => {
-    const config = readText('nuxt.config.ts')
-    const slugs = [
-      ...readYaml<{ options: { slug: string }[] }>('pages/rejoindre.yml').options.map(
-        (o) => o.slug,
-      ),
-      ...Object.keys(readYaml('pages/redirects.yml')).filter((k) => k !== 'rejoindre'),
-    ]
-    expect(slugs.filter((slug) => !config.includes(`'/${slug}'`))).toEqual([])
-  })
-})
-
 describe('accessibilité', () => {
   it('chaque option du menu correspond à une option de useAccessibility', () => {
     const composable = readText('app/composables/useAccessibility.ts')

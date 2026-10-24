@@ -1,17 +1,19 @@
-import { readText, readYaml } from '../content/helpers'
+import { readYaml } from '../content/helpers'
 import { expect, test } from './fixtures'
+import { redirectRoutes } from './routes'
 
-const appConfig = readText('app/app.config.ts')
-const socialUrl = (name: string) =>
-  appConfig.match(new RegExp(`${name}: \\{[^}]*?url: '([^']+)'`))?.[1]
-
+const club = readYaml<{ socials: { key: string; url: string }[] }>('global/club.yml')
 const rejoindre = readYaml<{ options: { slug: string; link: string }[] }>('pages/rejoindre.yml')
 
-const targets: Record<string, string | undefined> = {
-  '/discord': socialUrl('discord'),
-  '/instagram': socialUrl('instagram'),
-  ...Object.fromEntries(rejoindre.options.map((o) => [`/${o.slug}`, o.link])),
+// Cible de chaque redirection : le réseau de même clé, ou le formulaire de l'option
+const targetOf = (path: string) => {
+  const slug = path.slice(1)
+  return (
+    club.socials.find((social) => social.key === slug)?.url ??
+    rejoindre.options.find((option) => option.slug === slug)?.link
+  )
 }
+const targets = Object.fromEntries(redirectRoutes.map((path) => [path, targetOf(path)]))
 
 test.describe('redirections', () => {
   for (const [path, target] of Object.entries(targets)) {

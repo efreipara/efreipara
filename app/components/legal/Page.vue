@@ -1,53 +1,31 @@
 <script setup lang="ts">
-  interface Props {
-    slug: string
-  }
+  import type { LegalCollectionItem } from '@nuxt/content'
 
-  const props = defineProps<Props>()
+  const props = defineProps<{ page: LegalCollectionItem }>()
 
-  const { club, getSocial } = await useClub()
   const { labels } = await useLabels()
 
-  const { data: page } = await useAsyncData(props.slug, () =>
-    queryCollection('legal').where('stem', '=', `pages/legal/${props.slug}`).first(),
-  )
-
   // Titre et description du front-matter
-  useSeo(props.slug, () => ({ title: page.value?.title, description: page.value?.description }))
+  useSeo(seoKeyFromPath(props.page.path), () => ({
+    title: props.page.title,
+    description: props.page.description,
+  }))
 </script>
 
 <template>
   <UContainer class="mt-15 max-w-4xl px-4 py-8">
-    <div v-if="page">
-      <div class="legal-content">
-        <ContentRenderer :value="page" />
-      </div>
-      <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
-        {{ labels.legal.updatedAt }}
-        {{
-          new Date(page.updatedAt).toLocaleDateString('fr-FR', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })
-        }}
-      </div>
+    <div class="legal-content">
+      <ContentRenderer :value="page" />
     </div>
-    <div v-else class="py-12 text-center">
-      <h1 class="font-title mb-4 text-2xl font-bold">Page non trouvée</h1>
-      <p>Le contenu demandé n'existe pas.</p>
-      <div class="mt-4 flex justify-center">
-        <UButton
-          :to="club.github.issues"
-          target="_blank"
-          :icon="getSocial('github')?.icon"
-          color="neutral"
-          variant="link"
-          size="lg"
-        >
-          Signaler l'erreur
-        </UButton>
-      </div>
+    <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
+      {{ labels.legal.updatedAt }}
+      {{
+        new Date(page.updatedAt).toLocaleDateString('fr-FR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      }}
     </div>
   </UContainer>
 </template>

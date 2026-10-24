@@ -2,6 +2,7 @@
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
+import { redirectRoutes } from './content.routes'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -214,8 +215,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       failOnError: false,
-      // Routes sans lien entrant : le crawler ne les trouve pas seul.
-      routes: ['/devenir-membre', '/discord', '/instagram', '/rejoindre-bureau'],
+      // Redirections, sans lien entrant : le crawler ne les trouve pas seul.
+      routes: redirectRoutes(),
     },
   },
 })

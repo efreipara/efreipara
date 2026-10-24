@@ -19,26 +19,26 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 
 ## Collections
 
-| Collection       | Type | Source                           | Utilisée par                                                                                                 |
-| ---------------- | ---- | -------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `navigation`     | data | `global/navigation.yml`          | en-tête, pied de page, menu d'accessibilité                                                                  |
-| `seo`            | data | `global/seo.yml`                 | toutes les pages (`useSeo`), phrase du hero d'accueil                                                        |
-| `cta`            | data | `global/cta.yml`                 | appel à l'action en bas de page                                                                              |
-| `partners`       | data | `global/partners.yml`            | accueil, pages d'activité                                                                                    |
-| `club`           | data | `global/club.yml`                | e-mail, adresse, réseaux et dépôt GitHub : en-tête, pied de page, contact, rejoindre, redirections, erreurs  |
-| `labels`         | data | `global/labels.yml`              | libellés des composants communs : bannière, sections d'activité, encadré d'aide, pages légales, erreurs      |
-| `nextEvent`      | data | `global/next-event.yml`          | bannière d'événement                                                                                         |
-| `home`           | data | `pages/home.yml`                 | `/`                                                                                                          |
-| `activitesIndex` | data | `pages/activites.yml`            | hero de `/activites`                                                                                         |
-| `activites`      | data | `pages/activites/<activité>.yml` | `/activites/<activité>`, et partout où l'activité apparaît (menus, accueil, `/activites`, galerie, bannière) |
-| `galerie`        | data | `pages/galerie.yml`              | `/galerie`                                                                                                   |
-| `documents`      | data | `pages/documents.yml`            | `/documents`                                                                                                 |
-| `faq`            | data | `pages/faq.yml`                  | `/faq`                                                                                                       |
-| `rejoindre`      | data | `pages/rejoindre.yml`            | `/rejoindre`, `/devenir-membre`, `/rejoindre-bureau`                                                         |
-| `contact`        | data | `pages/contact.yml`              | `/contact`                                                                                                   |
-| `redirects`      | data | `pages/redirects.yml`            | pages de redirection                                                                                         |
-| `qr`             | data | `pages/qr.yml`                   | `/qr`                                                                                                        |
-| `legal`          | page | `pages/legal/<slug>.md`          | `/mentions-legales`, `/reglement`, `/rgpd`                                                                   |
+| Collection       | Type | Source                                | Utilisée par                                                                                                 |
+| ---------------- | ---- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `navigation`     | data | `global/navigation.yml`               | en-tête, pied de page, menu d'accessibilité                                                                  |
+| `seo`            | data | `global/seo.yml`                      | toutes les pages (`useSeo`), phrase du hero d'accueil                                                        |
+| `cta`            | data | `global/cta.yml`                      | appel à l'action en bas de page                                                                              |
+| `partners`       | data | `global/partners.yml`                 | accueil, pages d'activité                                                                                    |
+| `club`           | data | `global/club.yml`                     | e-mail, adresse, réseaux et dépôt GitHub : en-tête, pied de page, contact, rejoindre, redirections, erreurs  |
+| `labels`         | data | `global/labels.yml`                   | libellés des composants communs : bannière, sections d'activité, encadré d'aide, pages légales, erreurs      |
+| `nextEvent`      | data | `global/next-event.yml`               | bannière d'événement                                                                                         |
+| `home`           | data | `pages/home.yml`                      | `/`                                                                                                          |
+| `activitesIndex` | data | `pages/activites.yml`                 | hero de `/activites`                                                                                         |
+| `activites`      | data | `pages/activites/<activité>.yml`      | `/activites/<activité>`, et partout où l'activité apparaît (menus, accueil, `/activites`, galerie, bannière) |
+| `galerie`        | data | `pages/galerie.yml`                   | `/galerie`                                                                                                   |
+| `documents`      | data | `pages/documents.yml`                 | `/documents`                                                                                                 |
+| `faq`            | data | `pages/faq.yml`                       | `/faq`                                                                                                       |
+| `rejoindre`      | data | `pages/rejoindre.yml`                 | `/rejoindre`, `/devenir-membre`, `/rejoindre-bureau`                                                         |
+| `contact`        | data | `pages/contact.yml`                   | `/contact`                                                                                                   |
+| `redirects`      | data | `pages/redirects.yml`                 | pages de redirection                                                                                         |
+| `qr`             | data | `pages/qr.yml`                        | `/qr`                                                                                                        |
+| `legal`          | page | `pages/legal/<slug>.md` (préfixe `/`) | `/mentions-legales`, `/reglement`, `/rgpd`                                                                   |
 
 ### Points notables par collection
 
@@ -59,8 +59,8 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`contact`** : chaque bloc a son `icon` ; `address.buttons.<carte>` a `label` et `icon`. Les adresses viennent de `club`.
 - **`labels`** : `banner` (`register`, `registerIcon`, `info`, `close`) ; `socialLink` (`{name}`) ; `activity` (`goTo` et `features` avec `{label}`, `steps`, `requirements`, `partners`) ; `helpCta.github` ; `legal.updatedAt` ; `error` (`home`, `report`, `messages` par code HTTP, dont `default` obligatoire).
 - **`qr`** : `alt` du QR code, `home` (`label`, `icon` du bouton vers l'accueil), `fullscreen` (`enterLabel`, `exitLabel`, `enterIcon`, `exitIcon`) ; les libellés sont lus par les lecteurs d'écran.
-- **`redirects`** : textes des pages de redirection ; les cibles viennent de `club.yml` (Discord, Instagram) ou de `rejoindre.options[].link`.
-- **`legal`** : front-matter `title` et `description` (titre et description SEO de la page, absente de `seo.yml`), `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
+- **`redirects`** : `form` (textes communs aux redirections vers un formulaire de `rejoindre.yml`) et `socials.<clé>` (`title`, `redirectText`, `buttonLabel`) : la page `/<clé>` mène au réseau de même clé dans `club.yml`. Ajouter une entrée crée la redirection et son prérendu ; elle a aussi besoin de son entrée dans `seo.yml`.
+- **`legal`** : un fichier `<slug>.md` répond à l'adresse `/<slug>` ; front-matter `title` et `description` (titre et description SEO de la page, absente de `seo.yml`), `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
 
 ## Formats acceptés
 
@@ -129,6 +129,6 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
 - chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
 - chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;
-- chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma ; chaque option de « Nous rejoindre » a sa redirection prérendue.
+- chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma.
 
 Le message d’échec donne le fichier et le chemin du champ en cause.

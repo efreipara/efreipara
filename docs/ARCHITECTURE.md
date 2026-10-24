@@ -49,6 +49,7 @@ content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
 content.schemas.ts    # source et schéma Zod de chaque collection (importés aussi par les tests)
+content.routes.ts     # routes de redirection lues dans le contenu (prérendu, tests)
 content.config.ts     # déclare les collections (defineCollection) à partir de content.schemas.ts
 nuxt.config.ts        # modules, icônes, polices, Content, Plausible, prérendu, minification
 rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
@@ -65,19 +66,19 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 - `app/` : cadre de toutes les pages (en-tête, pied, bannière d'événement).
 - `activite/` : sections d'une page d'activité, assemblées par `ActivitePage`.
-- `legal/`, `redirect/` : rendu des routes servies par `pages/[page].vue`.
+- `legal/`, `redirect/` : rendu des routes servies par `pages/[slug].vue`.
 - `shared/` : blocs réutilisés par plusieurs pages.
 
 ### Routes
 
-| Fichier                                                                                      | Routes                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pages/index.vue`                                                                            | `/`                                                                                                                                                         |
-| `pages/activites/index.vue`                                                                  | `/activites`                                                                                                                                                |
-| `pages/activites/[activite].vue`                                                             | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : `isActivity`, autre clé → 404)                                                              |
-| `pages/[page].vue`                                                                           | redirections (`discord`, `instagram`, `devenir-membre`, `rejoindre-bureau`) et pages légales (`mentions-legales`, `rgpd`, `reglement`) ; autre valeur → 404 |
-| `pages/galerie.vue`, `documents.vue`, `faq.vue`, `rejoindre.vue`, `contact.vue`, `about.vue` | page du même nom                                                                                                                                            |
-| `pages/qr.vue`                                                                               | `/qr`, sans layout (`definePageMeta({ layout: false })`) : `app.vue` masque bannière, en-tête et pied via `useLayout()`                                     |
+| Fichier                                                                                      | Routes                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pages/index.vue`                                                                            | `/`                                                                                                                                                                                                         |
+| `pages/activites/index.vue`                                                                  | `/activites`                                                                                                                                                                                                |
+| `pages/activites/[activite].vue`                                                             | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : `isActivity`, autre clé → 404)                                                                                                              |
+| `pages/[slug].vue`                                                                           | page légale dont le `path` vaut `/<slug>` (`LegalPage`), sinon redirection décrite par le contenu (`RedirectPage` : réseau de `redirects.yml › socials`, ou option de `rejoindre.yml`) ; autre valeur → 404 |
+| `pages/galerie.vue`, `documents.vue`, `faq.vue`, `rejoindre.vue`, `contact.vue`, `about.vue` | page du même nom                                                                                                                                                                                            |
+| `pages/qr.vue`                                                                               | `/qr`, sans layout (`definePageMeta({ layout: false })`) : `app.vue` masque bannière, en-tête et pied via `useLayout()`                                                                                     |
 
 ### Composables
 
@@ -120,7 +121,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ## Chargement du contenu
 
-- Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité, page légale ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
+- Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité ; `.path('/<slug>')` pour une page légale, dont la source a le préfixe `/` ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
 - **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
 - Les clés en place : `seo`, `navigation`, `club`, `labels`, `partners`, `nextEvent`, `qr`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
 - Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Dans un `<script setup>`, les `await` successifs restent sûrs.
@@ -146,7 +147,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ## Génération et prérendu
 
-- `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les routes sans lien entrant listées dans `nitro.prerender.routes` (`/devenir-membre`, `/discord`, `/instagram`, `/rejoindre-bureau`). Une nouvelle page qu'aucun lien n'atteint doit y être ajoutée.
+- `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les redirections, qu'aucun lien n'atteint : `nitro.prerender.routes` les reçoit de `redirectRoutes()` (`content.routes.ts`), qui lit `redirects.yml › socials` et les options de `rejoindre.yml`. Une redirection ajoutée au contenu est donc prérendue sans toucher au code ; une autre page sans lien entrant s'ajoute à cette liste.
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).
 - Le numéro de version du pied de page vient de `package.json`, lu au build dans `nuxt.config.ts` (`appConfig.version`) : seule cette chaîne est embarquée dans le site.

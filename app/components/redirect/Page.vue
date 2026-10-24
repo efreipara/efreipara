@@ -1,12 +1,8 @@
 <script setup lang="ts">
-  type RedirectKey = 'discord' | 'instagram' | 'rejoindre-bureau' | 'devenir-membre'
-
-  interface Props {
-    redirectKey: RedirectKey
-  }
-
-  const props = defineProps<Props>()
-  const key = props.redirectKey
+  // Redirection vers un réseau (redirects.yml › socials) ou vers le formulaire d'une option de
+  // « Nous rejoindre » ; un autre slug donne une 404
+  const props = defineProps<{ slug: string }>()
+  const key = props.slug
 
   const appConfig = useAppConfig()
   const { getSocial } = await useClub()
@@ -24,29 +20,15 @@
     queryCollection('rejoindre').first(),
   )
 
-  let redirect:
-    | {
-        icon: string
-        iconColor?: string
-        title: string
-        redirectText: string
-        buttonLabel: string
-        url: string
-      }
-    | undefined
+  const social = redirectsData.value?.socials[key]
+  const network = getSocial(key)
+  const option = rejoindreData.value?.options.find((o) => o.slug === key)
+  const form = redirectsData.value?.form
 
-  if (key === 'discord' || key === 'instagram') {
-    const social = redirectsData.value?.[key]
-    const network = getSocial(key)
-    redirect =
-      social && network
-        ? { ...social, icon: network.icon, iconColor: brandColor[key], url: network.url }
-        : undefined
-  } else {
-    const option = rejoindreData.value?.options.find((o) => o.slug === key)
-    const form = redirectsData.value?.rejoindre
-    redirect =
-      option && form
+  const redirect =
+    social && network
+      ? { ...social, icon: network.icon, iconColor: brandColor[key], url: network.url }
+      : option && form
         ? {
             icon: option.icon,
             iconColor: `${activityClass(option.type)} text-activity`,
@@ -56,19 +38,12 @@
             url: option.link,
           }
         : undefined
-  }
 
-  if (!redirect) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Page non trouvée',
-    })
-  }
+  if (!redirect) throw createError({ statusCode: 404 })
 
   const { icon, iconColor, title, redirectText, buttonLabel, url } = redirect
 
   // Une option de « Nous rejoindre » porte son titre, sa description et son image de partage
-  const option = rejoindreData.value?.options.find((o) => o.slug === key)
   if (option)
     useSeo(key, {
       title: option.title,

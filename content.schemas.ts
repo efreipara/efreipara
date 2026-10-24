@@ -133,7 +133,8 @@ export const collections = {
   },
   legal: {
     type: 'page' as const,
-    source: 'pages/legal/*.md',
+    // path = /<slug> (/rgpd…), lu par queryCollection('legal').path()
+    source: { include: 'pages/legal/*.md', prefix: '/' },
     schema: z.object({
       title: z.string(),
       description: z.string(),
@@ -382,20 +383,17 @@ export const collections = {
     type: 'data' as const,
     source: 'pages/redirects.yml',
     schema: z.object({
-      rejoindre: z.object({
+      form: z.object({
         redirectText: z.string(),
         buttonLabel: z.string(),
       }),
-      discord: z.object({
-        title: z.string(),
-        redirectText: z.string(),
-        buttonLabel: z.string(),
-      }),
-      instagram: z.object({
-        title: z.string(),
-        redirectText: z.string(),
-        buttonLabel: z.string(),
-      }),
+      socials: z.record(
+        z.object({
+          title: z.string(),
+          redirectText: z.string(),
+          buttonLabel: z.string(),
+        }),
+      ),
     }),
   },
   navigation: {
