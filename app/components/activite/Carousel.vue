@@ -20,6 +20,14 @@
   const onError = (url: string) => {
     failedUrls.value = new Set([...failedUrls.value, url])
   }
+
+  // Pas de défilement automatique avec « réduire les animations » ; pause au survol sinon.
+  // Activé seulement au montage : UCarousel charge le plugin en asynchrone et un chargement
+  // lancé puis annulé (true puis false) peut l'emporter sur le second.
+  const autoplay = ref<false | { delay: number; stopOnMouseEnter: boolean }>(false)
+  onMounted(() => {
+    if (!prefersReducedMotion()) autoplay.value = { delay: 3000, stopOnMouseEnter: true }
+  })
 </script>
 
 <template>
@@ -28,7 +36,7 @@
       v-slot="{ item }"
       :items="images"
       loop
-      :autoplay="{ delay: 3000 }"
+      :autoplay="autoplay"
       dots
       wheel-gestures
       :prev="{ variant: 'solid' }"

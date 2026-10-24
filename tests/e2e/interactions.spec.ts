@@ -76,6 +76,27 @@ test.describe('réduire les animations', () => {
     expect(await counter.textContent()).toBe('2016')
   })
 
+  test('le carrousel d’une activité ne défile pas tout seul', async ({ page }) => {
+    // Photos du CDN remplacées par une image de 1 px (le CDN est coupé par les fixtures)
+    const pixel = Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
+      'base64',
+    )
+    await page.route(/\/tandem\/tandem-\d+\.jpg/, (route) =>
+      route.fulfill({ contentType: 'image/png', body: pixel }),
+    )
+    await gotoReady(page, '/activites/tandem')
+    const container = page.locator('[aria-roledescription="carousel"] [data-slot="container"]')
+    test.skip((await container.count()) === 0, 'pas de carrousel : CDN_URL vide au build')
+
+    const position = () => container.evaluate((el) => getComputedStyle(el).transform)
+    // Embla positionne les diapositives à l'initialisation : mesure une fois en place
+    await page.waitForTimeout(1000)
+    const before = await position()
+    await page.waitForTimeout(4000)
+    expect(await position()).toBe(before)
+  })
+
   test('une pastille de catégorie amène directement à sa section, sous l’en-tête', async ({
     page,
   }) => {

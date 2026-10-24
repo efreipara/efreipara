@@ -80,7 +80,7 @@ Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute a
 1. **Hero** : badge de l'activité, titre, description, photo, fond flouté de la même photo. Sur très grand écran (`2xl`), liens latéraux vers l'activité précédente et suivante.
 2. **Chiffres** clés (altitude, durée, vitesse…).
 3. **Introduction** : paragraphes, mots clés en gras.
-4. **Carrousel** de photos : défilement automatique (3 s), en boucle, 1 / 2 / 3 photos visibles selon la largeur ; une photo introuvable est retirée.
+4. **Carrousel** de photos : défilement automatique (3 s, en pause au survol, désactivé avec « réduire les animations »), en boucle, 1 / 2 / 3 photos visibles selon la largeur ; une photo introuvable est retirée.
 5. **Pourquoi choisir {activité} ?** : points forts.
 6. **Comment ça se passe ?** : frise des étapes, alternée gauche / droite à partir de `md`.
 7. **Prérequis**.
