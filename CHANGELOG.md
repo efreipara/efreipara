@@ -2,6 +2,24 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.3.0 — 24 octobre 2026
+
+### Ajouts
+
+- Les boutons et les cartes s'enfoncent légèrement quand on appuie dessus.
+- Galerie : les albums apparaissent en fondu quand on change de filtre.
+- La bannière d'événement s'ouvre et se referme en douceur, sans faire sauter la page.
+
+### Modifications
+
+- Navigation plus vive : le contenu d'une nouvelle page apparaît en moins de 300 ms au lieu d'environ une seconde.
+- Carrousel des activités : il se met en pause au survol.
+
+### Corrections
+
+- Documents et FAQ : le défilement lancé par une pastille de catégorie s'arrête dès qu'on fait défiler soi-même, et il est immédiat avec le réglage « réduire les animations ».
+- Carrousel des activités : il ne défile plus tout seul avec le réglage « réduire les animations ».
+
 ## 1.2.0 — 24 octobre 2026
 
 ### Ajouts
