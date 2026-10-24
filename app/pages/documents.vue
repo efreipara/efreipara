@@ -26,7 +26,10 @@
       <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
         <template v-for="(category, catIndex) in documentsData?.categories" :key="catIndex">
-          <section :id="toAnchorId(category.name)">
+          <section
+            :id="toAnchorId(category.name)"
+            class="scroll-mt-[calc(var(--ui-header-height)+2rem)]"
+          >
             <!-- En-tête de catégorie -->
             <SharedCategoryHeader
               :name="category.name"

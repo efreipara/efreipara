@@ -98,7 +98,7 @@ Albums photo des événements, hébergés sur des sites externes (principalement
 
 ### Documents — `/documents`
 
-- Pastilles des catégories en tête : un clic fait défiler en douceur jusqu'à la catégorie (sous l'en-tête).
+- Pastilles des catégories en tête : un clic fait défiler en douceur jusqu'à la catégorie (sous l'en-tête) ; le visiteur peut interrompre le défilement, et il est immédiat avec « réduire les animations ».
 - Une section par catégorie : icône teintée, nom, description, nombre de documents (« 3 docs »), puis les documents en grille (deux colonnes à partir de `sm`).
 - Un document **interne** (page du site) s'ouvre dans l'onglet, un document **externe** dans un nouvel onglet, avec une icône de lien externe.
 - En bas, encadré « Un document manquant ? » avec les boutons Discord, Instagram et « Signaler sur GitHub ».

@@ -113,6 +113,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 - Changement de page : fondu de 0,3 s (`pageTransition`).
 - Bascule clair / sombre : View Transition en cercle depuis le bouton ; le hero d'accueil en est exclu (`view-transition-name: home-hero`).
 - Bannière d'événement : glisse depuis le haut.
+- Pastilles de catégories : défilement natif (`scrollIntoView`), interrompu dès que le visiteur fait défiler ; immédiat avec « réduire les animations ». Le décalage sous l'en-tête vient du `scroll-mt` des sections.
 - `prefers-reduced-motion` : une règle globale de `main.css` rend animations et transitions CSS quasi instantanées ; les compteurs de l'accueil affichent directement leur valeur et la bascule de thème se fait sans View Transition (`prefersReducedMotion`). `SharedParachuteBg` réduit en plus l'opacité de ses parachutes.
 
 ### Accessibilité

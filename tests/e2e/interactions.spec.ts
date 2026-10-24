@@ -75,6 +75,24 @@ test.describe('réduire les animations', () => {
     await page.waitForTimeout(500)
     expect(await counter.textContent()).toBe('2016')
   })
+
+  test('une pastille de catégorie amène directement à sa section, sous l’en-tête', async ({
+    page,
+  }) => {
+    const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
+    const second = docs.categories[1]!.name
+    await gotoReady(page, '/documents')
+    await page.getByRole('button', { name: second }).click()
+    // Sans attendre : avec « réduire les animations », le défilement est immédiat
+    const { top, header } = await page
+      .getByRole('heading', { level: 2, name: second })
+      .evaluate((el) => ({
+        top: el.closest('section')!.getBoundingClientRect().top,
+        header: document.querySelector('header')!.getBoundingClientRect().bottom,
+      }))
+    expect(top).toBeGreaterThanOrEqual(header)
+    expect(top).toBeLessThan(header + 64)
+  })
 })
 
 test.describe('galerie', () => {

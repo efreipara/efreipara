@@ -5,25 +5,11 @@
 
   const { getCategoryColor } = useCategoryColor()
 
-  const scrollTo = (id: string, duration = 800) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
-    const target = el.getBoundingClientRect().top + window.scrollY - headerHeight - 32
-    const start = window.scrollY
-    const distance = target - start
-    const startTime = performance.now()
-
-    const ease = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)
-
-    const step = (now: number) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      window.scrollTo(0, start + distance * ease(progress))
-      if (progress < 1) requestAnimationFrame(step)
-    }
-
-    requestAnimationFrame(step)
+  // Défilement natif : interrompu dès que le visiteur fait défiler ; décalage sous l'en-tête par scroll-mt des sections
+  const scrollTo = (id: string) => {
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' })
   }
 </script>
 
