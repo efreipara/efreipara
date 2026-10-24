@@ -9,6 +9,7 @@
 
   const { data: seo } = useNuxtData('seo')
   const description = computed(() => seo.value?.pages['index']?.description)
+  const siteName = computed(() => seo.value?.defaults.siteName)
 </script>
 
 <template>
@@ -37,11 +38,15 @@
       <!-- Contenu centré : logo et description optionnelle -->
 
       <div class="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
-        <Icon
-          name="efreipara:efreipara"
-          class="hero-slide-up mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
-          style="animation-delay: 0.05s"
-        />
+        <h1 class="mb-6">
+          <span class="sr-only">{{ siteName }}</span>
+          <Icon
+            name="efreipara:efreipara"
+            aria-hidden="true"
+            class="hero-slide-up inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
+            style="animation-delay: 0.05s"
+          />
+        </h1>
         <p
           v-if="description"
           class="hero-slide-up mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl"

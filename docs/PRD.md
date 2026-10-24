@@ -144,7 +144,7 @@ Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fon
 
 ### Référencement
 
-Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont exclues (`robots.txt` et balise `noindex`), mais gardent titre, description et image de partage pour les réseaux.
+Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont exclues par la balise `noindex`, mais gardent titre, description et image de partage pour les réseaux. Les pages d'erreur ont un titre (« Page introuvable - Efrei Para ») et ne sont pas indexées.
 
 ## 4. Mesure d'audience
 

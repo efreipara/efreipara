@@ -24,7 +24,7 @@
 
 ## Ce qui doit être testé
 
-- clé SEO, canonique et fusion des métadonnées (`seo`) ;
+- clé SEO, canonique, fusion des métadonnées et URL absolue des images de partage (`seo`) ;
 - affichage et clé de fermeture de la bannière d'événement (`event`) ;
 - adresse CDN et jeton de développement (`cdn`) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;

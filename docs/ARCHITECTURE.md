@@ -53,7 +53,7 @@ content.routes.ts     # routes de redirection lues dans le contenu (prérendu, t
 content.config.ts     # déclare les collections (defineCollection) à partir de content.schemas.ts
 nuxt.config.ts        # modules, icônes, polices, Content, Plausible, prérendu, minification
 rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
-public/               # polices, favicon, robots.txt, images OpenGraph (seo/), logos partenaires
+public/               # polices, favicon, icône tactile, robots.txt, images OpenGraph (seo/), logos partenaires
 nginx/                # templates de configuration (serveur, en-têtes de sécurité)
 tests/                # unit/ et content/ (Vitest), e2e/ (Playwright) : voir TESTING.md
 .mcp.json             # serveurs MCP du projet (Playwright sur Brave, pour Claude Code)
@@ -104,7 +104,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 
 | Module              | Fonctions                                                                                                                                    | Utilisé par                                                         |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                                                                        | `app.vue`, `useSeo`                                                 |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`, `toAbsoluteUrl`                                                                       | `app.vue`, `useSeo`                                                 |
 | `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                                                           | `useNextEvent`                                                      |
 | `cdn.ts`            | `resolveCdnUrl`                                                                                                                              | `useCdnAsset`                                                       |
 | `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                   |
@@ -133,7 +133,9 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - `app.vue` appelle `useSeo` avec une clé tirée du chemin : `/` → `index`, sinon le chemin sans `/` initial, les `/` remplacés par `-` (`/activites/tandem` → `activites-tandem`). Une page dont le fichier de contenu porte ses propres options SEO l'appelle aussi, avec ces options (`useSeo(clé, options)`) : `LegalPage` (titre et description du front-matter), `RedirectPage` pour une option de « Nous rejoindre » (`title`, `description`, `ogImage`). Appelée après celle d'`app.vue`, sa déclaration l'emporte dans Unhead et disparaît avec la page.
 - `useSeo` fusionne `seo.yml` (`defaults` puis `pages.<clé>`), puis les options de la page (`buildSeoMeta`, une valeur vide est ignorée) : titre « {page} - Efrei Para » (accueil : nom seul), description, OpenGraph, Twitter, `robots` (page, sinon `defaults.robots`, sinon `index, follow`), `lang`, `theme-color`, lien canonique (`baseUrl` + chemin, `activites-` redevient `activites/`).
 - Images OpenGraph dans `public/seo/`. `baseUrl` est écrit dans `seo.yml` : le canonique pointe toujours vers la production, quel que soit l'environnement.
-- Seule l'accueil est destinée aux moteurs de recherche : `public/robots.txt` n'autorise que la racine, et `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`).
+- Seule l'accueil est destinée aux moteurs de recherche : `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`). `public/robots.txt` n'interdit rien : une page bloquée ne serait pas lue, sa balise `noindex` non plus, et les robots d'aperçu (LinkedIn, X) ne verraient ni la page ni son image.
+- `og:image` et `twitter:image` sont rendues absolues (`toAbsoluteUrl`, `baseUrl` + chemin) au moment d'écrire les balises.
+- Icônes du navigateur déclarées dans `app.head.link` de `nuxt.config.ts` : `favicon.ico` (16 à 48 px) et `apple-touch-icon.png` (180 px).
 
 ## CDN
 

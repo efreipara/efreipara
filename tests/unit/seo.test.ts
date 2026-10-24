@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { buildCanonicalUrl, buildSeoMeta, seoKeyFromPath, type SeoData } from '../../app/utils/seo'
+import {
+  buildCanonicalUrl,
+  buildSeoMeta,
+  seoKeyFromPath,
+  toAbsoluteUrl,
+  type SeoData,
+} from '../../app/utils/seo'
 
 const seoData: SeoData = {
   defaults: {
@@ -108,5 +114,27 @@ describe('buildSeoMeta avec les options de la page', () => {
 
   it('ignore une option vide', () => {
     expect(buildSeoMeta(seoData, 'faq', { title: undefined }).title).toBe('FAQ - Efrei Para')
+  })
+})
+
+describe('toAbsoluteUrl', () => {
+  it('préfixe un chemin du site par l’URL de base', () => {
+    expect(toAbsoluteUrl('https://efreipara.fr', '/seo/efreipara.png')).toBe(
+      'https://efreipara.fr/seo/efreipara.png',
+    )
+    expect(toAbsoluteUrl('https://efreipara.fr/', '/seo/efreipara.png')).toBe(
+      'https://efreipara.fr/seo/efreipara.png',
+    )
+  })
+
+  it('laisse une URL déjà absolue telle quelle', () => {
+    expect(toAbsoluteUrl('https://efreipara.fr', 'https://cdn.example.org/a.png')).toBe(
+      'https://cdn.example.org/a.png',
+    )
+  })
+
+  it('ne change rien sans URL de base ni chemin', () => {
+    expect(toAbsoluteUrl('', '/seo/efreipara.png')).toBe('/seo/efreipara.png')
+    expect(toAbsoluteUrl('https://efreipara.fr', undefined)).toBeUndefined()
   })
 })

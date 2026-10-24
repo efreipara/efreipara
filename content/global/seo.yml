@@ -11,9 +11,9 @@ defaults:
   ogSiteName: Efrei Para
   twitterCard: summary_large_image
   locale: fr_FR
-  themeColor: oklch(0.208 0.042 265.755005)
+  themeColor: '#092954'
   author: Efrei Para
-  # Seule l'accueil est indexée (voir aussi public/robots.txt)
+  # Seule l'accueil est indexée : les autres pages portent noindex (robots.txt n'interdit rien)
   robots: noindex, follow
 
 # Métadonnées spécifiques à chaque page

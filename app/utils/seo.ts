@@ -34,6 +34,10 @@ export const buildCanonicalUrl = (baseUrl: string, key: string) =>
     ? `${baseUrl}${key === 'index' ? '' : '/' + key.replace('activites-', 'activites/')}`
     : undefined
 
+// `/seo/x.png` → `https://efreipara.fr/seo/x.png` : les aperçus de partage exigent une URL absolue
+export const toAbsoluteUrl = (baseUrl: string, path?: string) =>
+  path && baseUrl && path.startsWith('/') ? `${baseUrl.replace(/\/+$/, '')}${path}` : path
+
 // Fusion defaults < seo.yml › pages.<clé> < options de la page (valeurs absentes ignorées)
 export const buildSeoMeta = (seoData: SeoData, key: string, overrides: SeoOverrides = {}) => {
   const defaults = seoData.defaults

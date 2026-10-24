@@ -44,3 +44,29 @@ test.describe('erreurs', () => {
     await expect(page.getByText('Page introuvable')).toBeVisible()
   })
 })
+
+test.describe('référencement et partage', () => {
+  test('l’accueil a exactement un titre h1, nommé Efrei Para', async ({ page }) => {
+    await gotoReady(page, '/')
+    await expect(page.locator('h1')).toHaveCount(1)
+    await expect(page.locator('h1')).toHaveText('Efrei Para')
+  })
+
+  for (const path of pages) {
+    test(`${path} a une image de partage en URL absolue`, async ({ page }) => {
+      await page.goto(path)
+      for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]'])
+        await expect(page.locator(selector)).toHaveAttribute(
+          'content',
+          /^https:\/\/efreipara\.fr\/seo\/.+\.png$/,
+        )
+    })
+  }
+
+  test('la page d’erreur a un titre, une langue et n’est pas indexée', async ({ page }) => {
+    await gotoReady(page, '/cette-page-nexiste-pas')
+    await expect(page).toHaveTitle('Page introuvable - Efrei Para')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
+  })
+})

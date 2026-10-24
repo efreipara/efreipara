@@ -20,6 +20,8 @@ export const useSeo = (
     seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides)) : null,
   )
 
+  const absolute = (path?: string) => toAbsoluteUrl(seoData.value?.defaults.baseUrl ?? '', path)
+
   // Application des métadonnées SEO
   useSeoMeta({
     title: computed(() => seoMeta.value?.title),
@@ -29,7 +31,7 @@ export const useSeo = (
     // OpenGraph
     ogTitle: computed(() => seoMeta.value?.ogTitle),
     ogDescription: computed(() => seoMeta.value?.ogDescription),
-    ogImage: computed(() => seoMeta.value?.ogImage),
+    ogImage: computed(() => absolute(seoMeta.value?.ogImage)),
     ogType: computed(() => seoMeta.value?.ogType),
     ogSiteName: computed(() => seoMeta.value?.ogSiteName),
     ogUrl: computed(() => seoMeta.value?.ogUrl),
@@ -39,7 +41,7 @@ export const useSeo = (
     twitterCard: computed(() => seoMeta.value?.twitterCard),
     twitterTitle: computed(() => seoMeta.value?.twitterTitle),
     twitterDescription: computed(() => seoMeta.value?.twitterDescription),
-    twitterImage: computed(() => seoMeta.value?.twitterImage),
+    twitterImage: computed(() => absolute(seoMeta.value?.twitterImage)),
 
     // Robots
     robots: computed(() => seoMeta.value?.robots),

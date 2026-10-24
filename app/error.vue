@@ -15,12 +15,23 @@
   const errorMessage = (statusCode: number) =>
     labels.value.error.messages[String(statusCode)] ?? labels.value.error.messages.default!
 
-  // Créer un objet error personnalisé avec les messages en français
   const customError = computed(() => ({
     ...props.error,
     statusMessage: errorMessage(props.error.statusCode || 500).title,
     message: errorMessage(props.error.statusCode || 500).description,
   }))
+
+  // app.vue (et donc useSeo) n'est pas rendu à la place d'une page d'erreur
+  const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  useHead({
+    title: computed(() =>
+      seo.value
+        ? `${customError.value.statusMessage}${seo.value.defaults.separator}${seo.value.defaults.siteName}`
+        : customError.value.statusMessage,
+    ),
+    htmlAttrs: { lang: computed(() => seo.value?.defaults.locale.split('_')[0] || 'fr') },
+    meta: [{ name: 'robots', content: 'noindex' }],
+  })
 </script>
 
 <template>

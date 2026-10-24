@@ -113,8 +113,13 @@ export default defineNuxtConfig({
     },
   },
 
-  // Mode sombre par défaut pour l'identité visuelle du club
   app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+    },
     pageTransition: {
       name: 'fade',
       mode: 'out-in',
