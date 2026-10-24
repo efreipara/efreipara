@@ -14,7 +14,7 @@
 ## Organisation
 
 - `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
-- `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
+- `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
 - `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, plus :
   - `fixtures.ts` : coupe toute requête hors du site (CDN, Plausible, albums, réseaux), relève les erreurs console, et `gotoReady` attend l'hydratation de Vue avant d'interagir ;
   - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404) ;

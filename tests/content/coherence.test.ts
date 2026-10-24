@@ -19,3 +19,13 @@ describe('accessibilité', () => {
     expect(keys.filter((key) => !new RegExp(`\\b${key}: false`).test(composable))).toEqual([])
   })
 })
+
+describe('réseaux', () => {
+  it('chaque réseau de l’en-tête existe dans club.yml', () => {
+    const keys = new Set(
+      readYaml<{ socials: { key: string }[] }>('global/club.yml').socials.map((s) => s.key),
+    )
+    const header = readYaml<{ headerSocials: string[] }>('global/navigation.yml').headerSocials
+    expect(header.filter((key) => !keys.has(key))).toEqual([])
+  })
+})

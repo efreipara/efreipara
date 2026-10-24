@@ -2,6 +2,11 @@
 logo:
   label: Efrei Para, accueil
 
+# Réseaux affichés dans l’en-tête sur grand écran (clés de club.yml), dans l’ordre
+headerSocials:
+  - instagram
+  - discord
+
 activitiesIndex:
   label: Nos activités
   to: /activites

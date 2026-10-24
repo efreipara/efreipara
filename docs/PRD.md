@@ -30,8 +30,8 @@ Partout (menus, accueil, `/activites`, précédent / suivant des pages d'activit
 ### En-tête
 
 - Logo Efrei Para (version claire ou sombre selon le thème), lien vers l'accueil annoncé « Efrei Para, accueil » par les lecteurs d'écran.
-- **Grand écran (`lg` et plus)** : menu « Nos activités » qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`), puis Instagram et Discord, le menu d'accessibilité et le bouton clair / sombre.
-- **Petit écran** : accessibilité, clair / sombre et bouton burger. Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
+- **Grand écran (`lg` et plus)** : logo à gauche, menu centré, actions à droite. Le menu commence par « Nos activités », qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`). À droite : les réseaux choisis dans `navigation.yml` (Instagram et Discord), le menu d'accessibilité et le bouton clair / sombre.
+- **Petit écran** : logo, puis accessibilité, clair / sombre et bouton burger (l'icône menu tourne et s'efface pendant que la croix apparaît, et l'inverse à la fermeture). Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
 
 ### Bannière d'événement
 

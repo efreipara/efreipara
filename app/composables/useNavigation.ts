@@ -6,6 +6,7 @@ export const useNavigation = async () => {
   ])
 
   const logo = computed(() => data.value!.logo)
+  const headerSocials = computed(() => data.value?.headerSocials ?? [])
   const accessibility = computed(() => data.value!.accessibility)
   const accessibilityMenu = computed(() => data.value!.accessibilityMenu)
   const activitiesIndex = computed(() => data.value!.activitiesIndex)
@@ -28,6 +29,7 @@ export const useNavigation = async () => {
 
   return {
     logo,
+    headerSocials,
     accessibility,
     accessibilityMenu,
     activitiesIndex,
