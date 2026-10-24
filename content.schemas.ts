@@ -1,4 +1,14 @@
 import { z } from '@nuxt/content'
+import { ACTIVITY_KEYS } from './app/utils/activities'
+
+const activity = z.enum(ACTIVITY_KEYS)
+
+// Encadré d'aide en bas de Documents et FAQ
+const helpCta = z.object({
+  title: z.string(),
+  description: z.string(),
+  buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
+})
 
 // Sources et schémas des collections : enveloppés par defineCollection dans content.config.ts,
 // importés tels quels par les tests de contenu (defineCollection ne fonctionne que dans Nuxt).
@@ -28,7 +38,7 @@ export const collections = {
           z.object({
             title: z.string(),
             description: z.string(),
-            type: z.string(),
+            type: activity,
             to: z.string(),
           }),
         ),
@@ -42,7 +52,7 @@ export const collections = {
           title: z.string(),
           description: z.string(),
           icon: z.string(),
-          type: z.string(),
+          type: activity,
         }),
       ),
     }),
@@ -65,7 +75,7 @@ export const collections = {
       items: z.array(
         z.object({
           title: z.string(),
-          type: z.string(),
+          type: activity,
           date: z.string().date(),
           location: z.string(),
           url: z.string(),
@@ -85,7 +95,7 @@ export const collections = {
       }),
       sections: z.array(
         z.object({
-          type: z.string(),
+          type: activity,
           title: z.string(),
           description: z.string(),
           alt: z.string(),
@@ -135,7 +145,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      updatedAt: z.string().optional(),
+      updatedAt: z.string().date().optional(),
     }),
   },
   faq: {
@@ -144,13 +154,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      helpcta: z
-        .object({
-          title: z.string(),
-          description: z.string(),
-          buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
-        })
-        .optional(),
+      helpcta: helpCta.optional(),
       categories: z.array(
         z.object({
           name: z.string(),
@@ -183,13 +187,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      helpcta: z
-        .object({
-          title: z.string(),
-          description: z.string(),
-          buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
-        })
-        .optional(),
+      helpcta: helpCta.optional(),
       categories: z.array(
         z.object({
           name: z.string(),
@@ -268,8 +266,8 @@ export const collections = {
     source: 'global/next-event.yml',
     schema: z.object({
       title: z.string(),
-      date: z.string(),
-      type: z.enum(['oa', 'tandem', 'soufflerie', 'pac']),
+      date: z.string().date(),
+      type: activity,
       url: z.string(),
     }),
   },
@@ -283,7 +281,7 @@ export const collections = {
           icon: z.string().optional(),
           logo: z.string().optional(),
           url: z.string(),
-          activites: z.array(z.enum(['oa', 'tandem', 'soufflerie', 'pac'])).optional(),
+          activites: z.array(activity).optional(),
         }),
       ),
     }),
@@ -364,7 +362,7 @@ export const collections = {
       }),
       activities: z.array(
         z.object({
-          slot: z.enum(['oa', 'tandem', 'soufflerie', 'pac']),
+          slot: activity,
           label: z.string(),
           description: z.string(),
           to: z.string(),

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
+  import type { ActivityType } from '~/utils/activities'
 
   const props = defineProps<{
     activite: ActivityType

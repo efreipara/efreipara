@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { NavigationMenuItem } from '@nuxt/ui'
-  import type { ActivityType } from '~/composables/useActivities'
+  import type { ActivityType } from '~/utils/activities'
 
   const appConfig = useAppConfig()
 

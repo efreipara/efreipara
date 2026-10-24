@@ -1,4 +1,10 @@
-import type { ActivityType } from '../composables/useActivities'
+// Clés d'activité dans l'ordre d'affichage : source unique pour l'app, les schémas et les tests
+export const ACTIVITY_KEYS = ['tandem', 'soufflerie', 'pac', 'oa'] as const
+
+export type ActivityType = (typeof ACTIVITY_KEYS)[number]
+
+export const isActivity = (value: unknown): value is ActivityType =>
+  typeof value === 'string' && (ACTIVITY_KEYS as readonly string[]).includes(value)
 
 // Ordre de la navigation précédent / suivant des pages d'activité
 export const ACTIVITY_ORDER: ActivityType[] = ['oa', 'tandem', 'soufflerie', 'pac']
@@ -13,12 +19,9 @@ export const adjacentActivities = (type: ActivityType) => {
 }
 
 // Teinte de chaque activité (variables du thème, voir main.css)
-export const ACTIVITY_CSS_VAR: Record<ActivityType, string> = {
-  oa: 'var(--color-efreipara-oa)',
-  tandem: 'var(--color-efreipara-tandem)',
-  soufflerie: 'var(--color-efreipara-soufflerie)',
-  pac: 'var(--color-efreipara-pac)',
-}
+export const ACTIVITY_CSS_VAR = Object.fromEntries(
+  ACTIVITY_KEYS.map((key) => [key, `var(--color-efreipara-${key})`]),
+) as Record<ActivityType, string>
 
 export const activityColor = (type?: string) =>
   ACTIVITY_CSS_VAR[type as ActivityType] ?? 'var(--ui-primary)'

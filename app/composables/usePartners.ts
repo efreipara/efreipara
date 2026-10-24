@@ -2,7 +2,7 @@
  * Types et composable pour les partenaires du club
  */
 
-import type { ActivityType } from './useActivities'
+import type { ActivityType } from '~/utils/activities'
 
 export interface Partner {
   name: string

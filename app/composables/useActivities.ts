@@ -2,8 +2,7 @@
  * Types et composables liés aux activités du club
  */
 
-// Type pour les différents types d'activités proposées
-export type ActivityType = 'oa' | 'tandem' | 'soufflerie' | 'pac'
+import type { ActivityType } from '~/utils/activities'
 
 /**
  * Composable pour obtenir l'icône associée à un type d'activité

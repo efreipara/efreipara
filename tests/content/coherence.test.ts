@@ -1,15 +1,12 @@
 import { basename } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { ACTIVITY_ORDER } from '../../app/utils/activities'
+import { ACTIVITY_KEYS } from '../../app/utils/activities'
 import { readText, readYaml, sourceFiles } from './helpers'
-
-const activities = new Set<string>(ACTIVITY_ORDER)
-const notActivity = (values: string[]) => values.filter((value) => !activities.has(value))
 
 describe('activités', () => {
   it('chaque activité a son fichier, et chaque fichier est une activité', () => {
     const files = sourceFiles('pages/activites/*.yml').map((f) => basename(f, '.yml'))
-    expect(files.sort()).toEqual([...ACTIVITY_ORDER].sort())
+    expect(files.sort()).toEqual([...ACTIVITY_KEYS].sort())
   })
 
   it('la page des activités et le menu présentent chaque activité une fois', () => {
@@ -17,24 +14,9 @@ describe('activités', () => {
     const menu = readYaml<{ activities: { slot: string; to: string }[] }>(
       'global/navigation.yml',
     ).activities
-    expect(sections.map((s) => s.type).sort()).toEqual([...ACTIVITY_ORDER].sort())
-    expect(menu.map((a) => a.slot).sort()).toEqual([...ACTIVITY_ORDER].sort())
+    expect(sections.map((s) => s.type).sort()).toEqual([...ACTIVITY_KEYS].sort())
+    expect(menu.map((a) => a.slot).sort()).toEqual([...ACTIVITY_KEYS].sort())
     expect(menu.filter((a) => a.to !== `/activites/${a.slot}`)).toEqual([])
-  })
-
-  it('les types cités dans le contenu sont des activités', () => {
-    const home = readYaml<{ activites: { items: { type: string }[] }; why: { type: string }[] }>(
-      'pages/home.yml',
-    )
-    const galerie = readYaml<{ items: { type: string }[] }>('pages/galerie.yml')
-    const partners = readYaml<{ items: { activites?: string[] }[] }>('global/partners.yml')
-    const event = readYaml<{ type: string }>('global/next-event.yml')
-
-    expect(notActivity(home.activites.items.map((i) => i.type))).toEqual([])
-    expect(notActivity(home.why.map((i) => i.type))).toEqual([])
-    expect(notActivity(galerie.items.map((i) => i.type))).toEqual([])
-    expect(notActivity(partners.items.flatMap((p) => p.activites ?? []))).toEqual([])
-    expect(notActivity([event.type])).toEqual([])
   })
 })
 

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
-
-  const activities: ActivityType[] = ['oa', 'tandem', 'soufflerie', 'pac']
+  import { isActivity, type ActivityType } from '~/utils/activities'
 
   definePageMeta({
-    validate: (route) => activities.includes(route.params.activite as ActivityType),
+    validate: (route) => isActivity(route.params.activite),
   })
 
   const route = useRoute()
