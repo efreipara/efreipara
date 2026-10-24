@@ -91,7 +91,7 @@ Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute a
 
 Albums photo des événements, hébergés sur des sites externes (principalement Efrei Picture Studio).
 
-- **Filtres** : « Tout voir » et une pastille par type d'activité présent ; la pastille active prend la couleur de l'activité, un second clic revient à « Tout voir ».
+- **Filtres** : « Tout voir » et une pastille par type d'activité présent ; la pastille active prend la couleur de l'activité, un second clic revient à « Tout voir ». Les albums filtrés apparaissent en fondu.
 - Albums triés du plus récent au plus ancien. Sans filtre et à partir de trois albums, le premier est mis en avant (deux colonnes sur deux lignes en `lg`).
 - **Carte** : photo de couverture, badge du type, titre, date (« 6 mars 2026 »), lieu, « Voir l'album sur {source} ». Un clic ouvre l'album dans un nouvel onglet.
 - **Photo** : celle de l'album si elle se charge, sinon une photo de repli du CDN ; un squelette s'affiche jusqu'au chargement ou à l'échec définitif.
