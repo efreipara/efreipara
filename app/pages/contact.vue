@@ -36,9 +36,14 @@
 
       <!-- Réseaux sociaux -->
       <div class="mb-10">
-        <div class="mb-6">
-          <h2 class="text-lg font-bold">{{ page?.socials.title }}</h2>
-          <p class="text-muted text-sm">{{ page?.socials.description }}</p>
+        <div class="mb-6 flex items-center gap-3">
+          <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
+            <UIcon :name="page?.socials.icon" class="text-primary size-5" />
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">{{ page?.socials.title }}</h2>
+            <p class="text-muted text-sm">{{ page?.socials.description }}</p>
+          </div>
         </div>
         <div class="flex flex-wrap justify-center gap-3">
           <UButton

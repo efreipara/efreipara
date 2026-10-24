@@ -213,6 +213,7 @@ export const collections = {
       socials: z.object({
         title: z.string(),
         description: z.string(),
+        icon: z.string(),
       }),
       address: z.object({
         title: z.string(),

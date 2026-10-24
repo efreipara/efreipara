@@ -118,7 +118,7 @@ Albums photo des événements, hébergés sur des sites externes (principalement
 ### Nous contacter — `/contact`
 
 - Carte e-mail mise en avant (adresse du club, bouton `mailto:`).
-- Réseaux sociaux en pastilles (nouvel onglet).
+- Réseaux sociaux en pastilles (nouvel onglet), sous un titre précédé de son icône.
 - **Adresse** du campus avec liens Google Maps, Apple Plans et Waze.
 - **Support technique** du site : signaler sur GitHub, ou écrire au mainteneur.
 

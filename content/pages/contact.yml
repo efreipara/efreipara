@@ -11,6 +11,7 @@ email:
 socials:
   title: Nos réseaux sociaux
   description: Suis-nous et rejoins notre communauté en ligne
+  icon: tabler:share
 
 address:
   title: Adresse
