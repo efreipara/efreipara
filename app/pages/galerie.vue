@@ -102,7 +102,7 @@
           :to="item.url"
           target="_blank"
           external
-          class="group relative block overflow-hidden rounded-2xl"
+          class="group relative block overflow-hidden rounded-2xl transition-transform duration-150 ease-out active:scale-[0.98]"
           :class="index === 0 && showHeroLayout && 'lg:col-span-2 lg:row-span-2'"
         >
           <div

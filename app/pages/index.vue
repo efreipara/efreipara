@@ -75,7 +75,7 @@
           class="group"
           :class="activityClass(item.type)"
           :ui="{
-            root: 'border-default hover:bg-tint-10 rounded-2xl border ring-0 duration-300',
+            root: 'border-default hover:bg-tint-10 rounded-2xl border ring-0 duration-200 active:scale-[0.98]',
             container: 'p-6 sm:p-6',
             wrapper: 'flex-row gap-4',
             leading: 'bg-tint-10 mb-0 size-12 shrink-0 justify-center rounded-2xl',

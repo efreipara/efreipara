@@ -91,6 +91,11 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 - Point fort (pastille + titre + texte) : `UPageFeature`, pastille réglée par `ui.leading` / `ui.leadingIcon`, `text-wrap` sur le titre et la description (Nuxt UI met `text-pretty`). Section image + texte + points forts + bouton : `UPageSection orientation="horizontal"` (`/activites`).
 - Filtres et ancres de catégories : `UButton` `rounded-full px-3` (taille `md`, icône `size-4`) ; filtre actif signalé par `aria-pressed`. Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante).
 
+### Appui
+
+- Tout élément pressable s'enfonce légèrement à l'appui : `active:scale-[0.97]` pour les boutons (réglé pour tous les `UButton` dans `app.config.ts`, `ui.button.slots.base`), `active:scale-[0.98]` pour les cartes (`ui.root` des `UPageCard`, albums de la galerie).
+- Transition de 150 à 200 ms qui inclut `scale` (`transition`, ou `transition-transform` sur un lien simple). Les effets de survol Tailwind ne s'appliquent qu'aux appareils à pointeur : rien ne reste bloqué après un appui sur mobile.
+
 ### Liens et survol
 
 - Lien interne vers une autre page : flèche `arrowRight` qui glisse de `0.5` au survol (`group-hover:translate-x-0.5`).

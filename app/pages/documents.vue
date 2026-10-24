@@ -51,7 +51,7 @@
                 variant="subtle"
                 class="group"
                 :ui="{
-                  root: 'hover:bg-primary/5 hover:ring-default duration-150',
+                  root: 'hover:bg-primary/5 hover:ring-default duration-150 active:scale-[0.98]',
                   wrapper: 'flex-row gap-3',
                   leading: [
                     'mb-0 size-10 shrink-0 justify-center rounded-xl',

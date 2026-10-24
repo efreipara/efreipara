@@ -65,7 +65,7 @@
           class="group"
           :class="activityClass(activityOf(option.color))"
           :ui="{
-            root: 'hover:bg-default overflow-hidden rounded-2xl duration-200 hover:shadow-lg',
+            root: 'hover:bg-default overflow-hidden rounded-2xl duration-200 hover:shadow-lg active:scale-[0.98]',
             container: 'gap-0 p-0 sm:p-0 lg:flex',
             wrapper: 'items-stretch',
             header: 'mb-0 aspect-video overflow-hidden',
