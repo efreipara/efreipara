@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.4.0 — 24 octobre 2026
+
+### Ajouts
+
+- Pied de page : le numéro de version du site s'affiche discrètement à côté de la licence du code source, avec un lien vers l'historique des versions.
+
 ## 1.3.0 — 24 octobre 2026
 
 ### Ajouts
