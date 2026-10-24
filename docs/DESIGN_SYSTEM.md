@@ -102,7 +102,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 - Page de premier niveau : `SharedPageHero` (titre en `font-title`, description), sur un fond `page-hero.jpg` du CDN flouté, peu opaque et estompé vers le bas.
 - Activité : `ActiviteHero`, même principe avec la photo de l'activité et une mise en page horizontale.
 - Accueil : `HomeHero`, vidéo plein écran assombrie (`bg-black/30`).
-- Le titre, la description et le badge entrent par le bas en décalé : classe `hero-slide-up` avec `animation-delay` de 0,1 s, 0,25 s, 0,4 s.
+- Le titre, la description et le badge entrent par le bas en décalé : classe `hero-slide-up` (0,5 s, 16 px, ease-out marqué) avec `animation-delay` de 0,05 s, 0,12 s, 0,2 s (accueil : 0,05 s, 0,15 s, 0,25 s). Le contenu doit être lisible dans les 300 ms qui suivent un clic.
 
 ### Décor de parachutes
 
@@ -110,7 +110,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Mouvement
 
-- Changement de page : fondu de 0,3 s (`pageTransition`).
+- Changement de page : fondu de 150 ms (`pageTransition`, `out-in`).
 - Bascule clair / sombre : View Transition en cercle depuis le bouton ; le hero d'accueil en est exclu (`view-transition-name: home-hero`).
 - Bannière d'événement : glisse depuis le haut.
 - Carrousel des activités : défile seul toutes les 3 s, s'arrête au survol et à la première interaction ; aucun défilement automatique avec « réduire les animations » (activé seulement au montage, après lecture du réglage).

@@ -19,10 +19,10 @@
     <UContainer class="relative">
       <UPageHero :ui="{ title: 'font-title' }">
         <template #title>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.1s">{{ title }}</span>
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.05s">{{ title }}</span>
         </template>
         <template v-if="description" #description>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.25s">
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.12s">
             {{ description }}
           </span>
         </template>

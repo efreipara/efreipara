@@ -137,7 +137,7 @@
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 150ms ease;
 }
 .fade-enter-from,
 .fade-leave-to {
@@ -195,13 +195,13 @@ html.a11y-highContrast .no-contrast {
 /* Animation d'entrée depuis le bas */
 .hero-slide-up {
   opacity: 0;
-  animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: heroSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes heroSlideUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;

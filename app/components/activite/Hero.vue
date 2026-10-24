@@ -57,17 +57,17 @@
         <template #headline>
           <div
             class="hero-slide-up bg-tint-12 text-activity inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
-            style="animation-delay: 0.4s"
+            style="animation-delay: 0.2s"
           >
             <UIcon :name="icon" class="size-3.5" />
             {{ label }}
           </div>
         </template>
         <template #title>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.1s">{{ title }}</span>
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.05s">{{ title }}</span>
         </template>
         <template #description>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.25s">
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.12s">
             {{ description }}
           </span>
         </template>

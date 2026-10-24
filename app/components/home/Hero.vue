@@ -36,18 +36,18 @@
         <Icon
           name="efreipara:efreipara"
           class="hero-slide-up mb-6 inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
-          style="animation-delay: 0.1s"
+          style="animation-delay: 0.05s"
         />
         <p
           v-if="description"
           class="hero-slide-up mb-8 text-lg leading-relaxed drop-shadow-md md:text-xl"
-          style="animation-delay: 0.3s"
+          style="animation-delay: 0.15s"
         >
           {{ description }}
         </p>
         <div
           class="hero-slide-up flex flex-wrap justify-center gap-4"
-          style="animation-delay: 0.5s"
+          style="animation-delay: 0.25s"
         >
           <UButton
             to="/activites"
