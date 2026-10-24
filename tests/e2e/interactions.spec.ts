@@ -144,6 +144,25 @@ test.describe('FAQ et documents', () => {
     await expect(trigger).toHaveAttribute('aria-expanded', 'true')
   })
 
+  test('la molette interrompt le défilement lancé par une pastille', async ({ page }) => {
+    const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
+    const last = docs.categories.at(-1)!.name
+    await gotoReady(page, '/documents')
+    await page.getByRole('button', { name: last }).click()
+    await page.waitForTimeout(250)
+    // Vrai geste de molette (Chromium) : un mouse.wheel synthétique ne reproduit pas le cas
+    const cdp = await page.context().newCDPSession(page)
+    await cdp.send('Input.synthesizeScrollGesture', {
+      x: 200,
+      y: 400,
+      yDistance: -100,
+      gestureSourceType: 'mouse',
+    })
+    const stopped = await page.evaluate(() => window.scrollY)
+    await page.waitForTimeout(1000)
+    expect(await page.evaluate(() => window.scrollY)).toBe(stopped)
+  })
+
   test('une pastille de catégorie fait défiler jusqu’à sa section', async ({ page }) => {
     const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
     const last = docs.categories.at(-1)!.name
