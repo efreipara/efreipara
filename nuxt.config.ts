@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
+import pkg from './package.json'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -50,8 +51,9 @@ export default defineNuxtConfig({
   ],
   css: ['~/assets/css/main.css'],
 
-  // Icônes NuxtUI remplacées par leurs équivalents Tabler
+  // Version affichée dans le pied de page ; icônes NuxtUI remplacées par leurs équivalents Tabler
   appConfig: {
+    version: pkg.version,
     ui: {
       icons: {
         arrowDown: 'tabler:arrow-down',

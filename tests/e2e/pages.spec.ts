@@ -1,5 +1,6 @@
 import { expect, gotoReady, test } from './fixtures'
 import { pages } from './routes'
+import pkg from '../../package.json' with { type: 'json' }
 
 test.describe('pages', () => {
   for (const path of pages) {
@@ -19,6 +20,15 @@ test.describe('pages', () => {
       expect(consoleErrors).toEqual([])
     })
   }
+})
+
+test.describe('pied de page', () => {
+  test('affiche la version de package.json', async ({ page }) => {
+    await gotoReady(page, '/')
+    await expect(page.locator('footer').getByRole('link', { name: `v${pkg.version}` })).toHaveText(
+      `(v${pkg.version})`,
+    )
+  })
 })
 
 test.describe('erreurs', () => {

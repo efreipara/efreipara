@@ -1,5 +1,6 @@
 <script setup lang="ts">
   const { socials } = useSocials()
+  const { version, socials: socialLinks } = useAppConfig()
   const { activitiesIndex, activities, footerPages, footerLegal, footerTitles } =
     await useNavigation()
 
@@ -63,7 +64,16 @@
           Efrei Para
         </p>
         <p class="text-muted text-sm">
-          Code source :
+          Code source
+          <a
+            :href="`${socialLinks.github.repo}/blob/main/CHANGELOG.md`"
+            target="_blank"
+            :aria-label="`v${version}, historique des versions`"
+            class="text-xs"
+          >
+            (v{{ version }})
+          </a>
+          :
           <a href="https://opensource.org/license/MIT">MIT</a>
         </p>
         <p class="text-muted text-sm">

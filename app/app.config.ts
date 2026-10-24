@@ -109,6 +109,7 @@ export default defineAppConfig({
     github: {
       icon: 'simple-icons:github',
       url: 'https://github.com/efreipara',
+      repo: 'https://github.com/efreipara/efreipara',
       issues: 'https://github.com/efreipara/efreipara/issues/new',
     },
   },

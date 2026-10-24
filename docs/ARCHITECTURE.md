@@ -143,6 +143,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les routes sans lien entrant listées dans `nitro.prerender.routes` (`/devenir-membre`, `/discord`, `/instagram`, `/rejoindre-bureau`). Une nouvelle page qu'aucun lien n'atteint doit y être ajoutée.
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).
+- Le numéro de version du pied de page vient de `package.json`, lu au build dans `nuxt.config.ts` (`appConfig.version`) : seule cette chaîne est embarquée dans le site.
 - Vite (Rolldown + Oxc) : `console` et `debugger` retirés, commentaires légaux supprimés, CSS minifiée. `vite.optimizeDeps.include` liste des dépendances à pré-bundler en dev pour éviter les rechargements.
 - Le plugin `rehype-target-blank.mjs` (alias `rehype-target-blank`) s'applique au Markdown de Content (pages légales).
 
