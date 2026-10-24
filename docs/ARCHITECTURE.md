@@ -86,6 +86,7 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                         |
 | `usePartners`                   | Collection `partners`, filtre par activité                                                                                        |
 | `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`) ; prochain événement et règle d'affichage |
+| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                             |
 | `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                            |
 | `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                           |
 | `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                      |
@@ -108,6 +109,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                   |
 | `anchor.ts`         | `toAnchorId`                                                                                                                                 | Documents, FAQ, `SharedCategoryChips`                               |
 | `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                               | galerie                                                             |
+| `labels.ts`         | `fillLabel`, `countLabel`                                                                                                                    | composants qui affichent un libellé du contenu                      |
 | `contact.ts`        | `mapUrls`                                                                                                                                    | `useClub`                                                           |
 | `navigation.ts`     | `sortHeaderLinks`                                                                                                                            | `useNavigation`                                                     |
 | `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité |

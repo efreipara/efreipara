@@ -1,5 +1,9 @@
 title: Questions Fréquentes
 description: Retrouvez ici les réponses aux questions les plus fréquentes sur Efrei Para
+# Compteur affiché à côté de chaque catégorie
+count:
+  one: question
+  other: questions
 helpcta:
   title: Une question sans réponse ?
   description: N'hésite pas à nous poser tes questions sur Discord ou Instagram !

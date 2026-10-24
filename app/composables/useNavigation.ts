@@ -22,6 +22,8 @@ export const useNavigation = async () => {
   const footerPages = computed(() => data.value?.pages ?? [])
   const footerLegal = computed(() => data.value?.legal ?? [])
   const footerTitles = computed(() => data.value!.footer)
+  const menuButton = computed(() => data.value!.menuButton)
+  const colorModeButton = computed(() => data.value!.colorModeButton)
 
   return {
     accessibility,
@@ -32,5 +34,7 @@ export const useNavigation = async () => {
     footerPages,
     footerLegal,
     footerTitles,
+    menuButton,
+    colorModeButton,
   }
 }

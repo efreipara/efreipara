@@ -73,7 +73,7 @@
           class="cursor-pointer rounded-full px-3"
           @click="activeFilter = null"
         >
-          Tout voir
+          {{ page?.hero.allLabel }}
         </UButton>
         <UButton
           v-for="type in activityTypes"
@@ -165,7 +165,9 @@
               </div>
               <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
                 {{
-                  item.source ? `${page?.hero.linkLabel} sur ${item.source}` : page?.hero.linkLabel
+                  item.source
+                    ? fillLabel(page?.hero.linkSourceLabel ?? '', { source: item.source })
+                    : page?.hero.linkLabel
                 }}
                 <UIcon
                   :name="appConfig.ui.icons.external"

@@ -5,12 +5,14 @@
     activite: ActivityType
     requirements: { icon: string; label: string; description?: string }[]
   }>()
+
+  const { labels } = await useLabels()
 </script>
 
 <template>
   <div class="bg-elevated/50" :class="activityClass(activite)">
     <UContainer class="py-12">
-      <h2 class="font-title mb-8 text-2xl font-bold">Prérequis</h2>
+      <h2 class="font-title mb-8 text-2xl font-bold">{{ labels.activity.requirements }}</h2>
       <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <UPageFeature
           v-for="req in requirements"

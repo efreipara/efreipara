@@ -91,7 +91,7 @@
             <h3 class="mb-1.5 font-bold">{{ item.card.title }}</h3>
             <p class="text-muted mb-4 text-sm">{{ item.card.description }}</p>
             <div class="text-primary flex items-center gap-1 text-sm font-semibold">
-              <span>En savoir plus</span>
+              <span>{{ home?.activites.cardLink }}</span>
               <UIcon
                 :name="appConfig.ui.icons.arrowRight"
                 class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"

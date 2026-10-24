@@ -1,5 +1,9 @@
 title: Documents
 description: Retrouvez ici tous les documents relatifs au club et aux activités de parachutisme
+# Compteur affiché à côté de chaque catégorie
+count:
+  one: doc
+  other: docs
 helpcta:
   title: Un document manquant ?
   description: Si vous ne trouvez pas le document que vous cherchez, n'hésitez pas à nous contacter !

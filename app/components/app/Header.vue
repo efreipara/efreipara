@@ -3,8 +3,16 @@
 
   const { socials, getSocial } = await useClub()
   const { getIcon } = await useActivities()
-  const { accessibility, accessibilityMenu, activitiesIndex, activities, headerLinks } =
-    await useNavigation()
+  const {
+    accessibility,
+    accessibilityMenu,
+    activitiesIndex,
+    activities,
+    headerLinks,
+    menuButton,
+    colorModeButton,
+  } = await useNavigation()
+  const { labels } = await useLabels()
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
 
@@ -106,7 +114,7 @@
           :to="instagram.url"
           target="_blank"
           :icon="instagram.icon"
-          aria-label="Instagram Efrei Para"
+          :aria-label="fillLabel(labels.socialLink, { name: instagram.name })"
           color="neutral"
           variant="ghost"
           class="rounded-full p-2"
@@ -116,7 +124,7 @@
           :to="discord.url"
           target="_blank"
           :icon="discord.icon"
-          aria-label="Discord Efrei Para"
+          :aria-label="fillLabel(labels.socialLink, { name: discord.name })"
           color="neutral"
           variant="ghost"
           class="rounded-full p-2"
@@ -131,7 +139,7 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <HeaderColorModeButton class="cursor-pointer rounded-full p-2" />
+        <HeaderColorModeButton :labels="colorModeButton" class="cursor-pointer rounded-full p-2" />
       </div>
     </template>
 
@@ -147,9 +155,9 @@
             class="cursor-pointer rounded-full p-2"
           />
         </UDropdownMenu>
-        <HeaderColorModeButton class="cursor-pointer rounded-full p-2" />
+        <HeaderColorModeButton :labels="colorModeButton" class="cursor-pointer rounded-full p-2" />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
-        <HeaderBurgerButton :open="open" @click="toggleMenu" />
+        <HeaderBurgerButton :open="open" :labels="menuButton" @click="toggleMenu" />
       </div>
     </template>
 
@@ -203,7 +211,7 @@
             :to="social.url"
             target="_blank"
             :icon="social.icon"
-            :aria-label="`${social.name} Efrei Para`"
+            :aria-label="fillLabel(labels.socialLink, { name: social.name })"
             color="neutral"
             variant="ghost"
             class="rounded-full p-2"

@@ -7,6 +7,7 @@
   }>()
 
   const { club, getSocial } = await useClub()
+  const { labels } = await useLabels()
   const discord = computed(() => getSocial('discord'))
   const instagram = computed(() => getSocial('instagram'))
 </script>
@@ -54,7 +55,7 @@
           variant="subtle"
           class="rounded-full"
         >
-          Signaler sur GitHub
+          {{ labels.helpCta.github }}
         </UButton>
       </div>
     </div>

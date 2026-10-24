@@ -3,6 +3,7 @@
 
   const appConfig = useAppConfig()
   const { club, getSocial } = await useClub()
+  const { labels } = await useLabels()
 
   const props = defineProps<{
     error: NuxtError
@@ -10,46 +11,15 @@
 
   console.error(props.error)
 
-  // Messages d'erreur personnalisés en français
-  const getCustomErrorMessage = (statusCode: number) => {
-    switch (statusCode) {
-      case 404:
-        return 'Page introuvable'
-      case 500:
-        return 'Erreur interne du serveur'
-      case 403:
-        return 'Accès refusé'
-      case 401:
-        return 'Non autorisé'
-      case 400:
-        return 'Requête incorrecte'
-      default:
-        return 'Une erreur est survenue'
-    }
-  }
-
-  const getCustomErrorDescription = (statusCode: number) => {
-    switch (statusCode) {
-      case 404:
-        return "La page que vous recherchez n'existe pas ou a été déplacée."
-      case 500:
-        return "Une erreur interne s'est produite. Merci de nous le signaler."
-      case 403:
-        return "Vous n'avez pas les permissions nécessaires pour accéder à cette ressource."
-      case 401:
-        return 'Vous devez vous connecter pour accéder à cette page.'
-      case 400:
-        return "La requête envoyée n'est pas valide."
-      default:
-        return "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
-    }
-  }
+  // Titre et explication selon le code (labels.yml), message par défaut sinon
+  const errorMessage = (statusCode: number) =>
+    labels.value.error.messages[String(statusCode)] ?? labels.value.error.messages.default!
 
   // Créer un objet error personnalisé avec les messages en français
   const customError = computed(() => ({
     ...props.error,
-    statusMessage: getCustomErrorMessage(props.error.statusCode || 500),
-    message: getCustomErrorDescription(props.error.statusCode || 500),
+    statusMessage: errorMessage(props.error.statusCode || 500).title,
+    message: errorMessage(props.error.statusCode || 500).description,
   }))
 </script>
 
@@ -65,7 +35,7 @@
     <UError :error="customError">
       <template #links>
         <UButton
-          label="Retour à l'accueil"
+          :label="labels.error.home"
           color="neutral"
           size="lg"
           :icon="appConfig.ui.icons.arrowLeft"
@@ -80,7 +50,7 @@
           variant="link"
           size="lg"
         >
-          Signaler l'erreur
+          {{ labels.error.report }}
         </UButton>
       </template>
     </UError>

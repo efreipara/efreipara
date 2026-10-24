@@ -6,6 +6,7 @@
   const props = defineProps<Props>()
 
   const { club, getSocial } = await useClub()
+  const { labels } = await useLabels()
 
   useSeo(props.slug)
 
@@ -21,7 +22,7 @@
         <ContentRenderer :value="page" />
       </div>
       <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
-        Dernière mise à jour :
+        {{ labels.legal.updatedAt }}
         {{
           new Date(page.updatedAt).toLocaleDateString('fr-FR', {
             year: 'numeric',

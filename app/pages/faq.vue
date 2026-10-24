@@ -31,10 +31,7 @@
 
 <template>
   <div>
-    <SharedPageHero
-      :title="faqData?.title || 'Questions Fréquentes'"
-      :description="faqData?.description"
-    />
+    <SharedPageHero :title="faqData?.title" :description="faqData?.description" />
 
     <UContainer class="pb-16">
       <SharedCategoryChips :categories="categoriesData" />
@@ -51,7 +48,7 @@
               :name="category.name"
               :icon="category.icon"
               :color="category.color"
-              :count="`${category.questions.length} question${category.questions.length > 1 ? 's' : ''}`"
+              :count="faqData?.count ? countLabel(category.questions.length, faqData.count) : ''"
               class="mb-4"
             />
 

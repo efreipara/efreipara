@@ -2,6 +2,8 @@ hero:
   title: Nos albums photos
   description: Revivez nos événements en images
   linkLabel: Voir l'album
+  linkSourceLabel: Voir l'album sur {source}
+  allLabel: Tout voir
 
 # Icônes de la date et du lieu sur chaque album
 albumIcons:

@@ -42,6 +42,7 @@ export const collections = {
         }),
       ),
       activites: z.object({
+        cardLink: z.string(),
         link: z.object({
           label: z.string(),
           to: z.string(),
@@ -65,6 +66,8 @@ export const collections = {
         title: z.string(),
         description: z.string(),
         linkLabel: z.string(),
+        linkSourceLabel: z.string(),
+        allLabel: z.string(),
       }),
       albumIcons: z.object({ date: z.string(), location: z.string() }),
       items: z.array(
@@ -143,6 +146,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
+      count: z.object({ one: z.string(), other: z.string() }),
       helpcta: helpCta.optional(),
       categories: z.array(
         z.object({
@@ -176,6 +180,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
+      count: z.object({ one: z.string(), other: z.string() }),
       helpcta: helpCta.optional(),
       categories: z.array(
         z.object({
@@ -276,6 +281,23 @@ export const collections = {
         registerIcon: z.string(),
         info: z.string(),
         close: z.string(),
+      }),
+      socialLink: z.string(),
+      activity: z.object({
+        goTo: z.string(),
+        features: z.string(),
+        steps: z.string(),
+        requirements: z.string(),
+        partners: z.string(),
+      }),
+      helpCta: z.object({ github: z.string() }),
+      legal: z.object({ updatedAt: z.string() }),
+      error: z.object({
+        home: z.string(),
+        report: z.string(),
+        messages: z
+          .record(z.object({ title: z.string(), description: z.string() }))
+          .refine((messages) => 'default' in messages, 'message `default` manquant'),
       }),
     }),
   },
@@ -401,7 +423,19 @@ export const collections = {
         club: z.string(),
         social: z.string(),
         legal: z.string(),
+        copyright: z.string(),
+        code: z.object({
+          label: z.string(),
+          changelog: z.string(),
+          license: z.string(),
+          url: z.string().url(),
+        }),
+        content: z.object({ label: z.string(), license: z.string(), url: z.string().url() }),
+        media: z.string(),
+        school: z.object({ label: z.string(), url: z.string().url() }),
       }),
+      menuButton: z.object({ open: z.string(), close: z.string() }),
+      colorModeButton: z.object({ light: z.string(), dark: z.string() }),
       legal: z.array(
         z.object({
           label: z.string(),

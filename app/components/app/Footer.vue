@@ -1,6 +1,7 @@
 <script setup lang="ts">
   const { socials, club } = await useClub()
   const { version } = useAppConfig()
+  const { labels } = await useLabels()
   const { activitiesIndex, activities, footerPages, footerLegal, footerTitles } =
     await useNavigation()
 
@@ -61,32 +62,32 @@
         <p class="text-muted text-sm">
           &copy; {{ new Date().getFullYear() }}
           <UIcon name="efreipara:parachute" class="mx-1 h-3 w-3" />
-          Efrei Para
+          {{ footerTitles.copyright }}
         </p>
         <p class="text-muted text-sm">
-          Code source
+          {{ footerTitles.code.label }}
           <a
             :href="`${club.github.repo}/blob/main/CHANGELOG.md`"
             target="_blank"
-            :aria-label="`v${version}, historique des versions`"
+            :aria-label="fillLabel(footerTitles.code.changelog, { version })"
             class="text-xs"
           >
             (v{{ version }})
           </a>
           :
-          <a href="https://opensource.org/license/MIT">MIT</a>
+          <a :href="footerTitles.code.url">{{ footerTitles.code.license }}</a>
         </p>
         <p class="text-muted text-sm">
-          Contenus :
-          <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-            CC BY-NC 4.0 (sauf mention contraire)
+          {{ footerTitles.content.label }}
+          <a :href="footerTitles.content.url">
+            {{ footerTitles.content.license }}
             <UIcon name="creativecommons:cc" class="ml-0.5 h-4 w-4" />
             <UIcon name="creativecommons:by" class="ml-0.5 h-4 w-4" />
             <UIcon name="creativecommons:nc" class="ml-0.5 h-4 w-4" />
           </a>
         </p>
         <p class="text-muted text-sm">
-          Photos, vidéos & logos : Tous droits réservés / All rights reserved.
+          {{ footerTitles.media }}
         </p>
       </div>
     </template>
@@ -94,9 +95,9 @@
     <!-- Section droite : Boutons des réseaux sociaux -->
     <template #right>
       <UButton
-        to="https://www.efrei.fr"
+        :to="footerTitles.school.url"
         target="_blank"
-        aria-label="Efrei"
+        :aria-label="footerTitles.school.label"
         color="neutral"
         variant="ghost"
         class="text-muted rounded-full p-2"
@@ -114,7 +115,7 @@
         :to="social.url"
         target="_blank"
         :icon="social.icon"
-        :aria-label="`${social.name} Efrei Para`"
+        :aria-label="fillLabel(labels.socialLink, { name: social.name })"
         color="neutral"
         variant="ghost"
         class="text-muted rounded-full p-2"

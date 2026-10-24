@@ -2,7 +2,7 @@
   const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
   const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
-  const { data: labels } = await useAsyncData('labels', () => queryCollection('labels').first())
+  const { labels } = await useLabels()
 
   const bannerId = computed(() => getEventBannerId())
   const isBannerClosed = ref(false)
@@ -41,16 +41,16 @@
             :title="event.title"
             :actions="[
               {
-                label: labels?.banner.register,
+                label: labels.banner.register,
                 to: event.url,
                 target: '_blank',
                 size: 'sm',
                 variant: 'subtle',
-                trailingIcon: labels?.banner.registerIcon,
+                trailingIcon: labels.banner.registerIcon,
                 class: 'rounded-full',
               },
               {
-                label: labels?.banner.info,
+                label: labels.banner.info,
                 to: getEventInfoUrl(event.type),
                 size: 'sm',
                 variant: 'ghost',
@@ -85,7 +85,7 @@
                 color="neutral"
                 variant="ghost"
                 size="sm"
-                :aria-label="labels?.banner.close"
+                :aria-label="labels.banner.close"
                 class="cursor-pointer rounded-full"
                 @click="handleClose"
               />

@@ -36,7 +36,11 @@
               :icon="category.icon || appConfig.ui.icons.folder"
               :color="category.color"
               :description="category.description"
-              :count="`${category.documents.length} doc${category.documents.length > 1 ? 's' : ''}`"
+              :count="
+                documentsData?.count
+                  ? countLabel(category.documents.length, documentsData.count)
+                  : ''
+              "
               class="mb-6"
             />
 

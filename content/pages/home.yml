@@ -35,6 +35,7 @@ stats:
     icon: tabler:calendar
 
 activites:
+  cardLink: En savoir plus
   link:
     label: Découvrir toutes nos activités en détail
     to: /activites

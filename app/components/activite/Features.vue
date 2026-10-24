@@ -6,11 +6,15 @@
     label: string
     features: { title: string; description: string; icon: string }[]
   }>()
+
+  const { labels } = await useLabels()
 </script>
 
 <template>
   <UContainer class="py-12" :class="activityClass(activite)">
-    <h2 class="font-title mb-8 text-2xl font-bold">Pourquoi choisir {{ label }} ?</h2>
+    <h2 class="font-title mb-8 text-2xl font-bold">
+      {{ fillLabel(labels.activity.features, { label }) }}
+    </h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       <UPageFeature
         v-for="feature in features"
