@@ -93,7 +93,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Appui
 
-- Tout élément pressable s'enfonce légèrement à l'appui : `active:scale-[0.97]` pour les boutons (réglé pour tous les `UButton` dans `app.config.ts`, `ui.button.slots.base`), `active:scale-[0.98]` pour les cartes (`ui.root` des `UPageCard`, albums de la galerie).
+- Tout élément pressable s'enfonce légèrement à l'appui : `active:scale-[0.97]` pour les boutons (réglé pour tous les `UButton` dans `app.config.ts`, `ui.button.slots.base`) et pour le logo et les liens du menu de l'en-tête (`ui.title` de `UHeader`, `ui.link` de `UNavigationMenu`), `active:scale-[0.98]` pour les cartes et les éléments larges (`ui.root` des `UPageCard`, albums de la galerie, tuiles du sous-menu « Nos activités », lignes du menu mobile). Associer `transition` (et non `transition-colors`) pour que l'enfoncement soit animé.
 - Transition de 150 à 200 ms qui inclut `scale` (`transition`, ou `transition-transform` sur un lien simple). Les effets de survol Tailwind ne s'appliquent qu'aux appareils à pointeur : rien ne reste bloqué après un appui sur mobile.
 
 ### Liens et survol
