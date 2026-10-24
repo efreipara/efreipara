@@ -17,7 +17,15 @@ dist
 
 # Variables d'environnement locales et fichiers d'éditeur
 .env
+.env.*
+!.env.example
 .vscode
+
+# Rapports de test et fichiers Claude Code
+test-results
+playwright-report
+.claude
+CLAUDE.local.md
 
 # Fichiers temporaires et logs locaux
 *.log

@@ -160,9 +160,9 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 ### Dockerfile
 
 - **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN` passés en variables d'environnement, puis `bun run generate`.
-- **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web.
-- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `assets/` (bannière du README).
-- `bun run docker:build` construit l'image en local à partir du `.env`.
+- **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web. `HEALTHCHECK` : `wget` sur `/` toutes les 30 s.
+- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code et `assets/` (bannière du README).
+- `bun run docker:build` construit l'image en local à partir du `.env`, chargé par `set -a && . ./.env` (commentaires acceptés).
 
 ### nginx
 

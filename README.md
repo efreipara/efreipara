@@ -64,13 +64,13 @@ La documentation détaillée du projet est dans le dossier [`docs/`](docs/) :
 
 Ce projet utilise les technologies et modules suivants :
 
-- **[Bun](https://bun.sh)** - Runtime JavaScript rapide pour le développement et la production
-- **[Nuxt](https://nuxt.com)** - Framework Vue.js full-stack
+- **[Bun](https://bun.sh)** - Gestion des paquets, scripts et génération du site
+- **[Nuxt](https://nuxt.com)** - Framework Vue.js, utilisé en génération statique (`nuxt generate`)
 - **[Nuxt UI](https://ui.nuxt.com)** - Bibliothèque de composants UI
 - **[Nuxt Content](https://content.nuxt.com)** - Gestion de contenu basée sur les fichiers
 - **[Plausible Analytics](https://plausible.io)** - Analytiques respectueuses de la vie privée
 - **[TailwindCSS](https://tailwindcss.com)** - Framework CSS utility-first
-- **[Nginx](https://www.nginx.com)** - Serveur web pour la production
+- **[Nginx](https://www.nginx.com)** - Sert le site généré en production
 - **[Docker](https://www.docker.com)** - Conteneurisation pour le déploiement
 
 #### Librairies d'icônes
@@ -80,10 +80,12 @@ Le projet utilise [@nuxt/icon](https://github.com/nuxt/icon) avec les collection
 - **[Tabler Icons](https://icon-sets.iconify.design/tabler/)** (`@iconify-json/tabler`) - Collection d'icônes moderne et légère
 - **[Simple Icons](https://icon-sets.iconify.design/simple-icons/)** (`@iconify-json/simple-icons`) - Icônes de marques et logos populaires
 
-Mais aussi des icônes personnalisées ajoutées dans le dossier `assets/icons/`, comme :
+Mais aussi des icônes personnalisées ajoutées dans le dossier `app/assets/icons/` :
 
 - Logos Efrei Para
 - Logo Efrei
+- Logo iFly
+- Pictogrammes Creative Commons
 
 ### Installation et démarrage
 
@@ -153,7 +155,7 @@ PLAUSIBLE_URL=https://...
 PLAUSIBLE_DOMAIN=...
 ```
 
-#### Pour Docker Compose
+#### Pour l'image Docker
 
 Le fichier `.env.example` contient toutes les variables nécessaires. Copiez-le vers `.env` et modifiez les valeurs selon votre environnement :
 
@@ -161,7 +163,7 @@ Le fichier `.env.example` contient toutes les variables nécessaires. Copiez-le 
 cp .env.example .env
 ```
 
-Les variables d'environnement sont injectées au moment du build Docker via `build args`, ce qui permet de générer une version statique optimisée avec les bons URLs
+`bun run docker:build` lit le `.env` et passe les variables en `build args` : elles sont figées dans le site généré au moment du build, et `CDN_URL` et `PLAUSIBLE_URL` servent aussi à la CSP de nginx au démarrage du conteneur.
 
 ## ✏️ Pour les éditeurs de contenu
 
@@ -176,7 +178,7 @@ Tous les textes du site sont éditables. Les plus courants :
 - **Prochain événement** : `content/global/next-event.yml` - Bannière en haut du site
 - **Galerie** : `content/pages/galerie.yml` - Albums photos
 - **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
-- **Documents** : `content/pages/documents.yml` - Liste des documents téléchargeables
+- **Documents** : `content/pages/documents.yml` - Liens vers les documents utiles
 - **Activités** : `content/pages/activites/*.yml` - Une page par activité, et tout ce qui la présente ailleurs (menu, accueil, galerie)
 - **Coordonnées et réseaux** : `content/global/club.yml` - E-mail, adresse, Discord, Instagram…
 - **Règlement** : `content/pages/legal/reglement.md` - Règlement intérieur du club
