@@ -36,21 +36,12 @@
     <!-- Colonnes de navigation du footer -->
     <template #top>
       <UContainer>
+        <!-- Slots left / right inutilisés : pas de grille xl à trois colonnes, colonnes en grille simple -->
         <UFooterColumns
           :columns="columns"
           :ui="{
-            root: 'lg:grid lg:grid-cols-2 lg:gap-8 xl:grid-cols-2 xl:gap-8',
-            left: 'mb-10 lg:mb-0',
-            center:
-              'flex-col md:grid auto-cols-fr md:col-span-2 lg:col-span-2 text-center md:text-left grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:col-span-2 sm:max-md:[&>div:nth-child(odd)]:text-end sm:max-md:[&>div:nth-child(odd)_a]:justify-end sm:max-md:[&>div:nth-child(even)]:text-start sm:max-md:[&>div:nth-child(even)_a]:justify-start md:max-lg:[&>div]:text-center md:max-lg:[&>div_a]:justify-center',
-            right: 'mt-10 lg:mt-0',
-            label: 'text-sm font-semibold',
-            list: 'mt-6 space-y-4',
-            item: 'relative',
-            link: 'group text-sm flex items-center justify-center md:justify-start gap-1.5 focus-visible:outline-primary',
-            linkLeadingIcon: 'size-5 shrink-0',
-            linkLabel: 'truncate',
-            linkLabelExternalIcon: 'size-3 absolute top-0 text-dimmed inline-block',
+            root: 'xl:block',
+            center: 'grid grid-flow-row grid-cols-2 gap-8 lg:grid-cols-4',
           }"
         />
       </UContainer>

@@ -44,7 +44,7 @@ Au-dessus de l'en-tête, une bannière annonce le prochain événement (`next-ev
 
 ### Pied de page
 
-- Quatre colonnes : **Activités** (page des activités + les quatre activités), **Club** (toutes les pages de `navigation.yml`, dont Nous contacter), **Réseaux** (Discord, Instagram, LinkedIn, Bento, GitHub), **Légal** (Mentions légales, Règlement, RGPD, Statut du site — ce dernier dans un nouvel onglet).
+- Quatre colonnes (deux par ligne sur téléphone, alignées à gauche) : **Activités** (page des activités + les quatre activités), **Club** (toutes les pages de `navigation.yml`, dont Nous contacter), **Réseaux** (Discord, Instagram, LinkedIn, Bento, GitHub), **Légal** (Mentions légales, Règlement, RGPD, Statut du site — ce dernier dans un nouvel onglet).
 - À gauche : copyright de l'année en cours et licences (code source sous MIT, avec le numéro de version discret entre parenthèses après « Code source » — lien vers l'historique des versions, nouvel onglet —, contenus CC BY-NC 4.0, photos, vidéos et logos tous droits réservés).
 - À droite : logo Efrei (lien vers efrei.fr) et icônes des réseaux.
 
