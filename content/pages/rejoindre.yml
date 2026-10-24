@@ -13,7 +13,7 @@ options:
     icon: tabler:users-group
     link: https://forms.gle/1kAbhqg7K1HSAoE19
     linkText: Remplir le formulaire
-    color: text-efreipara-tandem
+    type: tandem
     slug: devenir-membre
     ogImage: /seo/devenir-membre.png
   - title: Rejoindre le bureau
@@ -21,7 +21,7 @@ options:
     icon: tabler:crown
     link: https://forms.gle/Xz3DZBcAFBhqSkJ48
     linkText: Candidater
-    color: text-efreipara-oa
+    type: oa
     slug: rejoindre-bureau
     ogImage: /seo/rejoindre-bureau.png
 
@@ -31,12 +31,12 @@ why:
     - title: Activités uniques
       description: Sauts en parachute, soufflerie et formations
       icon: tabler:parachute
-      class: text-efreipara-tandem
+      type: tandem
     - title: Communauté passionnée
       description: Rencontre des personnes partageant ta passion
       icon: tabler:users
-      class: text-efreipara-oa
+      type: oa
     - title: Expériences inoubliables
       description: Crée des souvenirs qui durent toute une vie
       icon: tabler:star
-      class: text-efreipara-soufflerie
+      type: soufflerie

@@ -49,7 +49,7 @@
       option && form
         ? {
             icon: option.icon,
-            iconColor: option.color,
+            iconColor: `${activityClass(option.type)} text-activity`,
             title: option.title,
             redirectText: form.redirectText,
             buttonLabel: form.buttonLabel,

@@ -7,8 +7,6 @@
   const discord = computed(() => getSocial('discord'))
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
-
-  const activityOf = (colorClass: string) => colorClass.replace('text-efreipara-', '')
 </script>
 
 <template>
@@ -61,7 +59,7 @@
           target="_blank"
           :title="option.title"
           class="group"
-          :class="activityClass(activityOf(option.color))"
+          :class="activityClass(option.type)"
           :ui="{
             root: 'hover:bg-default overflow-hidden rounded-2xl duration-200 hover:shadow-lg active:scale-[0.98]',
             container: 'gap-0 p-0 sm:p-0 lg:flex',
@@ -110,7 +108,7 @@
             variant="soft"
             class="bg-muted/40 rounded-2xl"
             :ui="{ body: 'flex flex-col items-center p-8 text-center sm:p-8' }"
-            :class="activityClass(activityOf(feature.class))"
+            :class="activityClass(feature.type)"
           >
             <div class="bg-tint-10 mb-5 flex size-14 items-center justify-center rounded-2xl">
               <UIcon :name="feature.icon" class="text-activity size-7" />
