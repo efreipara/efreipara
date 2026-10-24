@@ -9,7 +9,7 @@
 - Conséquence sur le code : une règle qui mérite un test (calcul, tri, filtre, règle d'affichage) est écrite comme une fonction pure dans `app/utils/`, puis appelée par le composant ou le composable ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)). Une règle enfouie dans un composant n'est pas testable ici.
 - **Playwright** pour le **site généré** : pages, erreurs, redirections, interactions et audit d'accessibilité (axe), sur Brave, en desktop et en mobile. Les composants sont testés à travers les pages, pas isolément.
 - Nuxt Content ne valide pas le contenu contre ses schémas au build : ce sont les tests de contenu qui le font, avec les icônes, les liens et la cohérence ([CONTENT.md](CONTENT.md#vérifier-le-contenu)).
-- Pas de script `typecheck` ni de CI : les vérifications se font en local.
+- Types vérifiés par `vue-tsc` (`bun run typecheck`). Pas de CI : les vérifications se font en local.
 
 ## Organisation
 
@@ -57,6 +57,7 @@ Dans cet ordre, tout doit passer :
 
 ```bash
 bun run lint
+bun run typecheck
 bun run test
 bun run generate     # relire le journal : les erreurs de prérendu ne font pas échouer le build
 bun run test:e2e

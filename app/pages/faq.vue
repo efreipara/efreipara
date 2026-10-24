@@ -9,6 +9,7 @@
   }
 
   const { getCategoryColor } = useCategoryColor()
+  const appConfig = useAppConfig()
 
   const categoriesData = computed(() => {
     if (!faqData.value?.categories) return []
@@ -16,7 +17,7 @@
       return {
         name: category.name,
         color: category.color,
-        icon: category.questions[0]?.icon,
+        icon: category.questions[0]?.icon ?? appConfig.ui.icons.info,
         questions: category.questions.map((question, i) => ({
           label: question.question,
           content: question.answer,

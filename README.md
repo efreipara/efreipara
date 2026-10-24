@@ -119,6 +119,9 @@ bun dev
 # Linter le code
 bun lint
 
+# Vérifier les types (vue-tsc)
+bun run typecheck
+
 # Pour formatter le code avec Prettier
 bun format
 
