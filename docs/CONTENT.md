@@ -13,6 +13,8 @@ Ce qui n'est pas dans `content/` :
 - **`app/app.config.ts`** : le thème Nuxt UI seulement (couleurs, réglages globaux des composants). Coordonnées, réseaux, icônes et options d'une page sont dans `content/`.
 - les noms des marques et logos (Efrei Para, Efrei, iFly), qui sont des icônes.
 
+**Une option écrite dans le contenu est lue par sa page.** Un champ qu'aucune page n'affiche est un oubli de la page, qu'on corrige en le branchant, pas en le supprimant. Une même valeur ne s'écrit qu'à un endroit : au plus près de la page qui l'affiche.
+
 Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, ou dans `labels.yml` pour un composant commun à plusieurs pages. Un libellé qui contient `{nom}` est complété par le code (`fillLabel`), un compteur a ses deux formes (`one`, `other`, lues par `countLabel`).
 
 ## Collections
@@ -41,7 +43,7 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 ### Points notables par collection
 
 - **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. Les activités du menu viennent de leurs fichiers (`menu`). `footer` donne les titres des colonnes, puis le copyright, les licences (`code`, `content`, avec `{version}` dans `code.changelog`), `media` et le lien `school` ; `menuButton` et `colorModeButton` sont les libellés des boutons de l'en-tête. `accessibilityMenu` règle le bouton du menu d'accessibilité (`label`, `icon`, `activeIcon` quand une option est active) ; `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
-- **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
+- **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée, sauf si son propre fichier porte ses options SEO (pages légales, options de `rejoindre.yml`) : jamais aux deux endroits (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
 - **`home`** : `activites.cardLink` (« En savoir plus » des cartes d'activité) ; `hero.links` (boutons sous la phrase d'accroche) et `hero.scrollIcon` (flèche vers le bas) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`).
@@ -52,13 +54,13 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`documents`** : `count` (`one`, `other` : « 3 docs ») ; catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon).
 - **`faq`** : `count` (`one`, `other`) ; catégories (`name`, `color`, `questions[]`) ; une question a `question`, `answer`, `icon` (obligatoire ; l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`).
 - **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta` : `title`, `description`, `icon`, `buttons` ⊂ `discord`, `instagram`, `github` (libellés et liens tirés de `club`).
-- **`rejoindre`** : `options[].slug` (`devenir-membre`, `rejoindre-bureau`) est à la fois le nom de la route de redirection et celui de la photo sur le CDN ; `link` est le formulaire externe ; `options[].type` et `why.features[].type` sont des clés d'activité qui donnent la teinte.
+- **`rejoindre`** : `options[].slug` (`devenir-membre`, `rejoindre-bureau`) est à la fois le nom de la route de redirection et celui de la photo sur le CDN ; `link` est le formulaire externe ; `options[].type` et `why.features[].type` sont des clés d'activité qui donnent la teinte. `title`, `description` et `ogImage` d'une option sont le SEO de sa page de redirection.
 - **`club`** : `socials[]` (`key`, `name`, `icon`, `url`) dans l'ordre d'affichage, la `key` sert à retrouver un réseau (`discord`, `instagram`, `github`…) ; `address` est écrite une fois, les liens Google Maps, Apple Plans et Waze en sont calculés (`mapUrls`) ; `github.repo` (historique des versions) et `github.issues` (signalement).
 - **`contact`** : chaque bloc a son `icon` ; `address.buttons.<carte>` a `label` et `icon`. Les adresses viennent de `club`.
 - **`labels`** : `banner` (`register`, `registerIcon`, `info`, `close`) ; `socialLink` (`{name}`) ; `activity` (`goTo` et `features` avec `{label}`, `steps`, `requirements`, `partners`) ; `helpCta.github` ; `legal.updatedAt` ; `error` (`home`, `report`, `messages` par code HTTP, dont `default` obligatoire).
 - **`qr`** : `alt` du QR code, `home` (`label`, `icon` du bouton vers l'accueil), `fullscreen` (`enterLabel`, `exitLabel`, `enterIcon`, `exitIcon`) ; les libellés sont lus par les lecteurs d'écran.
 - **`redirects`** : textes des pages de redirection ; les cibles viennent de `club.yml` (Discord, Instagram) ou de `rejoindre.options[].link`.
-- **`legal`** : front-matter `title`, `description`, `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
+- **`legal`** : front-matter `title` et `description` (titre et description SEO de la page, absente de `seo.yml`), `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown.
 
 ## Formats acceptés
 
@@ -126,7 +128,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), et chaque fichier de `content/` appartient à une collection ;
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
 - chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
-- chaque page a son entrée dans `seo.yml`, et chaque image de partage existe ;
+- chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;
 - chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma ; chaque option de « Nous rejoindre » a sa redirection prérendue.
 
 Le message d’échec donne le fichier et le chemin du champ en cause.

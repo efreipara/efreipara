@@ -87,3 +87,26 @@ describe('buildSeoMeta', () => {
     expect(buildSeoMeta(seoData, 'index').htmlLang).toBe('fr')
   })
 })
+
+describe('buildSeoMeta avec les options de la page', () => {
+  it('les options de la page l’emportent sur seo.yml', () => {
+    const meta = buildSeoMeta(seoData, 'activites-tandem', {
+      title: 'Saut en tandem',
+      ogImage: '/seo/autre.png',
+    })
+    expect(meta.title).toBe('Saut en tandem - Efrei Para')
+    expect(meta.description).toBe('Saut')
+    expect(meta.ogImage).toBe('/seo/autre.png')
+  })
+
+  it('une page absente de seo.yml prend ses options et les valeurs par défaut', () => {
+    const meta = buildSeoMeta(seoData, 'rgpd', { title: 'RGPD', description: 'Données' })
+    expect(meta.title).toBe('RGPD - Efrei Para')
+    expect(meta.description).toBe('Données')
+    expect(meta.ogImage).toBe('/seo/efreipara.png')
+  })
+
+  it('ignore une option vide', () => {
+    expect(buildSeoMeta(seoData, 'faq', { title: undefined }).title).toBe('FAQ - Efrei Para')
+  })
+})

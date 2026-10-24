@@ -67,6 +67,15 @@
 
   const { icon, iconColor, title, redirectText, buttonLabel, url } = redirect
 
+  // Une option de « Nous rejoindre » porte son titre, sa description et son image de partage
+  const option = rejoindreData.value?.options.find((o) => o.slug === key)
+  if (option)
+    useSeo(key, {
+      title: option.title,
+      description: option.description,
+      ogImage: option.ogImage,
+    })
+
   // Redirection immédiate vers l'URL cible
   // En dev, ajouter ?noRedirect à l'URL pour inspecter la page sans être redirigé
   const route = useRoute()

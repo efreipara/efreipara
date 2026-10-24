@@ -2,17 +2,22 @@
  * Composable pour gérer le SEO de manière centralisée
  *
  * @example
- * // Dans une page ou app.vue
- * useSeo(computed(() => route.path))
+ * // app.vue : seo.yml, pour toutes les pages
+ * useSeo(computed(() => seoKeyFromPath(route.path)))
+ * // Page dont le fichier porte ses propres options : appelée après app.vue, elle l'emporte
+ * useSeo(slug, () => ({ title: page.value?.title, description: page.value?.description }))
  */
 
-export const useSeo = (pageKey: MaybeRefOrGetter<string>) => {
+export const useSeo = (
+  pageKey: MaybeRefOrGetter<string>,
+  overrides: MaybeRefOrGetter<SeoOverrides> = {},
+) => {
   // Récupération des données SEO depuis le fichier seo.yml
   const { data: seoData, status } = useAsyncData('seo', () => queryCollection('seo').first())
 
   // Computed pour les métadonnées (réactif mais exécuté immédiatement en SSR)
   const seoMeta = computed(() =>
-    seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey)) : null,
+    seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides)) : null,
   )
 
   // Application des métadonnées SEO

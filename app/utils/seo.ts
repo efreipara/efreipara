@@ -12,8 +12,18 @@ export interface SeoData {
     author: string
     robots?: string
   }
-  pages: Record<string, { title: string; description: string; ogImage?: string; robots?: string }>
+  pages: Record<string, SeoPage>
 }
+
+export interface SeoPage {
+  title: string
+  description: string
+  ogImage?: string
+  robots?: string
+}
+
+// Options SEO portées par le fichier de contenu d'une page (front-matter légal, option de « Nous rejoindre »)
+export type SeoOverrides = Partial<SeoPage>
 
 // `/` → `index`, `/activites/tandem` → `activites-tandem` (clés de seo.yml)
 export const seoKeyFromPath = (path: string) =>
@@ -24,10 +34,12 @@ export const buildCanonicalUrl = (baseUrl: string, key: string) =>
     ? `${baseUrl}${key === 'index' ? '' : '/' + key.replace('activites-', 'activites/')}`
     : undefined
 
-// Fusion defaults < page
-export const buildSeoMeta = (seoData: SeoData, key: string) => {
+// Fusion defaults < seo.yml › pages.<clé> < options de la page (valeurs absentes ignorées)
+export const buildSeoMeta = (seoData: SeoData, key: string, overrides: SeoOverrides = {}) => {
   const defaults = seoData.defaults
-  const pageSeo = seoData.pages[key]
+  const pageSeo: Partial<SeoPage> = { ...seoData.pages[key] }
+  for (const [field, value] of Object.entries(overrides) as [keyof SeoPage, string | undefined][])
+    if (value) pageSeo[field] = value
 
   const title = pageSeo?.title || defaults.siteName
   const description = pageSeo?.description || ''

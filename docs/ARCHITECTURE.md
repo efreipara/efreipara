@@ -129,8 +129,8 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ## SEO
 
-- `app.vue` appelle `useSeo` avec une clé tirée du chemin : `/` → `index`, sinon le chemin sans `/` initial, les `/` remplacés par `-` (`/activites/tandem` → `activites-tandem`). `LegalPage` l'appelle aussi avec son slug.
-- `useSeo` fusionne `seo.yml` (`defaults` puis `pages.<clé>`) : titre « {page} - Efrei Para » (accueil : nom seul), description, OpenGraph, Twitter, `robots` (page, sinon `defaults.robots`, sinon `index, follow`), `lang`, `theme-color`, lien canonique (`baseUrl` + chemin, `activites-` redevient `activites/`).
+- `app.vue` appelle `useSeo` avec une clé tirée du chemin : `/` → `index`, sinon le chemin sans `/` initial, les `/` remplacés par `-` (`/activites/tandem` → `activites-tandem`). Une page dont le fichier de contenu porte ses propres options SEO l'appelle aussi, avec ces options (`useSeo(clé, options)`) : `LegalPage` (titre et description du front-matter), `RedirectPage` pour une option de « Nous rejoindre » (`title`, `description`, `ogImage`). Appelée après celle d'`app.vue`, sa déclaration l'emporte dans Unhead et disparaît avec la page.
+- `useSeo` fusionne `seo.yml` (`defaults` puis `pages.<clé>`), puis les options de la page (`buildSeoMeta`, une valeur vide est ignorée) : titre « {page} - Efrei Para » (accueil : nom seul), description, OpenGraph, Twitter, `robots` (page, sinon `defaults.robots`, sinon `index, follow`), `lang`, `theme-color`, lien canonique (`baseUrl` + chemin, `activites-` redevient `activites/`).
 - Images OpenGraph dans `public/seo/`. `baseUrl` est écrit dans `seo.yml` : le canonique pointe toujours vers la production, quel que soit l'environnement.
 - Seule l'accueil est destinée aux moteurs de recherche : `public/robots.txt` n'autorise que la racine, et `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`).
 

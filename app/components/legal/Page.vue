@@ -8,11 +8,12 @@
   const { club, getSocial } = await useClub()
   const { labels } = await useLabels()
 
-  useSeo(props.slug)
-
   const { data: page } = await useAsyncData(props.slug, () =>
     queryCollection('legal').where('stem', '=', `pages/legal/${props.slug}`).first(),
   )
+
+  // Titre et description du front-matter
+  useSeo(props.slug, () => ({ title: page.value?.title, description: page.value?.description }))
 </script>
 
 <template>

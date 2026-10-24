@@ -6,6 +6,7 @@ import {
   readContent,
   readYaml,
   siteRoutes,
+  sourceFiles,
   walk,
 } from './helpers'
 
@@ -33,13 +34,37 @@ describe('SEO', () => {
     pages: Record<string, { ogImage?: string }>
   }>('global/seo.yml')
 
-  it('chaque page a son entrée dans seo.yml', () => {
-    const missing = [...routes].filter((route) => !seo.pages[seoKeyFromPath(route)])
+  // Pages dont le fichier de contenu porte le SEO : front-matter légal, options de « Nous rejoindre »
+  const legal = sourceFiles('pages/legal/*.md').map((file) => ({
+    key: file.replace('pages/legal/', '').replace('.md', ''),
+    seo: readContent(file) as { title?: string; description?: string },
+  }))
+  const options = readYaml<{
+    options: { slug: string; title: string; description: string; ogImage: string }[]
+  }>('pages/rejoindre.yml').options
+  const ownSeo = new Set([
+    ...legal.filter((page) => page.seo.title && page.seo.description).map((page) => page.key),
+    ...options.map((option) => option.slug),
+  ])
+
+  it('chaque page a son SEO, dans seo.yml ou dans son propre fichier', () => {
+    const missing = [...routes].filter((route) => {
+      const key = seoKeyFromPath(route)
+      return !seo.pages[key] && !ownSeo.has(key)
+    })
     expect(missing).toEqual([])
   })
 
+  it('une page ne déclare pas son SEO à deux endroits', () => {
+    expect([...ownSeo].filter((key) => seo.pages[key])).toEqual([])
+  })
+
   it('chaque image de partage existe dans public/', () => {
-    const images = [seo.defaults.ogImage, ...Object.values(seo.pages).map((p) => p.ogImage)]
+    const images = [
+      seo.defaults.ogImage,
+      ...Object.values(seo.pages).map((p) => p.ogImage),
+      ...options.map((option) => option.ogImage),
+    ]
     const missing = images.filter((img): img is string => !!img && !publicFileExists(img))
     expect(missing).toEqual([])
   })
