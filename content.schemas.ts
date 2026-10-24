@@ -400,6 +400,7 @@ export const collections = {
     type: 'data' as const,
     source: 'global/navigation.yml',
     schema: z.object({
+      logo: z.object({ label: z.string() }),
       accessibilityMenu: z.object({ label: z.string(), icon: z.string(), activeIcon: z.string() }),
       accessibility: z.array(
         z.object({

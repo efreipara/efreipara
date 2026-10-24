@@ -1,11 +1,18 @@
 import { readYaml } from '../content/helpers'
 import { expect, gotoReady, test, visible } from './fixtures'
 
-const accessibilityMenu = readYaml<{ accessibilityMenu: { label: string } }>(
+const navigation = readYaml<{ accessibilityMenu: { label: string }; logo: { label: string } }>(
   'global/navigation.yml',
-).accessibilityMenu.label
+)
+const accessibilityMenu = navigation.accessibilityMenu.label
 
 test.describe('navigation', () => {
+  test('le logo de l’en-tête mène à l’accueil et porte le nom du site', async ({ page }) => {
+    await gotoReady(page, '/faq')
+    const logo = page.getByRole('banner').getByRole('link', { name: navigation.logo.label })
+    await expect(logo).toHaveAttribute('href', '/')
+  })
+
   test('le menu Activités mène à une activité (desktop)', async ({ page, isMobile }) => {
     test.skip(isMobile, 'menu desktop')
     await gotoReady(page, '/')

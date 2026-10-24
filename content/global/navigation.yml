@@ -1,3 +1,7 @@
+# Lien du logo vers l’accueil (nom lu par les lecteurs d’écran)
+logo:
+  label: Efrei Para, accueil
+
 activitiesIndex:
   label: Nos activités
   to: /activites

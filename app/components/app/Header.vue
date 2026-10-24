@@ -4,6 +4,7 @@
   const { socials, getSocial } = await useClub()
   const { getIcon } = await useActivities()
   const {
+    logo,
     accessibility,
     accessibilityMenu,
     activitiesIndex,
@@ -57,7 +58,7 @@
 </script>
 
 <template>
-  <UHeader>
+  <UHeader :title="logo.label">
     <template #title>
       <Icon name="efreipara:logo" class="text-efreipara ml-2 h-12 w-32 dark:hidden" />
       <Icon name="efreipara:logo-color" class="ml-2 hidden h-12 w-32 dark:block" />

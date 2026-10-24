@@ -5,6 +5,7 @@ export const useNavigation = async () => {
     useActivities(),
   ])
 
+  const logo = computed(() => data.value!.logo)
   const accessibility = computed(() => data.value!.accessibility)
   const accessibilityMenu = computed(() => data.value!.accessibilityMenu)
   const activitiesIndex = computed(() => data.value!.activitiesIndex)
@@ -26,6 +27,7 @@ export const useNavigation = async () => {
   const colorModeButton = computed(() => data.value!.colorModeButton)
 
   return {
+    logo,
     accessibility,
     accessibilityMenu,
     activitiesIndex,
