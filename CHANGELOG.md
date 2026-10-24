@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.6.1 — 24 octobre 2026
+
+### Corrections
+
+- En-tête : le logo, les liens du menu, les activités du sous-menu et les lignes du menu mobile s'enfoncent légèrement à l'appui, comme les boutons.
+
 ## 1.6.0 — 24 octobre 2026
 
 ### Modifications
