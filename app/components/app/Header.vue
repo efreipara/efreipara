@@ -1,11 +1,10 @@
 <script setup lang="ts">
   import type { NavigationMenuItem } from '@nuxt/ui'
-  import type { ActivityType } from '~/utils/activities'
 
   const appConfig = useAppConfig()
 
   const { socials, getSocialIcon } = useSocials()
-  const { getIcon } = useEventIcon()
+  const { getIcon } = await useActivities()
   const { accessibility, activitiesIndex, activities, headerLinks } = await useNavigation()
 
   const { features, toggle, hasActiveFeature } = useAccessibility()
@@ -83,7 +82,7 @@
               <div
                 class="bg-tint-15 mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg"
               >
-                <Icon :name="getIcon(child.slot as ActivityType)" class="text-activity size-4" />
+                <Icon :name="getIcon(child.slot)" class="text-activity size-4" />
               </div>
               <div class="min-w-0 flex-1">
                 <p
@@ -184,7 +183,7 @@
             :class="activityClass(activity.slot)"
           >
             <div class="bg-tint-15 flex size-7 shrink-0 items-center justify-center rounded-lg">
-              <Icon :name="getIcon(activity.slot as ActivityType)" class="text-activity size-3.5" />
+              <Icon :name="getIcon(activity.slot)" class="text-activity size-3.5" />
             </div>
             <span class="flex-1 text-sm font-medium">{{ activity.label }}</span>
             <Icon name="tabler:chevron-right" class="text-muted size-4 shrink-0" />

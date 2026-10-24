@@ -3,24 +3,6 @@ activitiesIndex:
   to: /activites
   icon: tabler:parachute
 
-activities:
-  - slot: tandem
-    label: Saut en Tandem
-    description: Découverte avec un moniteur
-    to: /activites/tandem
-  - slot: soufflerie
-    label: Soufflerie
-    description: Chute libre en tunnel de vent
-    to: /activites/soufflerie
-  - slot: pac
-    label: PAC
-    description: Progression Accompagnée en Chute
-    to: /activites/pac
-  - slot: oa
-    label: Saut en OA
-    description: Saut solo en ouverture automatique
-    to: /activites/oa
-
 pages:
   - label: À propos
     to: /about

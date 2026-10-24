@@ -9,15 +9,6 @@ describe('activités', () => {
     expect(files.sort()).toEqual([...ACTIVITY_KEYS].sort())
   })
 
-  it('la page des activités et le menu présentent chaque activité une fois', () => {
-    const sections = readYaml<{ sections: { type: string }[] }>('pages/activites.yml').sections
-    const menu = readYaml<{ activities: { slot: string; to: string }[] }>(
-      'global/navigation.yml',
-    ).activities
-    expect(sections.map((s) => s.type).sort()).toEqual([...ACTIVITY_KEYS].sort())
-    expect(menu.map((a) => a.slot).sort()).toEqual([...ACTIVITY_KEYS].sort())
-    expect(menu.filter((a) => a.to !== `/activites/${a.slot}`)).toEqual([])
-  })
 })
 
 describe('redirections et options', () => {

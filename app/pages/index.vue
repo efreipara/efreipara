@@ -1,13 +1,16 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/utils/activities'
   import DOMPurify from 'isomorphic-dompurify'
 
-  const { getIcon } = useEventIcon()
+  const { getIcon } = await useActivities()
 
   const { partners } = await usePartners()
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
+  const { data: cards } = await useAsyncData('home-activites', () =>
+    queryCollection('activites').select('stem', 'card').all(),
+  )
+  const activityCards = computed(() => orderActivities(cards.value ?? []))
 </script>
 
 <template>
@@ -68,12 +71,12 @@
       </h2>
       <div class="mb-8 grid gap-4 sm:grid-cols-2">
         <UPageCard
-          v-for="item in home?.activites.items"
-          :key="item.title"
+          v-for="item in activityCards"
+          :key="item.key"
           :to="item.to"
-          :title="item.title"
+          :title="item.card.title"
           class="group"
-          :class="activityClass(item.type)"
+          :class="activityClass(item.key)"
           :ui="{
             root: 'border-default hover:bg-tint-10 rounded-2xl border ring-0 duration-200 active:scale-[0.98]',
             container: 'p-6 sm:p-6',
@@ -82,11 +85,11 @@
           }"
         >
           <template #leading>
-            <UIcon :name="getIcon(item.type as ActivityType)" class="text-activity size-6" />
+            <UIcon :name="getIcon(item.key)" class="text-activity size-6" />
           </template>
           <template #body>
-            <h3 class="mb-1.5 font-bold">{{ item.title }}</h3>
-            <p class="text-muted mb-4 text-sm">{{ item.description }}</p>
+            <h3 class="mb-1.5 font-bold">{{ item.card.title }}</h3>
+            <p class="text-muted mb-4 text-sm">{{ item.card.description }}</p>
             <div class="text-primary flex items-center gap-1 text-sm font-semibold">
               <span>En savoir plus</span>
               <UIcon

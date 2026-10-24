@@ -1,9 +1,20 @@
 export const useNavigation = async () => {
-  const { data } = await useAsyncData('navigation', () => queryCollection('navigation').first())
+  // Lancées ensemble : un composable appelé après un await perd le contexte Nuxt
+  const [{ data }, { activities: activityList }] = await Promise.all([
+    useAsyncData('navigation', () => queryCollection('navigation').first()),
+    useActivities(),
+  ])
 
   const accessibility = computed(() => data.value!.accessibility)
   const activitiesIndex = computed(() => data.value!.activitiesIndex)
-  const activities = computed(() => data.value?.activities ?? [])
+  const activities = computed(() =>
+    activityList.value.map((activity) => ({
+      slot: activity.key,
+      label: activity.menu.label,
+      description: activity.menu.description,
+      to: activity.to,
+    })),
+  )
 
   const headerLinks = computed(() => sortHeaderLinks(data.value?.pages ?? []))
 

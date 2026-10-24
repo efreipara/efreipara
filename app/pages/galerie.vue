@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/utils/activities'
-
-  const { getIcon } = useEventIcon()
+  const { getIcon, byKey } = await useActivities()
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
@@ -55,7 +53,10 @@
       new Date(iso),
     )
 
-  const typeLabel = (type: string) => page.value?.typeLabels[type as ActivityType] ?? type
+  const typeLabel = (type: string) => {
+    const activity = byKey(type)
+    return activity?.galleryLabel ?? activity?.label ?? type
+  }
 </script>
 
 <template>
@@ -77,7 +78,7 @@
         <UButton
           v-for="type in activityTypes"
           :key="type"
-          :icon="getIcon(type as ActivityType)"
+          :icon="getIcon(type)"
           color="neutral"
           variant="soft"
           :aria-pressed="activeFilter === type"
@@ -139,7 +140,7 @@
                 class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
                 :class="activityClass(item.type)"
               >
-                <UIcon :name="getIcon(item.type as ActivityType)" class="text-activity size-3.5" />
+                <UIcon :name="getIcon(item.type)" class="text-activity size-3.5" />
                 {{ typeLabel(item.type) }}
               </div>
             </div>

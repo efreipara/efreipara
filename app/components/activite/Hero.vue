@@ -9,7 +9,7 @@
     alt: string
   }>()
 
-  const { getIcon } = useEventIcon()
+  const { getIcon, byKey } = await useActivities()
   const { buildCdnUrl } = useCdnAsset()
 
   const icon = getIcon(props.activite)
@@ -17,14 +17,8 @@
 
   const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)
 
-  const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
-    useAsyncData(`${prevActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `pages/activites/${prevActivity}`).first(),
-    ),
-    useAsyncData(`${nextActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `pages/activites/${nextActivity}`).first(),
-    ),
-  ])
+  const prevPage = computed(() => byKey(prevActivity))
+  const nextPage = computed(() => byKey(nextActivity))
 </script>
 
 <template>

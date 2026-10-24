@@ -1,20 +1,24 @@
 /**
- * Types et composables liés aux activités du club
+ * Composables liés aux activités du club
  */
 
 import type { ActivityType } from '~/utils/activities'
 
 /**
- * Composable pour obtenir l'icône associée à un type d'activité
+ * Activités dans l'ordre d'affichage, avec ce que tout le site en montre (menu, icône, libellés)
  */
-export const useEventIcon = () => {
-  const appConfig = useAppConfig()
+export const useActivities = async () => {
+  const { data } = await useAsyncData('activites', () =>
+    queryCollection('activites').select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
+  )
 
-  const getIcon = (type: ActivityType): string => {
-    return appConfig.efreipara.icons.activites[type]
-  }
+  const activities = computed(() => orderActivities(data.value ?? []))
 
-  return { getIcon }
+  const byKey = (key: string) => activities.value.find((activity) => activity.key === key)
+
+  const getIcon = (key: string) => byKey(key)?.icon ?? ''
+
+  return { activities, byKey, getIcon }
 }
 
 /**
@@ -22,8 +26,6 @@ export const useEventIcon = () => {
  */
 export const useNextEvent = () => {
   const { data: event } = useAsyncData('nextEvent', () => queryCollection('nextEvent').first())
-
-  const { getIcon: getEventIcon } = useEventIcon()
 
   const getEventBannerUI = (type: ActivityType) => {
     const appConfig = useAppConfig()
@@ -40,7 +42,6 @@ export const useNextEvent = () => {
 
   return {
     event,
-    getEventIcon,
     getEventBannerUI,
     getEventInfoUrl,
     getEventBannerId,

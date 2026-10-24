@@ -5,6 +5,7 @@ import {
   activityTint,
   activityClass,
   adjacentActivities,
+  orderActivities,
 } from '../../app/utils/activities'
 
 describe('adjacentActivities', () => {
@@ -47,5 +48,19 @@ describe('activityClass', () => {
     expect(activityClass('inconnu')).toBe('')
     expect(activityClass('constructor')).toBe('')
     expect(activityClass(undefined)).toBe('')
+  })
+})
+
+describe('orderActivities', () => {
+  it('tire la clé du nom de fichier, ajoute le lien et suit l’ordre des clés', () => {
+    const items = [
+      { stem: 'pages/activites/oa' },
+      { stem: 'pages/activites/tandem' },
+      { stem: 'pages/activites/inconnu' },
+    ]
+    expect(orderActivities(items)).toEqual([
+      { stem: 'pages/activites/tandem', key: 'tandem', to: '/activites/tandem' },
+      { stem: 'pages/activites/oa', key: 'oa', to: '/activites/oa' },
+    ])
   })
 })

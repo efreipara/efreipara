@@ -19,10 +19,6 @@ export default defineAppConfig({
     icons: {
       activites: {
         parachute: 'tabler:parachute',
-        oa: 'tabler:parachute',
-        tandem: 'tabler:users',
-        soufflerie: 'tabler:wind',
-        pac: 'tabler:medal-2',
       },
       navigation: {
         document: 'tabler:file-description',

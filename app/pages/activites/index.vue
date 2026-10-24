@@ -1,12 +1,17 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/utils/activities'
 
-  const { getIcon } = useEventIcon()
+  const { getIcon } = await useActivities()
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
   const { data: page } = await useAsyncData('activites-index', () =>
     queryCollection('activitesIndex').first(),
+  )
+  const { data: entries } = await useAsyncData('activites-sections', () =>
+    queryCollection('activites').select('stem', 'section').all(),
+  )
+  const sections = computed(() =>
+    orderActivities(entries.value ?? []).map(({ key, to, section }) => ({ ...section, key, to })),
   )
 
   const featureUi = {
@@ -24,15 +29,15 @@
 
     <!-- Image à gauche puis à droite en alternance (lg) ; toujours au-dessus du texte sur mobile -->
     <UPageSection
-      v-for="(section, i) in page?.sections"
-      :key="section.type"
+      v-for="(section, i) in sections"
+      :key="section.key"
       :title="section.title"
       :description="section.description"
       :features="section.features.map((feature) => ({ ...feature, ui: featureUi }))"
       :links="[
         {
-          label: section.link.label,
-          to: `/activites/${section.type}`,
+          label: section.linkLabel,
+          to: section.to,
           color: 'neutral',
           variant: 'subtle',
           trailingIcon: appConfig.ui.icons.arrowRight,
@@ -40,7 +45,7 @@
         },
       ]"
       orientation="horizontal"
-      :class="[activityClass(section.type), i % 2 !== 0 && 'border-default border-y']"
+      :class="[activityClass(section.key), i % 2 !== 0 && 'border-default border-y']"
       :ui="{
         container: 'gap-12 py-20 sm:gap-12 sm:py-20 lg:py-20',
         wrapper: ['order-last', i % 2 !== 0 && 'lg:order-first'],
@@ -53,10 +58,10 @@
       }"
     >
       <template #leading>
-        <UIcon :name="getIcon(section.type as ActivityType)" class="text-activity size-7" />
+        <UIcon :name="getIcon(section.key)" class="text-activity size-7" />
       </template>
       <img
-        :src="buildCdnUrl(`${section.type}.jpg`)"
+        :src="buildCdnUrl(`${section.key}.jpg`)"
         :alt="section.alt"
         class="aspect-4/3 w-full rounded-2xl object-cover"
       />

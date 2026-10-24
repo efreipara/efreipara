@@ -6,6 +6,16 @@ export type ActivityType = (typeof ACTIVITY_KEYS)[number]
 export const isActivity = (value: unknown): value is ActivityType =>
   typeof value === 'string' && (ACTIVITY_KEYS as readonly string[]).includes(value)
 
+// Entrées de la collection `activites` : clé (nom du fichier), lien, ordre de ACTIVITY_KEYS
+export const orderActivities = <T extends { stem: string }>(items: T[]) =>
+  items
+    .map((item) => {
+      const key = item.stem.split('/').pop() as ActivityType
+      return { ...item, key, to: `/activites/${key}` }
+    })
+    .filter((item) => isActivity(item.key))
+    .sort((a, b) => ACTIVITY_KEYS.indexOf(a.key) - ACTIVITY_KEYS.indexOf(b.key))
+
 // Ordre de la navigation précédent / suivant des pages d'activité
 export const ACTIVITY_ORDER: ActivityType[] = ['oa', 'tandem', 'soufflerie', 'pac']
 

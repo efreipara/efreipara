@@ -34,14 +34,6 @@ export const collections = {
         }),
       ),
       activites: z.object({
-        items: z.array(
-          z.object({
-            title: z.string(),
-            description: z.string(),
-            type: activity,
-            to: z.string(),
-          }),
-        ),
         link: z.object({
           label: z.string(),
           to: z.string(),
@@ -66,12 +58,6 @@ export const collections = {
         description: z.string(),
         linkLabel: z.string(),
       }),
-      typeLabels: z.object({
-        oa: z.string(),
-        tandem: z.string(),
-        soufflerie: z.string(),
-        pac: z.string(),
-      }),
       items: z.array(
         z.object({
           title: z.string(),
@@ -93,24 +79,6 @@ export const collections = {
         title: z.string(),
         description: z.string(),
       }),
-      sections: z.array(
-        z.object({
-          type: activity,
-          title: z.string(),
-          description: z.string(),
-          alt: z.string(),
-          features: z.array(
-            z.object({
-              title: z.string(),
-              description: z.string(),
-              icon: z.string(),
-            }),
-          ),
-          link: z.object({
-            label: z.string(),
-          }),
-        }),
-      ),
     }),
   },
   activites: {
@@ -121,6 +89,19 @@ export const collections = {
       description: z.string(),
       label: z.string(),
       alt: z.string(),
+      icon: z.string(),
+      galleryLabel: z.string().optional(),
+      menu: z.object({ label: z.string(), description: z.string() }),
+      card: z.object({ title: z.string(), description: z.string() }),
+      section: z.object({
+        title: z.string(),
+        description: z.string(),
+        alt: z.string(),
+        linkLabel: z.string(),
+        features: z.array(
+          z.object({ title: z.string(), description: z.string(), icon: z.string() }),
+        ),
+      }),
       imageCount: z.number().int().min(0).optional(),
       intro: z.array(z.string()).optional(),
       features: z
@@ -360,14 +341,6 @@ export const collections = {
         to: z.string(),
         icon: z.string(),
       }),
-      activities: z.array(
-        z.object({
-          slot: activity,
-          label: z.string(),
-          description: z.string(),
-          to: z.string(),
-        }),
-      ),
       pages: z.array(
         z.object({
           label: z.string(),

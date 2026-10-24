@@ -3,6 +3,39 @@ description: Ressentez les sensations uniques de la chute libre en toute sécuri
 label: Soufflerie
 alt: Baptêmes en soufflerie avec Efrei Para
 imageCount: 6
+icon: tabler:wind
+
+# Menu de l'en-tête et pied de page
+menu:
+  label: Soufflerie
+  description: Chute libre en tunnel de vent
+
+# Carte de l'accueil
+card:
+  title: Baptêmes en soufflerie
+  description: >-
+    Vole dans le tunnel en toute sécurité. Idéal pour débuter, progresser
+    et s’amuser entre amis.
+
+# Section de la page /activites
+section:
+  title: Baptêmes en soufflerie
+  description: Vole sans parachute - la chute libre, version indoor.
+  alt: Baptêmes en soufflerie avec Efrei Para
+  features:
+    - title: Sensations réelles
+      description: Le même flux d’air qu’en chute libre, sans altitude ni stress.
+      icon: tabler:wind
+    - title: Fun & accessible
+      description: Idéal pour une première approche ou pour s’amuser entre amis.
+      icon: tabler:mood-happy
+    - title: Progression rapide
+      description: En quelques vols, tu comprends la position, l’équilibre et la stabilité.
+      icon: tabler:target
+    - title: Parfait pour l’hiver
+      description: L’activité indoor qui prolonge la saison du parachutisme.
+      icon: tabler:snowflake
+  linkLabel: Découvrir le baptême en soufflerie
 
 features:
   - title: Sensations réelles

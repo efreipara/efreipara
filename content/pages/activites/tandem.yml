@@ -3,6 +3,39 @@ description: Faites votre premier saut en parachute ! Vivez 50 secondes de chute
 label: Tandem
 alt: Saut en tandem avec Efrei Para
 imageCount: 9
+icon: tabler:users
+
+# Menu de l'en-tête et pied de page
+menu:
+  label: Saut en Tandem
+  description: Découverte avec un moniteur
+
+# Carte de l'accueil
+card:
+  title: Sauts en tandem
+  description: >-
+    Avec un professionnel expérimenté, profite d’une expérience inoubliable
+    en chute libre à 200km/h à 4000m.
+
+# Section de la page /activites
+section:
+  title: Sauts en tandem
+  description: L’expérience ultime - un saut avec 50 secondes de chute libre avec un.e pro.
+  alt: Sauts en tandem avec Efrei Para
+  features:
+    - title: Saut à 4000 m d’altitude
+      description: Décollage, vue panoramique et sortie de l’avion en binôme.
+      icon: tabler:plane-tilt
+    - title: 200km/h de sensations
+      description: Chute libre d’une cinquantaine de secondes - intense et magique.
+      icon: tabler:gauge
+    - title: Souvenir possible
+      description: Option vidéo/photos pour revivre ton saut.
+      icon: tabler:video
+    - title: 100% accessible
+      description: Aucune expérience nécessaire, tout est géré par le moniteur.
+      icon: tabler:mood-happy
+  linkLabel: Découvrir le saut en tandem
 
 features:
   - title: Saut à 4 000 m

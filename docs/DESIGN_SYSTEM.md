@@ -57,7 +57,7 @@ Les déclarations `@font-face`, avec des polices de repli aux métriques ajusté
 
 - **Tabler** (`tabler:*`) pour tout ; **Simple Icons** pour les logos de marques ; collections maison pour les logos Efrei Para, Efrei, iFly et Creative Commons.
 - Les icônes génériques de Nuxt UI (flèches, fermer, chargement, clair / sombre…) sont remappées en Tabler : dans le code, `appConfig.ui.icons.<nom>`.
-- Les icônes propres au site sont rangées dans `appConfig.efreipara.icons` (`activites`, `navigation`, `rejoindre`, `contact`, `extras`) ; `useEventIcon().getIcon(type)` donne celle d'une activité. Une icône déjà rangée ne s'écrit pas en dur.
+- Les icônes propres au site sont rangées dans `appConfig.efreipara.icons` (`navigation`, `rejoindre`, `contact`, `extras`) ; celle d'une activité est le champ `icon` de son fichier de contenu, lu par `getIcon(type)` de `useActivities()`. Une icône déjà rangée ne s'écrit pas en dur.
 
 ## Règles transverses
 

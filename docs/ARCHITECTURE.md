@@ -74,50 +74,53 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pages/index.vue`                                                                            | `/`                                                                                                                                                         |
 | `pages/activites/index.vue`                                                                  | `/activites`                                                                                                                                                |
-| `pages/activites/[activite].vue`                                                             | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : autre clé → 404)                                                                            |
+| `pages/activites/[activite].vue`                                                             | `/activites/oa`, `/tandem`, `/soufflerie`, `/pac` (`validate` : `isActivity`, autre clé → 404)                                                              |
 | `pages/[page].vue`                                                                           | redirections (`discord`, `instagram`, `devenir-membre`, `rejoindre-bureau`) et pages légales (`mentions-legales`, `rgpd`, `reglement`) ; autre valeur → 404 |
 | `pages/galerie.vue`, `documents.vue`, `faq.vue`, `rejoindre.vue`, `contact.vue`, `about.vue` | page du même nom                                                                                                                                            |
 | `pages/qr.vue`                                                                               | `/qr`, sans layout (`definePageMeta({ layout: false })`) : `app.vue` masque bannière, en-tête et pied via `useLayout()`                                     |
 
 ### Composables
 
-| Composable                     | Rôle                                                                                                     |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| `useNavigation`                | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                |
-| `usePartners`                  | Collection `partners`, filtre par activité                                                               |
-| `useNextEvent`, `useEventIcon` | (`useActivities.ts`) prochain événement et règle d'affichage, icône d'une activité ; type `ActivityType` |
-| `useSocials`                   | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                 |
-| `useSeo`                       | Métadonnées d'une page depuis `seo.yml`                                                                  |
-| `useCdnAsset`                  | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)             |
-| `useCategoryColor`             | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                             |
-| `useAccessibility`             | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                             |
+| Composable                      | Rôle                                                                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                         |
+| `usePartners`                   | Collection `partners`, filtre par activité                                                                                        |
+| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`) ; prochain événement et règle d'affichage |
+| `useSocials`                    | Liste des réseaux depuis `app.config.ts` (`socials`), recherche d'URL et d'icône par nom                                          |
+| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                           |
+| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                      |
+| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                      |
+| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                      |
 
-`ActivityType` (`'oa' | 'tandem' | 'soufflerie' | 'pac'`) est déclaré dans `useActivities.ts` ; la même liste est aussi écrite dans `content.schemas.ts` (enums), `pages/activites/[activite].vue`, `utils/activities.ts` (`ACTIVITY_ORDER`, `ACTIVITY_CSS_VAR`) et `app.config.ts`. Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+Les clés d'activité sont écrites une seule fois : `ACTIVITY_KEYS` (`utils/activities.ts`, dans l'ordre d'affichage), d'où découlent le type `ActivityType`, `isActivity`, les enums de `content.schemas.ts` et les tests. Tout ce qui décrit une activité (libellés, icône, menu, carte d'accueil, section de `/activites`) est dans son fichier de contenu ; `useActivities` les lit et les trie (`orderActivities`). Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
+
+Les clés ne sont pas dans le dossier `shared/` de Nuxt : le build serveur y laisse un import relatif calculé depuis `.nuxt`, faux quand le dossier de build est dans `node_modules/.cache`, et `generate` échoue.
 
 ### Fonctions pures
 
 Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à Nuxt : composants et composables les appellent, Vitest les importe directement ([TESTING.md](TESTING.md)). Nuxt les auto-importe ; leur nom ne doit pas reprendre celui d'une variable locale courante ni commencer par `use`.
 
-| Module              | Fonctions                                                                                                    | Utilisé par                                        |
-| ------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
-| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                                        | `app.vue`, `useSeo`                                |
-| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                           | `useNextEvent`                                     |
-| `cdn.ts`            | `resolveCdnUrl`                                                                                              | `useCdnAsset`                                      |
-| `stat.ts`           | `parseStatValue`                                                                                             | `HomeStatCounter`                                  |
-| `anchor.ts`         | `toAnchorId`                                                                                                 | Documents, FAQ, `SharedCategoryChips`              |
-| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                               | galerie                                            |
-| `navigation.ts`     | `sortHeaderLinks`                                                                                            | `useNavigation`                                    |
-| `activities.ts`     | `ACTIVITY_ORDER`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `ActiviteHero`, tout composant teinté par activité |
-| `category-color.ts` | `categoryColorClasses`                                                                                       | `useCategoryColor`                                 |
-| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                              | `HomeStatCounter`, `ColorModeButton`               |
+| Module              | Fonctions                                                                                                                                                      | Utilisé par                                                         |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`                                                                                                          | `app.vue`, `useSeo`                                                 |
+| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                                                                             | `useNextEvent`                                                      |
+| `cdn.ts`            | `resolveCdnUrl`                                                                                                                                                | `useCdnAsset`                                                       |
+| `stat.ts`           | `parseStatValue`                                                                                                                                               | `HomeStatCounter`                                                   |
+| `anchor.ts`         | `toAnchorId`                                                                                                                                                   | Documents, FAQ, `SharedCategoryChips`                               |
+| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                                                 | galerie                                                             |
+| `navigation.ts`     | `sortHeaderLinks`                                                                                                                                              | `useNavigation`                                                     |
+| `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `ACTIVITY_ORDER`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité |
+| `category-color.ts` | `categoryColorClasses`                                                                                                                                         | `useCategoryColor`                                                  |
+| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                                                | `HomeStatCounter`, `ColorModeButton`                                |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 
 ## Chargement du contenu
 
-- Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour les collections à plusieurs fichiers : activités, pages légales). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
+- Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité, page légale ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
 - **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
-- Les clés en place : `seo`, `navigation`, `partners`, `nextEvent`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, la clé de l'activité (`tandem`…), `<activité>-nav` (liens précédent / suivant) et le slug d'une page légale.
+- Les clés en place : `seo`, `navigation`, `partners`, `nextEvent`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
+- Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Dans un `<script setup>`, les `await` successifs restent sûrs.
 - Nuxt Content **ne valide pas** les données contre le schéma : il les enregistre telles quelles (un nombre reste un nombre là où le schéma attend du texte). Le schéma sert aux types et aux colonnes SQL ; la validation est faite par les tests de contenu ([TESTING.md](TESTING.md)).
 - Base de Content : SQLite (`.data/content/contents.db`, connecteur natif), reconstruite à chaque build, jamais versionnée.
 

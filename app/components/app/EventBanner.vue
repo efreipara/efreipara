@@ -1,6 +1,6 @@
 <script setup lang="ts">
   const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
-  const { getIcon } = useEventIcon()
+  const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
 
   const bannerId = computed(() => getEventBannerId())

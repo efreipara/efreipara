@@ -24,31 +24,6 @@ stats:
     icon: tabler:calendar
 
 activites:
-  items:
-    - title: Sauts en tandem
-      description: >-
-        Avec un professionnel expérimenté, profite d’une expérience inoubliable
-        en chute libre à 200km/h à 4000m.
-      type: tandem
-      to: /activites/tandem
-    - title: Baptêmes en soufflerie
-      description: >-
-        Vole dans le tunnel en toute sécurité. Idéal pour débuter, progresser
-        et s’amuser entre amis.
-      type: soufflerie
-      to: /activites/soufflerie
-    - title: Formations PAC
-      description: >-
-        La Progression Accompagnée en Chute : une formation complète vers
-        l’autonomie en chute libre.
-      type: pac
-      to: /activites/pac
-    - title: Sauts en ouverture automatique (OA)
-      description: >-
-        Découvre le saut "vrai de vrai" : briefing, équipement, sortie d’avion
-        avec ouverture automatique. Accessible et encadré.
-      type: oa
-      to: /activites/oa
   link:
     label: Découvrir toutes nos activités en détail
     to: /activites

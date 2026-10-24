@@ -17,33 +17,35 @@ Un nouveau texte va dans `content/` ; un libellé du code déplacé vers le cont
 
 ## Collections
 
-| Collection       | Type | Source                           | Utilisée par                                          |
-| ---------------- | ---- | -------------------------------- | ----------------------------------------------------- |
-| `navigation`     | data | `global/navigation.yml`          | en-tête, pied de page, menu d'accessibilité           |
-| `seo`            | data | `global/seo.yml`                 | toutes les pages (`useSeo`), phrase du hero d'accueil |
-| `cta`            | data | `global/cta.yml`                 | appel à l'action en bas de page                       |
-| `partners`       | data | `global/partners.yml`            | accueil, pages d'activité                             |
-| `nextEvent`      | data | `global/next-event.yml`          | bannière d'événement                                  |
-| `home`           | data | `pages/home.yml`                 | `/`                                                   |
-| `activitesIndex` | data | `pages/activites.yml`            | `/activites`                                          |
-| `activites`      | data | `pages/activites/<activité>.yml` | `/activites/<activité>`                               |
-| `galerie`        | data | `pages/galerie.yml`              | `/galerie`                                            |
-| `documents`      | data | `pages/documents.yml`            | `/documents`                                          |
-| `faq`            | data | `pages/faq.yml`                  | `/faq`                                                |
-| `rejoindre`      | data | `pages/rejoindre.yml`            | `/rejoindre`, `/devenir-membre`, `/rejoindre-bureau`  |
-| `contact`        | data | `pages/contact.yml`              | `/contact`                                            |
-| `redirects`      | data | `pages/redirects.yml`            | pages de redirection                                  |
-| `legal`          | page | `pages/legal/<slug>.md`          | `/mentions-legales`, `/reglement`, `/rgpd`            |
+| Collection       | Type | Source                           | Utilisée par                                                                                                 |
+| ---------------- | ---- | -------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `navigation`     | data | `global/navigation.yml`          | en-tête, pied de page, menu d'accessibilité                                                                  |
+| `seo`            | data | `global/seo.yml`                 | toutes les pages (`useSeo`), phrase du hero d'accueil                                                        |
+| `cta`            | data | `global/cta.yml`                 | appel à l'action en bas de page                                                                              |
+| `partners`       | data | `global/partners.yml`            | accueil, pages d'activité                                                                                    |
+| `nextEvent`      | data | `global/next-event.yml`          | bannière d'événement                                                                                         |
+| `home`           | data | `pages/home.yml`                 | `/`                                                                                                          |
+| `activitesIndex` | data | `pages/activites.yml`            | hero de `/activites`                                                                                         |
+| `activites`      | data | `pages/activites/<activité>.yml` | `/activites/<activité>`, et partout où l'activité apparaît (menus, accueil, `/activites`, galerie, bannière) |
+| `galerie`        | data | `pages/galerie.yml`              | `/galerie`                                                                                                   |
+| `documents`      | data | `pages/documents.yml`            | `/documents`                                                                                                 |
+| `faq`            | data | `pages/faq.yml`                  | `/faq`                                                                                                       |
+| `rejoindre`      | data | `pages/rejoindre.yml`            | `/rejoindre`, `/devenir-membre`, `/rejoindre-bureau`                                                         |
+| `contact`        | data | `pages/contact.yml`              | `/contact`                                                                                                   |
+| `redirects`      | data | `pages/redirects.yml`            | pages de redirection                                                                                         |
+| `legal`          | page | `pages/legal/<slug>.md`          | `/mentions-legales`, `/reglement`, `/rgpd`                                                                   |
 
 ### Points notables par collection
 
-- **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. `activities[].slot` est une clé d'activité. `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
+- **`navigation`** : `pages[]` alimente la colonne Club du pied de page ; une page avec un champ `header` (nombre) apparaît aussi dans l'en-tête, triée par ce nombre. Les activités du menu viennent de leurs fichiers (`menu`). `accessibility[].key` doit correspondre à une option de `useAccessibility` (`dyslexic`, `highContrast`). `legal[]` peut contenir un lien externe (`target: _blank`).
 - **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
-- **`home`** : `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `activites.items[].type` et `why[].type` donnent la teinte.
-- **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). Seuls `title`, `description`, `label` et `alt` sont obligatoires ; `intro`, `stats`, `features`, `steps`, `requirements` sont facultatifs et leur section disparaît s'ils sont absents. `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
-- **`galerie`** : `typeLabels` (libellé de chaque clé d'activité, utilisé par les filtres et les étiquettes des albums) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
+- **`home`** : `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`).
+- **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`.
+  - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `alt`, `features[]`, `linkLabel` : section de `/activites`).
+  - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
+- **`galerie`** : `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
 - **`documents`** : catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon).
 - **`faq`** : catégories (`name`, `color`, `questions[]`) ; une question a `question`, `answer`, `icon` (l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`).
 - **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta.buttons` ⊂ `discord`, `instagram`, `github`.
@@ -99,12 +101,10 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 
 Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le code. Il faut toucher :
 
-- `content/pages/activites/<clé>.yml`, une section dans `activites.yml`, une entrée dans `navigation.yml`, `seo.yml` (`activites-<clé>`) et `home.yml` ;
-- `content.schemas.ts` : les enums `['oa', 'tandem', 'soufflerie', 'pac']` (`nextEvent`, `partners`, `navigation`) ;
-- `app/composables/useActivities.ts` (`ActivityType`), `app/utils/activities.ts` (`ACTIVITY_ORDER`, `ACTIVITY_CSS_VAR`), `app/pages/activites/[activite].vue` (liste validée) ;
-- `app/app.config.ts` (`efreipara.icons.activites`, `efreipara.colors`) ;
+- `content/pages/activites/<clé>.yml` (tous les champs obligatoires ci-dessus) et l'entrée `activites-<clé>` de `seo.yml` ;
+- `ACTIVITY_KEYS` dans `app/utils/activities.ts` (la place de la clé donne l'ordre d'affichage) ;
+- `app/app.config.ts` (`efreipara.colors`) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>`, `--color-on-efreipara-<clé>` et la liste `@source inline('activity-{…}')`) ;
-- `typeLabels` de `galerie.yml` ;
 - les photos sur le CDN et `public/seo/activites-<clé>.png`.
 
 ## Pour les éditeurs de contenu
@@ -121,6 +121,6 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
 - chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
 - chaque page a son entrée dans `seo.yml`, et chaque image de partage existe ;
-- les clés d'activité citées (galerie, événement, partenaires, accueil, menu) existent, et chaque option de « Nous rejoindre » a sa redirection prérendue.
+- chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma ; chaque option de « Nous rejoindre » a sa redirection prérendue.
 
 Le message d’échec donne le fichier et le chemin du champ en cause.

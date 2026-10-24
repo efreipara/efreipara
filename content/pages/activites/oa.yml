@@ -3,6 +3,41 @@ description: Vivez l’adrénaline du parachutisme en solo avec un parachute qui
 label: OA
 alt: Saut en ouverture automatique (OA) avec Efrei Para
 imageCount: 0
+icon: tabler:parachute
+# Libellé des filtres et des étiquettes de la galerie, à la place de `label`
+galleryLabel: Ouverture Auto.
+
+# Menu de l'en-tête et pied de page
+menu:
+  label: Saut en OA
+  description: Saut solo en ouverture automatique
+
+# Carte de l'accueil
+card:
+  title: Sauts en ouverture automatique (OA)
+  description: >-
+    Découvre le saut "vrai de vrai" : briefing, équipement, sortie d’avion
+    avec ouverture automatique. Accessible et encadré.
+
+# Section de la page /activites
+section:
+  title: Saut en ouverture automatique (OA)
+  description: Ton premier vrai saut en parachute - intense, encadré, inoubliable.
+  alt: Saut en ouverture automatique (OA) avec Efrei Para
+  features:
+    - title: Encadrement professionnel
+      description: Instructeurs diplômés et procédures standardisées pour un saut sûr et fluide.
+      icon: tabler:user-check
+    - title: Sensations garanties
+      description: 'La vraie sortie d’avion : vent, altitude et montée d’adrénaline au rendez-vous.'
+      icon: tabler:parachute
+    - title: Briefing complet
+      description: 'Tout est expliqué avant le saut : position, sécurité, gestes essentiels.'
+      icon: tabler:book
+    - title: Accessible à tous
+      description: Pas besoin d’expérience - juste l’envie de découvrir le ciel.
+      icon: tabler:mood-happy
+  linkLabel: Découvrir le saut en OA
 
 features:
   - title: Encadrement professionnel

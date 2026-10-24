@@ -3,6 +3,39 @@ description: Formation complète en Progression Accompagnée en Chute. Devenez p
 label: PAC
 alt: Formations PAC avec Efrei Para
 imageCount: 0
+icon: tabler:medal-2
+
+# Menu de l'en-tête et pied de page
+menu:
+  label: PAC
+  description: Progression Accompagnée en Chute
+
+# Carte de l'accueil
+card:
+  title: Formations PAC
+  description: >-
+    La Progression Accompagnée en Chute : une formation complète vers
+    l’autonomie en chute libre.
+
+# Section de la page /activites
+section:
+  title: Formations PAC
+  description: Deviens parachutiste autonome - la formation complète vers la liberté du ciel.
+  alt: Formations PAC avec Efrei Para
+  features:
+    - title: Formation complète
+      description: Théorie, séances au sol et plusieurs sauts accompagnés pour acquérir les bases du vol libre.
+      icon: tabler:school
+    - title: Objectifs techniques
+      description: Tu apprends la stabilité, la gestuelle, le pilotage et la gestion de ton parachute.
+      icon: tabler:target
+    - title: Autonomie progressive
+      description: À chaque saut, tu gagnes en confiance jusqu’à savoir ouvrir et contrôler ta voile seul.e.
+      icon: tabler:parachute
+    - title: Engagement progressif
+      description: Chaque étape te fait avancer vers une autonomie totale, encadrée par des moniteurs expérimentés.
+      icon: tabler:stairs
+  linkLabel: Découvrir la formation PAC
 
 features:
   - title: Formation complète
