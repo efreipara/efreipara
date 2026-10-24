@@ -2,6 +2,24 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.5.0 — 24 octobre 2026
+
+### Ajouts
+
+- Contact : « Nos réseaux sociaux » a son icône, comme les autres blocs de la page.
+
+### Modifications
+
+- Pour le bureau : tout ce qui décrit une activité (menu, carte de l'accueil, section de la page des activités, libellé de la galerie, icône) est dans son seul fichier `content/pages/activites/<activité>.yml`.
+- Pour le bureau : l'adresse, l'e-mail et les réseaux du club sont dans `content/global/club.yml`, et les textes encore écrits dans le code (boutons, titres de section, pied de page, messages d'erreur) sont passés dans le contenu.
+- La page « À propos », vide, est retirée du site et du pied de page ; son adresse mène à l'accueil.
+- Pages légales et redirections « Devenir membre » / « Rejoindre le bureau » : le titre et la description affichés lors d'un partage sont ceux de la page elle-même.
+
+### Corrections
+
+- Page QR code : les boutons « Retour à l'accueil » et « Plein écran » sont annoncés par les lecteurs d'écran.
+- Page des activités : la photo du tandem a le même texte alternatif que sur sa page.
+
 ## 1.4.0 — 24 octobre 2026
 
 ### Ajouts
