@@ -5,6 +5,10 @@ description: Les documents du club et des activités de parachutisme
 count:
   one: doc
   other: docs
+# Type affiché à droite de chaque document (masqué sur téléphone)
+typeLabels:
+  internal: Page du site
+  external: Site externe
 helpcta:
   title: Un document manquant ?
   description: Il te manque un document ? Écris-nous, on l’ajoute.

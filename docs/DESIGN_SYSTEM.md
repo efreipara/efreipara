@@ -81,7 +81,7 @@ Tout élément lié à une activité prend sa couleur par une **teinte transpare
 - `activityColor(type)` et `activityTint(type, %)` donnent les mêmes valeurs en JavaScript, pour un style qu'aucune classe ne couvre.
 - La correspondance clé → variable est la table `ACTIVITY_CSS_VAR` de `app/utils/activities.ts` ; une clé inconnue retombe sur `var(--ui-primary)`.
 
-Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind (`useCategoryColor`) : fond `/10`, icône `-500`, survol `/20` ; le texte des pastilles est en `-700` ou `-800` en clair et `-400` en sombre (`categoryTextClass`), pour le contraste.
+Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind (`useCategoryColor`) : fond `/10`, icône `-500`, survol `/20` (pastilles) ou `/5` (lignes de documents), trait `-500` de la question ouverte ; le texte des pastilles est en `-700` ou `-800` en clair et `-400` en sombre (`categoryTextClass`), pour le contraste.
 
 ### Sections
 
@@ -100,6 +100,7 @@ Règle commune à tout le site (hors page QR, page d'erreur et pages de redirect
 - Cartes : `UPageCard` (ou `UCard` sans lien) `variant="subtle"`, `rounded-2xl`, photo en tête (`#header`) quand elle existe ; images `rounded-lg` à `rounded-2xl`.
 - Carte cliquable : `UPageCard :to` (le composant pose le lien sur toute la carte, avec le focus visible ; son nom accessible est le `title`). La mise en page se règle par `ui` (`wrapper: 'flex-row'` pour une pastille à gauche) et les slots `#leading`, `#header`, `#body`.
 - Point fort (pastille + titre + texte) : `UPageFeature`, pastille réglée par `ui.leading` / `ui.leadingIcon`, `text-wrap` sur le titre et la description (Nuxt UI met `text-pretty`). Section image + texte + points forts + bouton : `UPageSection orientation="horizontal"` (`/activites`).
+- Listes de Documents et de la FAQ : sans cartes, lignes séparées par des filets `border-accented`. Document : icône de la catégorie, titre, description, type (« Page du site », « Site externe », masqué sur téléphone) et flèche ou icône externe qui glisse au survol. Question : `UAccordion` réglé par `ui`, numéro `01`… en Racing Sans One dans la couleur de la catégorie, + qui devient − (barre qui pivote), trait vertical de la couleur de la catégorie sur la question ouverte, réponse alignée sur le texte de la question à partir de `sm`.
 
 ### Boutons
 
@@ -160,7 +161,7 @@ Chaque bouton a un **rôle**, porté par une variante de `UButton` définie dans
 
 ### Grilles
 
-Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes, documents), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`, rythme et bandes de la règle commune (voir [Sections](#sections)) ; contenu placé directement sous un en-tête de page : `py-12 sm:py-16`. Cartes d'activité de l'accueil sur 1, 2 puis 4 colonnes (photo 16/9, puis 4/5 en `lg`) ; catégories de Documents et FAQ espacées de `gap-16 sm:gap-20`.
+Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`, rythme et bandes de la règle commune (voir [Sections](#sections)) ; contenu placé directement sous un en-tête de page : `py-12 sm:py-16`. Cartes d'activité de l'accueil sur 1, 2 puis 4 colonnes (photo 16/9, puis 4/5 en `lg`) ; catégories de Documents et FAQ en sections sur bandes alternées (`SharedCategorySection`), en-tête collé à gauche sur un tiers en `lg`, contenu sur deux tiers.
 
 ## Composants réutilisables
 
@@ -183,6 +184,7 @@ Avant d'écrire un composant, vérifier qu'aucun de ceux-ci ne répond au besoin
 | `SharedPageHero`                                                                                                                                      | En-tête compact des pages intérieures : surtitre, titre `h1`, description, sur bande                                                                                                                                   |
 | `SharedCallToAction`                                                                                                                                  | Appel à l'action de bas de page (collection `cta`) sur fond de parachutes                                                                                                                                              |
 | `SharedCategoryChips`                                                                                                                                 | Pastilles de catégories qui font défiler jusqu'à la section (Documents, FAQ)                                                                                                                                           |
+| `SharedCategorySection`                                                                                                                               | Catégorie de Documents et FAQ : section ancrée (`toAnchorId`), bande facultative, `SharedCategoryHeader` collé à gauche en `lg` et contenu en slot à droite                                                            |
 | `SharedCategoryHeader`                                                                                                                                | En-tête d'une catégorie (Documents, FAQ) : nombre d'éléments en surtitre dans la couleur de la catégorie, titre `h2`, description                                                                                      |
 | `SharedHelpCta`                                                                                                                                       | Encadré d'aide en `UPageCTA` subtle, aligné à gauche : icône et titre, description, boutons Discord / Instagram / GitHub                                                                                               |
 | `SharedPartnerLogos`                                                                                                                                  | Logos partenaires sur tuiles blanches, liens externes nommés (accueil, pages d'activité)                                                                                                                               |

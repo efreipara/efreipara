@@ -2,6 +2,14 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.13.0 — 25 octobre 2026
+
+### Modifications
+
+- Documents : chaque catégorie a sa section, une sur deux sur fond léger ; sur grand écran, son titre reste à gauche pendant la lecture. Les documents forment une liste claire (titre, description, « Page du site » ou « Site externe ») au lieu d'une grille de cartes.
+- FAQ : même mise en page par catégorie ; les questions sont numérotées, un + devient − à l'ouverture et un trait de la couleur de la catégorie marque la question ouverte.
+- Focus au clavier plus visible sur les documents et les questions de la FAQ.
+
 ## 1.12.1 — 25 octobre 2026
 
 ### Modifications

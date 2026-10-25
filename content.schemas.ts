@@ -172,11 +172,11 @@ export const collections = {
         z.object({
           name: z.string(),
           color: z.string().optional(),
+          icon: z.string(),
           questions: z.array(
             z.object({
               question: z.string(),
               answer: z.string(),
-              icon: z.string(),
               buttons: z
                 .array(
                   z.object({
@@ -201,6 +201,7 @@ export const collections = {
       title: z.string(),
       description: z.string(),
       count: z.object({ one: z.string(), other: z.string() }),
+      typeLabels: z.object({ internal: z.string(), external: z.string() }),
       helpcta: helpCta.optional(),
       categories: z.array(
         z.object({

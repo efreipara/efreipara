@@ -9,7 +9,7 @@
 </script>
 
 <template>
-  <div class="mb-16 flex flex-wrap gap-2">
+  <div class="flex flex-wrap gap-2">
     <UButton
       v-for="(category, i) in categories"
       :key="i"

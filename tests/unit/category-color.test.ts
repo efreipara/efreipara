@@ -7,11 +7,19 @@ describe('categoryColorClasses', () => {
       bg: 'bg-green-500/10',
       text: 'text-green-500',
       hoverBg: 'hover:bg-green-500/20',
+      rowHover: 'hover:bg-green-500/5',
+      bar: 'before:bg-green-500',
     })
   })
 
   it('se rabat sur la couleur primaire pour une couleur inconnue ou absente', () => {
-    const primary = { bg: 'bg-primary/10', text: 'text-primary', hoverBg: 'hover:bg-primary/20' }
+    const primary = {
+      bg: 'bg-primary/10',
+      text: 'text-primary',
+      hoverBg: 'hover:bg-primary/20',
+      rowHover: 'hover:bg-primary/5',
+      bar: 'before:bg-primary',
+    }
     expect(categoryColorClasses('rose')).toEqual(primary)
     expect(categoryColorClasses()).toEqual(primary)
   })
