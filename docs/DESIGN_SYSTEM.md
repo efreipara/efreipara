@@ -90,7 +90,7 @@ Règle commune à tout le site (hors page QR, page d'erreur et pages de redirect
 - Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`SharedHeadline`, couleur primaire, ou icône et teinte d'une activité), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
 - Page d'activité : `ActivitePage` calcule l'alternance des bandes à partir des seules sections présentes (prop `band` de chaque section) ; surtitres dans la teinte de l'activité (`headlineTone="text-activity-strong"`), icône de l'activité à la place du trait sur `/activites`.
 - Une section verticale avec un lien (« Voir toute la galerie ») le place à droite du titre sur grand écran.
-- Rythme : `py-12` sur téléphone, `py-20` en `sm`, `py-24` en `lg` ; les sections se distinguent par l'alternance de fond (prop `band` : `bg-elevated/60`), pas par des bordures ou des séparateurs.
+- Rythme : `py-12` sur téléphone, `py-20` en `sm`, `py-24` en `lg` ; les sections se distinguent par l'alternance de fond (prop `band` : `bg-elevated/60`), pas par des bordures ou des séparateurs. Seules exceptions : le filet au-dessus de l'appel à l'action (qui suit tantôt une bande, tantôt un fond clair) et celui du pied de page.
 - Les photos réelles portent la page : cartes d'activité à photo, photo de groupe à côté des points forts, derniers albums. La pastille d'icône est réservée à ce qui est lié à une activité ou à une catégorie.
 
 ### Formes

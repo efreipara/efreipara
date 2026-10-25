@@ -25,7 +25,7 @@
       .filter(([, shown]) => !!shown)
       .map(([name]) => name),
   )
-  const band = (name: (typeof present.value)[number]) => present.value.indexOf(name) % 2 === 0
+  const band = (name: (typeof present.value)[number]) => isBandSection(present.value.indexOf(name))
 </script>
 
 <template>

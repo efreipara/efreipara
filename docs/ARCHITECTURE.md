@@ -116,6 +116,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité |
 | `category-color.ts` | `categoryColorClasses`, `categoryTextClass`                                                                                                  | `useCategoryColor`                                                  |
 | `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                              | `HomeStatCounter`, `ColorModeButton`                                |
+| `sections.ts`       | `isBandSection`                                                                                                                              | `ActivitePage`, `/activites`                                        |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 

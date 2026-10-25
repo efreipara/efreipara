@@ -56,7 +56,7 @@
         },
       ]"
       orientation="horizontal"
-      :band="i % 2 === 1"
+      :band="isBandSection(i, false)"
       :class="activityClass(section.key)"
       :ui="{ wrapper: ['order-last', i % 2 !== 0 && 'lg:order-first'] }"
     >

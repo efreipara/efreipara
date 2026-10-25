@@ -29,7 +29,7 @@
 - adresse CDN et jeton de développement (`cdn`) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
-- libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`) ;
+- libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, SEO de chaque page (dans `seo.yml` ou dans son fichier, jamais aux deux endroits), fichiers d'activité ;
 - site généré : chaque page répond sans erreur console, avec titre et canonique ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ;
