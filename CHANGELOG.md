@@ -2,6 +2,13 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.7.1 — 25 octobre 2026
+
+### Corrections
+
+- Accueil : sur les petits téléphones, le logo du hero n'est plus rogné.
+- Accueil : le bouton pause / lecture de la vidéo est entouré d'un contour visible quand on l'atteint au clavier.
+
 ## 1.7.0 — 25 octobre 2026
 
 ### Ajouts
