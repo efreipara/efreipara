@@ -365,7 +365,10 @@ export const collections = {
         actionLabel: z.string(),
       }),
       why: z.object({
+        headline: z.string(),
         title: z.string(),
+        image: z.string(),
+        alt: z.string(),
         features: z.array(
           z.object({
             title: z.string(),

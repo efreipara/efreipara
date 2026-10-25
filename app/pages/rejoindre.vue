@@ -60,7 +60,7 @@
           class="group"
           :class="activityClass(option.type)"
           :ui="{
-            root: 'hover:bg-default overflow-hidden rounded-2xl duration-200 hover:shadow-lg active:scale-[0.98]',
+            root: 'overflow-hidden rounded-2xl duration-200 active:scale-[0.98]',
             container: 'gap-0 p-0 sm:p-0 lg:flex',
             wrapper: 'items-stretch',
             header: 'mb-0 aspect-video overflow-hidden',
@@ -75,14 +75,10 @@
             />
           </template>
           <template #body>
-            <div class="mb-4 flex items-center gap-3">
-              <div class="bg-tint-10 flex size-12 shrink-0 items-center justify-center rounded-2xl">
-                <UIcon :name="option.icon" class="text-activity size-6" />
-              </div>
-              <h3 class="text-activity-strong text-2xl font-extrabold">
-                {{ option.title }}
-              </h3>
-            </div>
+            <h3 class="font-title text-highlighted mb-3 flex items-center gap-2.5 text-2xl">
+              <UIcon :name="option.icon" class="text-activity size-6 shrink-0" />
+              {{ option.title }}
+            </h3>
             <p class="text-muted mb-8 flex-1">{{ option.description }}</p>
             <div class="text-activity-strong flex items-center gap-1.5 font-semibold">
               <span>{{ option.linkText }}</span>
@@ -94,28 +90,40 @@
           </template>
         </UPageCard>
       </div>
-
-      <div class="mt-16">
-        <h2 class="font-title mb-10 text-center text-3xl font-bold">
-          {{ rejoindreData?.why.title }}
-        </h2>
-        <div class="grid gap-6 sm:grid-cols-3">
-          <UCard
-            v-for="feature in rejoindreData?.why.features"
-            :key="feature.title"
-            variant="soft"
-            class="bg-muted/40 rounded-2xl"
-            :ui="{ body: 'flex flex-col items-center p-8 text-center sm:p-8' }"
-            :class="activityClass(feature.type)"
-          >
-            <div class="bg-tint-10 mb-5 flex size-14 items-center justify-center rounded-2xl">
-              <UIcon :name="feature.icon" class="text-activity size-7" />
-            </div>
-            <h3 class="mb-2 font-bold">{{ feature.title }}</h3>
-            <p class="text-muted text-sm">{{ feature.description }}</p>
-          </UCard>
-        </div>
-      </div>
     </UContainer>
+
+    <SharedSection
+      v-if="rejoindreData"
+      :headline="rejoindreData.why.headline"
+      :title="rejoindreData.why.title"
+      orientation="horizontal"
+      band
+    >
+      <template #body>
+        <ul class="flex flex-col gap-6">
+          <UPageFeature
+            v-for="feature in rejoindreData.why.features"
+            :key="feature.title"
+            as="li"
+            :icon="feature.icon"
+            :title="feature.title"
+            :description="feature.description"
+            :class="activityClass(feature.type)"
+            :ui="{
+              leading: 'bg-tint-10 size-10 shrink-0 justify-center rounded-xl p-0',
+              leadingIcon: 'text-activity size-5',
+              title: 'text-highlighted text-base text-wrap',
+              description: 'text-wrap',
+            }"
+          />
+        </ul>
+      </template>
+      <img
+        :src="buildCdnUrl(rejoindreData.why.image)"
+        :alt="rejoindreData.why.alt"
+        loading="lazy"
+        class="aspect-4/3 w-full rounded-2xl object-cover"
+      />
+    </SharedSection>
   </div>
 </template>

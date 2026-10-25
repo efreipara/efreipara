@@ -85,7 +85,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Sections
 
-Règle commune, en place sur l'accueil, `/activites`, les pages d'activité, Documents et FAQ ; les autres pages y passent une à une.
+Règle commune, en place sur l'accueil, `/activites`, les pages d'activité, Documents, FAQ, Nous rejoindre et Contact ; les autres pages y passent une à une.
 
 - Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`SharedHeadline`, couleur primaire, ou icône et teinte d'une activité), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
 - Page d'activité : `ActivitePage` calcule l'alternance des bandes à partir des seules sections présentes (prop `band` de chaque section) ; surtitres dans la teinte de l'activité (`headlineTone="text-activity-strong"`), icône de l'activité à la place du trait sur `/activites`.
@@ -160,7 +160,7 @@ Avant d'écrire un composant, vérifier qu'aucun de ceux-ci ne répond au besoin
 | `HomeStatCounter`                                                                                                                                     | Nombre qui défile jusqu'à sa valeur quand il devient visible (suffixe conservé)                                                                |
 | `ActivitePage`                                                                                                                                        | Assemble les sections d'une page d'activité selon le contenu présent                                                                           |
 | `ActiviteHero`, `ActiviteStats`, `ActiviteIntro`, `ActiviteCarousel`, `ActiviteFeatures`, `ActiviteSteps`, `ActiviteRequirements`, `ActivitePartners` | Sections d'une page d'activité, teintées par l'activité                                                                                        |
-| `SharedHeadline`                                                                                                                                      | Surtitre du site : trait (ou icône) et texte en capitales ; sections, en-têtes de page, catégories                                             |
+| `SharedHeadline`                                                                                                                                      | Surtitre du site : trait (ou icône) et texte en capitales, balise au choix (`as`) ; sections, en-têtes de page, catégories, blocs de Contact   |
 | `SharedSection`                                                                                                                                       | Section commune : `UPageSection` avec surtitre à trait, liens à droite du titre, bande de fond (`band`)                                        |
 | `SharedAlbumCard`                                                                                                                                     | Carte d'album (couverture ou photo de repli du CDN, squelette, type, date, lieu, lien externe) : galerie, accueil                              |
 | `SharedPageHero`                                                                                                                                      | En-tête compact des pages intérieures : surtitre, titre `h1`, description, sur bande                                                           |

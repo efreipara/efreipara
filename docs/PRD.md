@@ -115,13 +115,15 @@ Albums photo des événements, hébergés sur des sites externes (principalement
 
 - Bandeau « Prérequis important » : il faut être sur le Discord, avec un bouton pour le rejoindre.
 - Deux cartes : **Devenir membre** et **Rejoindre le bureau** (photo, icône, titre et lien teintés), qui ouvrent chacune un formulaire externe dans un nouvel onglet.
-- **Pourquoi nous rejoindre ?** : trois points.
+- **Pourquoi nous rejoindre ?** : sur bande, photo de groupe du club et trois points teintés.
 
 ### Nous contacter — `/contact`
 
-- Carte e-mail mise en avant (adresse du club, bouton `mailto:`).
-- Réseaux sociaux en pastilles (nouvel onglet), sous un titre précédé de son icône.
-- **Adresse** du campus avec liens Google Maps, Apple Plans et Waze.
+Quatre cartes de même structure (surtitre avec icône, contenu, boutons en bas), deux par ligne à partir de `md` :
+
+- **E-mail** : adresse du club en grand, phrase d'invitation, bouton `mailto:`.
+- **Réseaux sociaux** : un bouton par réseau (nouvel onglet).
+- **Adresse** du campus en grand, avec liens Google Maps, Apple Plans et Waze.
 - **Support technique** du site : signaler sur GitHub, ou écrire au mainteneur.
 
 ### Ancienne page À propos — `/about`

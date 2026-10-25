@@ -26,7 +26,11 @@ options:
     slug: rejoindre-bureau
     ogImage: /seo/rejoindre-bureau.png
 
+# Photo du CDN à côté des trois raisons
 why:
+  headline: La vie du club
+  image: tandem/tandem-1.jpg
+  alt: Membres d’Efrei Para en harnais dans le hangar, avant leurs sauts en tandem
   title: Pourquoi nous rejoindre ?
   features:
     - title: Activités uniques

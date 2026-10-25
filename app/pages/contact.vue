@@ -14,69 +14,62 @@
     />
 
     <UContainer class="py-12 sm:py-16">
-      <UCard variant="subtle" class="mb-10">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-4">
-            <div
-              class="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-2xl"
-            >
-              <UIcon :name="page?.email.icon" class="text-primary size-6" />
-            </div>
-            <div>
-              <h2 class="text-lg font-bold">{{ page?.email.title }}</h2>
-              <p class="text-muted text-sm">{{ club.email }}</p>
-            </div>
-          </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <UCard
+          variant="subtle"
+          class="rounded-2xl"
+          :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
+        >
+          <SharedHeadline as="h2" :icon="page?.email.icon" class="mb-4">
+            {{ page?.email.title }}
+          </SharedHeadline>
+          <p class="font-title text-highlighted text-xl break-all sm:text-2xl">{{ club.email }}</p>
+          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.email.description }}</p>
           <UButton
             :to="`mailto:${club.email}`"
             :icon="page?.email.icon"
             color="primary"
-            class="shrink-0 rounded-full"
+            class="self-start rounded-full"
           >
             {{ page?.email.buttonLabel }}
           </UButton>
-        </div>
-      </UCard>
+        </UCard>
 
-      <div class="mb-10">
-        <div class="mb-6 flex items-center gap-3">
-          <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
-            <UIcon :name="page?.socials.icon" class="text-primary size-5" />
+        <UCard
+          variant="subtle"
+          class="rounded-2xl"
+          :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
+        >
+          <SharedHeadline as="h2" :icon="page?.socials.icon" class="mb-4">
+            {{ page?.socials.title }}
+          </SharedHeadline>
+          <p class="text-muted mb-6 text-sm">{{ page?.socials.description }}</p>
+          <div class="flex flex-wrap gap-2">
+            <UButton
+              v-for="social in socials"
+              :key="social.name"
+              :to="social.url"
+              target="_blank"
+              :icon="social.icon"
+              color="neutral"
+              variant="subtle"
+              class="rounded-full"
+            >
+              {{ social.name }}
+            </UButton>
           </div>
-          <div>
-            <h2 class="text-lg font-bold">{{ page?.socials.title }}</h2>
-            <p class="text-muted text-sm">{{ page?.socials.description }}</p>
-          </div>
-        </div>
-        <div class="flex flex-wrap justify-center gap-3">
-          <UButton
-            v-for="social in socials"
-            :key="social.name"
-            :to="social.url"
-            target="_blank"
-            :icon="social.icon"
-            color="neutral"
-            variant="ghost"
-            class="bg-muted/50 hover:bg-muted text-default gap-3 rounded-2xl px-4 py-3.5 font-semibold"
-            :ui="{ label: 'truncate' }"
-          >
-            {{ social.name }}
-          </UButton>
-        </div>
-      </div>
+        </UCard>
 
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <UCard variant="subtle">
-          <div class="mb-4 flex items-center gap-3">
-            <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
-              <UIcon :name="page?.address.icon" class="text-primary size-5" />
-            </div>
-            <div>
-              <h2 class="font-bold">{{ page?.address.title }}</h2>
-              <p class="text-muted text-xs">{{ page?.address.description }}</p>
-            </div>
-          </div>
-          <p class="text-muted mb-4 text-sm">{{ club.address }}</p>
+        <UCard
+          variant="subtle"
+          class="rounded-2xl"
+          :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
+        >
+          <SharedHeadline as="h2" :icon="page?.address.icon" class="mb-4">
+            {{ page?.address.title }}
+          </SharedHeadline>
+          <p class="font-title text-highlighted text-xl">{{ club.address }}</p>
+          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.address.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
               v-for="map in mapKeys"
@@ -93,16 +86,15 @@
           </div>
         </UCard>
 
-        <UCard variant="subtle">
-          <div class="mb-4 flex items-center gap-3">
-            <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
-              <UIcon :name="page?.support.icon" class="text-primary size-5" />
-            </div>
-            <div>
-              <h2 class="font-bold">{{ page?.support.title }}</h2>
-              <p class="text-muted text-xs">{{ page?.support.description }}</p>
-            </div>
-          </div>
+        <UCard
+          variant="subtle"
+          class="rounded-2xl"
+          :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
+        >
+          <SharedHeadline as="h2" :icon="page?.support.icon" class="mb-4">
+            {{ page?.support.title }}
+          </SharedHeadline>
+          <p class="text-muted mb-6 flex-1 text-sm">{{ page?.support.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
               :to="club.github.issues"
