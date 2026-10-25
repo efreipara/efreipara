@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.11.0 — 25 octobre 2026
+
+### Ajouts
+
+- Pages légales : un sommaire des sections suit la lecture dans la colonne de droite (menu « Sur cette page » sur téléphone). Un clic descend en douceur jusqu'à la section, sans modifier l'adresse de la page.
+
 ## 1.10.2 — 25 octobre 2026
 
 ### Corrections
