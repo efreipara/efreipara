@@ -138,7 +138,7 @@ export default defineNuxtConfig({
       subsets: ['latin'],
     },
     families: [
-      { name: 'Outfit', provider: 'local' },
+      { name: 'Outfit', provider: 'local', weights: ['100 900'] },
       { name: 'Racing Sans One', provider: 'local', weights: [400] },
       {
         name: 'Open Dyslexic',
