@@ -11,10 +11,15 @@ export const useSmoothScroll = () => {
     stopListening?.()
   }
 
-  const scrollToId = (id: string) => {
+  // focus : le focus suit le défilement (lecteurs d'écran, clavier), sans relancer de défilement
+  const scrollToId = (id: string, { focus = false } = {}) => {
     const el = document.getElementById(id)
     if (!el) return
     stopListening?.()
+    if (focus) {
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1')
+      el.focus({ preventScroll: true })
+    }
     if (prefersReducedMotion()) {
       el.scrollIntoView({ block: 'start' })
       return

@@ -315,7 +315,7 @@ export const collections = {
         }),
       }),
       helpCta: z.object({ github: z.string() }),
-      legal: z.object({ headline: z.string(), updatedAt: z.string() }),
+      legal: z.object({ headline: z.string(), toc: z.string(), updatedAt: z.string() }),
       error: z.object({
         home: z.string(),
         report: z.string(),

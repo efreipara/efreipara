@@ -82,18 +82,18 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ### Composables
 
-| Composable                      | Rôle                                                                                                                                                 |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                            |
-| `usePartners`                   | Collection `partners`, filtre par activité                                                                                                           |
-| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`, `getGalleryLabel`) ; prochain événement et règle d'affichage |
-| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                                                |
-| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                               |
-| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                                              |
-| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                         |
-| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                         |
-| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                         |
-| `useSmoothScroll`               | `scrollToId(id)` : défilement doux interruptible, immédiat avec « réduire les animations » (pastilles de catégories)                                 |
+| Composable                      | Rôle                                                                                                                                                                                                |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                                                                           |
+| `usePartners`                   | Collection `partners`, filtre par activité                                                                                                                                                          |
+| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`, `getGalleryLabel`) ; prochain événement et règle d'affichage                                                |
+| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                                                                                               |
+| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                                                                              |
+| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                                                                                             |
+| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                                                                        |
+| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                                                                        |
+| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                                                                        |
+| `useSmoothScroll`               | `scrollToId(id, { focus })` : défilement doux interruptible, immédiat avec « réduire les animations », focus sur la cible en option (pastilles de catégories, sommaire et titres des pages légales) |
 
 Les clés d'activité sont écrites une seule fois : `ACTIVITY_KEYS` (`utils/activities.ts`, dans l'ordre d'affichage), d'où découlent le type `ActivityType`, `isActivity`, les enums de `content.schemas.ts` et les tests. Tout ce qui décrit une activité (libellés, icône, menu, carte d'accueil, section de `/activites`) est dans son fichier de contenu ; `useActivities` les lit et les trie (`orderActivities`). Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
 

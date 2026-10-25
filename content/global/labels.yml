@@ -30,6 +30,8 @@ helpCta:
 legal:
   # Surtitre de l’en-tête des pages légales
   headline: Informations légales
+  # Titre du sommaire (colonne de droite, menu repliable sur téléphone)
+  toc: Sur cette page
   updatedAt: 'Dernière mise à jour :'
 
 # Page d'erreur : titre et explication selon le code HTTP

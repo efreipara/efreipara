@@ -108,6 +108,35 @@ test.describe('vidéo de l’accueil', () => {
   })
 })
 
+// Lien « Durées de conservation » du sommaire de /rgpd (liste de grand écran ou menu de téléphone)
+const tocLink = (page: Page) =>
+  page
+    .locator('nav a[data-slot="link"]', { hasText: 'Durées de conservation' })
+    .locator('visible=true')
+const sectionTop = (page: Page) =>
+  page.getByRole('heading', { level: 2, name: /Durées de conservation/ }).evaluate((el) => ({
+    top: el.getBoundingClientRect().top,
+    header: document.querySelector('header')!.getBoundingClientRect().bottom,
+  }))
+
+test.describe('pages légales', () => {
+  test('le sommaire fait défiler jusqu’à la section, sans « # » dans l’adresse', async ({
+    page,
+    isMobile,
+  }) => {
+    await gotoReady(page, '/rgpd')
+    if (isMobile) await page.getByRole('button', { name: 'Sur cette page' }).click()
+    await tocLink(page).click()
+    await expect
+      .poll(async () => {
+        const { top, header } = await sectionTop(page)
+        return top >= header && top < header + 120
+      })
+      .toBe(true)
+    expect(new URL(page.url()).hash).toBe('')
+  })
+})
+
 test.describe('réduire les animations', () => {
   test.use({ reducedMotion: 'reduce' })
 
@@ -119,6 +148,19 @@ test.describe('réduire les animations', () => {
     await counter.scrollIntoViewIfNeeded()
     await page.waitForTimeout(500)
     expect(await counter.textContent()).toBe('2016')
+  })
+
+  test('le sommaire d’une page légale amène directement à la section', async ({
+    page,
+    isMobile,
+  }) => {
+    test.skip(isMobile, 'menu replié avant le défilement sur téléphone')
+    await gotoReady(page, '/rgpd')
+    await tocLink(page).click()
+    // Sans attendre : avec « réduire les animations », le défilement est immédiat
+    const { top, header } = await sectionTop(page)
+    expect(top).toBeGreaterThanOrEqual(header)
+    expect(top).toBeLessThan(header + 120)
   })
 
   test('la vidéo de l’accueil ne se lance pas seule', async ({ page }) => {
