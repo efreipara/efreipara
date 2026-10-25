@@ -82,17 +82,17 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ### Composables
 
-| Composable                      | Rôle                                                                                                                              |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                         |
-| `usePartners`                   | Collection `partners`, filtre par activité                                                                                        |
-| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`) ; prochain événement et règle d'affichage |
-| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                             |
-| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                            |
-| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                           |
-| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                      |
-| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                      |
-| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                      |
+| Composable                      | Rôle                                                                                                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                            |
+| `usePartners`                   | Collection `partners`, filtre par activité                                                                                                           |
+| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`, `getGalleryLabel`) ; prochain événement et règle d'affichage |
+| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                                                |
+| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                               |
+| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                                              |
+| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                         |
+| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                         |
+| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                         |
 
 Les clés d'activité sont écrites une seule fois : `ACTIVITY_KEYS` (`utils/activities.ts`, dans l'ordre d'affichage), d'où découlent le type `ActivityType`, `isActivity`, les enums de `content.schemas.ts` et les tests. Tout ce qui décrit une activité (libellés, icône, menu, carte d'accueil, section de `/activites`) est dans son fichier de contenu ; `useActivities` les lit et les trie (`orderActivities`). Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
 
@@ -122,7 +122,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 ## Chargement du contenu
 
 - Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité ; `.path('/<slug>')` pour une page légale, dont la source a le préfixe `/` ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
-- **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
+- **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `galerie` par la galerie et par les derniers albums de l'accueil, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
 - Les clés en place : `seo`, `navigation`, `club`, `labels`, `partners`, `nextEvent`, `qr`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
 - Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Dans un `<script setup>`, les `await` successifs restent sûrs.
 - Nuxt Content **ne valide pas** les données contre le schéma : il les enregistre telles quelles (un nombre reste un nombre là où le schéma attend du texte). Le schéma sert aux types et aux colonnes SQL ; la validation est faite par les tests de contenu ([TESTING.md](TESTING.md)).

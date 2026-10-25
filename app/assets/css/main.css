@@ -131,11 +131,12 @@
   color: var(--activity, var(--ui-primary));
 }
 
-/* Texte teinté : la couleur pleine n'atteint pas le contraste en clair (or du tandem : 1,8:1) */
+/* Texte teinté : la couleur pleine n'atteint pas 4,5:1 (or du tandem en clair : 1,8:1,
+   rouge de la PAC en sombre : 2,9:1) ; assombrie en clair, éclaircie en sombre */
 @utility text-activity-strong {
   color: color-mix(in oklch, var(--activity, var(--ui-primary)) 65%, black);
   @variant dark {
-    color: var(--activity, var(--ui-primary));
+    color: color-mix(in oklch, var(--activity, var(--ui-primary)) 70%, white);
   }
 }
 

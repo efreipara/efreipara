@@ -2,147 +2,191 @@
   import DOMPurify from 'isomorphic-dompurify'
 
   const { getIcon } = await useActivities()
-
   const { partners } = await usePartners()
+  const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
   const { data: cards } = await useAsyncData('home-activites', () =>
-    queryCollection('activites').select('stem', 'card').all(),
+    queryCollection('activites').select('stem', 'label', 'card').all(),
   )
   const activityCards = computed(() => orderActivities(cards.value ?? []))
+
+  const { data: galerie } = await useAsyncData('galerie', () => queryCollection('galerie').first())
+  const latestAlbums = computed(() => filterGallery(galerie.value?.items ?? [], null).slice(0, 3))
+  const albumLabels = computed(() => ({
+    link: galerie.value?.hero.linkLabel ?? '',
+    linkSource: galerie.value?.hero.linkSourceLabel ?? '',
+  }))
+
+  const sectionLink = (link?: { label: string; to: string }) =>
+    link
+      ? [
+          {
+            label: link.label,
+            to: link.to,
+            color: 'neutral' as const,
+            variant: 'subtle' as const,
+            trailingIcon: appConfig.ui.icons.arrowRight,
+            class: 'rounded-full',
+          },
+        ]
+      : []
 </script>
 
 <template>
-  <div>
+  <div v-if="home">
     <HomeHero
-      v-if="home"
       :links="home.hero.links"
       :scroll-icon="home.hero.scrollIcon"
       :video="home.hero.video"
     />
 
-    <UContainer class="py-24">
-      <div class="mb-8 flex flex-col items-center">
-        <div class="bg-primary/10 mb-4 flex size-20 items-center justify-center rounded-2xl">
-          <UIcon name="efreipara:parachute" class="text-primary size-10" />
-        </div>
-        <h2 class="font-title text-center text-3xl font-bold">{{ home?.sections.about }}</h2>
-      </div>
-      <div class="flex items-center gap-12">
-        <div class="text-muted flex flex-1 flex-col gap-4">
+    <SharedSection
+      :headline="home.about.headline"
+      :title="home.about.title"
+      orientation="horizontal"
+    >
+      <template #description>
+        <div class="space-y-4">
           <p
-            v-for="paragraph in home?.about.paragraphs"
+            v-for="paragraph in home.about.paragraphs"
             :key="paragraph"
             v-html="DOMPurify.sanitize(paragraph)"
           />
         </div>
-        <img
-          src="~/assets/images/avion.svg"
-          alt=""
-          aria-hidden="true"
-          class="hidden h-auto w-64 shrink-0 opacity-90 md:block dark:opacity-75"
-        />
-      </div>
-    </UContainer>
-
-    <div class="border-default border-y">
-      <UContainer>
-        <div class="divide-default grid grid-cols-3 divide-x">
-          <div
-            v-for="stat in home?.stats"
+      </template>
+      <template #body>
+        <ul class="border-default grid grid-cols-3 border-y">
+          <li
+            v-for="stat in home.stats"
             :key="stat.description"
-            class="flex flex-col items-center gap-1 py-10"
+            class="border-default flex flex-col gap-1 py-5 not-first:border-l not-first:pl-4 sm:not-first:pl-6"
           >
-            <UIcon :name="stat.icon" class="text-muted mb-1 size-5" />
+            <UIcon :name="stat.icon" class="text-muted size-4" />
             <HomeStatCounter
               :value="stat.title"
-              class="font-title text-4xl font-bold tracking-tight md:text-5xl"
+              class="font-title text-highlighted text-3xl sm:text-4xl"
             />
-            <span class="text-muted px-2 text-center text-xs sm:text-sm">
-              {{ stat.description }}
-            </span>
-          </div>
-        </div>
-      </UContainer>
-    </div>
+            <span class="text-muted text-xs sm:text-sm">{{ stat.description }}</span>
+          </li>
+        </ul>
+      </template>
+      <img
+        src="~/assets/images/avion.svg"
+        alt=""
+        aria-hidden="true"
+        class="hidden w-full max-w-md justify-self-end opacity-90 lg:block dark:opacity-80"
+      />
+    </SharedSection>
 
-    <UContainer class="py-24">
-      <h2 class="font-title mb-8 text-center text-3xl font-bold">
-        {{ home?.sections.activites }}
-      </h2>
-      <div class="mb-8 grid gap-4 sm:grid-cols-2">
+    <SharedSection
+      :headline="home.activites.headline"
+      :title="home.activites.title"
+      :links="sectionLink(home.activites.link)"
+      band
+    >
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <UPageCard
           v-for="item in activityCards"
           :key="item.key"
           :to="item.to"
           :title="item.card.title"
+          variant="subtle"
           class="group"
           :class="activityClass(item.key)"
           :ui="{
-            root: 'border-default hover:bg-tint-10 rounded-2xl border ring-0 duration-200 active:scale-[0.98]',
-            container: 'p-6 sm:p-6',
-            wrapper: 'flex-row gap-4',
-            leading: 'bg-tint-10 mb-0 size-12 shrink-0 justify-center rounded-2xl',
+            root: 'overflow-hidden rounded-2xl duration-200 active:scale-[0.98]',
+            container: 'gap-0 p-0 sm:p-0',
+            header: 'relative mb-0 aspect-video overflow-hidden lg:aspect-4/5',
+            body: 'flex flex-1 flex-col p-5',
           }"
         >
-          <template #leading>
-            <UIcon :name="getIcon(item.key)" class="text-activity size-6" />
+          <template #header>
+            <img
+              :src="buildCdnUrl(`${item.key}.jpg`)"
+              alt=""
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <span
+              class="bg-default/90 text-activity-strong absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold backdrop-blur-sm"
+            >
+              <UIcon :name="getIcon(item.key)" class="size-4" />
+              {{ item.label }}
+            </span>
           </template>
           <template #body>
-            <h3 class="mb-1.5 font-bold">{{ item.card.title }}</h3>
-            <p class="text-muted mb-4 text-sm">{{ item.card.description }}</p>
-            <div class="text-primary flex items-center gap-1 text-sm font-semibold">
-              <span>{{ home?.activites.cardLink }}</span>
+            <h3 class="font-title text-highlighted mb-2 text-xl text-balance">
+              {{ item.card.title }}
+            </h3>
+            <p class="text-muted mb-5 flex-1 text-sm">{{ item.card.description }}</p>
+            <span class="text-activity-strong flex items-center gap-1 text-sm font-semibold">
+              {{ home.activites.cardLink }}
               <UIcon
                 :name="appConfig.ui.icons.arrowRight"
                 class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
               />
-            </div>
+            </span>
           </template>
         </UPageCard>
       </div>
-      <div class="text-center">
-        <UButton
-          :to="home?.activites.link.to"
-          color="neutral"
-          variant="subtle"
-          size="lg"
-          :trailing-icon="appConfig.ui.icons.arrowRight"
-          class="rounded-full"
-        >
-          {{ home?.activites.link.label }}
-        </UButton>
+    </SharedSection>
+
+    <SharedSection
+      :headline="home.why.headline"
+      :title="home.why.title"
+      orientation="horizontal"
+      reverse
+    >
+      <template #body>
+        <ul class="flex flex-col gap-6">
+          <UPageFeature
+            v-for="item in home.why.items"
+            :key="item.title"
+            as="li"
+            :icon="item.icon"
+            :title="item.title"
+            :description="item.description"
+            :class="activityClass(item.type)"
+            :ui="{
+              leading: 'bg-tint-10 size-10 shrink-0 justify-center rounded-xl p-0',
+              leadingIcon: 'text-activity size-5',
+              title: 'text-highlighted text-base text-wrap',
+              description: 'text-wrap',
+            }"
+          />
+        </ul>
+      </template>
+      <img
+        :src="buildCdnUrl(home.why.image)"
+        :alt="home.why.alt"
+        loading="lazy"
+        class="aspect-4/3 w-full rounded-2xl object-cover"
+      />
+    </SharedSection>
+
+    <SharedSection
+      v-if="latestAlbums.length"
+      :headline="home.albums.headline"
+      :title="home.albums.title"
+      :links="sectionLink(home.albums.link)"
+      band
+    >
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <SharedAlbumCard
+          v-for="item in latestAlbums"
+          :key="item.url"
+          :item="item"
+          :labels="albumLabels"
+          :icons="galerie?.albumIcons ?? { date: '', location: '' }"
+        />
       </div>
-    </UContainer>
+    </SharedSection>
 
-    <div class="border-default border-y py-24">
-      <UContainer>
-        <h2 class="font-title mb-10 text-center text-3xl font-bold">
-          {{ home?.sections.why }}
-        </h2>
-        <div class="grid gap-6 sm:grid-cols-3">
-          <UCard v-for="item in home?.why" :key="item.title" variant="subtle">
-            <div class="flex flex-col items-center text-center" :class="activityClass(item.type)">
-              <div class="bg-tint-10 mb-5 flex size-14 items-center justify-center rounded-2xl">
-                <UIcon :name="item.icon" class="text-activity size-7" />
-              </div>
-              <h3 class="mb-2 font-bold">{{ item.title }}</h3>
-              <p class="text-muted text-sm">{{ item.description }}</p>
-            </div>
-          </UCard>
-        </div>
-      </UContainer>
-    </div>
-
-    <div class="border-default border-t">
-      <UContainer class="py-24">
-        <h2 class="font-title mb-8 text-center text-3xl font-bold">
-          {{ home?.sections.partners }}
-        </h2>
-        <SharedPartnerLogos :partners="partners" class="justify-center" />
-      </UContainer>
-    </div>
+    <SharedSection :headline="home.partners.headline" :title="home.partners.title">
+      <SharedPartnerLogos :partners="partners" />
+    </SharedSection>
 
     <SharedCallToAction />
   </div>

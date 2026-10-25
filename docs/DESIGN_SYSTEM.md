@@ -74,7 +74,7 @@ Tout élément lié à une activité prend sa couleur par une **teinte transpare
 ```
 
 - `activityClass(type)` (`app/utils/activities.ts`) donne la classe `activity-<clé>`, qui pose `--activity` ; elle se met une fois, sur la carte ou la section, et les descendants lisent la variable. C'est une classe et non un `style` : un composant Nuxt UI avec lien (`UPageCard :to`…) envoie ses attributs, `style` compris, au lien et pas à la racine, alors que `class` va bien à la racine. Les classes sont générées par `@source inline(...)` dans `main.css` (voir [Ajouter une activité](CONTENT.md#ajouter-une-activité)).
-- Utilitaires de `main.css` : `bg-tint-<pourcentage>` et `border-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine), `text-activity-strong` (texte : couleur assombrie en clair pour atteindre 4,5:1, pleine en sombre). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
+- Utilitaires de `main.css` : `bg-tint-<pourcentage>` et `border-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine), `text-activity-strong` (texte : couleur assombrie en clair et éclaircie en sombre, pour atteindre 4,5:1). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
 - Fond d'une pastille d'icône : 10 à 15 % ; fond d'une carte de point fort : 8 % ; survol d'une carte ou d'un menu : 10 à 12 % ; bannière d'événement : 10 % en clair, 18 % en sombre (bordure 20 / 35 %).
 - L'icône prend la couleur pleine (`text-activity`), le texte `text-activity-strong`.
 - Le survol teinté est une classe `hover:bg-tint-…` : pas d'état JavaScript.
@@ -83,11 +83,20 @@ Tout élément lié à une activité prend sa couleur par une **teinte transpare
 
 Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind (`useCategoryColor`) : fond `/10`, icône `-500`, survol `/20` ; le texte des pastilles est en `-700` ou `-800` en clair et `-400` en sombre (`categoryTextClass`), pour le contraste.
 
+### Sections
+
+Règle commune, en place sur l'accueil ; les autres pages y passent une à une.
+
+- Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`headline`, couleur primaire), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
+- Une section verticale avec un lien (« Voir toute la galerie ») le place à droite du titre sur grand écran.
+- Rythme : `py-12` sur téléphone, `py-20` en `sm`, `py-24` en `lg` ; les sections se distinguent par l'alternance de fond (prop `band` : `bg-elevated/60`), pas par des bordures ou des séparateurs.
+- Les photos réelles portent la page : cartes d'activité à photo, photo de groupe à côté des points forts, derniers albums. La pastille d'icône est réservée à ce qui est lié à une activité ou à une catégorie.
+
 ### Formes
 
 - Boutons : `rounded-full` (y compris les boutons d'icône `p-2`), `cursor-pointer` sur les boutons sans lien.
 - Pastille d'icône : carré `size-8` à `size-14`, `rounded-xl` ou `rounded-2xl`, icône centrée à environ la moitié de la taille.
-- Cartes : `UCard` (`variant="subtle"` ou `"soft"`), `rounded-2xl` ; images `rounded-lg` à `rounded-2xl`.
+- Cartes : `UPageCard` `variant="subtle"`, `rounded-2xl`, photo en tête (`#header`) quand elle existe (accueil) ; `UCard` (`subtle` ou `soft`) sur les pages pas encore passées à la règle commune ; images `rounded-lg` à `rounded-2xl`.
 - Carte cliquable : `UPageCard :to` (le composant pose le lien sur toute la carte, avec le focus visible ; son nom accessible est le `title`). La mise en page se règle par `ui` (`wrapper: 'flex-row'` pour une pastille à gauche) et les slots `#leading`, `#header`, `#body`.
 - Point fort (pastille + titre + texte) : `UPageFeature`, pastille réglée par `ui.leading` / `ui.leadingIcon`, `text-wrap` sur le titre et la description (Nuxt UI met `text-pretty`). Section image + texte + points forts + bouton : `UPageSection orientation="horizontal"` (`/activites`).
 - Filtres et ancres de catégories : `UButton` `rounded-full px-3` (taille `md`, icône `size-4`) ; filtre actif signalé par `aria-pressed`. Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante).
@@ -133,7 +142,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Grilles
 
-Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes, documents), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`, sections espacées de `py-12` (activité) à `py-24` (accueil), séparées par `border-y border-default` ou `USeparator`.
+Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes, documents), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`. Accueil : rythme et bandes de la règle commune (voir [Sections](#sections)) ; cartes d'activité sur 1, 2 puis 4 colonnes (photo 16/9, puis 4/5 en `lg`). Autres pages : sections de `py-12` (activité) à `py-24`, séparées par `border-y border-default` ou `USeparator`.
 
 ## Composants réutilisables
 
@@ -150,6 +159,8 @@ Avant d'écrire un composant, vérifier qu'aucun de ceux-ci ne répond au besoin
 | `HomeStatCounter`                                                                                                                                     | Nombre qui défile jusqu'à sa valeur quand il devient visible (suffixe conservé)                                                                |
 | `ActivitePage`                                                                                                                                        | Assemble les sections d'une page d'activité selon le contenu présent                                                                           |
 | `ActiviteHero`, `ActiviteStats`, `ActiviteIntro`, `ActiviteCarousel`, `ActiviteFeatures`, `ActiviteSteps`, `ActiviteRequirements`, `ActivitePartners` | Sections d'une page d'activité, teintées par l'activité                                                                                        |
+| `SharedSection`                                                                                                                                       | Section commune : `UPageSection` avec surtitre à trait, liens à droite du titre, bande de fond (`band`)                                        |
+| `SharedAlbumCard`                                                                                                                                     | Carte d'album (couverture ou photo de repli du CDN, squelette, type, date, lieu, lien externe) : galerie, accueil                              |
 | `SharedPageHero`                                                                                                                                      | Hero des pages : titre, description, fond flouté                                                                                               |
 | `SharedCallToAction`                                                                                                                                  | Appel à l'action de bas de page (collection `cta`) sur fond de parachutes                                                                      |
 | `SharedCategoryChips`                                                                                                                                 | Pastilles de catégories qui font défiler jusqu'à la section (Documents, FAQ)                                                                   |

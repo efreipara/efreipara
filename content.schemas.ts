@@ -26,13 +26,9 @@ export const collections = {
         scrollIcon: z.string(),
         video: z.object({ pause: link, play: link }),
       }),
-      sections: z.object({
-        about: z.string(),
-        activites: z.string(),
-        why: z.string(),
-        partners: z.string(),
-      }),
       about: z.object({
+        headline: z.string(),
+        title: z.string(),
         paragraphs: z.array(z.string()),
       }),
       stats: z.array(
@@ -43,20 +39,34 @@ export const collections = {
         }),
       ),
       activites: z.object({
+        headline: z.string(),
+        title: z.string(),
         cardLink: z.string(),
         link: z.object({
           label: z.string(),
           to: z.string(),
         }),
       }),
-      why: z.array(
-        z.object({
-          title: z.string(),
-          description: z.string(),
-          icon: z.string(),
-          type: activity,
-        }),
-      ),
+      why: z.object({
+        headline: z.string(),
+        title: z.string(),
+        image: z.string(),
+        alt: z.string(),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            icon: z.string(),
+            type: activity,
+          }),
+        ),
+      }),
+      albums: z.object({
+        headline: z.string(),
+        title: z.string(),
+        link: z.object({ label: z.string(), to: z.string() }),
+      }),
+      partners: z.object({ headline: z.string(), title: z.string() }),
     }),
   },
   galerie: {

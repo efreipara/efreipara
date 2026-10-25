@@ -17,13 +17,10 @@ hero:
       label: Lire la vidéo
       icon: tabler:player-play
 
-sections:
-  about: Qui sommes-nous ?
-  activites: Nos activités
-  why: Pourquoi Efrei Para ?
-  partners: Nos partenaires
-
+# Chaque section : surtitre (headline, en capitales au-dessus du titre) et titre
 about:
+  headline: Le club
+  title: Qui sommes-nous ?
   paragraphs:
     - |-
       <b class="text-highlighted">Efrei Para</b> est le club de parachutisme du BDS Efrei, fondé en <b class="text-highlighted">2016</b>. Repris en 2023 après l’arrêt lié au Covid, le club est aujourd’hui plus actif que jamais avec plus de <b class="text-highlighted">100 membres</b> sur le Discord.
@@ -31,6 +28,7 @@ about:
       Nous organisons des <b class="text-highlighted">sauts en tandem</b>, des <b class="text-highlighted">baptêmes en soufflerie</b> et des <b class="text-highlighted">sauts en OA</b> tout au long de l’année.
     - 'Notre objectif : rendre le parachutisme accessible aux étudiants dans un cadre sécurisé et convivial, sans expérience préalable requise.'
 
+# Chiffres sous la présentation ; le nombre en tête de title est animé, le reste est un suffixe
 stats:
   - title: 100+
     description: Membres actifs sur Discord
@@ -42,28 +40,49 @@ stats:
     description: Année de création du club
     icon: tabler:calendar
 
+# Cartes : photo et textes de chaque activité (fichiers d’activité, champ card)
 activites:
+  headline: Quatre façons de voler
+  title: Nos activités
   cardLink: En savoir plus
   link:
     label: Découvrir toutes nos activités en détail
     to: /activites
 
+# Photo du CDN à côté des trois points forts
 why:
-  - title: Accessible à tous
-    description: >-
-      Aucune expérience requise. Jamais sauté ? Simple curiosité ? On s’occupe
-      de tout : briefing, équipement et encadrement.
-    icon: tabler:mood-happy
-    type: tandem
-  - title: Encadrement professionnel
-    description: >-
-      Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres
-      agréés. La sécurité avant tout.
-    icon: tabler:shield-check
-    type: oa
-  - title: Communauté étudiante
-    description: >-
-      Rejoins une équipe soudée d’étudiantes et d’étudiants de l’Efrei. Des événements
-      uniques durant l’année pour vivre des expériences inoubliables ensemble.
-    icon: tabler:heart
-    type: soufflerie
+  headline: L’esprit du club
+  title: Pourquoi Efrei Para ?
+  image: tandem/tandem-9.jpg
+  alt: Membres d’Efrei Para attablés pour le déjeuner, sur la zone de saut
+  items:
+    - title: Accessible à tous
+      description: >-
+        Aucune expérience requise. Jamais sauté ? Simple curiosité ? On s’occupe
+        de tout : briefing, équipement et encadrement.
+      icon: tabler:mood-happy
+      type: tandem
+    - title: Encadrement professionnel
+      description: >-
+        Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres
+        agréés. La sécurité avant tout.
+      icon: tabler:shield-check
+      type: oa
+    - title: Communauté étudiante
+      description: >-
+        Rejoins une équipe soudée d’étudiantes et d’étudiants de l’Efrei. Des événements
+        uniques durant l’année pour vivre des expériences inoubliables ensemble.
+      icon: tabler:heart
+      type: soufflerie
+
+# Trois derniers albums de la galerie (galerie.yml)
+albums:
+  headline: En images
+  title: Derniers albums
+  link:
+    label: Voir toute la galerie
+    to: /galerie
+
+partners:
+  headline: Ils nous accompagnent
+  title: Nos partenaires

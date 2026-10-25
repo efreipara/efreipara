@@ -18,7 +18,13 @@ export const useActivities = async () => {
 
   const getIcon = (key: string) => byKey(key)?.icon ?? ''
 
-  return { activities, byKey, getIcon }
+  // Filtres et étiquettes de la galerie : galleryLabel, sinon label
+  const getGalleryLabel = (key: string) => {
+    const activity = byKey(key)
+    return activity?.galleryLabel ?? activity?.label ?? key
+  }
+
+  return { activities, byKey, getIcon, getGalleryLabel }
 }
 
 /**
