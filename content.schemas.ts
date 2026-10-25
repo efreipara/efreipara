@@ -201,7 +201,6 @@ export const collections = {
       title: z.string(),
       description: z.string(),
       count: z.object({ one: z.string(), other: z.string() }),
-      typeLabels: z.object({ internal: z.string(), external: z.string() }),
       helpcta: helpCta.optional(),
       categories: z.array(
         z.object({

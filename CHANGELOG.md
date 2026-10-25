@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.4 — 26 octobre 2026
+
+### Modifications
+
+- Documents : à droite de chaque document, le site où il mène (« Efrei Para », « ffp.asso.fr », « drive.google.com »…), écrit en petit, remplace « Page du site » et « Site externe ».
+
 ## 1.14.3 — 26 octobre 2026
 
 ### Corrections

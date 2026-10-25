@@ -5,6 +5,10 @@
 
   const appConfig = useAppConfig()
 
+  // Site de destination à droite de chaque document : le domaine du lien, ou le nom du club
+  const { data: seo } = useNuxtData('seo')
+  const siteName = computed(() => seo.value?.defaults.siteName)
+
   const { getCategoryColor } = useCategoryColor()
 
   const categoryChips = computed(() =>
@@ -59,9 +63,9 @@
               </span>
             </span>
             <span
-              class="text-muted hidden text-xs font-semibold tracking-[0.12em] whitespace-nowrap uppercase sm:block"
+              class="text-muted hidden text-[0.6875rem] font-semibold tracking-[0.12em] whitespace-nowrap uppercase sm:block"
             >
-              {{ documentsData?.typeLabels[doc.type] }}
+              {{ documentHost(doc.url) ?? siteName }}
             </span>
             <UIcon
               :name="

@@ -249,6 +249,17 @@ test.describe('galerie', () => {
 })
 
 test.describe('FAQ et documents', () => {
+  test('chaque document indique son site de destination', async ({ page }) => {
+    const { defaults } = readYaml<{ defaults: { siteName: string } }>('global/seo.yml')
+    await gotoReady(page, '/documents')
+    await expect(page.getByRole('link', { name: /Règlement intérieur/ })).toContainText(
+      defaults.siteName,
+    )
+    await expect(page.getByRole('link', { name: /Contre-indications médicales/ })).toContainText(
+      'ffp.asso.fr',
+    )
+  })
+
   test('une question de la FAQ s’ouvre au clic', async ({ page }) => {
     const faq = readYaml<{ categories: { questions: { question: string }[] }[] }>('pages/faq.yml')
     const first = faq.categories[0]!.questions[0]!.question
