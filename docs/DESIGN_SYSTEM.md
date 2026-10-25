@@ -116,6 +116,7 @@ Chaque bouton a un **rôle**, porté par une variante de `UButton` définie dans
 | Icône      | `ghost`     | carré `p-2`, `aria-label` obligatoire ; plein (`solid`) pour un état actif (menu d'accessibilité)   | en-tête, pied de page, fermeture de la bannière, vidéo de l'accueil, page QR                                                          |
 
 - Le principal et les filtres sont inclinés (`-skew-x-12`) et leur contenu redressé (`*:skew-x-12`) : libellé passé par la prop `label`, jamais par le slot par défaut (un nœud texte ne se redresse pas).
+- Contenu centré (`justify-center` dans `ui.button.slots.base`), aussi quand le bouton est étiré (actions d'`UAlert` sur téléphone). Racing Sans One dessine ses lettres bas dans la ligne : le libellé du principal remonte de `0.06em` (environ 1 px), pour rester centré à côté de l'icône.
 - Sur la vidéo de l'accueil : principal blanc (`bg-white text-navy-950`) et secondaire en texte blanc, dans les deux thèmes. Flèches du carrousel : `solid`, `rounded-md`.
 - Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante) : secondaire de `/activites` en `text-activity-strong` ; filtre d'activité en `text-activity-strong ring-tint-45`, actif en `bg-activity text-on-activity`.
 - Le rôle d'un bouton du contenu (`hero.links`, `cta.links`) se règle par son champ `variant` ([CONTENT.md](CONTENT.md)).

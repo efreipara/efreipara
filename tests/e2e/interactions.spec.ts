@@ -297,3 +297,18 @@ test.describe('activités', () => {
     await expect(page.locator('[aria-roledescription="carousel"]')).toHaveCount(0)
   })
 })
+
+test.describe('boutons', () => {
+  test('un bouton étiré centre son contenu (Discord de « Nous rejoindre »)', async ({ page }) => {
+    const { alert } = readYaml<{ alert: { actionLabel: string } }>('pages/rejoindre.yml')
+    await gotoReady(page, '/rejoindre')
+    const offset = await page.getByRole('link', { name: alert.actionLabel }).evaluate((el) => {
+      const kids = [...el.children].map((child) => child.getBoundingClientRect())
+      const box = el.getBoundingClientRect()
+      const middle =
+        (Math.min(...kids.map((r) => r.left)) + Math.max(...kids.map((r) => r.right))) / 2
+      return Math.abs(middle - (box.left + box.width / 2))
+    })
+    expect(offset).toBeLessThanOrEqual(1)
+  })
+})

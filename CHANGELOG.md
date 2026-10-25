@@ -2,6 +2,13 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.3 — 26 octobre 2026
+
+### Corrections
+
+- Boutons principaux : le texte est maintenant centré en hauteur, à la même hauteur que l'icône (il tombait d'environ 1 px).
+- Nous rejoindre, sur téléphone : le bouton « Rejoindre le Discord » centre son icône et son texte au lieu de les coller à gauche.
+
 ## 1.14.2 — 25 octobre 2026
 
 ### Corrections

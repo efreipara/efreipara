@@ -15,7 +15,7 @@ export default defineAppConfig({
     // boutons d'icône en ghost. Le principal et les filtres sont inclinés, leur contenu redressé.
     button: {
       slots: {
-        base: 'cursor-pointer transition active:scale-[0.97]',
+        base: 'cursor-pointer justify-center transition active:scale-[0.97]',
       },
       variants: {
         variant: {
@@ -30,6 +30,8 @@ export default defineAppConfig({
         { variant: 'primary', size: ['xs', 'sm'], class: 'px-3.5 text-sm' },
         { variant: 'primary', size: ['md', 'lg'], class: 'px-5 text-base' },
         { variant: 'primary', size: 'xl', class: 'px-6 text-lg' },
+        // Racing Sans One dessine ses lettres bas dans la ligne : libellé remonté d'environ 1 px
+        { variant: 'primary', class: { label: '-translate-y-[0.06em]' } },
         { variant: ['secondary', 'tertiary'], class: 'px-0.5' },
         { variant: 'filter', class: { base: 'px-3.5 text-sm', leadingIcon: 'size-4' } },
       ],
