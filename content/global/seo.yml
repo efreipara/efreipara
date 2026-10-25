@@ -1,7 +1,5 @@
-# Configuration SEO centralisée pour toutes les pages du site
-# Ce fichier permet de gérer facilement les métadonnées SEO sans modifier le code des pages
+# Titre, description et image de partage de chaque page (clé : chemin, / remplacés par -)
 
-# Valeurs par défaut appliquées à toutes les pages
 defaults:
   siteName: Efrei Para
   separator: ' - '
@@ -16,46 +14,37 @@ defaults:
   # Seule l'accueil est indexée : les autres pages portent noindex (robots.txt n'interdit rien)
   robots: noindex, follow
 
-# Métadonnées spécifiques à chaque page
 pages:
-  # Page d’accueil
   index:
     title: Efrei Para
     description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
     robots: index, follow
 
-  # Page contact
   contact:
     title: Contact
     description: Contactez-nous pour toute question ou demande d’information sur Efrei Para
 
-  # Page FAQ
   faq:
     title: Questions fréquentes (FAQ)
     description: Toutes les réponses à vos questions sur Efrei Para, nos activités et le parachutisme
 
-  # Page rejoindre
   rejoindre:
     title: Nous rejoindre
     description: Découvrez comment rejoindre Efrei Para et participer à nos activités
     ogImage: /seo/rejoindre.png
 
-  # Page galerie
   galerie:
     title: Nos albums photos
     description: Découvrez les moments forts d’Efrei Para en images
 
-  # Page documents
   documents:
     title: Documents
     description: Téléchargez les documents utiles d’Efrei Para (règlement, fiches d’inscription, etc.)
 
-  # Page activités (liste)
   activites:
     title: Nos activités
     description: 'Découvrez toutes les activités proposées par Efrei Para : OA, tandem, soufflerie et PAC'
 
-  # Pages activités spécifiques
   activites-oa:
     title: Saut en Ouverture Automatique (OA)
     description: Découvrez le saut en ouverture automatique (OA) avec Efrei Para. Vivez l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
@@ -89,7 +78,6 @@ pages:
     robots: noindex, nofollow
     ogImage: /seo/instagram.png
 
-  # Page QR Code
   qr:
     title: QR Code
     description: Scannez notre QR Code pour accéder rapidement à nos informations

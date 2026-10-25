@@ -23,14 +23,12 @@
     <UContainer class="pb-16">
       <SharedCategoryChips :categories="categoryChips" />
 
-      <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
         <template v-for="(category, catIndex) in documentsData?.categories" :key="catIndex">
           <section
             :id="toAnchorId(category.name)"
             class="scroll-mt-[calc(var(--ui-header-height)+2rem)]"
           >
-            <!-- En-tête de catégorie -->
             <SharedCategoryHeader
               :name="category.name"
               :icon="category.icon || appConfig.ui.icons.folder"
@@ -44,7 +42,6 @@
               class="mb-6"
             />
 
-            <!-- Grille de documents -->
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <UPageCard
                 v-for="(doc, docIndex) in category.documents"

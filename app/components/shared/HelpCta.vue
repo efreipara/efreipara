@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  defineProps<{
+  const props = defineProps<{
     title: string
     description: string
     icon: string
@@ -8,8 +8,12 @@
 
   const { club, getSocial } = await useClub()
   const { labels } = await useLabels()
-  const discord = computed(() => getSocial('discord'))
-  const instagram = computed(() => getSocial('instagram'))
+  const socialButtons = computed(() =>
+    (['discord', 'instagram'] as const)
+      .filter((key) => props.buttons.includes(key))
+      .map((key) => getSocial(key))
+      .filter((social) => !!social),
+  )
 </script>
 
 <template>
@@ -17,33 +21,23 @@
     <div class="space-y-6 text-center">
       <div class="space-y-3">
         <div class="flex justify-center">
-          <UIcon :name="icon" class="text-primary-500 size-12" />
+          <UIcon :name="icon" class="text-primary size-12" />
         </div>
         <h2 class="text-2xl font-bold">{{ title }}</h2>
         <p class="text-muted mx-auto max-w-xl">{{ description }}</p>
       </div>
       <div class="flex flex-wrap justify-center gap-3">
         <UButton
-          v-if="buttons.includes('discord')"
-          :to="discord?.url"
+          v-for="social in socialButtons"
+          :key="social.key"
+          :to="social.url"
           target="_blank"
           size="lg"
-          :icon="discord?.icon"
+          :icon="social.icon"
           color="primary"
           class="rounded-full"
         >
-          {{ discord?.name }}
-        </UButton>
-        <UButton
-          v-if="buttons.includes('instagram')"
-          :to="instagram?.url"
-          target="_blank"
-          size="lg"
-          :icon="instagram?.icon"
-          color="primary"
-          class="rounded-full"
-        >
-          {{ instagram?.name }}
+          {{ social.name }}
         </UButton>
         <UButton
           v-if="buttons.includes('github')"

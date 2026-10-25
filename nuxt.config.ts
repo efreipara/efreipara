@@ -24,7 +24,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    // Optimisation des dépendances pour éviter les problèmes de compatibilité avec les modules externes
+    // Pré-bundlées en dev : sinon Vite les découvre au premier import et recharge la page
     optimizeDeps: {
       include: [
         '@plausible-analytics/tracker',
@@ -41,7 +41,6 @@ export default defineNuxtConfig({
     'rehype-target-blank': fileURLToPath(new URL('./rehype-target-blank.mjs', import.meta.url)),
   },
 
-  // Modules Nuxt : UI, analytics, fonts, icônes, images et gestion de contenu
   modules: [
     '@nuxt/ui',
     '@nuxtjs/plausible',
@@ -104,7 +103,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // Variables d'environnement accessibles côté client
+  // Tout runtimeConfig.public est écrit dans le HTML : rien de secret (SECURITY.md)
   runtimeConfig: {
     public: {
       cdnUrl: process.env.CDN_URL || '',
@@ -130,7 +129,6 @@ export default defineNuxtConfig({
     storage: 'sessionStorage',
   },
 
-  // Polices hébergées localement pour de meilleures performances et confidentialité
   fonts: {
     defaults: {
       weights: ['100 900'],
@@ -152,9 +150,8 @@ export default defineNuxtConfig({
     },
   },
 
-  // Collections d'icônes personnalisées (Efrei Para, Efrei, Creative Commons, Logos partenaires)
   icon: {
-    // Toutes les icônes doivent donc être embarquées dans le bundle client au build.
+    // Aucune icône chargée à l'exécution : toutes sont embarquées au build
     fallbackToApi: false,
     clientBundle: {
       // Le scanner par défaut ne lit que les templates : ajouter les YAML de contenu,
@@ -186,16 +183,13 @@ export default defineNuxtConfig({
     ],
   },
 
-  // Plausible Analytics : analytique respectueuse de la vie privée
   plausible: {
     enabled: true,
     apiHost: process.env.PLAUSIBLE_URL || '',
     domain: process.env.PLAUSIBLE_DOMAIN || '',
-    //ignoredHostnames: ['localhost'],
     autoOutboundTracking: true,
   },
 
-  // Configuration Nuxt Content avec plugin rehype pour ouvrir les liens externes dans un nouvel onglet
   content: {
     database: {
       type: 'libsql',
@@ -221,7 +215,7 @@ export default defineNuxtConfig({
     '/about': { redirect: '/' },
   },
 
-  // Configuration Nitro : ne pas échouer si une page ne peut pas être pré-rendue
+  // Une page en erreur est absente de la sortie sans faire échouer le build : relire le journal
   nitro: {
     prerender: {
       failOnError: false,

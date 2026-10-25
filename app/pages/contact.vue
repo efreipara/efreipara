@@ -2,6 +2,7 @@
   const { club, socials, maps, getSocial } = await useClub()
 
   const { data: page } = await useAsyncData('contact', () => queryCollection('contact').first())
+  const mapKeys = ['google', 'apple', 'waze'] as const
 </script>
 
 <template>
@@ -9,7 +10,6 @@
     <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
 
     <UContainer class="pb-16">
-      <!-- Email - carte principale mise en avant -->
       <UCard variant="subtle" class="mb-10">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex items-center gap-4">
@@ -34,7 +34,6 @@
         </div>
       </UCard>
 
-      <!-- Réseaux sociaux -->
       <div class="mb-10">
         <div class="mb-6 flex items-center gap-3">
           <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
@@ -62,15 +61,11 @@
         </div>
       </div>
 
-      <!-- Adresse + Support -->
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <!-- Adresse -->
         <UCard variant="subtle">
           <div class="mb-4 flex items-center gap-3">
-            <div
-              class="bg-efreipara-oa/10 flex size-10 shrink-0 items-center justify-center rounded-xl"
-            >
-              <UIcon :name="page?.address.icon" class="text-efreipara-oa size-5" />
+            <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
+              <UIcon :name="page?.address.icon" class="text-primary size-5" />
             </div>
             <div>
               <h2 class="font-bold">{{ page?.address.title }}</h2>
@@ -80,45 +75,24 @@
           <p class="text-muted mb-4 text-sm">{{ club.address }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
-              :to="maps.google"
+              v-for="map in mapKeys"
+              :key="map"
+              :to="maps[map]"
               target="_blank"
-              :icon="page?.address.buttons.google.icon"
+              :icon="page?.address.buttons[map].icon"
               size="sm"
               color="neutral"
               class="rounded-full"
             >
-              {{ page?.address.buttons.google.label }}
-            </UButton>
-            <UButton
-              :to="maps.apple"
-              target="_blank"
-              :icon="page?.address.buttons.apple.icon"
-              size="sm"
-              color="neutral"
-              class="rounded-full"
-            >
-              {{ page?.address.buttons.apple.label }}
-            </UButton>
-            <UButton
-              :to="maps.waze"
-              target="_blank"
-              :icon="page?.address.buttons.waze.icon"
-              size="sm"
-              color="neutral"
-              class="rounded-full"
-            >
-              {{ page?.address.buttons.waze.label }}
+              {{ page?.address.buttons[map].label }}
             </UButton>
           </div>
         </UCard>
 
-        <!-- Support technique -->
         <UCard variant="subtle">
           <div class="mb-4 flex items-center gap-3">
-            <div
-              class="bg-efreipara-pac/10 flex size-10 shrink-0 items-center justify-center rounded-xl"
-            >
-              <UIcon :name="page?.support.icon" class="text-efreipara-pac size-5" />
+            <div class="bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-xl">
+              <UIcon :name="page?.support.icon" class="text-primary size-5" />
             </div>
             <div>
               <h2 class="font-bold">{{ page?.support.title }}</h2>

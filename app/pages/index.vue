@@ -22,7 +22,6 @@
       :video="home.hero.video"
     />
 
-    <!-- À propos -->
     <UContainer class="py-24">
       <div class="mb-8 flex flex-col items-center">
         <div class="bg-primary/10 mb-4 flex size-20 items-center justify-center rounded-2xl">
@@ -47,7 +46,6 @@
       </div>
     </UContainer>
 
-    <!-- Stats -->
     <div class="border-default border-y">
       <UContainer>
         <div class="divide-default grid grid-cols-3 divide-x">
@@ -69,7 +67,6 @@
       </UContainer>
     </div>
 
-    <!-- Activités -->
     <UContainer class="py-24">
       <h2 class="font-title mb-8 text-center text-3xl font-bold">
         {{ home?.sections.activites }}
@@ -119,7 +116,6 @@
       </div>
     </UContainer>
 
-    <!-- Pourquoi Efrei Para ? -->
     <div class="border-default border-y py-24">
       <UContainer>
         <h2 class="font-title mb-10 text-center text-3xl font-bold">
@@ -139,7 +135,6 @@
       </UContainer>
     </div>
 
-    <!-- Partenaires -->
     <div class="border-default border-t">
       <UContainer class="py-24">
         <h2 class="font-title mb-8 text-center text-3xl font-bold">

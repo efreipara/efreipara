@@ -17,7 +17,6 @@
     },
   })
 
-  // SEO automatique basé sur le chemin de la route
   const seoKey = computed(() => seoKeyFromPath(route.path))
 
   useSeo(seoKey)

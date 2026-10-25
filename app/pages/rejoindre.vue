@@ -17,7 +17,6 @@
     />
 
     <UContainer class="pb-16">
-      <!-- Bandeau Discord -->
       <UAlert
         :title="rejoindreData?.alert.title"
         :description="rejoindreData?.alert.description"
@@ -50,7 +49,6 @@
         </template>
       </UAlert>
 
-      <!-- Devenir membre / Rejoindre le bureau -->
       <div class="grid gap-6 sm:grid-cols-2">
         <UPageCard
           v-for="option in joinOptions"
@@ -96,7 +94,6 @@
         </UPageCard>
       </div>
 
-      <!-- Pourquoi nous rejoindre ? -->
       <div class="mt-16">
         <h2 class="font-title mb-10 text-center text-3xl font-bold">
           {{ rejoindreData?.why.title }}

@@ -51,7 +51,6 @@
       ogImage: option.ogImage,
     })
 
-  // Redirection immédiate vers l'URL cible
   // En dev, ajouter ?noRedirect à l'URL pour inspecter la page sans être redirigé
   const route = useRoute()
   const skipRedirect = import.meta.dev && 'noRedirect' in route.query

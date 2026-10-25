@@ -64,7 +64,6 @@
     <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
 
     <UContainer class="pb-16">
-      <!-- Filtres par type d'activité -->
       <div class="mb-8 flex flex-wrap gap-2">
         <UButton
           :color="activeFilter ? 'neutral' : 'primary'"

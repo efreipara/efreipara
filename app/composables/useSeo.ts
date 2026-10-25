@@ -12,23 +12,19 @@ export const useSeo = (
   pageKey: MaybeRefOrGetter<string>,
   overrides: MaybeRefOrGetter<SeoOverrides> = {},
 ) => {
-  // Récupération des données SEO depuis le fichier seo.yml
   const { data: seoData, status } = useAsyncData('seo', () => queryCollection('seo').first())
 
-  // Computed pour les métadonnées (réactif mais exécuté immédiatement en SSR)
   const seoMeta = computed(() =>
     seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides)) : null,
   )
 
   const absolute = (path?: string) => toAbsoluteUrl(seoData.value?.defaults.baseUrl ?? '', path)
 
-  // Application des métadonnées SEO
   useSeoMeta({
     title: computed(() => seoMeta.value?.title),
     description: computed(() => seoMeta.value?.description),
     author: computed(() => seoMeta.value?.author),
 
-    // OpenGraph
     ogTitle: computed(() => seoMeta.value?.ogTitle),
     ogDescription: computed(() => seoMeta.value?.ogDescription),
     ogImage: computed(() => absolute(seoMeta.value?.ogImage)),
@@ -37,17 +33,14 @@ export const useSeo = (
     ogUrl: computed(() => seoMeta.value?.ogUrl),
     ogLocale: computed(() => seoMeta.value?.ogLocale),
 
-    // Twitter
     twitterCard: computed(() => seoMeta.value?.twitterCard),
     twitterTitle: computed(() => seoMeta.value?.twitterTitle),
     twitterDescription: computed(() => seoMeta.value?.twitterDescription),
     twitterImage: computed(() => absolute(seoMeta.value?.twitterImage)),
 
-    // Robots
     robots: computed(() => seoMeta.value?.robots),
   })
 
-  // Configuration supplémentaire pour le HTML
   useHead({
     htmlAttrs: {
       lang: computed(() => seoMeta.value?.htmlLang),

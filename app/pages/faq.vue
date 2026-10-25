@@ -37,14 +37,12 @@
     <UContainer class="pb-16">
       <SharedCategoryChips :categories="categoriesData" />
 
-      <!-- Sections par catégorie -->
       <div class="flex flex-col gap-10">
         <template v-for="(category, catIndex) in categoriesData" :key="catIndex">
           <section
             :id="toAnchorId(category.name)"
             class="scroll-mt-[calc(var(--ui-header-height)+2rem)]"
           >
-            <!-- En-tête de catégorie -->
             <SharedCategoryHeader
               :name="category.name"
               :icon="category.icon"
@@ -53,7 +51,6 @@
               class="mb-4"
             />
 
-            <!-- Accordéon des questions -->
             <UCard variant="subtle">
               <UAccordion
                 :items="category.questions"

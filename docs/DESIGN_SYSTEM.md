@@ -111,7 +111,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Décor de parachutes
 
-`SharedParachuteBg` fait tomber des icônes `efreipara-parachute` en arrière-plan (position absolue, sans interaction, `aria-hidden`). Paramètres : nombre, couleur (et couleur en sombre), vitesse, tailles, dérive, part déjà visible au chargement. Utilisé sur l'appel à l'action, la page d'erreur et la page QR.
+`SharedParachuteBg` fait tomber des icônes `efreipara-parachute` en arrière-plan (position absolue, sans interaction, `aria-hidden`). Paramètres : nombre, couleur (et couleur en sombre), vitesse, tailles, dérive, part déjà visible au chargement. Les parachutes sont tirés au sort au montage : ils ne sont pas dans le HTML prérendu. Utilisé sur l'appel à l'action, la page d'erreur et la page QR.
 
 ### Mouvement
 

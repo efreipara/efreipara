@@ -141,7 +141,6 @@
     <!-- Mobile : menu de navigation -->
     <template #body>
       <div class="flex flex-col">
-        <!-- Activités -->
         <NuxtLink
           :to="activitiesIndex.to"
           class="text-toned hover:text-highlighted hover:bg-elevated/50 aria-[current=page]:text-highlighted aria-[current=page]:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition active:scale-[0.98]"
@@ -166,7 +165,6 @@
           </NuxtLink>
         </div>
 
-        <!-- Autres pages -->
         <div>
           <NuxtLink
             v-for="link in headerLinks"
@@ -180,7 +178,6 @@
           </NuxtLink>
         </div>
 
-        <!-- Réseaux sociaux -->
         <div class="border-default mt-2 flex items-center gap-1 border-t pt-2">
           <UButton
             v-for="social in socials"

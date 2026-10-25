@@ -3,7 +3,6 @@
     value: string | number
   }>()
 
-  // Durée de l'animation en secondes
   const ANIMATION_DURATION_SEC = 2.5
 
   const parsed = computed(() => parseStatValue(props.value))

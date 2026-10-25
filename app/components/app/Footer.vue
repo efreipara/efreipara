@@ -29,11 +29,9 @@
 </script>
 
 <template>
-  <!-- Séparateur visuel avec icône parachute -->
   <USeparator icon="efreipara:parachute" class="h-px" />
 
   <UFooter :ui="{ top: 'border-b border-default' }">
-    <!-- Colonnes de navigation du footer -->
     <template #top>
       <UContainer>
         <!-- Slots left / right inutilisés : pas de grille xl à trois colonnes, colonnes en grille simple -->
@@ -47,7 +45,6 @@
       </UContainer>
     </template>
 
-    <!-- Section gauche : Copyright et informations de licence -->
     <template #left>
       <div class="flex flex-col">
         <p class="text-muted text-sm">
@@ -83,7 +80,6 @@
       </div>
     </template>
 
-    <!-- Section droite : Boutons des réseaux sociaux -->
     <template #right>
       <UButton
         :to="footerTitles.school.url"

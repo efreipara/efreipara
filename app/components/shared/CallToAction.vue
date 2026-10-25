@@ -22,7 +22,6 @@
 <template>
   <USeparator />
   <UPageSection :ui="{ container: 'p-0!' }">
-    <!-- Fond de parachutes animés avec densité réduite -->
     <SharedParachuteBg
       :count="50"
       :initial-presence="0.5"
@@ -30,7 +29,6 @@
       color="rgb(9 41 84 / 0.12)"
       color-dark="rgb(255 255 255 / 0.12)"
     />
-    <!-- Section CTA (Call To Action) pour encourager les visiteurs à rejoindre le club -->
     <UPageCTA
       :title="cta?.title"
       :description="cta?.description"
@@ -40,7 +38,6 @@
       class="relative"
       :ui="{ title: 'font-title' }"
     >
-      <!-- Image depuis le CDN pour de meilleures performances -->
       <img
         :src="buildCdnUrl(cta?.image ?? '')"
         :alt="cta?.alt"
