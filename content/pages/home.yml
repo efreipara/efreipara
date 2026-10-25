@@ -1,9 +1,11 @@
 # Hero : boutons sous la phrase d’accroche (description SEO de l’accueil), flèche vers le bas
+# variant : primary (par défaut) ou secondary
 hero:
   links:
     - label: Nos activités
       to: /activites
       icon: tabler:parachute
+      variant: secondary
     - label: Nous rejoindre
       to: /rejoindre
       icon: tabler:user-plus

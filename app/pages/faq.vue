@@ -80,13 +80,8 @@
                         :to="button.to"
                         :target="button.target"
                         :icon="button.icon"
-                        :variant="
-                          (button.variant as
-                            'solid' | 'subtle' | 'outline' | 'ghost' | 'soft' | 'link') || 'solid'
-                        "
-                        color="neutral"
+                        variant="secondary"
                         size="sm"
-                        class="rounded-full"
                       >
                         {{ button.label }}
                       </UButton>

@@ -74,7 +74,7 @@ Tout élément lié à une activité prend sa couleur par une **teinte transpare
 ```
 
 - `activityClass(type)` (`app/utils/activities.ts`) donne la classe `activity-<clé>`, qui pose `--activity` ; elle se met une fois, sur la carte ou la section, et les descendants lisent la variable. C'est une classe et non un `style` : un composant Nuxt UI avec lien (`UPageCard :to`…) envoie ses attributs, `style` compris, au lien et pas à la racine, alors que `class` va bien à la racine. Les classes sont générées par `@source inline(...)` dans `main.css` (voir [Ajouter une activité](CONTENT.md#ajouter-une-activité)).
-- Utilitaires de `main.css` : `bg-tint-<pourcentage>` et `border-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine), `text-activity-strong` (texte : couleur assombrie en clair et éclaircie en sombre, pour atteindre 4,5:1). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
+- Utilitaires de `main.css` : `bg-tint-<pourcentage>`, `border-tint-<pourcentage>` et `ring-tint-<pourcentage>` (`color-mix` avec du transparent), `text-activity` et `bg-activity` (couleur pleine), `text-activity-strong` (texte : couleur assombrie en clair et éclaircie en sombre, pour atteindre 4,5:1), `text-on-activity` (texte sur `bg-activity` : noir sur les teintes claires, blanc sur le rouge de la PAC). Ils acceptent les variantes Tailwind (`hover:`, `dark:`, `group-hover:`). Sans `--activity`, ils retombent sur `var(--ui-primary)`.
 - Fond d'une pastille d'icône : 10 à 15 % ; fond d'une carte de point fort : 8 % ; survol d'une carte ou d'un menu : 10 à 12 % ; bannière d'événement : 10 % en clair, 18 % en sombre (bordure 20 / 35 %).
 - L'icône prend la couleur pleine (`text-activity`), le texte `text-activity-strong`.
 - Le survol teinté est une classe `hover:bg-tint-…` : pas d'état JavaScript.
@@ -95,12 +95,29 @@ Règle commune à tout le site (hors page QR, page d'erreur et pages de redirect
 
 ### Formes
 
-- Boutons : `rounded-full` (y compris les boutons d'icône `p-2`), `cursor-pointer` sur les boutons sans lien.
+- Boutons : rôles et formes dans [Boutons](#boutons).
 - Pastille d'icône : carré `size-8` à `size-14`, `rounded-xl` ou `rounded-2xl`, icône centrée à environ la moitié de la taille.
 - Cartes : `UPageCard` (ou `UCard` sans lien) `variant="subtle"`, `rounded-2xl`, photo en tête (`#header`) quand elle existe ; images `rounded-lg` à `rounded-2xl`.
 - Carte cliquable : `UPageCard :to` (le composant pose le lien sur toute la carte, avec le focus visible ; son nom accessible est le `title`). La mise en page se règle par `ui` (`wrapper: 'flex-row'` pour une pastille à gauche) et les slots `#leading`, `#header`, `#body`.
 - Point fort (pastille + titre + texte) : `UPageFeature`, pastille réglée par `ui.leading` / `ui.leadingIcon`, `text-wrap` sur le titre et la description (Nuxt UI met `text-pretty`). Section image + texte + points forts + bouton : `UPageSection orientation="horizontal"` (`/activites`).
-- Filtres et ancres de catégories : `UButton` `rounded-full px-3` (taille `md`, icône `size-4`) ; filtre actif signalé par `aria-pressed`. Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante).
+
+### Boutons
+
+Chaque bouton a un **rôle**, porté par une variante de `UButton` définie dans `app.config.ts` (`ui.button.variants.variant`, tailles dans `compoundVariants`). Le rôle se choisit d'après ce que le bloc attend du visiteur, pas d'après l'apparence voulue. Forme par défaut : `rounded-md` ; `cursor-pointer` et focus visible (contour `outline-inverted` décalé de 2 px) réglés pour toutes les variantes.
+
+| Rôle       | Variante    | Apparence                                                                                           | Exemples                                                                                                                              |
+| ---------- | ----------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Principal  | `primary`   | plaque pleine `bg-inverted` inclinée de 12°, libellé en Racing Sans One redressé ; un seul par bloc | « Nous rejoindre » (héros, appel à l'action), « Inscription » (bannière), « Envoyer un e-mail », « Retour à l'accueil », redirections |
+| Secondaire | `secondary` | texte `font-semibold` souligné du trait des surtitres, qui s'étire sous tout le libellé au survol   | « Voir nos activités », liens de section, réseaux de Contact, encadré d'aide, boutons de la FAQ                                       |
+| Lien       | `tertiary`  | comme le secondaire, en `text-muted`                                                                | « En savoir plus » (bannière), « Signaler l'erreur »                                                                                  |
+| Utilitaire | `utility`   | contour fin `ring-inverted/30`, sans fond                                                           | itinéraires et support de Contact                                                                                                     |
+| Filtre     | `filter`    | pastille inclinée à contour fin ; active (`aria-pressed`) : fond plein                              | filtres de la galerie, pastilles de catégories de Documents et de la FAQ                                                              |
+| Icône      | `ghost`     | carré `p-2`, `aria-label` obligatoire ; plein (`solid`) pour un état actif (menu d'accessibilité)   | en-tête, pied de page, fermeture de la bannière, vidéo de l'accueil, page QR                                                          |
+
+- Le principal et les filtres sont inclinés (`-skew-x-12`) et leur contenu redressé (`*:skew-x-12`) : libellé passé par la prop `label`, jamais par le slot par défaut (un nœud texte ne se redresse pas).
+- Sur la vidéo de l'accueil : principal blanc (`bg-white text-navy-950`) et secondaire en texte blanc, dans les deux thèmes. Flèches du carrousel : `solid`, `rounded-md`.
+- Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante) : secondaire de `/activites` en `text-activity-strong` ; filtre d'activité en `text-activity-strong ring-tint-45`, actif en `bg-activity text-on-activity`.
+- Le rôle d'un bouton du contenu (`hero.links`, `cta.links`) se règle par son champ `variant` ([CONTENT.md](CONTENT.md)).
 
 ### Appui
 

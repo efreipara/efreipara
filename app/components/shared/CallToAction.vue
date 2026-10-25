@@ -11,10 +11,8 @@
         label: link.label,
         to: link.to,
         icon: link.icon,
-        variant: link.variant as ButtonProps['variant'],
+        variant: link.variant ?? 'primary',
         size: 'lg',
-        color: 'neutral',
-        class: 'rounded-full',
       })) ?? [],
   )
 </script>

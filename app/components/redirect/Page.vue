@@ -79,12 +79,10 @@
             external
             target="_blank"
             size="xl"
-            color="neutral"
-            class="rounded-full"
+            variant="primary"
+            :label="buttonLabel"
             :trailing-icon="appConfig.ui.icons.external"
-          >
-            {{ buttonLabel }}
-          </UButton>
+          />
         </div>
       </div>
     </UContainer>

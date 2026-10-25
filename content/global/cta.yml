@@ -7,7 +7,7 @@ links:
   - label: Voir nos activités
     to: /activites
     icon: tabler:parachute
-    variant: subtle
+    variant: secondary
   - label: Nous rejoindre
     to: /rejoindre
     icon: tabler:user-plus

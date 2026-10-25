@@ -6,6 +6,9 @@ const activity = z.enum(ACTIVITY_KEYS)
 // Bouton dont seul le libellé et l'icône viennent du contenu
 const link = z.object({ label: z.string(), icon: z.string() })
 
+// Rôle d'un bouton d'appel à l'action (variantes de UButton dans app.config.ts), principal par défaut
+const buttonRole = z.enum(['primary', 'secondary']).optional()
+
 // Encadré d'aide en bas de Documents et FAQ
 const helpCta = z.object({
   title: z.string(),
@@ -22,7 +25,9 @@ export const collections = {
     source: 'pages/home.yml',
     schema: z.object({
       hero: z.object({
-        links: z.array(z.object({ label: z.string(), to: z.string(), icon: z.string() })),
+        links: z.array(
+          z.object({ label: z.string(), to: z.string(), icon: z.string(), variant: buttonRole }),
+        ),
         scrollIcon: z.string(),
         video: z.object({ pause: link, play: link }),
       }),
@@ -178,7 +183,6 @@ export const collections = {
                     label: z.string(),
                     to: z.string(),
                     icon: z.string().optional(),
-                    variant: z.string().optional(),
                     target: z.string().optional(),
                   }),
                 )
@@ -271,7 +275,7 @@ export const collections = {
           label: z.string(),
           to: z.string(),
           icon: z.string(),
-          variant: z.string().optional(),
+          variant: buttonRole,
         }),
       ),
     }),

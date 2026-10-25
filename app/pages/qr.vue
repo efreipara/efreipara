@@ -41,7 +41,7 @@
         variant="ghost"
         color="neutral"
         size="sm"
-        class="cursor-pointer text-white opacity-40 transition-opacity hover:bg-white/10 hover:opacity-100"
+        class="text-white opacity-40 transition-opacity hover:bg-white/10 hover:opacity-100"
       />
     </div>
     <div class="absolute top-4 right-4 z-20">
@@ -51,7 +51,7 @@
         variant="ghost"
         color="neutral"
         size="sm"
-        class="cursor-pointer text-white opacity-40 transition-opacity hover:bg-white/10 hover:opacity-100"
+        class="text-white opacity-40 transition-opacity hover:bg-white/10 hover:opacity-100"
         @click="toggleFullscreen"
       />
     </div>

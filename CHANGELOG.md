@@ -2,6 +2,18 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.12.0 — 25 octobre 2026
+
+### Modifications
+
+- Nouveaux boutons, accordés aux titres du site : l'action principale de chaque bloc est une plaque inclinée en lettres de course (« Nous rejoindre », « Inscription », « Envoyer un e-mail »…), les actions secondaires sont soulignées du trait des surtitres, qui s'étire au survol.
+- Chaque bouton a retrouvé son rôle : « Nous rejoindre » ressort sur la vidéo de l'accueil, « Inscription » dans la bannière d'événement ; les itinéraires et le support de la page Contact, les boutons de la FAQ et ceux de l'encadré d'aide passent au second plan.
+- Filtres de la galerie et pastilles de catégories de Documents et de la FAQ : même forme inclinée.
+
+### Corrections
+
+- Galerie : le filtre Tandem sélectionné reste lisible (texte sombre sur l'or au lieu du blanc).
+
 ## 1.11.0 — 25 octobre 2026
 
 ### Ajouts

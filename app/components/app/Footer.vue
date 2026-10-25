@@ -87,7 +87,7 @@
         :aria-label="footerTitles.school.label"
         color="neutral"
         variant="ghost"
-        class="text-muted rounded-full p-2"
+        class="text-muted p-2"
       >
         <Icon
           name="efrei:logo"
@@ -105,7 +105,7 @@
         :aria-label="fillLabel(labels.socialLink, { name: social.name })"
         color="neutral"
         variant="ghost"
-        class="text-muted rounded-full p-2"
+        class="text-muted p-2"
       />
     </template>
   </UFooter>

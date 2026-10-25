@@ -45,17 +45,16 @@
                 to: event.url,
                 target: '_blank',
                 size: 'sm',
-                variant: 'subtle',
+                variant: 'primary',
                 trailingIcon: labels.banner.registerIcon,
-                class: 'rounded-full',
               },
               {
                 label: labels.banner.info,
                 to: getEventInfoUrl(event.type),
                 size: 'sm',
-                variant: 'ghost',
+                variant: 'tertiary',
                 leadingIcon: getIcon(event.type),
-                class: 'hidden rounded-full sm:flex',
+                class: 'text-default hidden sm:flex',
               },
             ]"
             :class="[
@@ -86,7 +85,6 @@
                 variant="ghost"
                 size="sm"
                 :aria-label="labels.banner.close"
-                class="cursor-pointer rounded-full"
                 @click="handleClose"
               />
             </template>

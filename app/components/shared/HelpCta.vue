@@ -22,12 +22,11 @@
                 label: labels.value.helpCta.github,
                 to: club.value.github.issues,
                 icon: social.icon,
-                variant: 'subtle',
               },
             ]
           : [{ label: social.name, to: social.url, icon: social.icon }]
       })
-      .map((link) => ({ ...link, target: '_blank', size: 'lg', class: 'rounded-full' })),
+      .map((link) => ({ ...link, target: '_blank', size: 'lg', variant: 'secondary' })),
   )
 </script>
 

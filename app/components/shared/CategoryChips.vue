@@ -14,18 +14,15 @@
       v-for="(category, i) in categories"
       :key="i"
       :icon="category.icon"
-      color="neutral"
-      variant="ghost"
-      class="cursor-pointer rounded-full px-3"
+      :label="category.name"
+      variant="filter"
+      class="ring-0"
       :class="[
         getCategoryColor(category.color).bg,
         getCategoryText(category.color),
         getCategoryColor(category.color).hoverBg,
       ]"
-      :ui="{ leadingIcon: 'size-4' }"
       @click="scrollToId(toAnchorId(category.name))"
-    >
-      {{ category.name }}
-    </UButton>
+    />
   </div>
 </template>

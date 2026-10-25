@@ -48,18 +48,16 @@
       <template #links>
         <UButton
           :label="labels.error.home"
-          color="neutral"
+          variant="primary"
           size="lg"
           :icon="appConfig.ui.icons.arrowLeft"
-          class="cursor-pointer rounded-full"
           to="/"
         />
         <UButton
           :to="club.github.issues"
           target="_blank"
           :icon="getSocial('github')?.icon"
-          color="neutral"
-          variant="link"
+          variant="tertiary"
           size="lg"
         >
           {{ labels.error.report }}

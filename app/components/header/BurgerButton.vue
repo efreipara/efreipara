@@ -31,7 +31,7 @@
     color="neutral"
     variant="ghost"
     :aria-label="localOpen ? labels.close : labels.open"
-    class="cursor-pointer rounded-full p-2"
+    class="p-2"
     @click="$emit('click')"
   >
     <span class="relative flex size-5 items-center justify-center">

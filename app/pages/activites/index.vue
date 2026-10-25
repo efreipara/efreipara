@@ -49,10 +49,9 @@
         {
           label: section.linkLabel,
           to: section.to,
-          color: 'neutral',
-          variant: 'subtle',
+          variant: 'secondary',
           trailingIcon: appConfig.ui.icons.arrowRight,
-          class: 'hover:bg-tint-15 hover:text-activity-strong rounded-full duration-200',
+          class: 'text-activity-strong',
         },
       ]"
       orientation="horizontal"

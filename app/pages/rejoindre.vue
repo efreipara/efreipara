@@ -27,9 +27,8 @@
             to: discord?.url,
             target: '_blank',
             icon: discord?.icon,
-            color: 'neutral',
+            variant: 'primary',
             size: 'md',
-            class: 'rounded-full',
           },
         ]"
         color="neutral"

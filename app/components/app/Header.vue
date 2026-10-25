@@ -114,7 +114,7 @@
           :aria-label="fillLabel(labels.socialLink, { name: social.name })"
           color="neutral"
           variant="ghost"
-          class="rounded-full p-2"
+          class="p-2"
         />
         <span aria-hidden="true" class="bg-accented h-4 w-px" />
       </div>
@@ -124,10 +124,10 @@
           color="neutral"
           :variant="hasActiveFeature ? 'solid' : 'ghost'"
           :aria-label="accessibilityMenu.label"
-          class="cursor-pointer rounded-full p-2"
+          class="p-2"
         />
       </UDropdownMenu>
-      <HeaderColorModeButton :labels="colorModeButton" class="cursor-pointer rounded-full p-2" />
+      <HeaderColorModeButton :labels="colorModeButton" class="p-2" />
     </template>
 
     <!-- Mobile : burger -->
@@ -188,7 +188,7 @@
             :aria-label="fillLabel(labels.socialLink, { name: social.name })"
             color="neutral"
             variant="ghost"
-            class="rounded-full p-2"
+            class="p-2"
           />
         </div>
       </div>

@@ -48,8 +48,8 @@
         :ui="{
           item: 'basis-full sm:basis-1/2 lg:basis-1/3 pe-3',
           container: 'ms-0',
-          prev: 'sm:inset-s-4',
-          next: 'sm:inset-e-4',
+          prev: 'rounded-md sm:inset-s-4',
+          next: 'rounded-md sm:inset-e-4',
         }"
       >
         <img

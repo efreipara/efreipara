@@ -127,6 +127,14 @@
   );
 }
 
+@utility ring-tint-* {
+  --tw-ring-color: color-mix(
+    in oklch,
+    var(--activity, var(--ui-primary)) calc(--value(integer) * 1%),
+    transparent
+  );
+}
+
 @utility text-activity {
   color: var(--activity, var(--ui-primary));
 }
@@ -138,6 +146,12 @@
   @variant dark {
     color: color-mix(in oklch, var(--activity, var(--ui-primary)) 70%, white);
   }
+}
+
+/* Texte sur fond plein d'activité : noir sur les teintes claires (or, rose, violet), blanc sur
+   le rouge de la PAC ; le blanc partout n'atteint que 1,9:1 sur l'or du tandem */
+@utility text-on-activity {
+  color: oklch(from var(--activity, var(--ui-primary)) clamp(0, (0.62 - l) * 100, 1) 0 0);
 }
 
 @utility bg-activity {

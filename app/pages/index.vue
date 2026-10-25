@@ -25,10 +25,8 @@
           {
             label: link.label,
             to: link.to,
-            color: 'neutral' as const,
-            variant: 'subtle' as const,
+            variant: 'secondary' as const,
             trailingIcon: appConfig.ui.icons.arrowRight,
-            class: 'rounded-full',
           },
         ]
       : []

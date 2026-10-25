@@ -49,7 +49,6 @@ categories:
           - label: Devenir membre du bureau
             to: /rejoindre-bureau
             icon: tabler:crown
-            variant: subtle
 
       - question: Faut-il avoir de l’expérience en parachutisme ?
         answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t’accompagneront à chaque étape.

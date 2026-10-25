@@ -28,11 +28,10 @@
           <UButton
             :to="`mailto:${club.email}`"
             :icon="page?.email.icon"
-            color="primary"
-            class="self-start rounded-full"
-          >
-            {{ page?.email.buttonLabel }}
-          </UButton>
+            :label="page?.email.buttonLabel"
+            variant="primary"
+            class="self-start"
+          />
         </UCard>
 
         <UCard
@@ -51,9 +50,7 @@
               :to="social.url"
               target="_blank"
               :icon="social.icon"
-              color="neutral"
-              variant="subtle"
-              class="rounded-full"
+              variant="secondary"
             >
               {{ social.name }}
             </UButton>
@@ -78,8 +75,7 @@
               target="_blank"
               :icon="page?.address.buttons[map].icon"
               size="sm"
-              color="neutral"
-              class="rounded-full"
+              variant="utility"
             >
               {{ page?.address.buttons[map].label }}
             </UButton>
@@ -100,8 +96,7 @@
               :to="club.github.issues"
               :icon="getSocial('github')?.icon"
               size="sm"
-              color="neutral"
-              class="rounded-full"
+              variant="utility"
             >
               {{ page?.support.buttons.github }}
             </UButton>
@@ -109,8 +104,7 @@
               :to="`mailto:${club.maintainerEmail}`"
               :icon="page?.support.icon"
               size="sm"
-              color="neutral"
-              class="rounded-full"
+              variant="utility"
             >
               {{ page?.support.buttons.email }}
             </UButton>

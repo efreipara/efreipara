@@ -30,31 +30,23 @@
     <UContainer class="py-12 sm:py-16">
       <div class="mb-8 flex flex-wrap gap-2">
         <UButton
-          :color="activeFilter ? 'neutral' : 'primary'"
-          :variant="activeFilter ? 'soft' : 'solid'"
+          :label="page?.hero.allLabel"
+          variant="filter"
           :aria-pressed="!activeFilter"
-          class="cursor-pointer rounded-full px-3"
           @click="activeFilter = null"
-        >
-          {{ page?.hero.allLabel }}
-        </UButton>
+        />
+        <!-- Filtre actif : fond plein de l'activité -->
         <UButton
           v-for="type in activityTypes"
           :key="type"
           :icon="getIcon(type)"
-          color="neutral"
-          variant="soft"
+          :label="getGalleryLabel(type)"
+          variant="filter"
           :aria-pressed="activeFilter === type"
-          class="cursor-pointer rounded-full px-3"
-          :class="[
-            activityClass(type),
-            activeFilter === type && 'bg-activity hover:bg-activity active:bg-activity text-white',
-          ]"
-          :ui="{ leadingIcon: ['size-4', activeFilter === type ? 'text-white' : 'text-activity'] }"
+          class="text-activity-strong ring-tint-45 aria-pressed:bg-activity aria-pressed:text-on-activity"
+          :class="activityClass(type)"
           @click="activeFilter = activeFilter === type ? null : type"
-        >
-          {{ getGalleryLabel(type) }}
-        </UButton>
+        />
       </div>
 
       <!-- Grille photo : fondu d'entrée au changement de filtre ; l'ancienne grille disparaît aussitôt -->

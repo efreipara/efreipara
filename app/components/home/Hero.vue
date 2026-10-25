@@ -1,6 +1,6 @@
 <script setup lang="ts">
   defineProps<{
-    links: { label: string; to: string; icon: string }[]
+    links: { label: string; to: string; icon: string; variant?: 'primary' | 'secondary' }[]
     scrollIcon: string
     video: { pause: { label: string; icon: string }; play: { label: string; icon: string } }
   }>()
@@ -67,18 +67,21 @@
           class="hero-slide-up flex flex-wrap justify-center gap-4"
           style="animation-delay: 0.25s"
         >
+          <!-- Sur la vidéo : principal blanc, secondaire en texte blanc, dans les deux thèmes -->
           <UButton
             v-for="link in links"
             :key="link.to"
             :to="link.to"
             size="xl"
-            color="neutral"
-            variant="soft"
+            :variant="link.variant ?? 'primary'"
             :icon="link.icon"
-            class="rounded-full border border-white/30 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30"
-          >
-            {{ link.label }}
-          </UButton>
+            :label="link.label"
+            :class="
+              link.variant === 'secondary'
+                ? 'text-white drop-shadow-md'
+                : 'text-navy-950 bg-white hover:bg-white/85'
+            "
+          />
         </div>
       </div>
 
@@ -92,7 +95,7 @@
         :aria-label="playing ? video.pause.label : video.play.label"
         color="neutral"
         variant="ghost"
-        class="absolute right-3 bottom-3 z-10 cursor-pointer rounded-full bg-black/30 p-2 text-white hover:bg-black/50 focus-visible:ring-2 focus-visible:ring-white"
+        class="absolute right-3 bottom-3 z-10 bg-black/30 p-2 text-white hover:bg-black/50 focus-visible:ring-2 focus-visible:ring-white"
         @click="togglePlay"
       />
     </div>
