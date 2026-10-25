@@ -2,6 +2,17 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.9.0 — 25 octobre 2026
+
+### Ajouts
+
+- Accueil : les trois derniers albums de la galerie, avec un lien vers toute la galerie.
+
+### Modifications
+
+- Accueil repensé : chaque section a un surtitre et un titre alignés à gauche ; les activités sont présentées en cartes à photo ; « Pourquoi Efrei Para ? » s'accompagne d'une photo du club ; la présentation et les chiffres sont réunis.
+- Les textes colorés aux teintes des activités sont plus lisibles en mode sombre (rouge de la PAC surtout).
+
 ## 1.8.0 — 25 octobre 2026
 
 ### Ajouts
