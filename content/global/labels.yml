@@ -1,4 +1,4 @@
-# Libellés des composants communs à plusieurs pages ; {nom} est remplacé par la valeur correspondante
+# Libellés des composants communs à plusieurs pages ; {nom} est remplacé par la valeur correspondante
 banner:
   register: Inscription
   registerIcon: tabler:arrow-narrow-right
@@ -11,8 +11,8 @@ socialLink: '{name} Efrei Para'
 # Sections d'une page d'activité
 activity:
   goTo: Aller à {label}
-  features: Pourquoi choisir {label} ?
-  steps: Comment ça se passe ?
+  features: Pourquoi choisir {label} ?
+  steps: Comment ça se passe ?
   requirements: Prérequis
   partners: Nos partenaires
   # Texte alternatif des photos du carrousel
@@ -22,28 +22,19 @@ helpCta:
   github: Signaler sur GitHub
 
 legal:
-  updatedAt: 'Dernière mise à jour :'
+  updatedAt: 'Dernière mise à jour :'
 
-# Page d'erreur : titre et explication selon le code HTTP
+# Page d'erreur : titre et explication selon le code HTTP
 error:
   home: Retour à l'accueil
   report: Signaler l'erreur
   messages:
-    '400':
-      title: Requête incorrecte
-      description: La requête envoyée n'est pas valide.
-    '401':
-      title: Non autorisé
-      description: Vous devez vous connecter pour accéder à cette page.
-    '403':
-      title: Accès refusé
-      description: Vous n'avez pas les permissions nécessaires pour accéder à cette ressource.
     '404':
       title: Page introuvable
-      description: La page que vous recherchez n'existe pas ou a été déplacée.
+      description: Cette page n’existe pas ou a changé d’adresse.
     '500':
-      title: Erreur interne du serveur
-      description: Une erreur interne s'est produite. Merci de nous le signaler.
-    default:
       title: Une erreur est survenue
-      description: Une erreur inattendue s'est produite. Veuillez réessayer plus tard.
+      description: Le site a rencontré un problème. Tu peux nous le signaler pour qu’on le corrige.
+    default:
+      title: Erreur inattendue
+      description: Réessaie dans quelques instants ; si ça continue, signale-le-nous.

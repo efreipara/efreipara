@@ -1,6 +1,6 @@
 ---
 title: Mentions légales
-description: Mentions légales du site EFREI Para
+description: Mentions légales du site Efrei Para
 updatedAt: 2026-01-22
 ---
 
@@ -13,8 +13,8 @@ club de parachutisme étudiant rattaché au [Bureau des Sports (BDS)](https://ww
 fonctionnant de manière autonome (organisation, communication, événements).
 
 **Efrei Para**  
-Adresse de rattachement :  
-Efrei (Campus Villejuif) — 30–32 avenue de la République, 94800 Villejuif, France
+Adresse de rattachement :  
+Efrei (campus de Villejuif), 30-32 avenue de la République, 94800 Villejuif, France
 
 Contact → [voir la page de contact](/contact)
 
@@ -27,8 +27,8 @@ Le responsable de la publication est le/la **responsable du club Efrei Para**.
 Le site est hébergé sur un **serveur dédié OVHcloud**, situé en France.
 
 **OVH SAS**  
-Adresse : 2 rue Kellermann, 59100 Roubaix, France  
-Site : [https://www.ovhcloud.com/](https://www.ovhcloud.com/)
+Adresse : 2 rue Kellermann, 59100 Roubaix, France  
+Site : [https://www.ovhcloud.com/](https://www.ovhcloud.com/)
 
 L’administration technique du site et du serveur est assurée par un ancien membre du bureau (alumni) du club **Efrei Para**, pour le compte du club.
 
@@ -44,7 +44,7 @@ Toute reproduction ou réutilisation, totale ou partielle, sans autorisation pr�
 
 Des données personnelles peuvent être collectées via les formulaires d’inscriptions.
 
-Pour en savoir plus, consultez notre page :  
+Pour en savoir plus, consultez notre page :  
 **[Politique de protection des données](/rgpd)**.
 
 ## Mesure d’audience

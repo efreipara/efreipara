@@ -27,7 +27,7 @@ socials:
     icon: simple-icons:github
     url: https://github.com/efreipara
 
-# Dépôt du site : historique des versions, signalement d’un problème
+# Dépôt du site : historique des versions, signalement d’un problème
 github:
   repo: https://github.com/efreipara/efreipara
   issues: https://github.com/efreipara/efreipara/issues/new

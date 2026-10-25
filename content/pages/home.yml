@@ -1,4 +1,4 @@
-# Hero : boutons sous la phrase d’accroche (description SEO de l’accueil), flèche vers le bas
+# Hero : boutons sous la phrase d’accroche (description SEO de l’accueil), flèche vers le bas
 hero:
   links:
     - label: Nos activités
@@ -18,9 +18,9 @@ hero:
       icon: tabler:player-play
 
 sections:
-  about: Qui sommes-nous ?
+  about: Qui sommes-nous ?
   activites: Nos activités
-  why: Pourquoi Efrei Para ?
+  why: Pourquoi Efrei Para ?
   partners: Nos partenaires
 
 about:
@@ -29,7 +29,7 @@ about:
       <b class="text-highlighted">Efrei Para</b> est le club de parachutisme du BDS Efrei, fondé en <b class="text-highlighted">2016</b>. Repris en 2023 après l’arrêt lié au Covid, le club est aujourd’hui plus actif que jamais avec plus de <b class="text-highlighted">100 membres</b> sur le Discord.
     - |-
       Nous organisons des <b class="text-highlighted">sauts en tandem</b>, des <b class="text-highlighted">baptêmes en soufflerie</b> et des <b class="text-highlighted">sauts en OA</b> tout au long de l’année.
-    - 'Notre objectif: rendre le parachutisme accessible aux étudiants dans un cadre sécurisé et convivial, sans expérience préalable requise.'
+    - 'Notre objectif : rendre le parachutisme accessible aux étudiants dans un cadre sécurisé et convivial, sans expérience préalable requise.'
 
 stats:
   - title: 100+
@@ -51,8 +51,8 @@ activites:
 why:
   - title: Accessible à tous
     description: >-
-      Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe
-      de tout : briefing, équipement et encadrement.
+      Aucune expérience requise. Jamais sauté ? Simple curiosité ? On s’occupe
+      de tout : briefing, équipement et encadrement.
     icon: tabler:mood-happy
     type: tandem
   - title: Encadrement professionnel
@@ -63,7 +63,7 @@ why:
     type: oa
   - title: Communauté étudiante
     description: >-
-      Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements
+      Rejoins une équipe soudée d’étudiantes et d’étudiants de l’Efrei. Des événements
       uniques durant l’année pour vivre des expériences inoubliables ensemble.
     icon: tabler:heart
     type: soufflerie

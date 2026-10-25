@@ -1,6 +1,6 @@
 hero:
   title: Rejoins Efrei Para
-  description: Que tu souhaites simplement participer à nos activités ou t’investir dans l’organisation, il y a une place pour toi !
+  description: Que tu souhaites simplement participer à nos activités ou t’investir dans l’organisation, il y a une place pour toi !
 
 alert:
   title: Prérequis important
@@ -9,7 +9,7 @@ alert:
 
 options:
   - title: Devenir membre
-    description: 'Tu veux devenir membre Efrei Para ? Cela te donnera accès à l’espace membre sur notre Discord et d’obtenir des points LXP !'
+    description: 'Tu veux devenir membre d’Efrei Para ? Tu auras accès à l’espace membre de notre Discord, et tu gagneras des points LXP !'
     icon: tabler:users-group
     link: https://forms.gle/1kAbhqg7K1HSAoE19
     linkText: Remplir le formulaire
@@ -17,7 +17,7 @@ options:
     slug: devenir-membre
     ogImage: /seo/devenir-membre.png
   - title: Rejoindre le bureau
-    description: 'Tu veux t’impliquer davantage ? Candidate pour rejoindre le bureau et participe activement à l’organisation du club.'
+    description: 'Tu veux t’impliquer davantage ? Candidate pour rejoindre le bureau et participe activement à l’organisation du club.'
     icon: tabler:crown
     link: https://forms.gle/Xz3DZBcAFBhqSkJ48
     linkText: Candidater
@@ -26,7 +26,7 @@ options:
     ogImage: /seo/rejoindre-bureau.png
 
 why:
-  title: Pourquoi nous rejoindre ?
+  title: Pourquoi nous rejoindre ?
   features:
     - title: Activités uniques
       description: Sauts en parachute, soufflerie et formations

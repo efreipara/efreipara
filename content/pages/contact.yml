@@ -1,11 +1,11 @@
 hero:
   title: Nous contacter
-  description: Une question ? Une demande d’information ? N’hésite pas à nous contacter, nous te répondrons dans les plus brefs délais !
+  description: Une question ? Une demande d’information ? N’hésite pas à nous écrire, on te répond vite !
 
 email:
-  title: Email
-  description: Envoie-nous un email pour toute question
-  buttonLabel: Envoyer un email
+  title: E-mail
+  description: Envoie-nous un e-mail pour toute question
+  buttonLabel: Envoyer un e-mail
   icon: tabler:mail
 
 socials:
@@ -29,9 +29,9 @@ address:
       icon: simple-icons:waze
 
 support:
-  title: Support Technique
-  description: Un problème avec le site ?
+  title: Support technique
+  description: Un problème avec le site ?
   icon: tabler:tool
   buttons:
     github: Signaler sur GitHub
-    email: Contacter par email
+    email: Contacter par e-mail

@@ -1,4 +1,4 @@
-# Titre, description et image de partage de chaque page (clé : chemin, / remplacés par -)
+# Titre, description et image de partage de chaque page (clé : chemin, / remplacés par -)
 
 defaults:
   siteName: Efrei Para
@@ -11,74 +11,74 @@ defaults:
   locale: fr_FR
   themeColor: '#092954'
   author: Efrei Para
-  # Seule l'accueil est indexée : les autres pages portent noindex (robots.txt n'interdit rien)
+  # Seule l'accueil est indexée : les autres pages portent noindex (robots.txt n'interdit rien)
   robots: noindex, follow
 
 pages:
   index:
     title: Efrei Para
-    description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
+    description: Défie la gravité et vis des sensations uniques avec Efrei Para
     robots: index, follow
 
   contact:
     title: Contact
-    description: Contactez-nous pour toute question ou demande d’information sur Efrei Para
+    description: Une question sur Efrei Para ou ses activités ? Écris-nous.
 
   faq:
     title: Questions fréquentes (FAQ)
-    description: Toutes les réponses à vos questions sur Efrei Para, nos activités et le parachutisme
+    description: Toutes les réponses à tes questions sur Efrei Para, nos activités et le parachutisme
 
   rejoindre:
     title: Nous rejoindre
-    description: Découvrez comment rejoindre Efrei Para et participer à nos activités
+    description: Découvre comment rejoindre Efrei Para et participer à nos activités
     ogImage: /seo/rejoindre.png
 
   galerie:
     title: Nos albums photos
-    description: Découvrez les moments forts d’Efrei Para en images
+    description: Découvre les moments forts d’Efrei Para en images
 
   documents:
     title: Documents
-    description: Téléchargez les documents utiles d’Efrei Para (règlement, fiches d’inscription, etc.)
+    description: Règlement, mentions légales, documents médicaux et liens utiles d’Efrei Para
 
   activites:
     title: Nos activités
-    description: 'Découvrez toutes les activités proposées par Efrei Para : OA, tandem, soufflerie et PAC'
+    description: 'Découvre toutes les activités d’Efrei Para : tandem, soufflerie, PAC et OA'
 
   activites-oa:
-    title: Saut en Ouverture Automatique (OA)
-    description: Découvrez le saut en ouverture automatique (OA) avec Efrei Para. Vivez l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
+    title: Saut en ouverture automatique (OA)
+    description: Découvre le saut en ouverture automatique (OA) avec Efrei Para. Vis l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
     ogImage: /seo/activites-oa.png
 
   activites-tandem:
-    title: Saut en Tandem
-    description: Faites votre premier saut en parachute ! Chute libre de 50 secondes à 4000m d’altitude, attaché à un moniteur professionnel. Une expérience inoubliable.
+    title: Saut en tandem
+    description: Fais ton premier saut en parachute ! 50 secondes de chute libre à 4 000 m d’altitude, en binôme avec un moniteur professionnel.
     ogImage: /seo/activites-tandem.png
 
   activites-soufflerie:
     title: Baptêmes en soufflerie
-    description: Découvrez la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.
+    description: Découvre la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.
     ogImage: /seo/activites-soufflerie.png
 
   activites-pac:
     title: Formation PAC (Progression Accompagnée en Chute)
-    description: Formez-vous au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
+    description: Forme-toi au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
     ogImage: /seo/activites-pac.png
 
   # Redirections réseaux sociaux
   discord:
     title: Rejoindre notre Discord
-    description: Rejoignez la communauté Efrei Para sur Discord
+    description: Rejoins la communauté Efrei Para sur Discord
     robots: noindex, nofollow
     ogImage: /seo/discord.png
 
   instagram:
     title: Notre Instagram
-    description: Suivez-nous sur Instagram pour ne rien rater de nos aventures
+    description: Suis-nous sur Instagram pour ne rien rater de nos aventures
     robots: noindex, nofollow
     ogImage: /seo/instagram.png
 
   qr:
-    title: QR Code
-    description: Scannez notre QR Code pour accéder rapidement à nos informations
+    title: QR code
+    description: Scanne notre QR code pour retrouver Efrei Para
     robots: noindex, nofollow

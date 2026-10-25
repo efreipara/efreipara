@@ -1,4 +1,4 @@
-# Pages /<slug> des options de « Nous rejoindre » : textes communs, la cible est le formulaire de l’option
+# Pages /<slug> des options de « Nous rejoindre » : textes communs, la cible est le formulaire de l’option
 form:
   redirectText: Redirection vers le formulaire...
   buttonLabel: Ouvrir le formulaire

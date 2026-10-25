@@ -1,5 +1,5 @@
 title: Formations PAC
-description: Formation complète en Progression Accompagnée en Chute. Devenez parachutiste autonome avec un encadrement professionnel et maîtrisez la chute libre.
+description: Formation complète en Progression Accompagnée en Chute. Deviens parachutiste autonome avec un encadrement professionnel et maîtrise la chute libre.
 label: PAC
 alt: Formations PAC avec Efrei Para
 imageCount: 0
@@ -14,13 +14,13 @@ menu:
 card:
   title: Formations PAC
   description: >-
-    La Progression Accompagnée en Chute : une formation complète vers
+    La Progression Accompagnée en Chute : une formation complète vers
     l’autonomie en chute libre.
 
 # Section de la page /activites
 section:
   title: Formations PAC
-  description: Deviens parachutiste autonome - la formation complète vers la liberté du ciel.
+  description: 'Deviens parachutiste autonome : la formation complète vers la liberté du ciel.'
   features:
     - title: Formation complète
       description: Théorie, séances au sol et plusieurs sauts accompagnés pour acquérir les bases du vol libre.
@@ -29,7 +29,7 @@ section:
       description: Tu apprends la stabilité, la gestuelle, le pilotage et la gestion de ton parachute.
       icon: tabler:target
     - title: Autonomie progressive
-      description: À chaque saut, tu gagnes en confiance jusqu’à savoir ouvrir et contrôler ta voile seul.e.
+      description: À chaque saut, tu gagnes en confiance jusqu’à savoir ouvrir et contrôler ta voile en autonomie.
       icon: tabler:parachute
     - title: Engagement progressif
       description: Chaque étape te fait avancer vers une autonomie totale, encadrée par des moniteurs expérimentés.
@@ -44,22 +44,22 @@ features:
     description: Tu apprends la stabilité, la gestuelle, le pilotage et la gestion de ton parachute.
     icon: tabler:target
   - title: Autonomie progressive
-    description: À chaque saut, tu gagnes en confiance jusqu’à ouvrir et contrôler ta voile seul·e.
+    description: À chaque saut, tu gagnes en confiance jusqu’à ouvrir et contrôler ta voile en autonomie.
     icon: tabler:stairs
   - title: Licence à la clé
-    description: La PAC aboutit à une vraie licence parachutiste — liberté de sauter partout en France.
+    description: 'La PAC aboutit à une vraie licence parachutiste : liberté de sauter partout en France.'
     icon: tabler:certificate
 
 intro:
   - |-
-    La <b class="text-highlighted">Progression Accompagnée en Chute (PAC)</b> est la formation officielle pour devenir parachutiste autonome en France. Tu apprends à sauter seul, à gérer ta position, ton parachute et ta sécurité de A à Z.
+    La <b class="text-highlighted">Progression Accompagnée en Chute (PAC)</b> est la formation officielle pour devenir parachutiste autonome en France. Tu apprends à sauter en autonomie, à gérer ta position, ton parachute et ta sécurité de A à Z.
   - |-
     La formation se déroule en <b class="text-highlighted">7 niveaux</b> de sauts accompagnés par un ou deux moniteurs en chute libre, suivis de sauts solo supervisés. Chaque niveau valide des compétences techniques précises avant de passer au suivant.
   - |-
     À l’issue de la PAC, tu obtiens ta <b class="text-highlighted">licence de parachutiste</b> et la liberté de sauter en autonomie dans n’importe quel centre français.
 
 stats:
-  - value: '4000m'
+  - value: '4 000 m'
     label: Altitude de largage
     icon: tabler:mountain
   - value: '7'
@@ -74,19 +74,19 @@ stats:
 
 steps:
   - title: Formation théorique
-    description: Tu étudies la plaquette d’apprentissage PAC — aérologie, matériel, procédures d’urgence et réglementation.
+    description: 'Tu étudies la plaquette d’apprentissage PAC : aérologie, matériel, procédures d’urgence et réglementation.'
     icon: tabler:book
   - title: Préparation au sol
     description: Séances pratiques sur simulateur et maquette pour assimiler les gestes avant de monter en avion.
     icon: tabler:school
-  - title: Niveaux 1 & 2 — avec 2 moniteurs
-    description: Tes deux premiers sauts à 4000m, encadré par deux moniteurs en chute libre qui stabilisent et guident chaque geste.
+  - title: 'Niveaux 1 et 2 : avec deux moniteurs'
+    description: Tes deux premiers sauts à 4 000 m, avec deux moniteurs en chute libre qui stabilisent et guident chaque geste.
     icon: tabler:users
-  - title: Niveaux 3 à 5 — avec 1 moniteur
+  - title: 'Niveaux 3 à 5 : avec un moniteur'
     description: Tu gagnes en autonomie. Un seul moniteur t’accompagne pendant la chute libre pour valider stabilité et gestuelle.
     icon: tabler:user-check
-  - title: Niveaux 6 & 7 — sauts solo supervisés
-    description: Tu sautes seul. Le moniteur observe depuis le sol ou depuis un autre avion et débriefe chaque saut.
+  - title: 'Niveaux 6 et 7 : sauts solo supervisés'
+    description: Tu sautes sans moniteur à tes côtés. Le moniteur observe depuis le sol ou depuis un autre avion et débriefe chaque saut.
     icon: tabler:parachute
   - title: Obtention de la licence
     description: Après validation de tous les niveaux, tu obtiens ta licence parachutiste et peux sauter en autonomie partout en France.

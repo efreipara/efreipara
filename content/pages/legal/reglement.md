@@ -14,7 +14,7 @@ Le présent règlement définit les règles de participation aux activités du c
 
 ## 2. Accès aux activités
 
-La participation aux activités est soumise :
+La participation aux activités est soumise :
 
 - au respect des conditions définies par Efrei Para
 - au respect des règles imposées par les structures encadrantes
@@ -38,7 +38,7 @@ Des photos et vidéos peuvent être réalisées lors des activités du club, dan
 
 ## 6. Comportement
 
-Un comportement respectueux est attendu envers :
+Un comportement respectueux est attendu envers :
 
 - les autres participants
 - les encadrants
@@ -49,7 +49,7 @@ Tout comportement inapproprié peut entraîner des sanctions.
 
 ## 7. Sanctions
 
-En cas de manquement grave ou répété, le club Efrei Para se réserve le droit de :
+En cas de manquement grave ou répété, le club Efrei Para se réserve le droit de :
 
 - refuser l’accès à une activité
 - suspendre temporairement la participation

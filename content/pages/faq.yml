@@ -1,12 +1,12 @@
-title: Questions Fréquentes
-description: Retrouvez ici les réponses aux questions les plus fréquentes sur Efrei Para
+title: Questions fréquentes
+description: Les réponses aux questions qu’on nous pose le plus sur Efrei Para
 # Compteur affiché à côté de chaque catégorie
 count:
   one: question
   other: questions
 helpcta:
-  title: Une question sans réponse ?
-  description: N'hésite pas à nous poser tes questions sur Discord ou Instagram !
+  title: Une question sans réponse ?
+  description: N'hésite pas à nous poser tes questions sur Discord ou Instagram !
   icon: tabler:question-mark
   buttons:
     - discord
@@ -15,12 +15,12 @@ categories:
   - name: Le club
     color: blue
     questions:
-      - question: Qu’est-ce qu’Efrei Para ?
-        answer: Efrei Para est un club de parachutisme de l’Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et de progression autonome chute libre (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
+      - question: Qu’est-ce qu’Efrei Para ?
+        answer: Efrei Para est un club de parachutisme de l’Efrei. Nous proposons des activités de parachutisme (sauts en ouverture automatique, tandems), de soufflerie, et la progression accompagnée en chute (PAC). Notre objectif est de faire découvrir et pratiquer le parachutisme dans un cadre associatif convivial et sécurisé.
         icon: efreipara:parachute
 
-      - question: Comment puis-je contacter l’association ?
-        answer: Tu peux nous contacter via notre Discord, sur Instagram, ou par email. Tu peux également venir nous rencontrer lors de nos petits-déjeuners à l’Efrei ou lors de nos événements. Nous répondons à toutes vos demandes !
+      - question: Comment puis-je contacter l’association ?
+        answer: Tu peux nous contacter via notre Discord, sur Instagram, ou par email. Tu peux également venir nous rencontrer lors de nos petits-déjeuners à l’Efrei ou lors de nos événements. On répond à tous les messages !
         icon: tabler:mail
         buttons:
           - label: Rejoindre notre Discord
@@ -38,8 +38,8 @@ categories:
   - name: Rejoindre
     color: green
     questions:
-      - question: Comment puis-je rejoindre le club ?
-        answer: Pour rejoindre Efrei Para, il suffit d’être étudiant à l’Efrei. L’inscription se fait via un formulaire en ligne. L’adhésion te donne accès à l’espace membre sur notre Discord et d’optenir des points LXP !
+      - question: Comment puis-je rejoindre le club ?
+        answer: Pour rejoindre Efrei Para, il suffit d’être étudiant à l’Efrei. L’inscription se fait via un formulaire en ligne. L’adhésion te donne accès à l’espace membre de notre Discord et te rapporte des points LXP !
         icon: tabler:user
         buttons:
           - label: Rejoindre Efrei Para
@@ -50,41 +50,41 @@ categories:
             icon: tabler:crown
             variant: subtle
 
-      - question: Faut-il avoir de l’expérience en parachutisme ?
-        answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t’accompagneront à chaque étape.
+      - question: Faut-il avoir de l’expérience en parachutisme ?
+        answer: Absolument pas ! La majorité de nos membres commencent sans aucune expérience. Nous proposons des formations adaptées à tous les niveaux, du débutant complet au parachutiste confirmé. Nos instructeurs diplômés t’accompagneront à chaque étape.
         icon: tabler:school
         buttons:
           - label: Devenir membre
             to: /rejoindre
             icon: tabler:rocket
 
-      - question: Est-ce que l’adhésion à Efrei Para est payante ?
+      - question: Est-ce que l’adhésion à Efrei Para est payante ?
         answer: |
           Non. Zéro euro. Nada. Rien du tout. 😎
 
           L’adhésion au club est entièrement gratuite pour les étudiants de l’Efrei.
         icon: tabler:currency-euro
 
-      - question: Puis-je rejoindre le club à n’importe quel moment de l’année ?
+      - question: Puis-je rejoindre le club à n’importe quel moment de l’année ?
         answer: Oui. Il est possible de rejoindre Efrei Para tout au long de l’année, même si certaines activités sont plus fréquentes à certaines périodes.
         icon: tabler:calendar-week
 
-      - question: Dois-je m’engager sur toute l’année ?
+      - question: Dois-je m’engager sur toute l’année ?
         answer: Non. Il n’y a aucun engagement obligatoire. Tu participes aux activités qui t’intéressent, quand tu le souhaites.
         icon: tabler:mood-smile-beam
 
-      - question: Puis-je rejoindre sans jamais sauter ?
+      - question: Puis-je rejoindre sans jamais sauter ?
         answer: Oui. Tu peux rejoindre le club pour découvrir le milieu, participer aux événements, à la vie du club ou aux sorties, sans forcément sauter immédiatement.
         icon: tabler:eye
 
   - name: Les activités
     color: purple
     questions:
-      - question: Quelles sont les activités proposées ?
-        answer: Nous proposons plusieurs activités selon ton niveau. Pour débuter, il y a les sauts en ouverture automatique (OA) et les tandems. Pour progresser, nous offrons la progression autonome chute libre (PAC) et des séances en soufflerie. Toutes nos activités sont encadrées par des professionnels diplômés.
+      - question: Quelles sont les activités proposées ?
+        answer: Nous proposons plusieurs activités selon ton niveau. Pour débuter, il y a les sauts en ouverture automatique (OA) et les tandems. Pour progresser, nous proposons la progression accompagnée en chute (PAC) et des séances en soufflerie. Toutes nos activités sont encadrées par des professionnels diplômés.
         icon: tabler:plane-tilt
         buttons:
-          - label: Sauts Tandem
+          - label: Sauts en tandem
             to: /activites/tandem
             icon: tabler:users
           - label: Soufflerie
@@ -93,26 +93,26 @@ categories:
           - label: PAC
             to: /activites/pac
             icon: tabler:medal-2
-          - label: Sauts OA
+          - label: Sauts en OA
             to: /activites/oa
             icon: tabler:parachute
 
-      - question: Comment se déroule un premier saut ?
-        answer: Pour ton premier saut, nous recommandons l’ouverture automatique (OA). Tu suivras d’abord un briefing théorique complet, puis l’équipement et la préparation au sol. Ensuite, direction l’avion pour le grand saut ! Ton parachute s’ouvrira automatiquement et tu piloteras jusqu’au sol sous les consignes radio de l’instructeur.
+      - question: Comment se déroule un premier saut ?
+        answer: Pour ton premier saut, nous recommandons l’ouverture automatique (OA). Tu suivras d’abord un briefing théorique complet, puis l’équipement et la préparation au sol. Ensuite, direction l’avion pour le grand saut ! Ton parachute s’ouvrira automatiquement et tu piloteras jusqu’au sol sous les consignes radio de l’instructeur.
         icon: tabler:parachute
 
-      - question: Où se déroulent les sauts ?
-        answer: Nos sauts se déroulent sur des zones de sauts agréées en Île-de-France et en région parisienne. Les lieux peuvent varier selon les activités et les disponibilités. Nous organisons également des week-ends et sorties dans d’autres régions pour diversifier les expériences.
+      - question: Où se déroulent les sauts ?
+        answer: Nos sauts se déroulent sur des zones de saut agréées, en Île-de-France ou à quelques heures de Paris (Péronne, dans la Somme, pour les tandems). Les lieux peuvent varier selon les activités et les disponibilités. Nous organisons également des week-ends et sorties dans d’autres régions pour diversifier les expériences.
         icon: tabler:map-pin
 
   - name: Conditions
     color: red
     questions:
-      - question: Quel est l’âge minimum pour sauter ?
+      - question: Quel est l’âge minimum pour sauter ?
         answer: L’âge minimum pour pratiquer le parachutisme est de 15 ans avec une autorisation parentale. À partir de 18 ans, aucune autorisation n’est nécessaire. Il faut également présenter un certificat médical de non contre-indication à la pratique du parachutisme.
         icon: tabler:calendar-check
 
-      - question: Y a-t-il des conditions physiques particulières ?
+      - question: Y a-t-il des conditions physiques particulières ?
         answer: Le parachutisme nécessite une condition physique normale. Il faut présenter un certificat médical de non contre-indication. Certaines contre-indications existent (problèmes cardiaques, épilepsie, etc.). En cas de doute, consulte ton médecin. Il y a également des limites de poids pour certaines activités.
         icon: tabler:heartbeat
         buttons:
@@ -128,20 +128,20 @@ categories:
   - name: Organisation & logistique
     color: orange
     questions:
-      - question: Comment se déroulent les déplacements vers les zones de saut ?
+      - question: Comment se déroulent les déplacements vers les zones de saut ?
         answer: |
-          Les déplacements sont organisés par le club, souvent en covoiturage. Toutes les informations pratiques sont communiquées à l’avance. 
+          Les déplacements sont organisés par le club, souvent en covoiturage. Toutes les informations pratiques sont communiquées à l’avance.
           Tu peux également y aller par tes propres moyens si tu le souhaites.
         icon: tabler:car
 
-      - question: Faut-il prévoir un budget pour les activités ?
+      - question: Faut-il prévoir un budget pour les activités ?
         answer: |
           Oui. L’adhésion au club est gratuite, mais les activités de parachutisme ont un coût (sauts, formations, soufflerie).
           Les tarifs sont négociés par le club et annoncés à l’avance. Les étudiants de l’Efrei profitent généralement de tarifs réduits, avec une partie prise en charge par le club et l’école.
-          Le club n’a aucun but lucratif : l’objectif est uniquement de rendre le parachutisme accessible aux étudiants.
+          Le club n’a aucun but lucratif : l’objectif est uniquement de rendre le parachutisme accessible aux étudiants.
         icon: tabler:wallet
 
-      - question: Combien de temps dure une journée de saut ?
+      - question: Combien de temps dure une journée de saut ?
         answer: |
           Une journée de saut typique dure environ 6 à 8 heures. Cela inclut le briefing, l’équipement, les sauts, et le débriefing. Le temps exact peut varier en fonction des conditions météo et du nombre de participants.
 
@@ -151,9 +151,9 @@ categories:
   - name: Sécurité
     color: gray
     questions:
-      - question: Est-ce que le parachutisme est sûr ?
+      - question: Est-ce que le parachutisme est sûr ?
         answer: |
-          Le parachutisme est une activité **très encadrée** en France. Chaque année, **plus de 500 000 sauts** sont réalisés dans les clubs affiliés à la Fédération Française de Parachutisme.
+          Le parachutisme est une activité **très encadrée** en France. Chaque année, **plus de 500 000 sauts** sont réalisés dans les clubs affiliés à la Fédération Française de Parachutisme.
 
           Les **accidents graves sont rares** et les **accidents mortels exceptionnels**, avec seulement **quelques cas par an au niveau national**, rapportés à un très grand nombre de sauts.
 
@@ -161,14 +161,14 @@ categories:
           En saut en **tandem**, le niveau de sécurité est encore renforcé, notamment grâce à la présence d’un instructeur expérimenté.
         icon: tabler:shield-check-filled
 
-      - question: Qui encadre les sauts ?
+      - question: Qui encadre les sauts ?
         answer: Les sauts sont encadrés par des instructeurs professionnels diplômés, dans des centres agréés par la Fédération Française de Parachutisme (FFP).
         icon: tabler:user-scan
 
-      - question: Le matériel est-il vérifié ?
+      - question: Le matériel est-il vérifié ?
         answer: Oui. Le matériel utilisé est contrôlé régulièrement et conforme aux normes de sécurité en vigueur. Chaque parachutiste dispose d’un parachute principal et d’un parachute de secours.
         icon: tabler:tool
 
-      - question: Que se passe-t-il en cas de mauvaise météo ?
+      - question: Que se passe-t-il en cas de mauvaise météo ?
         answer: La sécurité passe avant tout. Si les conditions météo ne sont pas favorables, les sauts sont reportés ou annulés.
         icon: tabler:cloud-storm

@@ -140,7 +140,7 @@ Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'ic
 
 ### Erreurs
 
-Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, 403, 401, 400, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub).
+Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub).
 
 ### Référencement
 

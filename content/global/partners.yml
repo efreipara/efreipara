@@ -4,7 +4,7 @@ items:
     url: 'https://efrei.fr/'
   - name: Skydive Event Paris
     logo: '/partners/skydive-event.webp'
-    url: 'https://www.skydiveevent-paris.fr'
+    url: 'https://www.ecole-parachutisme.fr'
     activites:
       - tandem
   - name: iFly
