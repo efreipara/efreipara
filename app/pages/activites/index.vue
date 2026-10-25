@@ -29,7 +29,11 @@
 
 <template>
   <div>
-    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero
+      :headline="page?.hero.headline"
+      :title="page?.hero.title"
+      :description="page?.hero.description"
+    />
 
     <!-- Image à gauche puis à droite en alternance (lg) ; toujours au-dessus du texte sur mobile -->
     <UPageSection

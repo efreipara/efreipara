@@ -21,9 +21,13 @@
 
 <template>
   <div>
-    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero
+      :headline="page?.hero.headline"
+      :title="page?.hero.title"
+      :description="page?.hero.description"
+    />
 
-    <UContainer class="pb-16">
+    <UContainer class="py-12 sm:py-16">
       <div class="mb-8 flex flex-wrap gap-2">
         <UButton
           :color="activeFilter ? 'neutral' : 'primary'"

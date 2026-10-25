@@ -50,6 +50,7 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`.
   - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `features[]`, `linkLabel` : section de `/activites`, qui reprend `alt` pour la photo).
   - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
+- **En-tête des pages** : `headline` (surtitre court au-dessus du titre) dans `activites.yml`, `galerie.yml`, `contact.yml`, `rejoindre.yml` (sous `hero`) et `documents.yml`, `faq.yml` (à la racine).
 - **`galerie`** : `hero.allLabel` (filtre « Tout voir »), `hero.linkLabel` et `hero.linkSourceLabel` (avec `{source}`) ; `albumIcons` (`date`, `location` : icônes des cartes) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
 - **`documents`** : `count` (`one`, `other` : « 3 docs ») ; catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon).
 - **`faq`** : `count` (`one`, `other`) ; catégories (`name`, `color`, `questions[]`) ; une question a `question`, `answer`, `icon` (obligatoire ; l'icône de la première question sert aussi d'icône à la catégorie) et des `buttons` facultatifs (`label`, `to`, `icon`, `variant`, `target`).
@@ -91,7 +92,6 @@ Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adre
 | Fichier sur le CDN              | Utilisé pour                                                                 |
 | ------------------------------- | ---------------------------------------------------------------------------- |
 | `main-hero.mp4`                 | vidéo du hero d'accueil (affiche locale : `app/assets/images/main-hero.jpg`) |
-| `page-hero.jpg`                 | fond flouté du hero des pages                                                |
 | `<activité>.jpg`                | hero d'une activité, section de `/activites`                                 |
 | `<activité>/<activité>-<n>.jpg` | carrousel, `n` de 1 à `imageCount`                                           |
 | `<slug>.jpg`                    | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)                |

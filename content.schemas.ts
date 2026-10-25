@@ -74,6 +74,7 @@ export const collections = {
     source: 'pages/galerie.yml',
     schema: z.object({
       hero: z.object({
+        headline: z.string(),
         title: z.string(),
         description: z.string(),
         linkLabel: z.string(),
@@ -99,6 +100,7 @@ export const collections = {
     source: 'pages/activites.yml',
     schema: z.object({
       hero: z.object({
+        headline: z.string(),
         title: z.string(),
         description: z.string(),
       }),
@@ -156,6 +158,7 @@ export const collections = {
     type: 'data' as const,
     source: 'pages/faq.yml',
     schema: z.object({
+      headline: z.string(),
       title: z.string(),
       description: z.string(),
       count: z.object({ one: z.string(), other: z.string() }),
@@ -190,6 +193,7 @@ export const collections = {
     type: 'data' as const,
     source: 'pages/documents.yml',
     schema: z.object({
+      headline: z.string(),
       title: z.string(),
       description: z.string(),
       count: z.object({ one: z.string(), other: z.string() }),
@@ -218,6 +222,7 @@ export const collections = {
     source: 'pages/contact.yml',
     schema: z.object({
       hero: z.object({
+        headline: z.string(),
         title: z.string(),
         description: z.string(),
       }),
@@ -344,6 +349,7 @@ export const collections = {
     source: 'pages/rejoindre.yml',
     schema: z.object({
       hero: z.object({
+        headline: z.string(),
         title: z.string(),
         description: z.string(),
       }),

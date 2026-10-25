@@ -32,9 +32,13 @@
 
 <template>
   <div>
-    <SharedPageHero :title="faqData?.title" :description="faqData?.description" />
+    <SharedPageHero
+      :headline="faqData?.headline"
+      :title="faqData?.title"
+      :description="faqData?.description"
+    />
 
-    <UContainer class="pb-16">
+    <UContainer class="py-12 sm:py-16">
       <SharedCategoryChips :categories="categoriesData" />
 
       <div class="flex flex-col gap-10">

@@ -1,10 +1,14 @@
 <script setup lang="ts">
   import type { ButtonProps, PageSectionProps } from '@nuxt/ui'
 
-  // UPageSection avec le surtitre du site (trait + capitales) et, si demandé, une bande de fond
+  // UPageSection avec le surtitre du site (SharedHeadline) et, si demandé, une bande de fond
   const props = withDefaults(
     defineProps<{
       headline?: string
+      /** Icône à la place du trait (activité) */
+      headlineIcon?: string
+      /** Couleur du surtitre (teinte d'activité, couleur de catégorie) */
+      headlineTone?: string
       title?: string
       description?: string
       orientation?: PageSectionProps['orientation']
@@ -15,6 +19,8 @@
     }>(),
     {
       headline: undefined,
+      headlineIcon: undefined,
+      headlineTone: undefined,
       title: undefined,
       description: undefined,
       orientation: 'vertical',
@@ -46,8 +52,7 @@
     :class="band && 'bg-elevated/60'"
   >
     <template v-if="headline" #headline>
-      <span class="h-0.5 w-6 shrink-0 rounded-full bg-current" aria-hidden="true" />
-      {{ headline }}
+      <SharedHeadline :icon="headlineIcon" :tone="headlineTone">{{ headline }}</SharedHeadline>
     </template>
     <template v-if="$slots.description" #description>
       <slot name="description" />

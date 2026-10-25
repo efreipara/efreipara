@@ -87,7 +87,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 Règle commune, en place sur l'accueil ; les autres pages y passent une à une.
 
-- Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`headline`, couleur primaire), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
+- Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`SharedHeadline`, couleur primaire, ou icône et teinte d'une activité), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
 - Une section verticale avec un lien (« Voir toute la galerie ») le place à droite du titre sur grand écran.
 - Rythme : `py-12` sur téléphone, `py-20` en `sm`, `py-24` en `lg` ; les sections se distinguent par l'alternance de fond (prop `band` : `bg-elevated/60`), pas par des bordures ou des séparateurs.
 - Les photos réelles portent la page : cartes d'activité à photo, photo de groupe à côté des points forts, derniers albums. La pastille d'icône est réservée à ce qui est lié à une activité ou à une catégorie.
@@ -114,10 +114,10 @@ Règle commune, en place sur l'accueil ; les autres pages y passent une à une.
 
 ### Héros de page
 
-- Page de premier niveau : `SharedPageHero` (titre en `font-title`, description), sur un fond `page-hero.jpg` du CDN flouté, peu opaque et estompé vers le bas.
+- Page de premier niveau : `SharedPageHero`, en-tête compact (`UPageHeader`, réglé dans `app.config.ts`) sur bande `bg-elevated/60`, aligné à gauche : surtitre (`SharedHeadline`), titre `h1` en `font-title` (`text-4xl sm:text-5xl`), description `max-w-2xl`. Le contenu de la page suit avec `py-12 sm:py-16`.
 - Activité : `ActiviteHero`, même principe avec la photo de l'activité et une mise en page horizontale.
 - Accueil : `HomeHero`, vidéo plein écran assombrie (`bg-black/30`).
-- Le titre, la description et le badge entrent par le bas en décalé : classe `hero-slide-up` (0,5 s, 16 px, ease-out marqué) avec `animation-delay` de 0,05 s, 0,12 s, 0,2 s (accueil : 0,05 s, 0,15 s, 0,25 s). Le contenu doit être lisible dans les 300 ms qui suivent un clic.
+- Le titre, la description et le badge entrent par le bas en décalé : classe `hero-slide-up` (0,5 s, 16 px, ease-out marqué) avec `animation-delay` de 0,05 s, 0,12 s, 0,2 s (en-tête des pages : 0,05 s, 0,08 s, 0,14 s ; accueil : 0,05 s, 0,15 s, 0,25 s). Le contenu doit être lisible dans les 300 ms qui suivent un clic.
 
 ### Décor de parachutes
 
@@ -159,9 +159,10 @@ Avant d'écrire un composant, vérifier qu'aucun de ceux-ci ne répond au besoin
 | `HomeStatCounter`                                                                                                                                     | Nombre qui défile jusqu'à sa valeur quand il devient visible (suffixe conservé)                                                                |
 | `ActivitePage`                                                                                                                                        | Assemble les sections d'une page d'activité selon le contenu présent                                                                           |
 | `ActiviteHero`, `ActiviteStats`, `ActiviteIntro`, `ActiviteCarousel`, `ActiviteFeatures`, `ActiviteSteps`, `ActiviteRequirements`, `ActivitePartners` | Sections d'une page d'activité, teintées par l'activité                                                                                        |
+| `SharedHeadline`                                                                                                                                      | Surtitre du site : trait (ou icône) et texte en capitales ; sections, en-têtes de page, catégories                                             |
 | `SharedSection`                                                                                                                                       | Section commune : `UPageSection` avec surtitre à trait, liens à droite du titre, bande de fond (`band`)                                        |
 | `SharedAlbumCard`                                                                                                                                     | Carte d'album (couverture ou photo de repli du CDN, squelette, type, date, lieu, lien externe) : galerie, accueil                              |
-| `SharedPageHero`                                                                                                                                      | Hero des pages : titre, description, fond flouté                                                                                               |
+| `SharedPageHero`                                                                                                                                      | En-tête compact des pages intérieures : surtitre, titre `h1`, description, sur bande                                                           |
 | `SharedCallToAction`                                                                                                                                  | Appel à l'action de bas de page (collection `cta`) sur fond de parachutes                                                                      |
 | `SharedCategoryChips`                                                                                                                                 | Pastilles de catégories qui font défiler jusqu'à la section (Documents, FAQ)                                                                   |
 | `SharedCategoryHeader`                                                                                                                                | En-tête d'une catégorie (pastille colorée, titre, description, nombre d'éléments) : Documents, FAQ                                             |

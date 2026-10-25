@@ -16,8 +16,7 @@ export default defineAppConfig({
     pageSection: {
       slots: {
         container: 'py-12 sm:py-20 lg:py-24 gap-10 sm:gap-12',
-        headline:
-          'text-primary mb-3 flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase',
+        headline: 'mb-3',
         title: 'font-title text-3xl tracking-normal sm:text-4xl lg:text-4xl',
         description: 'max-w-2xl text-pretty',
         body: 'mt-10',
@@ -32,6 +31,15 @@ export default defineAppConfig({
             links: 'justify-start',
           },
         },
+      },
+    },
+    // En-tête des pages intérieures (SharedPageHero) : même surtitre et titre que les sections
+    pageHeader: {
+      slots: {
+        root: 'border-b-0 py-12 sm:py-16',
+        headline: 'mb-3',
+        title: 'font-title text-4xl tracking-normal sm:text-5xl',
+        description: 'max-w-2xl text-pretty',
       },
     },
     // Icônes génériques NuxtUI : surchargées en Tabler dans nuxt.config.ts (appConfig.ui.icons),

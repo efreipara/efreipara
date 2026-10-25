@@ -18,9 +18,13 @@
 
 <template>
   <div>
-    <SharedPageHero :title="documentsData?.title" :description="documentsData?.description" />
+    <SharedPageHero
+      :headline="documentsData?.headline"
+      :title="documentsData?.title"
+      :description="documentsData?.description"
+    />
 
-    <UContainer class="pb-16">
+    <UContainer class="py-12 sm:py-16">
       <SharedCategoryChips :categories="categoryChips" />
 
       <div class="flex flex-col gap-10">

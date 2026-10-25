@@ -12,11 +12,12 @@
 <template>
   <div>
     <SharedPageHero
+      :headline="rejoindreData?.hero.headline"
       :title="rejoindreData?.hero.title"
       :description="rejoindreData?.hero.description"
     />
 
-    <UContainer class="pb-16">
+    <UContainer class="py-12 sm:py-16">
       <UAlert
         :title="rejoindreData?.alert.title"
         :description="rejoindreData?.alert.description"
