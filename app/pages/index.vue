@@ -15,16 +15,21 @@
 
 <template>
   <div>
-    <HomeHero :links="home?.hero.links ?? []" :scroll-icon="home?.hero.scrollIcon ?? ''" />
+    <HomeHero
+      v-if="home"
+      :links="home.hero.links"
+      :scroll-icon="home.hero.scrollIcon"
+      :video="home.hero.video"
+    />
 
     <!-- À propos -->
     <UContainer class="py-24">
-      <h2 class="font-title mb-8 flex flex-col items-center text-center text-3xl font-bold">
+      <div class="mb-8 flex flex-col items-center">
         <div class="bg-primary/10 mb-4 flex size-20 items-center justify-center rounded-2xl">
           <UIcon name="efreipara:parachute" class="text-primary size-10" />
         </div>
-        {{ home?.sections.about }}
-      </h2>
+        <h2 class="font-title text-center text-3xl font-bold">{{ home?.sections.about }}</h2>
+      </div>
       <div class="flex items-center gap-12">
         <div class="text-muted flex flex-1 flex-col gap-4">
           <p
@@ -137,7 +142,9 @@
     <!-- Partenaires -->
     <div class="border-default border-t">
       <UContainer class="py-24">
-        <p class="font-title mb-8 text-center text-3xl font-bold">{{ home?.sections.partners }}</p>
+        <h2 class="font-title mb-8 text-center text-3xl font-bold">
+          {{ home?.sections.partners }}
+        </h2>
         <SharedPartnerLogos :partners="partners" class="justify-center" />
       </UContainer>
     </div>

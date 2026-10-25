@@ -62,7 +62,7 @@ En bas de l'accueil, de la page des activités, de chaque activité, de la galer
 
 ### Accueil — `/`
 
-- **Hero** plein écran (hauteur de la fenêtre moins l'en-tête) : vidéo en boucle, muette, logo Efrei Para, phrase d'accroche (description SEO de l'accueil), boutons « Nos activités » et « Nous rejoindre », flèche animée vers le bas.
+- **Hero** plein écran (hauteur de la fenêtre moins l'en-tête) : vidéo en boucle, muette, avec un bouton pause / lecture en bas à droite (elle ne se lance pas avec « réduire les animations »), logo Efrei Para, phrase d'accroche (description SEO de l'accueil), boutons « Nos activités » et « Nous rejoindre », flèche animée vers le bas.
 - **Qui sommes-nous ?** : paragraphes de présentation (mots clés en gras), illustration d'avion à partir de `md`.
 - **Chiffres** : trois statistiques (membres, activités, année de création) ; le nombre défile de 0 à sa valeur (2,5 s) quand le bloc devient visible, le suffixe (« + ») est conservé.
 - **Nos activités** : quatre cartes (titre, description, « En savoir plus »), teintées de la couleur de l'activité au survol, et un bouton vers la page des activités.

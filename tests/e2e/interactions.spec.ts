@@ -87,6 +87,15 @@ test.describe('réduire les animations', () => {
     expect(await counter.textContent()).toBe('2016')
   })
 
+  test('la vidéo de l’accueil ne se lance pas seule', async ({ page }) => {
+    await gotoReady(page, '/')
+    const toggle = page.getByRole('button', { name: 'Lire la vidéo' })
+    test.skip((await toggle.count()) === 0, 'pas de vidéo : CDN_URL vide au build')
+    await page.waitForTimeout(500)
+    expect(await page.locator('video').evaluate((v: HTMLVideoElement) => v.paused)).toBe(true)
+    await expect(toggle).toBeVisible()
+  })
+
   test('le carrousel d’une activité ne défile pas tout seul', async ({ page }) => {
     // Photos du CDN remplacées par une image de 1 px (le CDN est coupé par les fixtures)
     const pixel = Buffer.from(

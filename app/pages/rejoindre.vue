@@ -71,7 +71,7 @@
           <template #header>
             <img
               :src="buildCdnUrl(`${option.slug}.jpg`)"
-              :alt="option.title"
+              alt=""
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </template>
@@ -80,12 +80,12 @@
               <div class="bg-tint-10 flex size-12 shrink-0 items-center justify-center rounded-2xl">
                 <UIcon :name="option.icon" class="text-activity size-6" />
               </div>
-              <h3 class="text-activity text-2xl font-extrabold">
+              <h3 class="text-activity-strong text-2xl font-extrabold">
                 {{ option.title }}
               </h3>
             </div>
             <p class="text-muted mb-8 flex-1">{{ option.description }}</p>
-            <div class="text-activity flex items-center gap-1.5 font-semibold">
+            <div class="text-activity-strong flex items-center gap-1.5 font-semibold">
               <span>{{ option.linkText }}</span>
               <UIcon
                 :name="appConfig.ui.icons.external"

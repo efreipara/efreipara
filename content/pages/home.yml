@@ -8,6 +8,14 @@ hero:
       to: /rejoindre
       icon: tabler:user-plus
   scrollIcon: tabler:caret-down-filled
+  # Bouton de la vidéo, en bas à droite (libellés lus par les lecteurs d’écran)
+  video:
+    pause:
+      label: Mettre la vidéo en pause
+      icon: tabler:player-pause
+    play:
+      label: Lire la vidéo
+      icon: tabler:player-play
 
 sections:
   about: Qui sommes-nous ?

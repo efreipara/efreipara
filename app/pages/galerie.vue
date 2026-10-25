@@ -125,7 +125,7 @@
               <img
                 :ref="(el) => checkPhoto(el, item)"
                 :src="photoSrc(item)"
-                :alt="item.title"
+                alt=""
                 class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
                 :class="settledPhotos.has(item.url) ? 'opacity-100' : 'opacity-0'"
                 @load="onPhotoLoad(item)"

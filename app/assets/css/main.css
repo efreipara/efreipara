@@ -131,6 +131,14 @@
   color: var(--activity, var(--ui-primary));
 }
 
+/* Texte teinté : la couleur pleine n'atteint pas le contraste en clair (or du tandem : 1,8:1) */
+@utility text-activity-strong {
+  color: color-mix(in oklch, var(--activity, var(--ui-primary)) 65%, black);
+  @variant dark {
+    color: var(--activity, var(--ui-primary));
+  }
+}
+
 @utility bg-activity {
   background-color: var(--activity, var(--ui-primary));
 }

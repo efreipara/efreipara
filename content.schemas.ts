@@ -24,6 +24,7 @@ export const collections = {
       hero: z.object({
         links: z.array(z.object({ label: z.string(), to: z.string(), icon: z.string() })),
         scrollIcon: z.string(),
+        video: z.object({ pause: link, play: link }),
       }),
       sections: z.object({
         about: z.string(),
@@ -290,6 +291,7 @@ export const collections = {
         steps: z.string(),
         requirements: z.string(),
         partners: z.string(),
+        photo: z.string(),
       }),
       helpCta: z.object({ github: z.string() }),
       legal: z.object({ updatedAt: z.string() }),

@@ -19,3 +19,15 @@ export const categoryColorClasses = (color?: string) =>
     text: 'text-primary',
     hoverBg: 'hover:bg-primary/20',
   }
+
+// Texte d'une pastille : -500 n'atteint pas 4,5:1 sur le fond /10, en clair comme en sombre
+const textMap: Record<string, string> = {
+  blue: 'text-blue-700 dark:text-blue-400',
+  green: 'text-green-800 dark:text-green-400',
+  purple: 'text-purple-700 dark:text-purple-400',
+  red: 'text-red-700 dark:text-red-400',
+  orange: 'text-orange-800 dark:text-orange-400',
+  gray: 'text-gray-700 dark:text-gray-400',
+}
+
+export const categoryTextClass = (color?: string) => textMap[color ?? ''] ?? 'text-primary'

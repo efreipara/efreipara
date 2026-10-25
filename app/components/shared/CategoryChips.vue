@@ -3,7 +3,7 @@
     categories: { name: string; icon: string; color?: string }[]
   }>()
 
-  const { getCategoryColor } = useCategoryColor()
+  const { getCategoryColor, getCategoryText } = useCategoryColor()
 
   // Défilement natif ; décalage sous l'en-tête par scroll-mt des sections.
   // Chromium n'interrompt pas un défilement doux lancé par script : la première action du
@@ -49,7 +49,7 @@
       class="cursor-pointer rounded-full px-3"
       :class="[
         getCategoryColor(category.color).bg,
-        getCategoryColor(category.color).text,
+        getCategoryText(category.color),
         getCategoryColor(category.color).hoverBg,
       ]"
       :ui="{ leadingIcon: 'size-4' }"

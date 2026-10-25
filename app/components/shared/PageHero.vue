@@ -13,6 +13,7 @@
   <div class="relative overflow-hidden">
     <img
       :src="imageUrl"
+      alt=""
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-25 blur-sm dark:opacity-20"
     />

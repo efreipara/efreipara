@@ -27,6 +27,7 @@
   <div class="relative overflow-hidden" :class="activityClass(activite)">
     <img
       :src="imageUrl"
+      alt=""
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-20 blur-sm dark:opacity-15"
     />
@@ -52,7 +53,7 @@
       <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
           <div
-            class="hero-slide-up bg-tint-12 text-activity inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
+            class="hero-slide-up bg-tint-12 text-activity-strong inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
             style="animation-delay: 0.2s"
           >
             <UIcon :name="icon" class="size-3.5" />

@@ -114,7 +114,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `contact.ts`        | `mapUrls`                                                                                                                                    | `useClub`                                                           |
 | `navigation.ts`     | `sortHeaderLinks`                                                                                                                            | `useNavigation`                                                     |
 | `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité |
-| `category-color.ts` | `categoryColorClasses`                                                                                                                       | `useCategoryColor`                                                  |
+| `category-color.ts` | `categoryColorClasses`, `categoryTextClass`                                                                                                  | `useCategoryColor`                                                  |
 | `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                              | `HomeStatCounter`, `ColorModeButton`                                |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
@@ -139,7 +139,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ## CDN
 
-`useCdnAsset().buildCdnUrl(chemin)` (règle : `resolveCdnUrl`) renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. La vidéo d'accueil lit `runtimeConfig.public.cdnUrl` directement. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
+`useCdnAsset().buildCdnUrl(chemin)` (règle : `resolveCdnUrl`) renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. La vidéo d'accueil passe aussi par `buildCdnUrl` ; sans `CDN_URL`, elle n'est pas affichée. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
 
 ## Icônes
 

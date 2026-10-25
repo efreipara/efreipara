@@ -3,10 +3,12 @@
 
   const props = defineProps<{
     activite: ActivityType
+    label: string
     imageCount: number
   }>()
 
   const { buildCdnUrl } = useCdnAsset()
+  const { labels } = await useLabels()
 
   const failedUrls = ref(new Set<string>())
 
@@ -50,9 +52,9 @@
     >
       <img
         :src="item.url"
-        :alt="`Photo ${activite} ${item.index}`"
-        width="400"
-        height="500"
+        :alt="fillLabel(labels.activity.photo, { label, n: item.index })"
+        width="500"
+        height="400"
         class="aspect-5/4 w-full rounded-lg object-cover"
         @error="onError(item.url)"
       />
