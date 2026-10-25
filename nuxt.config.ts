@@ -26,13 +26,7 @@ export default defineNuxtConfig({
     },
     // Pré-bundlées en dev : sinon Vite les découvre au premier import et recharge la page
     optimizeDeps: {
-      include: [
-        '@plausible-analytics/tracker',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        'isomorphic-dompurify',
-        'marked',
-      ],
+      include: ['@plausible-analytics/tracker', '@vue/devtools-core', '@vue/devtools-kit'],
     },
   },
 

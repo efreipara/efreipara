@@ -70,3 +70,22 @@ test.describe('référencement et partage', () => {
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
   })
 })
+
+// Le Markdown du contenu (paragraphes, intros, réponses de la FAQ) passe par <MDC> : gras rendu,
+// ni astérisques ni balises affichés
+test.describe('mise en forme du contenu', () => {
+  const cases = [
+    { path: '/', bold: '100 membres' },
+    { path: '/activites/tandem', bold: '4 000 mètres' },
+    { path: '/faq', bold: 'très encadrée' },
+  ]
+  for (const { path, bold } of cases) {
+    test(`${path} : le gras est rendu en <strong>`, async ({ page }) => {
+      await gotoReady(page, path)
+      await expect(page.locator('main strong', { hasText: bold })).toHaveCount(1)
+      const text = (await page.locator('main').textContent()) ?? ''
+      expect(text).not.toContain('**')
+      expect(text).not.toMatch(/<\/?(b|strong|p)\b/)
+    })
+  }
+})

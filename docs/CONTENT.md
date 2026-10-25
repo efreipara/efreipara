@@ -66,12 +66,12 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 
 ## Formats acceptés
 
-| Champ                                              | Format                                                                                   |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `home.about.paragraphs[]`, `activites.<…>.intro[]` | HTML simple (`<b class="text-highlighted">…</b>`), nettoyé par DOMPurify avant affichage |
-| `faq.categories[].questions[].answer`              | Markdown (`marked`, retours à la ligne conservés), nettoyé par DOMPurify                 |
-| `pages/legal/*.md`                                 | Markdown Nuxt Content ; liens externes ouverts dans un nouvel onglet                     |
-| tous les autres champs texte                       | texte brut (échappé par Vue)                                                             |
+| Champ                                              | Format                                                                                             |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `home.about.paragraphs[]`, `activites.<…>.intro[]` | Markdown en ligne (`**gras**`, mis en valeur dans la couleur des titres), un paragraphe par entrée |
+| `faq.categories[].questions[].answer`              | Markdown ; une ligne vide sépare deux paragraphes (un simple retour à la ligne est ignoré)         |
+| `pages/legal/*.md`                                 | Markdown Nuxt Content ; liens externes ouverts dans un nouvel onglet                               |
+| tous les autres champs texte                       | texte brut (échappé par Vue)                                                                       |
 
 Règle de sécurité associée : [SECURITY.md](SECURITY.md#2-html-issu-du-contenu).
 

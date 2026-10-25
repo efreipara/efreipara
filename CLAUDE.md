@@ -92,7 +92,7 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 - Code en anglais, URL et clés de contenu en français, **commentaires en français et rares**.
 - Préférer les composants Nuxt UI aux composants maison ; réutiliser les composants listés dans `docs/DESIGN_SYSTEM.md`.
 - `app.config.ts` ne garde que le thème Nuxt UI : icônes, liens et options d'une page vont dans son fichier de `content/` ; teintes d'activité par `color-mix`.
-- `v-html` uniquement après `DOMPurify.sanitize()` ; toute nouvelle origine externe ajoutée à la CSP nginx.
+- Pas de `v-html` (erreur ESLint) : le Markdown du contenu passe par `<MDC>` ; toute nouvelle origine externe ajoutée à la CSP nginx.
 
 ## Commits
 

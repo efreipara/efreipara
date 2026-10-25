@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import DOMPurify from 'isomorphic-dompurify'
-
   const { getIcon } = await useActivities()
   const { partners } = await usePartners()
   const { buildCdnUrl } = useCdnAsset()
@@ -47,10 +45,13 @@
     >
       <template #description>
         <div class="space-y-4">
-          <p
+          <MDC
             v-for="paragraph in home.about.paragraphs"
             :key="paragraph"
-            v-html="DOMPurify.sanitize(paragraph)"
+            :value="paragraph"
+            tag="p"
+            unwrap="p"
+            class="[&_strong]:text-highlighted"
           />
         </div>
       </template>

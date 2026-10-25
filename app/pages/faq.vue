@@ -1,12 +1,5 @@
 <script setup lang="ts">
-  import { marked } from 'marked'
-  import DOMPurify from 'isomorphic-dompurify'
-
   const { data: faqData } = await useAsyncData('faq', () => queryCollection('faq').first())
-  const parseMarkdown = (text: string) => {
-    const html = marked(text, { breaks: true }) as string
-    return DOMPurify.sanitize(html)
-  }
 
   const { getCategoryColor } = useCategoryColor()
   const appConfig = useAppConfig()
@@ -69,9 +62,9 @@
               >
                 <template #body="{ item }">
                   <div class="space-y-4">
-                    <div
-                      class="prose prose-sm dark:prose-invert max-w-none"
-                      v-html="parseMarkdown(item.content)"
+                    <MDC
+                      :value="item.content"
+                      class="[&_p]:my-0 [&_p]:leading-[inherit] [&_p+p]:mt-3"
                     />
                     <div v-if="item.buttons?.length" class="flex flex-wrap gap-2">
                       <UButton

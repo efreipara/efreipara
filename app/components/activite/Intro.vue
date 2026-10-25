@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import DOMPurify from 'isomorphic-dompurify'
-
   defineProps<{
     paragraphs: string[]
     band?: boolean
@@ -11,11 +9,13 @@
   <div :class="band && 'bg-elevated/60'">
     <UContainer class="py-12 sm:py-16">
       <div class="max-w-3xl space-y-4 text-lg leading-relaxed text-pretty">
-        <p
+        <MDC
           v-for="(paragraph, i) in paragraphs"
           :key="i"
-          class="[&_b]:font-semibold"
-          v-html="DOMPurify.sanitize(paragraph)"
+          :value="paragraph"
+          tag="p"
+          unwrap="p"
+          class="[&_strong]:text-highlighted [&_strong]:font-semibold"
         />
       </div>
     </UContainer>

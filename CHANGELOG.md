@@ -2,6 +2,16 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.12.1 — 25 octobre 2026
+
+### Modifications
+
+- Site plus léger : le texte mis en forme (gras de l'accueil et des activités, réponses de la FAQ) est préparé à la construction du site ; environ 40 Ko de JavaScript en moins par page.
+
+### Corrections
+
+- FAQ : les paragraphes d'une réponse sont séparés par un petit espace au lieu d'être collés.
+
 ## 1.12.0 — 25 octobre 2026
 
 ### Modifications

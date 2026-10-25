@@ -131,13 +131,16 @@ categories:
       - question: Comment se déroulent les déplacements vers les zones de saut ?
         answer: |
           Les déplacements sont organisés par le club, souvent en covoiturage. Toutes les informations pratiques sont communiquées à l’avance.
+
           Tu peux également y aller par tes propres moyens si tu le souhaites.
         icon: tabler:car
 
       - question: Faut-il prévoir un budget pour les activités ?
         answer: |
           Oui. L’adhésion au club est gratuite, mais les activités de parachutisme ont un coût (sauts, formations, soufflerie).
+
           Les tarifs sont négociés par le club et annoncés à l’avance. Les étudiants de l’Efrei profitent généralement de tarifs réduits, avec une partie prise en charge par le club et l’école.
+
           Le club n’a aucun but lucratif : l’objectif est uniquement de rendre le parachutisme accessible aux étudiants.
         icon: tabler:wallet
 
@@ -158,6 +161,7 @@ categories:
           Les **accidents graves sont rares** et les **accidents mortels exceptionnels**, avec seulement **quelques cas par an au niveau national**, rapportés à un très grand nombre de sauts.
 
           La sécurité repose sur une **formation progressive**, du **matériel de secours redondant** et l’encadrement par des **professionnels diplômés**.
+
           En saut en **tandem**, le niveau de sécurité est encore renforcé, notamment grâce à la présence d’un instructeur expérimenté.
         icon: tabler:shield-check-filled
 

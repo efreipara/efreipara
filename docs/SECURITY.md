@@ -20,9 +20,9 @@
 
 ### 2. HTML issu du contenu
 
-- Un `v-html` ne reçoit **jamais** une chaîne brute : elle passe par `DOMPurify.sanitize()` (`isomorphic-dompurify`), y compris après `marked` pour le Markdown. Cas en place : paragraphes de l'accueil (`pages/index.vue`), introduction d'activité (`ActiviteIntro`), réponses de la FAQ (`pages/faq.vue`).
+- **Aucun `v-html`** : la règle ESLint `vue/no-v-html` est en erreur. Le Markdown du contenu passe par `<MDC>`, qui le rend en éléments Vue (jamais en `innerHTML`) et retire les attributs `on*`, `srcdoc` et les liens `javascript:`. Cas en place : paragraphes de l'accueil (`pages/index.vue`), introduction d'activité (`ActiviteIntro`), réponses de la FAQ (`pages/faq.vue`). `<MDC>` n'est pas un nettoyeur complet : il ne reçoit que du contenu du dépôt, jamais une saisie de visiteur ni une donnée externe.
 - Partout ailleurs, le texte est affiché par interpolation Vue (échappé).
-- Les champs qui acceptent du HTML ou du Markdown sont listés dans [CONTENT.md](CONTENT.md#formats-acceptés) ; en ajouter un impose le même nettoyage.
+- Les champs qui acceptent du HTML ou du Markdown sont listés dans [CONTENT.md](CONTENT.md#formats-acceptés) ; en ajouter un passe aussi par `<MDC>`.
 
 ### 3. Liens externes
 
@@ -49,7 +49,7 @@ Règles :
 
 ### 6. Dépendances
 
-- Toutes les dépendances servent au build : une vulnérabilité touche la machine de développement et la construction de l'image, pas le visiteur — sauf le code effectivement embarqué dans le bundle (Vue, Nuxt UI, `marked`, DOMPurify…).
+- Toutes les dépendances servent au build : une vulnérabilité touche la machine de développement et la construction de l'image, pas le visiteur — sauf le code effectivement embarqué dans le bundle (Vue, Nuxt UI, le rendu de `<MDC>`…).
 - Après une mise à jour des paquets, `bun audit` ; une vulnérabilité critique ou élevée se traite (mise à jour ou `overrides`) avant de publier.
 
 ### 7. Dépôt public

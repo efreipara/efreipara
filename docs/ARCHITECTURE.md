@@ -6,20 +6,20 @@
 
 ## Stack
 
-| Sujet            | Décision                                                                          |
-| ---------------- | --------------------------------------------------------------------------------- |
-| Paquets et build | **Bun** (`bun.lock`)                                                              |
-| Framework        | **Nuxt 4** + Vue 3 (`<script setup lang="ts">`) + TypeScript                      |
-| UI               | **Nuxt UI 4** + **Tailwind CSS 4**, thème clair et sombre                         |
-| Contenu          | **Nuxt Content 3** : collections YAML / Markdown typées par Zod                   |
-| Rendu            | **Site statique** généré par `nuxt generate` (SSR au build, aucun serveur Node)   |
-| Service          | **nginx** (image non-root) dans Docker                                            |
-| Images et vidéo  | CDN externe (`CDN_URL`), servi derrière Cloudflare                                |
-| Polices          | `@nuxt/fonts`, fichiers locaux dans `public/`                                     |
-| Icônes           | `@nuxt/icon` : Tabler, Simple Icons et collections maison, embarquées au build    |
-| Audience         | Plausible (`@nuxtjs/plausible`), instance auto-hébergée (`PLAUSIBLE_URL`)         |
-| HTML du contenu  | `marked` (Markdown de la FAQ) + `isomorphic-dompurify` (nettoyage avant `v-html`) |
-| Qualité          | ESLint (`@nuxt/eslint`) + Prettier (plugin Tailwind)                              |
+| Sujet                    | Décision                                                                                                                   |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Paquets et build         | **Bun** (`bun.lock`)                                                                                                       |
+| Framework                | **Nuxt 4** + Vue 3 (`<script setup lang="ts">`) + TypeScript                                                               |
+| UI                       | **Nuxt UI 4** + **Tailwind CSS 4**, thème clair et sombre                                                                  |
+| Contenu                  | **Nuxt Content 3** : collections YAML / Markdown typées par Zod                                                            |
+| Rendu                    | **Site statique** généré par `nuxt generate` (SSR au build, aucun serveur Node)                                            |
+| Service                  | **nginx** (image non-root) dans Docker                                                                                     |
+| Images et vidéo          | CDN externe (`CDN_URL`), servi derrière Cloudflare                                                                         |
+| Polices                  | `@nuxt/fonts`, fichiers locaux dans `public/`                                                                              |
+| Icônes                   | `@nuxt/icon` : Tabler, Simple Icons et collections maison, embarquées au build                                             |
+| Audience                 | Plausible (`@nuxtjs/plausible`), instance auto-hébergée (`PLAUSIBLE_URL`)                                                  |
+| Mise en forme du contenu | `<MDC>` de `@nuxtjs/mdc` (fourni par Nuxt Content) : Markdown des champs YAML analysé au `generate`, rendu en éléments Vue |
+| Qualité                  | ESLint (`@nuxt/eslint`) + Prettier (plugin Tailwind)                                                                       |
 
 `typescript` est bloqué en `6.0.x` (commentaire dans `package.json`) tant que `typescript-eslint` ne gère pas TS 7. Les images sont des `<img>` simples pointant vers le CDN (pas de `@nuxt/image`).
 
