@@ -2,6 +2,31 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.7.0 — 25 octobre 2026
+
+### Ajouts
+
+- Accueil : un bouton en bas à droite met la vidéo en pause ou la relance ; avec le réglage « réduire les animations », elle ne se lance plus d'elle-même.
+- Icône Efrei Para quand on ajoute le site à l'écran d'accueil d'un téléphone.
+
+### Modifications
+
+- Pages plus légères : les logos sont optimisés, l'accueil pèse deux fois moins une fois compressé ; la page QR code aussi.
+- Le texte en gras utilise le vrai gras de la police Outfit, plus net, au lieu d'un gras simulé.
+- Textes : le site tutoie partout ; ponctuation, espaces et unités à la française (« 4 000 m », « 200 km/h ») ; plus de tirets longs à la chaîne.
+- Contact : les pastilles « Adresse » et « Support technique » sont aux couleurs du club, et non plus à celles de l'OA et de la PAC.
+- La barre du navigateur sur téléphone prend le bleu du club.
+- Pour le bureau : `bun run typecheck` vérifie les types, et `bun run docker:build` accepte un `.env` commenté.
+
+### Corrections
+
+- Partage sur LinkedIn, X ou Facebook : l'image d'aperçu s'affiche, et « Nous rejoindre » a enfin la sienne.
+- Moteurs de recherche : le fichier robots.txt ne bloque plus les pages, ce qui permet de lire leur consigne « ne pas indexer » (seule l'accueil reste indexée).
+- Page d'erreur : titre d'onglet « Page introuvable - Efrei Para », langue déclarée, messages adaptés à un site sans compte.
+- Accessibilité : les chiffres et badges des activités (or du tandem surtout) et les pastilles de Documents et de la FAQ sont assez contrastés ; l'accueil a un titre principal ; chiffres clés correctement structurés ; textes alternatifs des photos revus.
+- FAQ : la PAC est la « Progression Accompagnée en Chute » ; lieux des sauts corrigés ; coquilles.
+- Documents : le lien vers iFly Paris fonctionne de nouveau.
+
 ## 1.6.1 — 24 octobre 2026
 
 ### Corrections
