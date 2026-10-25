@@ -5,6 +5,7 @@
     activite: ActivityType
     label: string
     imageCount: number
+    band?: boolean
   }>()
 
   const { buildCdnUrl } = useCdnAsset()
@@ -33,31 +34,33 @@
 </script>
 
 <template>
-  <UContainer v-if="images.length" class="py-12">
-    <UCarousel
-      v-slot="{ item }"
-      :items="images"
-      loop
-      :autoplay="autoplay"
-      dots
-      wheel-gestures
-      :prev="{ variant: 'solid' }"
-      :next="{ variant: 'solid' }"
-      :ui="{
-        item: 'basis-full sm:basis-1/2 lg:basis-1/3 pe-3',
-        container: 'ms-0',
-        prev: 'sm:inset-s-4',
-        next: 'sm:inset-e-4',
-      }"
-    >
-      <img
-        :src="item.url"
-        :alt="fillLabel(labels.activity.photo, { label, n: item.index })"
-        width="500"
-        height="400"
-        class="aspect-5/4 w-full rounded-lg object-cover"
-        @error="onError(item.url)"
-      />
-    </UCarousel>
-  </UContainer>
+  <div v-if="images.length" :class="band && 'bg-elevated/60'">
+    <UContainer class="py-12 sm:py-16">
+      <UCarousel
+        v-slot="{ item }"
+        :items="images"
+        loop
+        :autoplay="autoplay"
+        dots
+        wheel-gestures
+        :prev="{ variant: 'solid' }"
+        :next="{ variant: 'solid' }"
+        :ui="{
+          item: 'basis-full sm:basis-1/2 lg:basis-1/3 pe-3',
+          container: 'ms-0',
+          prev: 'sm:inset-s-4',
+          next: 'sm:inset-e-4',
+        }"
+      >
+        <img
+          :src="item.url"
+          :alt="fillLabel(labels.activity.photo, { label, n: item.index })"
+          width="500"
+          height="400"
+          class="aspect-5/4 w-full rounded-lg object-cover"
+          @error="onError(item.url)"
+        />
+      </UCarousel>
+    </UContainer>
+  </div>
 </template>

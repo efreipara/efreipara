@@ -4,12 +4,13 @@
   defineProps<{
     activite: ActivityType
     stats: { value: string; label: string; icon: string }[]
+    band?: boolean
   }>()
 </script>
 
 <template>
-  <div class="bg-elevated/50" :class="activityClass(activite)">
-    <UContainer class="py-12">
+  <div :class="[activityClass(activite), band && 'bg-elevated/60']">
+    <UContainer class="py-12 sm:py-16">
       <dl class="grid grid-cols-2 gap-8 lg:grid-cols-4">
         <div
           v-for="stat in stats"

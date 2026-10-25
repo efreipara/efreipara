@@ -1,16 +1,20 @@
 <script setup lang="ts">
+  import type { Partner } from '~/composables/usePartners'
   import type { ActivityType } from '~/utils/activities'
 
-  const props = defineProps<{ activite: ActivityType }>()
+  defineProps<{ activite: ActivityType; partners: Partner[]; band?: boolean }>()
 
-  const { getPartnersByActivity } = await usePartners()
   const { labels } = await useLabels()
-  const partners = computed(() => getPartnersByActivity(props.activite))
 </script>
 
 <template>
-  <UContainer v-if="partners.length" class="py-12">
-    <h2 class="font-title mb-8 text-2xl font-bold">{{ labels.activity.partners }}</h2>
+  <SharedSection
+    :headline="labels.activity.headlines.partners"
+    headline-tone="text-activity-strong"
+    :title="labels.activity.partners"
+    :band="band"
+    :class="activityClass(activite)"
+  >
     <SharedPartnerLogos :partners="partners" />
-  </UContainer>
+  </SharedSection>
 </template>

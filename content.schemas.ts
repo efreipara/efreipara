@@ -307,6 +307,12 @@ export const collections = {
         requirements: z.string(),
         partners: z.string(),
         photo: z.string(),
+        headlines: z.object({
+          features: z.string(),
+          steps: z.string(),
+          requirements: z.string(),
+          partners: z.string(),
+        }),
       }),
       helpCta: z.object({ github: z.string() }),
       legal: z.object({ updatedAt: z.string() }),

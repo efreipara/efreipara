@@ -4,14 +4,21 @@
   defineProps<{
     activite: ActivityType
     steps: { title: string; description: string; icon: string }[]
+    band?: boolean
   }>()
 
   const { labels } = await useLabels()
 </script>
 
 <template>
-  <UContainer class="overflow-x-hidden py-12" :class="activityClass(activite)">
-    <h2 class="font-title mb-8 text-2xl font-bold">{{ labels.activity.steps }}</h2>
+  <SharedSection
+    :headline="labels.activity.headlines.steps"
+    headline-tone="text-activity-strong"
+    :title="labels.activity.steps"
+    :band="band"
+    :class="activityClass(activite)"
+    :ui="{ container: 'overflow-x-hidden' }"
+  >
     <UTimeline
       :items="steps.map((s, i) => ({ ...s, value: i }))"
       class="md:translate-x-[calc(50%-1rem)]"
@@ -27,5 +34,5 @@
         </div>
       </template>
     </UTimeline>
-  </UContainer>
+  </SharedSection>
 </template>

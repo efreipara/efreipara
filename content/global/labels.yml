@@ -15,6 +15,12 @@ activity:
   steps: Comment ça se passe ?
   requirements: Prérequis
   partners: Nos partenaires
+  # Surtitres des sections (au-dessus des titres ci-dessus)
+  headlines:
+    features: Les points forts
+    steps: Le déroulé
+    requirements: Avant de t’inscrire
+    partners: Ils nous accompagnent
   # Texte alternatif des photos du carrousel
   photo: '{label}, photo {n}'
 

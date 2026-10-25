@@ -73,11 +73,11 @@ En bas de l'accueil, de la page des activités, de chaque activité, de la galer
 
 ### Activités — `/activites`
 
-Une section par activité, image et texte alternés gauche / droite sur grand écran : photo, icône, titre, description, quatre points forts, bouton vers la page de l'activité (teinté au survol).
+Une section par activité, image et texte alternés gauche / droite sur grand écran, une section sur deux sur bande : photo, surtitre (icône et libellé de l'activité, teintés), titre, description, quatre points forts, bouton vers la page de l'activité (teinté au survol).
 
 ### Page d'une activité — `/activites/[activite]`
 
-Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute autre adresse donne une 404. Les sections suivantes s'affichent dans l'ordre, chacune seulement si son contenu existe :
+Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute autre adresse donne une 404. Les sections suivantes s'affichent dans l'ordre, chacune seulement si son contenu existe ; elles alternent fond clair et bande sans trou quand une section manque, et celles qui ont un titre portent un surtitre teinté (« Les points forts », « Le déroulé », « Avant de t’inscrire », « Ils nous accompagnent ») :
 
 1. **Hero** : badge de l'activité, titre, description, photo, fond flouté de la même photo. Sur très grand écran (`2xl`), liens latéraux vers l'activité précédente et suivante.
 2. **Chiffres** clés (altitude, durée, vitesse…).
