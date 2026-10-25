@@ -2,6 +2,16 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.0 — 25 octobre 2026
+
+### Ajouts
+
+- Galerie : un compteur au-dessus des albums (« 7 albums », puis « 2 albums » avec un filtre), dans la couleur de l'activité filtrée.
+
+### Modifications
+
+- Galerie : au changement de filtre, les albums glissent vers leur nouvelle place et la carte mise en avant se redimensionne, au lieu d'une grille qui disparaît puis réapparaît. Le changement reste immédiat avec « réduire les animations ».
+
 ## 1.13.0 — 25 octobre 2026
 
 ### Modifications

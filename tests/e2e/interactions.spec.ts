@@ -228,6 +228,24 @@ test.describe('galerie', () => {
     await page.getByRole('button', { name: 'Tout voir' }).click()
     await expect(cards(page)).toHaveCount(items.length)
   })
+
+  test('le compteur suit le filtre et le focus reste sur le filtre', async ({ page }) => {
+    const { count } = readYaml<{ count: { one: string; other: string } }>('pages/galerie.yml')
+    const label = (n: number) => `${n} ${n > 1 ? count.other : count.one}`
+    await gotoReady(page, '/galerie')
+    await expect(page.getByText(label(items.length), { exact: true })).toBeVisible()
+
+    const tandemCount = items.filter((item) => item.type === 'tandem').length
+    const tandem = page.getByRole('button', { name: 'Tandem' })
+    await tandem.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.getByText(label(tandemCount), { exact: true })).toBeVisible()
+    await expect(tandem).toHaveAttribute('aria-pressed', 'true')
+    await expect(tandem).toBeFocused()
+    // Noms de transition retirés ensuite : la bascule clair / sombre garde son cercle
+    await expect(page.locator('html')).not.toHaveClass(/gallery-transition/)
+    await expect(cards(page).first()).not.toHaveAttribute('style', /view-transition-name/)
+  })
 })
 
 test.describe('FAQ et documents', () => {

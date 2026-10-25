@@ -6,6 +6,11 @@ hero:
   linkSourceLabel: Voir l'album sur {source}
   allLabel: Tout voir
 
+# Nombre d'albums affichés, au-dessus de la grille
+count:
+  one: album
+  other: albums
+
 # Icônes de la date et du lieu sur chaque album
 albumIcons:
   date: tabler:calendar-week

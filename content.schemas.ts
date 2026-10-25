@@ -86,6 +86,7 @@ export const collections = {
         linkSourceLabel: z.string(),
         allLabel: z.string(),
       }),
+      count: z.object({ one: z.string(), other: z.string() }),
       albumIcons: z.object({ date: z.string(), location: z.string() }),
       items: z.array(
         z.object({
