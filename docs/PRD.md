@@ -136,7 +136,7 @@ Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club :
 
 ### Pages légales — `/mentions-legales`, `/reglement`, `/rgpd`
 
-Texte mis en forme depuis le Markdown, titres dans la police de titre, « Dernière mise à jour : » suivi de la date en toutes lettres, en bas, quand elle est renseignée. Les liens externes s'ouvrent dans un nouvel onglet.
+En-tête compact commun (surtitre « Informations légales », titre et description de la page), puis le texte mis en forme depuis le Markdown, titres dans la police de titre, « Dernière mise à jour : » suivi de la date en toutes lettres, en bas, quand elle est renseignée. Les liens externes s'ouvrent dans un nouvel onglet.
 
 ### Redirections — `/discord`, `/instagram`, `/devenir-membre`, `/rejoindre-bureau`
 

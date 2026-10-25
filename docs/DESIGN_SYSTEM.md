@@ -85,7 +85,7 @@ Les catégories de Documents et FAQ utilisent à la place six couleurs Tailwind 
 
 ### Sections
 
-Règle commune, en place sur l'accueil, `/activites`, les pages d'activité, Documents, FAQ, Nous rejoindre et Contact ; les autres pages y passent une à une.
+Règle commune à tout le site (hors page QR, page d'erreur et pages de redirection, qui ont leur propre mise en scène).
 
 - Toute section est une `SharedSection` (`UPageSection` + surtitre) : surtitre court en capitales espacées précédé d'un trait (`SharedHeadline`, couleur primaire, ou icône et teinte d'une activité), titre en Racing Sans One **aligné à gauche**, description `text-muted` de largeur `max-w-2xl`. Le centrage est l'exception (appel à l'action). Réglage global : `ui.pageSection` dans `app.config.ts`.
 - Page d'activité : `ActivitePage` calcule l'alternance des bandes à partir des seules sections présentes (prop `band` de chaque section) ; surtitres dans la teinte de l'activité (`headlineTone="text-activity-strong"`), icône de l'activité à la place du trait sur `/activites`.
@@ -97,7 +97,7 @@ Règle commune, en place sur l'accueil, `/activites`, les pages d'activité, Doc
 
 - Boutons : `rounded-full` (y compris les boutons d'icône `p-2`), `cursor-pointer` sur les boutons sans lien.
 - Pastille d'icône : carré `size-8` à `size-14`, `rounded-xl` ou `rounded-2xl`, icône centrée à environ la moitié de la taille.
-- Cartes : `UPageCard` `variant="subtle"`, `rounded-2xl`, photo en tête (`#header`) quand elle existe (accueil) ; `UCard` (`subtle` ou `soft`) sur les pages pas encore passées à la règle commune ; images `rounded-lg` à `rounded-2xl`.
+- Cartes : `UPageCard` (ou `UCard` sans lien) `variant="subtle"`, `rounded-2xl`, photo en tête (`#header`) quand elle existe ; images `rounded-lg` à `rounded-2xl`.
 - Carte cliquable : `UPageCard :to` (le composant pose le lien sur toute la carte, avec le focus visible ; son nom accessible est le `title`). La mise en page se règle par `ui` (`wrapper: 'flex-row'` pour une pastille à gauche) et les slots `#leading`, `#header`, `#body`.
 - Point fort (pastille + titre + texte) : `UPageFeature`, pastille réglée par `ui.leading` / `ui.leadingIcon`, `text-wrap` sur le titre et la description (Nuxt UI met `text-pretty`). Section image + texte + points forts + bouton : `UPageSection orientation="horizontal"` (`/activites`).
 - Filtres et ancres de catégories : `UButton` `rounded-full px-3` (taille `md`, icône `size-4`) ; filtre actif signalé par `aria-pressed`. Teinte d'activité ou couleur de catégorie passée en `class` (Nuxt UI fusionne les classes avec `tailwind-merge`, elles remplacent celles de la variante).
@@ -143,7 +143,7 @@ Règle commune, en place sur l'accueil, `/activites`, les pages d'activité, Doc
 
 ### Grilles
 
-Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes, documents), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`. Accueil : rythme et bandes de la règle commune (voir [Sections](#sections)) ; cartes d'activité sur 1, 2 puis 4 colonnes (photo 16/9, puis 4/5 en `lg`). Autres pages : sections de `py-12` (activité) à `py-24`, séparées par `border-y border-default` ou `USeparator`.
+Grilles Tailwind simples, une colonne sur téléphone : 2 colonnes à partir de `sm` (cartes, documents), 3 en `lg` (galerie, points forts), 4 en `lg` (chiffres d'activité). Contenu dans `UContainer`, rythme et bandes de la règle commune (voir [Sections](#sections)) ; contenu placé directement sous un en-tête de page : `py-12 sm:py-16`. Cartes d'activité de l'accueil sur 1, 2 puis 4 colonnes (photo 16/9, puis 4/5 en `lg`) ; catégories de Documents et FAQ espacées de `gap-16 sm:gap-20`.
 
 ## Composants réutilisables
 

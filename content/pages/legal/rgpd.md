@@ -4,8 +4,6 @@ description: Politique de protection des données personnelles
 updatedAt: 2026-01-22
 ---
 
-# Politique de protection des données personnelles (RGPD)
-
 ## 1. Responsable de traitement
 
 Les données personnelles collectées via le site **Efrei Para** sont traitées par le club **Efrei Para**, en tant que responsable de traitement.

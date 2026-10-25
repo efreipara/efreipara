@@ -13,19 +13,29 @@
 </script>
 
 <template>
-  <UContainer class="mt-15 max-w-4xl px-4 py-8">
-    <div class="legal-content">
-      <ContentRenderer :value="page" />
-    </div>
-    <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
-      {{ labels.legal.updatedAt }}
-      {{
-        new Date(page.updatedAt).toLocaleDateString('fr-FR', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })
-      }}
-    </div>
-  </UContainer>
+  <div>
+    <SharedPageHero
+      :headline="labels.legal.headline"
+      :title="page.title"
+      :description="page.description"
+    />
+    <UContainer class="py-12 sm:py-16">
+      <div class="legal-content max-w-3xl [&_h2:first-child]:mt-0">
+        <ContentRenderer :value="page" />
+      </div>
+      <div
+        v-if="page.updatedAt"
+        class="border-default text-muted mt-12 max-w-3xl border-t pt-6 text-sm"
+      >
+        {{ labels.legal.updatedAt }}
+        {{
+          new Date(page.updatedAt).toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })
+        }}
+      </div>
+    </UContainer>
+  </div>
 </template>

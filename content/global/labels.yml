@@ -28,6 +28,8 @@ helpCta:
   github: Signaler sur GitHub
 
 legal:
+  # Surtitre de l’en-tête des pages légales
+  headline: Informations légales
   updatedAt: 'Dernière mise à jour :'
 
 # Page d'erreur : titre et explication selon le code HTTP

@@ -4,8 +4,6 @@ description: Règlement intérieur du club Efrei Para
 updatedAt: 2026-01-22
 ---
 
-# Règlement intérieur
-
 ## 1. Présentation
 
 Efrei Para est un club de parachutisme étudiant rattaché au [Bureau des Sports (BDS)](https://www.bds-efrei.fr) de l’[Efrei](https://www.efrei.fr), disposant d’une organisation autonome (communication, outils, événements).

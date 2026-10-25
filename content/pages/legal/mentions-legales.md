@@ -4,8 +4,6 @@ description: Mentions légales du site Efrei Para
 updatedAt: 2026-01-22
 ---
 
-# Mentions légales
-
 ## Éditeur du site
 
 Le site **Efrei Para** est édité par le club **Efrei Para**,  
