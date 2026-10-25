@@ -23,13 +23,14 @@
 
   // app.vue (et donc useSeo) n'est pas rendu à la place d'une page d'erreur
   const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  const meta = computed(() =>
+    seo.value
+      ? buildSeoMeta(seo.value, 'error', { title: customError.value.statusMessage })
+      : undefined,
+  )
   useHead({
-    title: computed(() =>
-      seo.value
-        ? `${customError.value.statusMessage}${seo.value.defaults.separator}${seo.value.defaults.siteName}`
-        : customError.value.statusMessage,
-    ),
-    htmlAttrs: { lang: computed(() => seo.value?.defaults.locale.split('_')[0] || 'fr') },
+    title: computed(() => meta.value?.title ?? customError.value.statusMessage),
+    htmlAttrs: { lang: computed(() => meta.value?.htmlLang) },
     meta: [{ name: 'robots', content: 'noindex' }],
   })
 </script>

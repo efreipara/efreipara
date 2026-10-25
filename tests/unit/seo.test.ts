@@ -131,6 +131,9 @@ describe('toAbsoluteUrl', () => {
     expect(toAbsoluteUrl('https://efreipara.fr', 'https://cdn.example.org/a.png')).toBe(
       'https://cdn.example.org/a.png',
     )
+    expect(toAbsoluteUrl('https://efreipara.fr', '//cdn.example.org/a.png')).toBe(
+      '//cdn.example.org/a.png',
+    )
   })
 
   it('ne change rien sans URL de base ni chemin', () => {
