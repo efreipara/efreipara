@@ -2,6 +2,17 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.10.0 — 25 octobre 2026
+
+### Modifications
+
+- Tout le site suit la présentation de l'accueil : chaque section a un surtitre et un titre alignés à gauche, et les sections alternent fond clair et bande légère.
+- Pages intérieures (activités, galerie, documents, FAQ, nous rejoindre, contact, pages légales) : un en-tête compact remplace le grand bandeau centré presque vide.
+- Pages d'activité : points forts, déroulé, prérequis et partenaires avec un surtitre aux couleurs de l'activité ; points forts sans encadrés.
+- Documents et FAQ : le nombre de documents ou de questions s'affiche au-dessus du nom de chaque catégorie, dans sa couleur ; l'encadré d'aide en bas de page est plus sobre.
+- Nous rejoindre : « Pourquoi nous rejoindre ? » s'accompagne d'une photo du club.
+- Contact : quatre blocs de même présentation, l'adresse e-mail et l'adresse postale en grand.
+
 ## 1.9.0 — 25 octobre 2026
 
 ### Ajouts
