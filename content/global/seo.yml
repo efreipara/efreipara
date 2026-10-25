@@ -38,6 +38,7 @@ pages:
   rejoindre:
     title: Nous rejoindre
     description: Découvrez comment rejoindre Efrei Para et participer à nos activités
+    ogImage: /seo/rejoindre.png
 
   # Page galerie
   galerie:
