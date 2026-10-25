@@ -27,7 +27,7 @@
     <UContainer class="py-12 sm:py-16">
       <SharedCategoryChips :categories="categoryChips" />
 
-      <div class="flex flex-col gap-10">
+      <div class="flex flex-col gap-16 sm:gap-20">
         <template v-for="(category, catIndex) in documentsData?.categories" :key="catIndex">
           <section
             :id="toAnchorId(category.name)"
@@ -35,7 +35,6 @@
           >
             <SharedCategoryHeader
               :name="category.name"
-              :icon="category.icon || appConfig.ui.icons.folder"
               :color="category.color"
               :description="category.description"
               :count="
@@ -91,8 +90,6 @@
               </UPageCard>
             </div>
           </section>
-
-          <USeparator v-if="catIndex < (documentsData?.categories.length ?? 0) - 1" />
         </template>
       </div>
 

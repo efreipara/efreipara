@@ -101,14 +101,14 @@ Albums photo des événements, hébergés sur des sites externes (principalement
 ### Documents — `/documents`
 
 - Pastilles des catégories en tête : un clic fait défiler en douceur jusqu'à la catégorie (sous l'en-tête) ; le visiteur peut interrompre le défilement, et il est immédiat avec « réduire les animations ».
-- Une section par catégorie : icône teintée, nom, description, nombre de documents (« 3 docs »), puis les documents en grille (deux colonnes à partir de `sm`).
+- Une section par catégorie : nombre de documents (« 3 docs ») en surtitre dans la couleur de la catégorie, nom, description, puis les documents en grille (deux colonnes à partir de `sm`).
 - Un document **interne** (page du site) s'ouvre dans l'onglet, un document **externe** dans un nouvel onglet, avec une icône de lien externe.
 - En bas, encadré « Un document manquant ? » avec les boutons Discord, Instagram et « Signaler sur GitHub ».
 
 ### FAQ — `/faq`
 
 - Mêmes pastilles de catégories que Documents.
-- Par catégorie : nombre de questions, puis un accordéon (une seule question ouverte à la fois, refermable). La réponse accepte la mise en forme Markdown (gras, liens, retours à la ligne) et peut avoir des boutons d'action.
+- Par catégorie : nombre de questions en surtitre dans la couleur de la catégorie, nom, puis un accordéon (une seule question ouverte à la fois, refermable). La réponse accepte la mise en forme Markdown (gras, liens, retours à la ligne) et peut avoir des boutons d'action.
 - En bas, encadré « Une question sans réponse ? » (Discord, Instagram).
 
 ### Nous rejoindre — `/rejoindre`

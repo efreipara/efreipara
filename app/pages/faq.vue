@@ -41,7 +41,7 @@
     <UContainer class="py-12 sm:py-16">
       <SharedCategoryChips :categories="categoriesData" />
 
-      <div class="flex flex-col gap-10">
+      <div class="flex flex-col gap-16 sm:gap-20">
         <template v-for="(category, catIndex) in categoriesData" :key="catIndex">
           <section
             :id="toAnchorId(category.name)"
@@ -49,7 +49,6 @@
           >
             <SharedCategoryHeader
               :name="category.name"
-              :icon="category.icon"
               :color="category.color"
               :count="faqData?.count ? countLabel(category.questions.length, faqData.count) : ''"
               class="mb-4"
@@ -97,8 +96,6 @@
               </UAccordion>
             </UCard>
           </section>
-
-          <USeparator v-if="catIndex < categoriesData.length - 1" />
         </template>
       </div>
 
