@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.2 — 25 octobre 2026
+
+### Corrections
+
+- Documents et FAQ : l'encadré « Un document manquant ? » / « Une question sans réponse ? » n'a plus d'icône devant son titre, qui est déjà une question.
+
 ## 1.14.1 — 25 octobre 2026
 
 ### Corrections

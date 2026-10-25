@@ -4,7 +4,6 @@
   const props = defineProps<{
     title: string
     description: string
-    icon: string
     buttons: ('discord' | 'instagram' | 'github')[]
   }>()
 
@@ -32,20 +31,16 @@
 
 <template>
   <UPageCTA
+    :title="title"
     :description="description"
     :links="links"
     variant="subtle"
     class="mt-16 rounded-2xl"
     :ui="{
       container: 'px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-12',
-      title: 'font-title flex items-center gap-3 text-left text-2xl tracking-normal sm:text-3xl',
+      title: 'font-title text-left text-2xl tracking-normal sm:text-3xl',
       description: 'mt-3 max-w-2xl text-left',
       links: 'justify-start',
     }"
-  >
-    <template #title>
-      <UIcon :name="icon" class="text-primary size-7 shrink-0" />
-      {{ title }}
-    </template>
-  </UPageCTA>
+  />
 </template>

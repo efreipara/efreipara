@@ -13,7 +13,6 @@ const buttonRole = z.enum(['primary', 'secondary']).optional()
 const helpCta = z.object({
   title: z.string(),
   description: z.string(),
-  icon: z.string(),
   buttons: z.array(z.enum(['discord', 'instagram', 'github'])),
 })
 

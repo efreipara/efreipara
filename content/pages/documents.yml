@@ -12,7 +12,6 @@ typeLabels:
 helpcta:
   title: Un document manquant ?
   description: Il te manque un document ? Écris-nous, on l’ajoute.
-  icon: tabler:question-mark
   buttons:
     - discord
     - instagram

@@ -107,7 +107,6 @@
         v-if="faqData?.helpcta"
         :title="faqData.helpcta.title"
         :description="faqData.helpcta.description"
-        :icon="faqData.helpcta.icon"
         :buttons="faqData.helpcta.buttons"
       />
     </UContainer>
