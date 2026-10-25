@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.10.1 — 25 octobre 2026
+
+### Corrections
+
+- Nouvelle icône pour le saut en OA : deux voiles l'une derrière l'autre, sans la traînée au-dessus de la voile.
+
 ## 1.10.0 — 25 octobre 2026
 
 ### Modifications
