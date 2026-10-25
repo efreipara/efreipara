@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.10.2 — 25 octobre 2026
+
+### Corrections
+
+- Accueil et Nous rejoindre : nouvelles photos du club à côté de « Pourquoi Efrei Para ? » et de « Pourquoi nous rejoindre ? », avec des textes alternatifs qui les décrivent.
+
 ## 1.10.1 — 25 octobre 2026
 
 ### Corrections
