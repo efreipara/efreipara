@@ -79,7 +79,8 @@ Toute valeur `icon` est un nom `prefixe:nom` d'une collection embarquée :
 
 - `tabler:*` — icônes générales ([liste](https://icon-sets.iconify.design/tabler/)) ;
 - `simple-icons:*` — logos de marques ;
-- `efreipara:*` (`logo`, `logo-color`, `efreipara`, `parachute`), `efrei:*`, `ifly:*`, `creativecommons:*` — SVG de `app/assets/icons/<préfixe>/`.
+- `efreipara:*` (`logo`, `logo-color`, `efreipara`, `parachute`), `efrei:*`, `ifly:*`, `creativecommons:*` — SVG de `app/assets/icons/<préfixe>/` ;
+- `activite:<clé>` — l'icône de chaque activité (`activite:tandem`…), dessinée au gabarit Tabler ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md#icônes)).
 
 Le nom doit être écrit en entier dans le YAML : c'est ce qui permet au scan de l'embarquer au build ([ARCHITECTURE.md](ARCHITECTURE.md#icônes)).
 
@@ -113,6 +114,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - `content/pages/activites/<clé>.yml` (tous les champs obligatoires ci-dessus) et l'entrée `activites-<clé>` de `seo.yml` ;
 - `ACTIVITY_KEYS` dans `app/utils/activities.ts` (la place de la clé donne l'ordre d'affichage) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>`, `--color-on-efreipara-<clé>` et la liste `@source inline('activity-{…}')`) ;
+- l'icône `app/assets/icons/activite/<clé>.svg`, au gabarit Tabler ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md#icônes)), citée par le champ `icon` ;
 - les photos sur le CDN et `public/seo/activites-<clé>.png`.
 
 ## Pour les éditeurs de contenu

@@ -3,7 +3,7 @@ description: Vis l’adrénaline du parachutisme en solo, avec un parachute qui 
 label: OA
 alt: Saut en ouverture automatique (OA) avec Efrei Para
 imageCount: 0
-icon: tabler:parachute
+icon: activite:oa
 # Libellé des filtres et des étiquettes de la galerie, à la place de `label`
 galleryLabel: Ouverture auto.
 

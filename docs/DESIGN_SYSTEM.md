@@ -55,7 +55,8 @@ Les déclarations `@font-face`, avec des polices de repli aux métriques ajusté
 
 ## Icônes
 
-- **Tabler** (`tabler:*`) pour tout ; **Simple Icons** pour les logos de marques ; collections maison pour les logos Efrei Para, Efrei, iFly et Creative Commons.
+- **Tabler** (`tabler:*`) pour tout ; **Simple Icons** pour les logos de marques ; collections maison pour les logos Efrei Para, Efrei, iFly et Creative Commons, et pour les icônes d'activité (`activite:*`).
+- Icônes d'activité : dessinées au gabarit Tabler pour s'y fondre : `viewBox` 24 × 24, tracés entre 2 et 22, attributs `fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"` sur un `<g>`, peu de formes, lisibles à 14 px. Tandem : voile et deux personnes ; OA : voile et sangle reliée à l'avion ; soufflerie : volant entre les parois du tunnel, air qui monte ; PAC : une personne seule sous sa voile, mains aux commandes.
 - Les icônes génériques de Nuxt UI (flèches, fermer, chargement, clair / sombre…) sont remappées en Tabler : dans le code, `appConfig.ui.icons.<nom>`.
 - Les icônes propres au site sont des champs du contenu, dans le fichier de la page ou du composant qui les affiche (`contact.yml`, `navigation.yml`, `galerie.yml`, `qr.yml`, `labels.yml`…) ; celle d'une activité est le champ `icon` de son fichier, lue par `getIcon(type)` de `useActivities()`, celle d'un réseau vient de `club.yml`. Une icône déjà rangée ne s'écrit pas en dur.
 

@@ -180,6 +180,10 @@ export default defineNuxtConfig({
         prefix: 'ifly',
         dir: './app/assets/icons/ifly',
       },
+      {
+        prefix: 'activite',
+        dir: './app/assets/icons/activite',
+      },
     ],
   },
 

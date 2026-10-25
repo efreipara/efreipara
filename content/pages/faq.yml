@@ -86,16 +86,16 @@ categories:
         buttons:
           - label: Sauts en tandem
             to: /activites/tandem
-            icon: tabler:users
+            icon: activite:tandem
           - label: Soufflerie
             to: /activites/soufflerie
-            icon: tabler:wind
+            icon: activite:soufflerie
           - label: PAC
             to: /activites/pac
-            icon: tabler:medal-2
+            icon: activite:pac
           - label: Sauts en OA
             to: /activites/oa
-            icon: tabler:parachute
+            icon: activite:oa
 
       - question: Comment se déroule un premier saut ?
         answer: Pour ton premier saut, nous recommandons l’ouverture automatique (OA). Tu suivras d’abord un briefing théorique complet, puis l’équipement et la préparation au sol. Ensuite, direction l’avion pour le grand saut ! Ton parachute s’ouvrira automatiquement et tu piloteras jusqu’au sol sous les consignes radio de l’instructeur.

@@ -39,7 +39,7 @@ app/
 ├── error.vue         # page d'erreur (messages en français)
 ├── assets/
 │   ├── css/main.css  # Tailwind + Nuxt UI, palette navy, couleurs, utilitaires, accessibilité
-│   ├── icons/        # collections d'icônes maison (efreipara, efrei, ifly, creativecommons)
+│   ├── icons/        # collections d'icônes maison (efreipara, efrei, ifly, creativecommons, activite)
 │   └── images/       # avion.svg, qr.svg, main-hero.jpg (affiche de la vidéo)
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
