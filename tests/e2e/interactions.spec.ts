@@ -1,3 +1,4 @@
+import type { Page } from '@playwright/test'
 import { readYaml } from '../content/helpers'
 import { expect, gotoReady, test, visible } from './fixtures'
 
@@ -74,6 +75,39 @@ test.describe('thème et accessibilité', () => {
   })
 })
 
+// Le CDN est coupé : play() échouerait toujours. On le remplace pour compter les lectures.
+declare global {
+  interface Window {
+    __videoPlays: number
+  }
+}
+const stubVideo = (page: Page) =>
+  page.addInitScript(() => {
+    window.__videoPlays = 0
+    HTMLMediaElement.prototype.play = function () {
+      window.__videoPlays++
+      this.dispatchEvent(new Event('play'))
+      return Promise.resolve()
+    }
+    HTMLMediaElement.prototype.pause = function () {
+      this.dispatchEvent(new Event('pause'))
+    }
+  })
+
+test.describe('vidéo de l’accueil', () => {
+  test('se lance au chargement et se met en pause par son bouton', async ({ page }) => {
+    await stubVideo(page)
+    await gotoReady(page, '/')
+    const pause = page.getByRole('button', { name: 'Mettre la vidéo en pause' })
+    test.skip((await page.locator('video source').count()) === 0, 'pas de vidéo : CDN_URL vide')
+    await expect(pause).toBeVisible()
+    expect(await page.evaluate(() => window.__videoPlays)).toBe(1)
+
+    await pause.click()
+    await expect(page.getByRole('button', { name: 'Lire la vidéo' })).toBeVisible()
+  })
+})
+
 test.describe('réduire les animations', () => {
   test.use({ reducedMotion: 'reduce' })
 
@@ -88,12 +122,12 @@ test.describe('réduire les animations', () => {
   })
 
   test('la vidéo de l’accueil ne se lance pas seule', async ({ page }) => {
+    await stubVideo(page)
     await gotoReady(page, '/')
-    const toggle = page.getByRole('button', { name: 'Lire la vidéo' })
-    test.skip((await toggle.count()) === 0, 'pas de vidéo : CDN_URL vide au build')
+    test.skip((await page.locator('video source').count()) === 0, 'pas de vidéo : CDN_URL vide')
     await page.waitForTimeout(500)
-    expect(await page.locator('video').evaluate((v: HTMLVideoElement) => v.paused)).toBe(true)
-    await expect(toggle).toBeVisible()
+    expect(await page.evaluate(() => window.__videoPlays)).toBe(0)
+    await expect(page.getByRole('button', { name: 'Lire la vidéo' })).toBeVisible()
   })
 
   test('le carrousel d’une activité ne défile pas tout seul', async ({ page }) => {

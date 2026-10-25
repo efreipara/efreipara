@@ -13,11 +13,11 @@
   const siteName = computed(() => seo.value?.defaults.siteName)
 
   // Pas d'attribut autoplay : la lecture attend le montage, pour respecter « réduire les animations »
-  const videoEl = useTemplateRef<HTMLVideoElement>('video')
+  const videoEl = useTemplateRef<HTMLVideoElement>('heroVideo')
   const playing = ref(false)
 
   const play = () => videoEl.value?.play().catch(() => (playing.value = false))
-  const togglePlay = () => (videoEl.value?.paused ? play() : videoEl.value?.pause())
+  const togglePlay = () => (playing.value ? videoEl.value?.pause() : play())
 
   onMounted(() => {
     if (!prefersReducedMotion()) play()
@@ -31,7 +31,7 @@
       style="height: calc(100svh - var(--ui-header-height, 80px))"
     >
       <video
-        ref="video"
+        ref="heroVideo"
         loop
         muted
         playsinline
@@ -46,13 +46,13 @@
       <!-- Voile sombre pour la lisibilité du texte, épargné par le contraste élevé -->
       <div class="no-contrast absolute inset-0 bg-black/30" />
 
-      <div class="relative z-10 mx-auto max-w-4xl px-6 text-center text-white">
+      <div class="relative z-10 mx-auto w-full max-w-4xl px-6 text-center text-white">
         <h1 class="mb-6">
           <span class="sr-only">{{ siteName }}</span>
           <Icon
             name="efreipara:efreipara"
             aria-hidden="true"
-            class="hero-slide-up inline-block h-10 w-78.75 drop-shadow-md sm:h-12 sm:w-96 md:h-16 md:w-126 lg:h-20 lg:w-157.5"
+            class="hero-slide-up inline-block aspect-512/65 h-auto w-full max-w-78.75 drop-shadow-md sm:max-w-96 md:max-w-126 lg:max-w-157.5"
             style="animation-delay: 0.05s"
           />
         </h1>
@@ -92,7 +92,7 @@
         :aria-label="playing ? video.pause.label : video.play.label"
         color="neutral"
         variant="ghost"
-        class="absolute right-3 bottom-3 z-10 cursor-pointer rounded-full bg-black/30 p-2 text-white hover:bg-black/50"
+        class="absolute right-3 bottom-3 z-10 cursor-pointer rounded-full bg-black/30 p-2 text-white hover:bg-black/50 focus-visible:ring-2 focus-visible:ring-white"
         @click="togglePlay"
       />
     </div>
