@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.1 — 25 octobre 2026
+
+### Corrections
+
+- Documents et FAQ : les pastilles de catégories passent dans l'en-tête de la page, sous la description ; elles ne semblent plus faire partie de la première catégorie.
+
 ## 1.14.0 — 25 octobre 2026
 
 ### Ajouts

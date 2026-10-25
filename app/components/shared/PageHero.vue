@@ -23,6 +23,10 @@
             {{ description }}
           </span>
         </template>
+        <!-- Navigation de la page sous la description (pastilles de Documents et FAQ) -->
+        <div v-if="$slots.default" class="hero-slide-up mt-8" style="animation-delay: 0.2s">
+          <slot />
+        </div>
       </UPageHeader>
     </UContainer>
   </div>

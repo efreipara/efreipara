@@ -38,11 +38,9 @@
       :headline="faqData?.headline"
       :title="faqData?.title"
       :description="faqData?.description"
-    />
-
-    <UContainer class="pt-12 sm:pt-16">
+    >
       <SharedCategoryChips :categories="categoriesData" />
-    </UContainer>
+    </SharedPageHero>
 
     <!-- L'en-tête précède sur bande : la première catégorie ne l'est pas -->
     <SharedCategorySection

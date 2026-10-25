@@ -22,11 +22,9 @@
       :headline="documentsData?.headline"
       :title="documentsData?.title"
       :description="documentsData?.description"
-    />
-
-    <UContainer class="pt-12 sm:pt-16">
+    >
       <SharedCategoryChips :categories="categoryChips" />
-    </UContainer>
+    </SharedPageHero>
 
     <!-- Une ligne par document, séparée par des filets ; l'en-tête précède sur bande, d'où false -->
     <SharedCategorySection
