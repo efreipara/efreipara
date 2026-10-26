@@ -1,5 +1,6 @@
 import { expect, gotoReady, test } from './fixtures'
 import { pages } from './routes'
+import { readYaml, sourceFiles } from '../content/helpers'
 import pkg from '../../package.json' with { type: 'json' }
 
 test.describe('pages', () => {
@@ -68,6 +69,18 @@ test.describe('référencement et partage', () => {
     await expect(page).toHaveTitle('Page introuvable - Efrei Para')
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex')
+  })
+})
+
+test.describe('version pour les agents d’IA', () => {
+  test('/llms.txt est servi en texte, avec chaque activité', async ({ request }) => {
+    const response = await request.get('/llms.txt')
+    expect(response.status()).toBe(200)
+    expect(response.headers()['content-type']).toMatch(/^text\/plain/)
+    const text = await response.text()
+    expect(text).toMatch(/^# Efrei Para\n/)
+    for (const file of sourceFiles('pages/activites/*.yml'))
+      expect(text).toContain(`### ${readYaml<{ title: string }>(file).title}`)
   })
 })
 

@@ -25,7 +25,7 @@
 
 ### Contraintes structurantes
 
-- **Aucun serveur à l'exécution** : pas de dossier `server/`, pas d'API, pas de base de données, pas de cookie. Tout ce qui dépend de la configuration (`runtimeConfig`, variables d'environnement, contenu) est figé au moment du `generate` : changer une valeur impose de reconstruire.
+- **Aucun serveur à l'exécution** : pas d'API, pas de base de données, pas de cookie. La seule route de `server/` (`/llms.txt`) est prérendue en fichier. Tout ce qui dépend de la configuration (`runtimeConfig`, variables d'environnement, contenu) est figé au moment du `generate` : changer une valeur impose de reconstruire.
 - **SSR obligatoire** (`ssr: true`) : Nuxt Content interroge sa base SQLite pendant le prérendu, et chaque page est écrite en HTML complet avec son payload.
 - **Interactivité côté navigateur uniquement** : bannière d'événement (`ClientOnly`), accessibilité, thème, filtres de la galerie, compteurs animés, redirections.
 - **Appels externes limités** au CDN, à Plausible et aux miniatures des albums (Efrei Picture Studio) ; polices et icônes sont servies par le site. Toute nouvelle origine doit d'abord être ajoutée à la CSP ([SECURITY.md](SECURITY.md#4-csp-et-origines-externes)).
@@ -45,6 +45,7 @@ app/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)
 └── utils/            # fonctions pures, sans Nuxt, testées par Vitest
+server/routes/        # llms.txt.ts : version Markdown du site, prérendue
 content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
@@ -118,6 +119,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `category-color.ts` | `categoryColorClasses`, `categoryTextClass`                                                                                                  | `useCategoryColor`                                                                      |
 | `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                              | `HomeStatCounter`, `HomeHero`, `ActiviteCarousel`, `ColorModeButton`, `useSmoothScroll` |
 | `sections.ts`       | `isBandSection`                                                                                                                              | `ActivitePage`, `/activites`                                                            |
+| `llms.ts`           | `buildLlmsText`                                                                                                                              | `server/routes/llms.txt.ts`                                                             |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 
@@ -137,6 +139,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - Images OpenGraph dans `public/seo/`. `baseUrl` est écrit dans `seo.yml` : le canonique pointe toujours vers la production, quel que soit l'environnement.
 - Seule l'accueil est destinée aux moteurs de recherche : `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`). `public/robots.txt` n'interdit rien : une page bloquée ne serait pas lue, sa balise `noindex` non plus, et les robots d'aperçu (LinkedIn, X) ne verraient ni la page ni son image.
 - `og:image` et `twitter:image` sont rendues absolues (`toAbsoluteUrl`, `baseUrl` + chemin) au moment d'écrire les balises.
+- `/llms.txt` ([llms.txt](https://llmstxt.org)) : `server/routes/llms.txt.ts` lit les collections avec `queryCollection(event, …)` (importé de `@nuxt/content/server`) et les passe à `buildLlmsText` (`app/utils/llms.ts`), qui écrit le Markdown : intitulés et textes du contenu, liens rendus absolus avec `baseUrl` de `seo.yml`, sections facultatives absentes omises, événement repris seulement s'il est à venir au `generate`. Servi en `text/plain`, UTF-8 (`charset` de nginx), cache d'une heure comme les autres `.txt`.
 - Icônes du navigateur déclarées dans `app.head.link` de `nuxt.config.ts` : `favicon.ico` (16 à 48 px) et `apple-touch-icon.png` (180 px).
 
 ## CDN
@@ -152,6 +155,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 ## Génération et prérendu
 
 - `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les redirections, qu'aucun lien n'atteint : `nitro.prerender.routes` les reçoit de `redirectRoutes()` (`content.routes.ts`), qui lit `redirects.yml › socials` et les options de `rejoindre.yml`. Une redirection ajoutée au contenu est donc prérendue sans toucher au code ; une autre page sans lien entrant s'ajoute à cette liste.
+- `/llms.txt` n'a pas de lien entrant : il est ajouté à `nitro.prerender.routes` et écrit en fichier dans la sortie.
 - `/about` (ancienne page À propos) est redirigée vers l'accueil par `routeRules` ; prérendue (`nitro.prerender.routes`), elle devient une page `meta refresh`.
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).

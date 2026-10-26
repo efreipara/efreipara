@@ -14,7 +14,7 @@
 ## Organisation
 
 - `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
-- `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
+- `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête), `llms` (`/llms.txt` construit à partir des vrais fichiers). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
 - `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, plus :
   - `fixtures.ts` : coupe toute requête hors du site (CDN, Plausible, albums, réseaux), relève les erreurs console, et `gotoReady` attend l'hydratation de Vue avant d'interagir ;
   - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404) ;
@@ -30,9 +30,10 @@
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
+- Markdown de `/llms.txt` : ordre des activités, libellés remplis, sections facultatives omises, liens absolus, événement passé masqué (`llms`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, SEO de chaque page (dans `seo.yml` ou dans son fichier, jamais aux deux endroits), fichiers d'activité ;
-- site généré : chaque page répond sans erreur console, avec titre et canonique ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ;
+- site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ;
 - accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test. Corriger une violation connue retire sa ligne de la liste.
 
 Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.

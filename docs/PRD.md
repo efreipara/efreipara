@@ -150,6 +150,10 @@ Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fon
 
 Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont exclues par la balise `noindex`, mais gardent titre, description et image de partage pour les réseaux. Les pages d'erreur ont un titre (« Page introuvable - Efrei Para ») et ne sont pas indexées.
 
+### Version pour les agents d'IA — `/llms.txt`
+
+Le contenu du site en un seul fichier Markdown, sans interface, au format [llms.txt](https://llmstxt.org) : présentation du club, points forts, chaque activité (description, chiffres, points forts, déroulé, prérequis), prochain événement s'il est à venir au moment de la publication, adhésion, FAQ complète, documents, galerie, partenaires, contact et liens vers les pages légales (sans leur texte). Chaque section donne l'adresse de la page correspondante. Aucun lien du site n'y mène.
+
 ## 4. Mesure d'audience
 
 Plausible compte les pages vues et les clics vers les liens externes, sans cookie ni bandeau de consentement.

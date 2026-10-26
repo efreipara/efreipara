@@ -217,8 +217,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       failOnError: false,
-      // Redirections, sans lien entrant : le crawler ne les trouve pas seul.
-      routes: [...redirectRoutes(), '/about'],
+      // Redirections et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
+      routes: [...redirectRoutes(), '/about', '/llms.txt'],
     },
   },
 })
