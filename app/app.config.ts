@@ -1,7 +1,8 @@
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inverted'
-// Trait des surtitres sous le libellé, qui s'étire au survol
-const underlineBar = `relative after:absolute after:bottom-0.5 after:left-0.5 after:h-0.5 after:w-5 after:rounded-full after:bg-current after:transition-[width] after:duration-200 after:ease-[cubic-bezier(0.23,1,0.32,1)] hover:after:w-[calc(100%-0.25rem)] motion-reduce:after:transition-none ${focusRing}`
+// Trait des surtitres sous le libellé, qui s'étire au survol ; au repos, largeur de l'icône de
+// tête (réglée par taille dans compoundVariants), bouts presque droits pour qu'il la couvre
+const underlineBar = `relative after:absolute after:bottom-0.5 after:left-0.5 after:h-0.5 after:w-5 after:rounded-[0.5px] after:bg-current after:transition-[width] after:duration-200 after:ease-[cubic-bezier(0.23,1,0.32,1)] hover:after:w-[calc(100%-0.25rem)] motion-reduce:after:transition-none ${focusRing}`
 
 export default defineAppConfig({
   ui: {
@@ -33,6 +34,8 @@ export default defineAppConfig({
         // Racing Sans One dessine ses lettres bas dans la ligne : libellé remonté d'environ 1 px
         { variant: 'primary', class: { label: '-translate-y-[0.06em]' } },
         { variant: ['secondary', 'tertiary'], class: 'px-0.5' },
+        { variant: ['secondary', 'tertiary'], size: ['xs', 'sm'], class: 'after:w-4' },
+        { variant: ['secondary', 'tertiary'], size: 'xl', class: 'after:w-6' },
         { variant: 'filter', class: { base: 'px-3.5 text-sm', leadingIcon: 'size-4' } },
       ],
     },

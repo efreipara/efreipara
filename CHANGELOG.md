@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.14.5 — 26 octobre 2026
+
+### Corrections
+
+- Boutons secondaires et liens soulignés : au repos, le trait a exactement la largeur de l'icône (il paraissait un peu court, et dépassait sur les petits boutons de la FAQ).
+
 ## 1.14.4 — 26 octobre 2026
 
 ### Modifications
