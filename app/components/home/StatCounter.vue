@@ -3,15 +3,9 @@
     value: string | number
   }>()
 
-  // Durée de l'animation en secondes
   const ANIMATION_DURATION_SEC = 2.5
 
-  const parsed = computed(() => {
-    const str = String(props.value)
-    const match = str.match(/^(\d+)(.*)$/)
-    if (!match) return { num: 0, suffix: str }
-    return { num: parseInt(match[1] ?? '0', 10), suffix: match[2] ?? '' }
-  })
+  const parsed = computed(() => parseStatValue(props.value))
 
   const displayValue = ref(String(props.value))
   const el = useTemplateRef<HTMLElement>('el')
@@ -35,6 +29,8 @@
   }
 
   onMounted(() => {
+    if (prefersReducedMotion()) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {

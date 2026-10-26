@@ -1,6 +1,8 @@
 <script setup lang="ts">
   defineOptions({ inheritAttrs: false })
 
+  defineProps<{ labels: { light: string; dark: string } }>()
+
   const colorMode = useColorMode()
   const appConfig = useAppConfig()
 
@@ -14,7 +16,7 @@
   })
 
   const toggle = (event: MouseEvent): void => {
-    if (!('startViewTransition' in document)) {
+    if (!('startViewTransition' in document) || prefersReducedMotion()) {
       isDark.value = !isDark.value
       return
     }
@@ -45,7 +47,7 @@
   <UButton
     color="neutral"
     variant="ghost"
-    :aria-label="isDark ? 'Passer en mode clair' : 'Passer en mode sombre'"
+    :aria-label="isDark ? labels.light : labels.dark"
     v-bind="$attrs"
     @click="toggle($event)"
   >

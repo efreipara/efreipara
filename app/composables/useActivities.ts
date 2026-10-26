@@ -1,38 +1,30 @@
 /**
- * Types et composables liés aux activités du club
+ * Composables liés aux activités du club
  */
 
-// Type pour les différents types d'activités proposées
-export type ActivityType = 'oa' | 'tandem' | 'soufflerie' | 'pac'
+import type { ActivityType } from '~/utils/activities'
 
 /**
- * Composable pour obtenir l'icône associée à un type d'activité
+ * Activités dans l'ordre d'affichage, avec ce que tout le site en montre (menu, icône, libellés)
  */
-export const useEventIcon = () => {
-  const appConfig = useAppConfig()
+export const useActivities = async () => {
+  const { data } = await useAsyncData('activites', () =>
+    queryCollection('activites').select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
+  )
 
-  const getIcon = (type: ActivityType): string => {
-    return appConfig.efreipara.icons.activites[type]
+  const activities = computed(() => orderActivities(data.value ?? []))
+
+  const byKey = (key: string) => activities.value.find((activity) => activity.key === key)
+
+  const getIcon = (key: string) => byKey(key)?.icon ?? ''
+
+  // Filtres et étiquettes de la galerie : galleryLabel, sinon label
+  const getGalleryLabel = (key: string) => {
+    const activity = byKey(key)
+    return activity?.galleryLabel ?? activity?.label ?? key
   }
 
-  return { getIcon }
-}
-
-/**
- * Composable pour obtenir la couleur thématique d'un type d'activité
- */
-export const useActivityColor = () => {
-  const getColor = (type: ActivityType): string => {
-    const colors: Record<ActivityType, string> = {
-      oa: 'efreipara-oa',
-      tandem: 'efreipara-tandem',
-      soufflerie: 'efreipara-soufflerie',
-      pac: 'efreipara-pac',
-    }
-    return colors[type]
-  }
-
-  return { getColor }
+  return { activities, byKey, getIcon, getGalleryLabel }
 }
 
 /**
@@ -41,34 +33,16 @@ export const useActivityColor = () => {
 export const useNextEvent = () => {
   const { data: event } = useAsyncData('nextEvent', () => queryCollection('nextEvent').first())
 
-  const { getIcon: getEventIcon } = useEventIcon()
-
-  const getEventBannerUI = (type: ActivityType) => {
-    const appConfig = useAppConfig()
-    return appConfig.efreipara.colors[type]
-  }
-
   const getEventInfoUrl = (type: ActivityType): string => {
     return `/activites/${type}`
   }
 
-  const shouldShowEvent = (): boolean => {
-    if (!event.value) return false
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    const eventDate = new Date(event.value.date)
-    eventDate.setHours(0, 0, 0, 0)
-    return eventDate >= today
-  }
+  const shouldShowEvent = (): boolean => !!event.value && isUpcomingEvent(event.value.date)
 
-  const getEventBannerId = (): string => {
-    return `event-${event.value?.date}-${event.value?.type}`
-  }
+  const getEventBannerId = (): string => eventBannerId(event.value)
 
   return {
     event,
-    getEventIcon,
-    getEventBannerUI,
     getEventInfoUrl,
     getEventBannerId,
     shouldShowEvent,

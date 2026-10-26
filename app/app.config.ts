@@ -1,3 +1,9 @@
+const focusRing =
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inverted'
+// Trait des surtitres sous le libellé, qui s'étire au survol ; au repos, largeur de l'icône de
+// tête (réglée par taille dans compoundVariants), bouts presque droits pour qu'il la couvre
+const underlineBar = `relative after:absolute after:bottom-0.5 after:left-0.5 after:h-0.5 after:w-5 after:rounded-[0.5px] after:bg-current after:transition-[width] after:duration-200 after:ease-[cubic-bezier(0.23,1,0.32,1)] hover:after:w-[calc(100%-0.25rem)] motion-reduce:after:transition-none ${focusRing}`
+
 export default defineAppConfig({
   ui: {
     colors: {
@@ -5,118 +11,66 @@ export default defineAppConfig({
       secondary: 'blue',
       neutral: 'slate',
     },
+    // Retour à l'appui sur tous les boutons ; `transition` inclut scale (Nuxt UI : transition-colors).
+    // Rôles du site (docs/DESIGN_SYSTEM.md) : primary, secondary, tertiary, utility, filter ;
+    // boutons d'icône en ghost. Le principal et les filtres sont inclinés, leur contenu redressé.
+    button: {
+      slots: {
+        base: 'cursor-pointer justify-center transition active:scale-[0.97]',
+      },
+      variants: {
+        variant: {
+          primary: `font-title -skew-x-12 bg-inverted font-normal tracking-normal text-inverted hover:bg-inverted/85 *:skew-x-12 ${focusRing}`,
+          secondary: `font-semibold text-highlighted ${underlineBar}`,
+          tertiary: `text-muted hover:text-highlighted ${underlineBar}`,
+          utility: `ring ring-inverted/30 text-highlighted ring-inset hover:bg-elevated ${focusRing}`,
+          filter: `-skew-x-12 rounded-[5px] ring ring-inverted/30 text-highlighted ring-inset hover:bg-elevated *:skew-x-12 aria-pressed:bg-inverted aria-pressed:text-inverted aria-pressed:ring-0 ${focusRing}`,
+        },
+      },
+      compoundVariants: [
+        { variant: 'primary', size: ['xs', 'sm'], class: 'px-3.5 text-sm' },
+        { variant: 'primary', size: ['md', 'lg'], class: 'px-5 text-base' },
+        { variant: 'primary', size: 'xl', class: 'px-6 text-lg' },
+        // Racing Sans One dessine ses lettres bas dans la ligne : libellé remonté d'environ 1 px
+        { variant: 'primary', class: { label: '-translate-y-[0.06em]' } },
+        { variant: ['secondary', 'tertiary'], class: 'px-0.5' },
+        { variant: ['secondary', 'tertiary'], size: ['xs', 'sm'], class: 'after:w-4' },
+        { variant: ['secondary', 'tertiary'], size: 'xl', class: 'after:w-6' },
+        { variant: 'filter', class: { base: 'px-3.5 text-sm', leadingIcon: 'size-4' } },
+      ],
+    },
+    // Toutes les UPageSection (SharedSection) : surtitre en capitales, titre Racing Sans One
+    // aligné à gauche (le centrage par défaut de Nuxt UI fait « template »), un seul rythme vertical
+    pageSection: {
+      slots: {
+        container: 'py-12 sm:py-20 lg:py-24 gap-10 sm:gap-12',
+        headline: 'mb-3',
+        title: 'font-title text-3xl tracking-normal sm:text-4xl lg:text-4xl',
+        description: 'max-w-2xl text-pretty',
+        body: 'mt-10',
+      },
+      variants: {
+        orientation: {
+          vertical: {
+            headline: 'justify-start',
+            leading: 'justify-start',
+            title: 'text-left',
+            description: 'text-left text-pretty',
+            links: 'justify-start',
+          },
+        },
+      },
+    },
+    // En-tête des pages intérieures (SharedPageHero) : même surtitre et titre que les sections
+    pageHeader: {
+      slots: {
+        root: 'border-b-0 py-12 sm:py-16',
+        headline: 'mb-3',
+        title: 'font-title text-4xl tracking-normal sm:text-5xl',
+        description: 'max-w-2xl text-pretty',
+      },
+    },
     // Icônes génériques NuxtUI : surchargées en Tabler dans nuxt.config.ts (appConfig.ui.icons),
     // Elles restent accessibles ici via useAppConfig() (fusion des deux sources au runtime).
-  },
-
-  efreipara: {
-    icons: {
-      activites: {
-        parachute: 'tabler:parachute',
-        oa: 'tabler:parachute',
-        tandem: 'tabler:users',
-        soufflerie: 'tabler:wind',
-        pac: 'tabler:medal-2',
-      },
-      navigation: {
-        document: 'tabler:file-description',
-        galerie: 'tabler:camera',
-      },
-      rejoindre: {
-        rejoindre: 'tabler:user-plus',
-      },
-      contact: {
-        email: 'tabler:mail',
-        phone: 'tabler:phone',
-        mapPin: 'tabler:map-pin',
-        support: 'tabler:tool',
-        socialNetworks: 'tabler:share',
-        // Liens vers les applications de cartographie
-        googleMaps: 'simple-icons:googlemaps',
-        apple: 'simple-icons:apple',
-        waze: 'simple-icons:waze',
-      },
-      extras: {
-        accessibility: 'tabler:accessible',
-        accessibilityFilled: 'tabler:accessible-filled',
-        arrowNarrowRight: 'tabler:arrow-narrow-right',
-        caretDownFilled: 'tabler:caret-down-filled',
-        calendar: 'tabler:calendar-week',
-        closeCircle: 'tabler:circle-x',
-        maximize: 'tabler:maximize',
-        minimize: 'tabler:minimize',
-        question: 'tabler:question-mark',
-      },
-    },
-
-    colors: {
-      oa: {
-        root: 'bg-efreipara-oa',
-        icon: 'text-on-efreipara-oa',
-        title: 'text-on-efreipara-oa',
-        close:
-          'text-on-efreipara-oa hover:bg-on-efreipara-oa/10 focus-visible:bg-on-efreipara-oa/10',
-      },
-      tandem: {
-        root: 'bg-efreipara-tandem',
-        icon: 'text-on-efreipara-tandem',
-        title: 'text-on-efreipara-tandem',
-        close:
-          'text-on-efreipara-tandem hover:bg-on-efreipara-tandem/10 focus-visible:bg-on-efreipara-tandem/10',
-      },
-      soufflerie: {
-        root: 'bg-efreipara-soufflerie',
-        icon: 'text-on-efreipara-soufflerie',
-        title: 'text-on-efreipara-soufflerie',
-        close:
-          'text-on-efreipara-soufflerie hover:bg-on-efreipara-soufflerie/10 focus-visible:bg-on-efreipara-soufflerie/10',
-      },
-      pac: {
-        root: 'bg-efreipara-pac',
-        icon: 'text-on-efreipara-pac',
-        title: 'text-on-efreipara-pac',
-        close:
-          'text-on-efreipara-pac hover:bg-on-efreipara-pac/10 focus-visible:bg-on-efreipara-pac/10',
-      },
-    },
-  },
-
-  socials: {
-    discord: {
-      icon: 'simple-icons:discord',
-      iconColor: 'text-discord',
-      url: 'https://discord.gg/mYKagj9XR3',
-    },
-    instagram: {
-      icon: 'simple-icons:instagram',
-      iconColor: 'text-instagram',
-      url: 'https://instagram.com/efreipara',
-    },
-    linkedin: {
-      icon: 'simple-icons:linkedin',
-      url: 'https://linkedin.com/company/efrei-para',
-    },
-    bento: {
-      icon: 'simple-icons:bento',
-      url: 'https://karde.me/efreipara',
-    },
-    github: {
-      icon: 'simple-icons:github',
-      url: 'https://github.com/efreipara',
-    },
-  },
-
-  contact: {
-    email: 'efrei-para@groupe-efrei.net',
-    address: 'Efrei, 30-32 Avenue de la République, 94800 Villejuif',
-    mapUrls: {
-      google:
-        'https://www.google.com/maps/search/?api=1&query=Efrei%2C+30-32+Avenue+de+la+R%C3%A9publique%2C+94800+Villejuif',
-      apple: 'https://maps.apple.com/?q=Efrei,30-32+Avenue+de+la+République,94800+Villejuif',
-      waze: 'https://waze.com/ul?q=Efrei%2C+30-32+Avenue+de+la+R%C3%A9publique%2C+94800+Villejuif&navigate=yes',
-    },
-    maintainer: {
-      email: 'support.efreipara@loye.fr',
-    },
   },
 })

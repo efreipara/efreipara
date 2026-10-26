@@ -1,279 +1,163 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
-
-  const { getIcon } = useEventIcon()
-  const { buildCdnUrl } = useCdnAsset()
-  const appConfig = useAppConfig()
-
-  const activityCssVar: Record<string, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
-  const chipActiveStyle = (type: string) => ({
-    backgroundColor: activityCssVar[type],
-    color: 'white',
-  })
-  const chipIconStyle = (type: string, isActive: boolean) => ({
-    color: isActive ? 'white' : activityCssVar[type],
-  })
+  const { getIcon, getGalleryLabel } = await useActivities()
 
   const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
 
   const activeFilter = ref<string | null>(null)
 
-  const activityTypes = computed(() => {
-    if (!page.value?.items) return []
-    return [...new Set(page.value.items.map((item) => item.type))]
-  })
+  const activityTypes = computed(() => galleryTypes(page.value?.items ?? []))
 
-  const filteredItems = computed(() => {
-    if (!page.value?.items) return []
-    const items = activeFilter.value
-      ? page.value.items.filter((item) => item.type === activeFilter.value)
-      : [...page.value.items]
-    return items.sort((a, b) => b.date.localeCompare(a.date))
-  })
+  const filteredItems = computed(() => filterGallery(page.value?.items ?? [], activeFilter.value))
 
-  const heroItem = computed(() => filteredItems.value[0] ?? null)
-  const restItems = computed(() => filteredItems.value.slice(1))
+  const showHeroLayout = computed(() =>
+    hasGalleryHeroLayout(activeFilter.value, filteredItems.value.length),
+  )
 
-  const showHeroLayout = computed(() => !activeFilter.value && filteredItems.value.length >= 3)
+  const cardLabels = computed(() => ({
+    link: page.value?.hero.linkLabel ?? '',
+    linkSource: page.value?.hero.linkSourceLabel ?? '',
+  }))
 
-  // `photo` en priorité ; repli sur le CDN (<type>/<date>.jpg) si absente ou en erreur
-  const failedPhotos = ref(new Set<string>())
-  // Chargées ou définitivement en échec : le squelette disparaît
-  const settledPhotos = ref(new Set<string>())
+  // Nom de transition stable par album (rang dans galerie.yml)
+  const albumIndex = computed(
+    () => new Map((page.value?.items ?? []).map((item, i) => [item.url, i])),
+  )
 
-  const photoSrc = (item: { url: string; type: string; date: string; photo?: string }) => {
-    if (item.photo && !failedPhotos.value.has(item.url)) return item.photo
-    return buildCdnUrl(`${item.type}/${item.date}.jpg`) || item.photo
-  }
-
-  const onPhotoLoad = (item: { url: string }) => {
-    settledPhotos.value.add(item.url)
-  }
-
-  const onPhotoError = (item: { url: string; type: string; date: string; photo?: string }) => {
-    if (item.photo && !failedPhotos.value.has(item.url)) {
-      failedPhotos.value.add(item.url)
-      if (buildCdnUrl(`${item.type}/${item.date}.jpg`)) return
+  // Changement de filtre en transition de vue : les albums glissent vers leur place, la carte mise
+  // en avant se redimensionne. Les noms ne sont posés que pendant la transition, pour ne pas
+  // perturber le cercle de la bascule clair / sombre ; immédiat sans l'API ou avec « réduire les
+  // animations ». Un clic pendant une transition la remplace : seule la dernière retire les noms.
+  const animating = ref(false)
+  let lastTransition = 0
+  const setFilter = async (value: string | null) => {
+    const doc = document as Document & {
+      startViewTransition?: (update: () => Promise<void>) => { finished: Promise<void> }
     }
-    settledPhotos.value.add(item.url)
-  }
-
-  // Un chargement ou une erreur survenus avant l'hydratation ne sont pas captés par @load/@error
-  const checkPhoto = (
-    el: unknown,
-    item: { url: string; type: string; date: string; photo?: string },
-  ) => {
-    if (!(el instanceof HTMLImageElement) || !el.complete || settledPhotos.value.has(item.url))
+    if (value === activeFilter.value) return
+    if (!doc.startViewTransition || prefersReducedMotion()) {
+      activeFilter.value = value
       return
-    if (el.naturalWidth > 0) onPhotoLoad(item)
-    else onPhotoError(item)
-  }
-
-  const formatDate = (iso: string) =>
-    new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(
-      new Date(iso),
-    )
-
-  const typeLabel: Record<string, string> = {
-    soufflerie: 'Soufflerie',
-    tandem: 'Tandem',
-    oa: 'Ouverture Auto.',
-    pac: 'PAC',
+    }
+    const id = ++lastTransition
+    animating.value = true
+    document.documentElement.classList.add('gallery-transition')
+    await nextTick()
+    const transition = doc.startViewTransition(async () => {
+      activeFilter.value = value
+      await nextTick()
+    })
+    const cleanup = () => {
+      if (id !== lastTransition) return
+      animating.value = false
+      document.documentElement.classList.remove('gallery-transition')
+    }
+    transition.finished.then(cleanup, cleanup)
   }
 </script>
 
 <template>
   <div>
-    <SharedPageHero :title="page?.hero.title" :description="page?.hero.description" />
+    <SharedPageHero
+      :headline="page?.hero.headline"
+      :title="page?.hero.title"
+      :description="page?.hero.description"
+    />
 
-    <UContainer class="pb-16">
-      <!-- Filtres par type d'activité -->
+    <UContainer class="py-12 sm:py-16">
       <div class="mb-8 flex flex-wrap gap-2">
-        <button
-          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
-          :class="
-            !activeFilter
-              ? 'bg-primary text-white'
-              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
-          "
-          @click="activeFilter = null"
-        >
-          Tout voir
-        </button>
-        <button
+        <UButton
+          :label="page?.hero.allLabel"
+          variant="filter"
+          :aria-pressed="!activeFilter"
+          @click="setFilter(null)"
+        />
+        <!-- Filtre actif : fond plein de l'activité -->
+        <UButton
           v-for="type in activityTypes"
           :key="type"
-          class="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
-          :class="
-            activeFilter !== type
-              ? 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700'
-              : ''
+          :icon="getIcon(type)"
+          :label="getGalleryLabel(type)"
+          variant="filter"
+          :aria-pressed="activeFilter === type"
+          class="text-activity-strong ring-tint-45 aria-pressed:bg-activity aria-pressed:text-on-activity"
+          :class="activityClass(type)"
+          @click="setFilter(activeFilter === type ? null : type)"
+        />
+      </div>
+
+      <!-- Nombre d'albums affichés, dans la teinte de l'activité filtrée ; annoncé à chaque filtre -->
+      <SharedHeadline
+        v-if="page?.count"
+        :tone="activeFilter ? 'text-activity-strong' : undefined"
+        :class="activeFilter && activityClass(activeFilter)"
+        aria-live="polite"
+        class="mb-6"
+      >
+        {{ countLabel(filteredItems.length, page.count) }}
+      </SharedHeadline>
+
+      <UPageGrid class="gap-4">
+        <!-- Premier élément : 2 colonnes × 2 lignes sur lg quand la mise en avant s'applique -->
+        <SharedAlbumCard
+          v-for="(item, index) in filteredItems"
+          :key="item.url"
+          :item="item"
+          :featured="index === 0 && showHeroLayout"
+          :labels="cardLabels"
+          :icons="page?.albumIcons ?? { date: '', location: '' }"
+          :class="index === 0 && showHeroLayout && 'lg:col-span-2 lg:row-span-2'"
+          :style="
+            animating ? { viewTransitionName: `album-${albumIndex.get(item.url)}` } : undefined
           "
-          :style="activeFilter === type ? chipActiveStyle(type) : {}"
-          @click="activeFilter = activeFilter === type ? null : type"
-        >
-          <UIcon
-            :name="getIcon(type as ActivityType)"
-            class="size-4"
-            :style="chipIconStyle(type, activeFilter === type)"
-          />
-          {{ typeLabel[type] ?? type }}
-        </button>
-      </div>
-
-      <!-- Grille photo -->
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Item hero : 2 cols × 2 lignes sur lg -->
-        <NuxtLink
-          v-if="heroItem"
-          :key="heroItem.url"
-          :to="heroItem.url"
-          target="_blank"
-          external
-          class="group relative block overflow-hidden rounded-2xl"
-          :class="showHeroLayout ? 'lg:col-span-2 lg:row-span-2' : ''"
-        >
-          <div
-            class="relative aspect-3/2 w-full overflow-hidden"
-            :class="showHeroLayout ? 'lg:aspect-[unset] lg:h-full' : ''"
-          >
-            <USkeleton
-              v-if="!settledPhotos.has(heroItem.url)"
-              class="absolute inset-0 rounded-none"
-            />
-            <img
-              :ref="(el) => checkPhoto(el, heroItem!)"
-              :src="photoSrc(heroItem)"
-              :alt="heroItem.title"
-              class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
-              :class="settledPhotos.has(heroItem.url) ? 'opacity-100' : 'opacity-0'"
-              @load="onPhotoLoad(heroItem)"
-              @error="onPhotoError(heroItem)"
-            />
-          </div>
-          <div
-            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
-          />
-          <div class="absolute top-3 left-3">
-            <div
-              class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
-            >
-              <UIcon
-                :name="getIcon(heroItem.type as ActivityType)"
-                :style="{ color: activityCssVar[heroItem.type as ActivityType] }"
-                class="size-3.5"
-              />
-              {{ typeLabel[heroItem.type] ?? heroItem.type }}
-            </div>
-          </div>
-          <div
-            class="absolute right-0 bottom-0 left-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
-          >
-            <h3
-              class="font-title mb-1.5 leading-tight font-bold"
-              :class="showHeroLayout ? 'lg:text-xl' : 'text-base'"
-            >
-              {{ heroItem.title }}
-            </h3>
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ formatDate(heroItem.date) }}
-              </span>
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
-                {{ heroItem.location }}
-              </span>
-            </div>
-            <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
-              {{
-                heroItem.source
-                  ? `${page?.hero.linkLabel} sur ${heroItem.source}`
-                  : page?.hero.linkLabel
-              }}
-              <UIcon
-                :name="appConfig.ui.icons.external"
-                class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </div>
-          </div>
-        </NuxtLink>
-
-        <!-- Items suivants -->
-        <NuxtLink
-          v-for="galerie in restItems"
-          :key="galerie.url"
-          :to="galerie.url"
-          target="_blank"
-          external
-          class="group relative block overflow-hidden rounded-2xl"
-        >
-          <div class="relative aspect-3/2 w-full overflow-hidden">
-            <USkeleton
-              v-if="!settledPhotos.has(galerie.url)"
-              class="absolute inset-0 rounded-none"
-            />
-            <img
-              :ref="(el) => checkPhoto(el, galerie)"
-              :src="photoSrc(galerie)"
-              :alt="galerie.title"
-              class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
-              :class="settledPhotos.has(galerie.url) ? 'opacity-100' : 'opacity-0'"
-              @load="onPhotoLoad(galerie)"
-              @error="onPhotoError(galerie)"
-            />
-          </div>
-          <div
-            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/10 transition-opacity duration-300 group-hover:opacity-95"
-          />
-          <div class="absolute top-3 left-3">
-            <div
-              class="flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm"
-            >
-              <UIcon
-                :name="getIcon(galerie.type as ActivityType)"
-                :style="{ color: activityCssVar[galerie.type as ActivityType] }"
-                class="size-3.5"
-              />
-              {{ typeLabel[galerie.type] ?? galerie.type }}
-            </div>
-          </div>
-          <div
-            class="absolute right-0 bottom-0 left-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
-          >
-            <h3 class="font-title mb-1.5 text-base leading-tight font-bold">{{ galerie.title }}</h3>
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.extras.calendar" class="size-3" />
-                {{ formatDate(galerie.date) }}
-              </span>
-              <span class="flex items-center gap-1">
-                <UIcon :name="appConfig.efreipara.icons.contact.mapPin" class="size-3" />
-                {{ galerie.location }}
-              </span>
-            </div>
-            <div class="mt-2 flex items-center gap-1 text-xs font-semibold text-white/90">
-              {{
-                galerie.source
-                  ? `${page?.hero.linkLabel} sur ${galerie.source}`
-                  : page?.hero.linkLabel
-              }}
-              <UIcon
-                :name="appConfig.ui.icons.external"
-                class="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </div>
-          </div>
-        </NuxtLink>
-      </div>
+        />
+      </UPageGrid>
     </UContainer>
 
     <SharedCallToAction />
   </div>
 </template>
+
+<style>
+  /* Transition de vue des filtres (classe posée sur <html> le temps de la transition) : les albums
+     qui restent glissent et se redimensionnent, ceux qui arrivent ou partent s'estompent */
+  html.gallery-transition::view-transition-group(*) {
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  html.gallery-transition::view-transition-image-pair(*) {
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+  }
+
+  /* Fondu croisé plus court que le déplacement : la carte mise en avant qui change de taille ne
+     montre pas longtemps son ancien et son nouveau texte superposés */
+  html.gallery-transition::view-transition-old(*),
+  html.gallery-transition::view-transition-new(*) {
+    height: 100%;
+    object-fit: cover;
+    animation-duration: 180ms;
+  }
+
+  html.gallery-transition::view-transition-new(*):only-child {
+    animation: album-in 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  html.gallery-transition::view-transition-old(*):only-child {
+    animation: album-out 150ms ease-out both;
+  }
+
+  @keyframes album-in {
+    from {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+
+  @keyframes album-out {
+    to {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+</style>

@@ -1,15 +1,17 @@
 <script setup lang="ts">
-  type RedirectKey = 'discord' | 'instagram' | 'rejoindre-bureau' | 'devenir-membre'
-
-  interface Props {
-    redirectKey: RedirectKey
-  }
-
-  const props = defineProps<Props>()
-  const key = props.redirectKey
+  // Redirection vers un réseau (redirects.yml › socials) ou vers le formulaire d'une option de
+  // « Nous rejoindre » ; un autre slug donne une 404
+  const props = defineProps<{ slug: string }>()
+  const key = props.slug
 
   const appConfig = useAppConfig()
-  const { getSocialUrl } = useSocials()
+  const { getSocial } = await useClub()
+
+  // Couleur de marque de l'icône des redirections vers un réseau
+  const brandColor: Record<string, string> = {
+    discord: 'text-discord',
+    instagram: 'text-instagram',
+  }
 
   const { data: redirectsData } = await useAsyncData('redirects', () =>
     queryCollection('redirects').first(),
@@ -18,47 +20,37 @@
     queryCollection('rejoindre').first(),
   )
 
-  let redirect:
-    | {
-        icon: string
-        iconColor?: string
-        title: string
-        redirectText: string
-        buttonLabel: string
-        url: string
-      }
-    | undefined
+  const social = redirectsData.value?.socials[key]
+  const network = getSocial(key)
+  const option = rejoindreData.value?.options.find((o) => o.slug === key)
+  const form = redirectsData.value?.form
 
-  if (key === 'discord' || key === 'instagram') {
-    const social = redirectsData.value?.[key]
-    const url = getSocialUrl(key)
-    redirect = social && url ? { ...social, ...appConfig.socials[key], url } : undefined
-  } else {
-    const option = rejoindreData.value?.options.find((o) => o.slug === key)
-    const form = redirectsData.value?.rejoindre
-    redirect =
-      option && form
+  const redirect =
+    social && network
+      ? { ...social, icon: network.icon, iconColor: brandColor[key], url: network.url }
+      : option && form
         ? {
             icon: option.icon,
-            iconColor: option.color,
+            iconColor: `${activityClass(option.type)} text-activity`,
             title: option.title,
             redirectText: form.redirectText,
             buttonLabel: form.buttonLabel,
             url: option.link,
           }
         : undefined
-  }
 
-  if (!redirect) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Page non trouvée',
-    })
-  }
+  if (!redirect) throw createError({ statusCode: 404 })
 
   const { icon, iconColor, title, redirectText, buttonLabel, url } = redirect
 
-  // Redirection immédiate vers l'URL cible
+  // Une option de « Nous rejoindre » porte son titre, sa description et son image de partage
+  if (option)
+    useSeo(key, {
+      title: option.title,
+      description: option.description,
+      ogImage: option.ogImage,
+    })
+
   // En dev, ajouter ?noRedirect à l'URL pour inspecter la page sans être redirigé
   const route = useRoute()
   const skipRedirect = import.meta.dev && 'noRedirect' in route.query
@@ -76,10 +68,10 @@
       <div class="pt-24 pb-16 sm:pt-32 sm:pb-24">
         <div class="text-center">
           <UIcon :name="icon" class="mx-auto mb-6 h-20 w-20" :class="iconColor" />
-          <h1 class="font-title mb-4 text-4xl font-bold text-gray-900 sm:text-5xl dark:text-white">
+          <h1 class="font-title text-highlighted mb-4 text-4xl font-bold sm:text-5xl">
             {{ title }}
           </h1>
-          <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">
+          <p class="text-muted mb-8 text-lg">
             {{ redirectText }}
           </p>
           <UButton
@@ -87,12 +79,10 @@
             external
             target="_blank"
             size="xl"
-            color="neutral"
-            class="rounded-full"
+            variant="primary"
+            :label="buttonLabel"
             :trailing-icon="appConfig.ui.icons.external"
-          >
-            {{ buttonLabel }}
-          </UButton>
+          />
         </div>
       </div>
     </UContainer>

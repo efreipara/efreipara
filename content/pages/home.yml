@@ -1,74 +1,90 @@
-sections:
-  about: Qui sommes-nous ?
-  activites: Nos activités
-  why: Pourquoi Efrei Para ?
-  partners: Nos partenaires
+# Hero : boutons sous la phrase d’accroche (description SEO de l’accueil), flèche vers le bas
+# variant : primary (par défaut) ou secondary
+hero:
+  links:
+    - label: Nos activités
+      to: /activites
+      icon: tabler:parachute
+      variant: secondary
+    - label: Nous rejoindre
+      to: /rejoindre
+      icon: tabler:user-plus
+  scrollIcon: tabler:caret-down-filled
+  # Bouton de la vidéo, en bas à droite (libellés lus par les lecteurs d’écran)
+  video:
+    pause:
+      label: Mettre la vidéo en pause
+      icon: tabler:player-pause
+    play:
+      label: Lire la vidéo
+      icon: tabler:player-play
 
+# Chaque section : surtitre (headline, en capitales au-dessus du titre) et titre
 about:
+  headline: Le club
+  title: Qui sommes-nous ?
   paragraphs:
     - |-
-      <b class="text-highlighted">Efrei Para</b> est le club de parachutisme du BDS Efrei, fondé en <b class="text-highlighted">2016</b>. Repris en 2023 après l’arrêt lié au Covid, le club est aujourd’hui plus actif que jamais avec plus de <b class="text-highlighted">100 membres</b> sur le Discord.
+      **Efrei Para** est le club de parachutisme du BDS Efrei, fondé en **2016**. Repris en 2023 après l’arrêt lié au Covid, le club est aujourd’hui plus actif que jamais avec plus de **100 membres** sur le Discord.
     - |-
-      Nous organisons des <b class="text-highlighted">sauts en tandem</b>, des <b class="text-highlighted">baptêmes en soufflerie</b> et des <b class="text-highlighted">sauts en OA</b> tout au long de l’année.
-    - 'Notre objectif: rendre le parachutisme accessible aux étudiants dans un cadre sécurisé et convivial, sans expérience préalable requise.'
+      Nous organisons des **sauts en tandem**, des **baptêmes en soufflerie** et des **sauts en OA** tout au long de l’année.
+    - 'Notre objectif : rendre le parachutisme accessible aux étudiants dans un cadre sécurisé et convivial, sans expérience préalable requise.'
 
+# Chiffres sous la présentation ; le nombre en tête de title est animé, le reste est un suffixe
 stats:
   - title: 100+
     description: Membres actifs sur Discord
     icon: tabler:users
-  - title: 4
+  - title: '4'
     description: Activités proposées
     icon: tabler:parachute
-  - title: 2016
+  - title: '2016'
     description: Année de création du club
     icon: tabler:calendar
 
+# Cartes : photo et textes de chaque activité (fichiers d’activité, champ card)
 activites:
-  items:
-    - title: Sauts en tandem
-      description: >-
-        Avec un professionnel expérimenté, profite d’une expérience inoubliable
-        en chute libre à 200km/h à 4000m.
-      type: tandem
-      to: /activites/tandem
-    - title: Baptêmes en soufflerie
-      description: >-
-        Vole dans le tunnel en toute sécurité. Idéal pour débuter, progresser
-        et s’amuser entre amis.
-      type: soufflerie
-      to: /activites/soufflerie
-    - title: Formations PAC
-      description: >-
-        La Progression Accompagnée en Chute : une formation complète vers
-        l’autonomie en chute libre.
-      type: pac
-      to: /activites/pac
-    - title: Sauts en ouverture automatique (OA)
-      description: >-
-        Découvre le saut "vrai de vrai" : briefing, équipement, sortie d’avion
-        avec ouverture automatique. Accessible et encadré.
-      type: oa
-      to: /activites/oa
+  headline: Quatre façons de voler
+  title: Nos activités
+  cardLink: En savoir plus
   link:
     label: Découvrir toutes nos activités en détail
     to: /activites
 
+# Photo du CDN à côté des trois points forts
 why:
-  - title: Accessible à tous
-    description: >-
-      Aucune expérience requise. Que tu sois débutant ou curieux, on s’occupe
-      de tout : briefing, équipement et encadrement.
-    icon: tabler:mood-happy
-    type: tandem
-  - title: Encadrement professionnel
-    description: >-
-      Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres
-      agréés. La sécurité avant tout.
-    icon: tabler:shield-check
-    type: oa
-  - title: Communauté étudiante
-    description: >-
-      Rejoins une équipe soudée d’étudiants Efrei passionnés. Des événements
-      uniques durant l’année pour vivre des expériences inoubliables ensemble.
-    icon: tabler:heart
-    type: soufflerie
+  headline: L’esprit du club
+  title: Pourquoi Efrei Para ?
+  image: tandem/tandem-4.jpg
+  alt: Membres d’Efrei Para en harnais à la porte de l’avion, qui embarquent avec les moniteurs de tandem
+  items:
+    - title: Accessible à tous
+      description: >-
+        Aucune expérience requise. Jamais sauté ? Simple curiosité ? On s’occupe
+        de tout : briefing, équipement et encadrement.
+      icon: tabler:mood-happy
+      type: tandem
+    - title: Encadrement professionnel
+      description: >-
+        Tous nos sauts sont organisés avec des moniteurs diplômés dans des centres
+        agréés. La sécurité avant tout.
+      icon: tabler:shield-check
+      type: oa
+    - title: Communauté étudiante
+      description: >-
+        Rejoins une équipe soudée d’étudiantes et d’étudiants de l’Efrei. Des événements
+        uniques durant l’année pour vivre des expériences inoubliables ensemble.
+      icon: tabler:heart
+      type: soufflerie
+
+# Trois derniers albums de la galerie (galerie.yml)
+albums:
+  headline: En images
+  title: Derniers albums
+  link:
+    label: Voir toute la galerie
+    to: /galerie
+
+partners:
+  headline: Ils nous accompagnent
+  title: Nos partenaires

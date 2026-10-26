@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const props = defineProps<{ open: boolean }>()
+  const props = defineProps<{ open: boolean; labels: { open: string; close: string } }>()
   defineEmits<{ click: [] }>()
 
   const appConfig = useAppConfig()
@@ -30,8 +30,8 @@
   <UButton
     color="neutral"
     variant="ghost"
-    :aria-label="localOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
-    class="cursor-pointer rounded-full p-2"
+    :aria-label="localOpen ? labels.close : labels.open"
+    class="p-2"
     @click="$emit('click')"
   >
     <span class="relative flex size-5 items-center justify-center">

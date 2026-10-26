@@ -1,0 +1,33 @@
+# Coordonnées et réseaux du club, repris dans tout le site
+email: efrei-para@groupe-efrei.net
+# Les liens Google Maps, Apple Plans et Waze sont calculés à partir de l’adresse
+address: Efrei, 30-32 Avenue de la République, 94800 Villejuif
+maintainerEmail: support.efreipara@loye.fr
+
+# Réseaux, dans l’ordre d’affichage (pied de page, contact, menu mobile)
+socials:
+  - key: discord
+    name: Discord
+    icon: simple-icons:discord
+    url: https://discord.gg/mYKagj9XR3
+  - key: instagram
+    name: Instagram
+    icon: simple-icons:instagram
+    url: https://instagram.com/efreipara
+  - key: linkedin
+    name: LinkedIn
+    icon: simple-icons:linkedin
+    url: https://linkedin.com/company/efrei-para
+  - key: bento
+    name: Bento
+    icon: simple-icons:bento
+    url: https://karde.me/efreipara
+  - key: github
+    name: GitHub
+    icon: simple-icons:github
+    url: https://github.com/efreipara
+
+# Dépôt du site : historique des versions, signalement d’un problème
+github:
+  repo: https://github.com/efreipara/efreipara
+  issues: https://github.com/efreipara/efreipara/issues/new

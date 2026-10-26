@@ -1,31 +1,19 @@
 <script setup lang="ts">
-  import { computed } from 'vue'
-
-  interface Drop {
-    left: number
-    delay: number
-    duration: number
-    size: number
-    offsetX: number
-  }
-
   const props = withDefaults(
     defineProps<{
-      /** Nom de l'icône Nuxt Icons (ex: "efreipara-parachute") */
+      /** Icône à faire tomber */
       icon?: string
-      /** Nombre d'icônes (densité) */
+      /** Nombre de parachutes */
       count?: number
-      /** Couleur des icônes (light mode, ou les deux si colorDark non défini) */
+      /** Couleur (clair, et sombre si colorDark est absent) */
       color?: string
-      /** Couleur des icônes en dark mode (par défaut : identique à color) */
       colorDark?: string
-      /** Vitesse globale de l'animation */
       speed?: 'slow' | 'normal' | 'fast'
-      /** Taille min/max des icônes (en px) */
+      /** Taille min / max en px */
       size?: { min: number; max: number }
-      /** Déviation horizontale max vers la gauche (en px) */
+      /** Dérive maximale vers la gauche, en px */
       drift?: number
-      /** Ratio (0..1) des parachutes déjà visibles au démarrage */
+      /** Part (0 à 1) des parachutes déjà en vol au chargement */
       initialPresence?: number
     }>(),
     {
@@ -45,95 +33,69 @@
     colorMode.value === 'dark' ? (props.colorDark ?? props.color) : props.color,
   )
 
-  // Multiplicateur de vitesse selon le paramètre speed
-  const speedMul = computed(() =>
-    props.speed === 'slow' ? 2.5 : props.speed === 'fast' ? 0.75 : 1.8,
-  )
+  const speedFactor = { slow: 2.5, normal: 1.8, fast: 0.75 }[props.speed]
+  const rand = (min: number, max: number) => Math.random() * (max - min) + min
 
-  // Génére un nombre aléatoire entre min et max
-  function rand(min: number, max: number) {
-    return Math.random() * (max - min) + min
-  }
-
-  // Génération des parachutes avec propriétés aléatoires au montage du composant
-  const drops: Drop[] = Array.from({ length: props.count }, () => {
-    const duration = rand(8, 18) * speedMul.value
-    const alreadyInView = Math.random() < props.initialPresence
-    // Si déjà en vue : delay négatif => l'animation a déjà commencé
-    const delay = alreadyInView ? -rand(0, 1) * duration : rand(0, 10)
-    return {
-      left: Math.random() * 100, // Position en vw
-      delay,
-      duration,
-      size: rand(props.size.min, props.size.max),
-      offsetX: -rand(0, props.drift), // Dérive légèrement vers la gauche
-    }
+  // Tirés au montage : aléatoires au prérendu, ils différeraient de ceux du navigateur
+  const drops = ref<Record<string, string>[]>([])
+  onMounted(() => {
+    drops.value = Array.from({ length: props.count }, () => {
+      const duration = rand(8, 18) * speedFactor
+      // Délai négatif : l'animation a déjà commencé, le parachute est en vol
+      const delay = Math.random() < props.initialPresence ? -rand(0, 1) * duration : rand(0, 10)
+      return {
+        left: `${Math.random() * 100}vw`,
+        '--delay': `${delay}s`,
+        '--duration': `${duration}s`,
+        '--size': `${rand(props.size.min, props.size.max)}px`,
+        '--offsetX': `${-rand(0, props.drift)}px`,
+      }
+    })
   })
 </script>
 
 <template>
   <div class="parachute-bg" :style="{ '--drop-color': currentColor }" aria-hidden="true">
-    <span
-      v-for="(d, i) in drops"
-      :key="i"
-      class="drop"
-      :style="
-        {
-          left: d.left + 'vw',
-          '--delay': d.delay + 's',
-          '--duration': d.duration + 's',
-          '--size': d.size + 'px',
-          '--offsetX': d.offsetX + 'px',
-        } as any
-      "
-    >
-      <Icon :name="props.icon" :size="d.size" />
+    <span v-for="(style, i) in drops" :key="i" class="drop" :style="style">
+      <Icon :name="props.icon" />
     </span>
     <slot />
   </div>
 </template>
 
 <style scoped>
-  /* Conteneur principal en position absolue couvrant tout le parent */
   .parachute-bg {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    pointer-events: none; /* N'interfère pas avec les clics */
+    pointer-events: none;
     z-index: 0;
   }
 
-  /* Style de chaque parachute individuel */
   .drop {
     position: absolute;
-    top: -12vh; /* Démarre au-dessus du viewport */
+    top: -12vh;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: var(--size);
     height: var(--size);
+    font-size: var(--size);
     animation: fall linear infinite;
     animation-duration: var(--duration);
     animation-delay: var(--delay);
     transform: translateY(-12vh);
-    will-change: transform, opacity; /* Optimisation des performances */
+    will-change: transform, opacity;
     opacity: 0.85;
     color: var(--drop-color);
   }
 
-  /* Redimensionne l'icône SVG */
-  .drop :deep(svg) {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Force la taille sur le composant Icon */
+  .drop :deep(svg),
   .drop :deep(.icon) {
     width: var(--size) !important;
     height: var(--size) !important;
   }
 
-  /* Animation de chute (vers le bas) + légère dérive à gauche */
   @keyframes fall {
     0% {
       transform: translate(0, -15vh);
@@ -148,7 +110,6 @@
     }
   }
 
-  /* Accessibilité : réduire l'animation si demandé par l'utilisateur */
   @media (prefers-reduced-motion: reduce) {
     .drop {
       animation-duration: 1ms;

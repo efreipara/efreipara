@@ -1,13 +1,15 @@
-rejoindre:
+# Pages /<slug> des options de « Nous rejoindre » : textes communs, la cible est le formulaire de l’option
+form:
   redirectText: Redirection vers le formulaire...
   buttonLabel: Ouvrir le formulaire
 
-discord:
-  title: Rejoindre notre Discord
-  redirectText: Redirection vers Discord...
-  buttonLabel: Ouvrir Discord
-
-instagram:
-  title: Suivre sur Instagram
-  redirectText: Redirection vers Instagram...
-  buttonLabel: Ouvrir Instagram
+# Pages /<clé> vers le réseau de même clé dans club.yml
+socials:
+  discord:
+    title: Rejoindre notre Discord
+    redirectText: Redirection vers Discord...
+    buttonLabel: Ouvrir Discord
+  instagram:
+    title: Suivre sur Instagram
+    redirectText: Redirection vers Instagram...
+    buttonLabel: Ouvrir Instagram

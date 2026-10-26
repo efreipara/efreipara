@@ -1,7 +1,5 @@
-# Configuration SEO centralisée pour toutes les pages du site
-# Ce fichier permet de gérer facilement les métadonnées SEO sans modifier le code des pages
+# Titre, description et image de partage de chaque page (clé : chemin, / remplacés par -)
 
-# Valeurs par défaut appliquées à toutes les pages
 defaults:
   siteName: Efrei Para
   separator: ' - '
@@ -11,114 +9,76 @@ defaults:
   ogSiteName: Efrei Para
   twitterCard: summary_large_image
   locale: fr_FR
-  themeColor: oklch(0.208 0.042 265.755005)
+  themeColor: '#092954'
   author: Efrei Para
+  # Seule l'accueil est indexée : les autres pages portent noindex (robots.txt n'interdit rien)
+  robots: noindex, follow
 
-# Métadonnées spécifiques à chaque page
 pages:
-  # Page d’accueil
   index:
     title: Efrei Para
-    description: Défiez la gravité et vivez des sensations uniques avec Efrei Para
+    description: Défie la gravité et vis des sensations uniques avec Efrei Para
+    robots: index, follow
 
-  # Page à propos
-  about:
-    title: À propos du club Efrei Para
-    description: Découvrez le club Efrei Para, un club de parachutisme étudiant rattaché au Bureau des Sports (BDS) de l’Efrei. Nous proposons des activités de saut en ouverture automatique (OA), en tandem et en soufflerie.
-
-  # Page contact
   contact:
     title: Contact
-    description: Contactez-nous pour toute question ou demande d’information sur Efrei Para
+    description: Une question sur Efrei Para ou ses activités ? Écris-nous.
 
-  # Page FAQ
   faq:
     title: Questions fréquentes (FAQ)
-    description: Toutes les réponses à vos questions sur Efrei Para, nos activités et le parachutisme
+    description: Toutes les réponses à tes questions sur Efrei Para, nos activités et le parachutisme
 
-  # Page devenir membre
-  devenir-membre:
-    title: Devenir membre
-    description: Rejoignez Efrei Para et profitez de tarifs préférentiels sur toutes nos activités
-    ogImage: /seo/devenir-membre.png
-
-  # Page rejoindre
   rejoindre:
     title: Nous rejoindre
-    description: Découvrez comment rejoindre Efrei Para et participer à nos activités
+    description: Découvre comment rejoindre Efrei Para et participer à nos activités
+    ogImage: /seo/rejoindre.png
 
-  # Page rejoindre le bureau
-  rejoindre-bureau:
-    title: Rejoindre le bureau
-    description: Intégrez l’équipe dirigeante d’Efrei Para et contribuez au développement du club
-    ogImage: /seo/rejoindre-bureau.png
-
-  # Page galerie
   galerie:
     title: Nos albums photos
-    description: Découvrez les moments forts d’Efrei Para en images
+    description: Découvre les moments forts d’Efrei Para en images
 
-  # Page documents
   documents:
     title: Documents
-    description: Téléchargez les documents utiles d’Efrei Para (règlement, fiches d’inscription, etc.)
+    description: Règlement, mentions légales, documents médicaux et liens utiles d’Efrei Para
 
-  # Page règlement
-  reglement:
-    title: Règlement intérieur
-    description: Consultez le règlement intérieur d’Efrei Para
-
-  # Page mentions légales
-  mentions-legales:
-    title: Mentions légales
-    description: Informations légales concernant le site d’Efrei Para
-
-  # Page RGPD
-  rgpd:
-    title: Politique de confidentialité (RGPD)
-    description: Notre politique de protection des données personnelles
-
-  # Page activités (liste)
   activites:
     title: Nos activités
-    description: 'Découvrez toutes les activités proposées par Efrei Para : OA, tandem, soufflerie et PAC'
+    description: 'Découvre toutes les activités d’Efrei Para : tandem, soufflerie, PAC et OA'
 
-  # Pages activités spécifiques
   activites-oa:
-    title: Saut en Ouverture Automatique (OA)
-    description: Découvrez le saut en ouverture automatique (OA) avec Efrei Para. Vivez l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
+    title: Saut en ouverture automatique (OA)
+    description: Découvre le saut en ouverture automatique (OA) avec Efrei Para. Vis l’adrénaline du parachutisme en solo avec un parachute qui s’ouvre automatiquement à la sortie de l’avion.
     ogImage: /seo/activites-oa.png
 
   activites-tandem:
-    title: Saut en Tandem
-    description: Faites votre premier saut en parachute ! Chute libre de 50 secondes à 4000m d’altitude, attaché à un moniteur professionnel. Une expérience inoubliable.
+    title: Saut en tandem
+    description: Fais ton premier saut en parachute ! 50 secondes de chute libre à 4 000 m d’altitude, en binôme avec un moniteur professionnel.
     ogImage: /seo/activites-tandem.png
 
   activites-soufflerie:
     title: Baptêmes en soufflerie
-    description: Découvrez la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.
+    description: Découvre la sensation de chute libre en toute sécurité dans un tunnel de soufflerie. Idéal pour débuter et progresser.
     ogImage: /seo/activites-soufflerie.png
 
   activites-pac:
     title: Formation PAC (Progression Accompagnée en Chute)
-    description: Formez-vous au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
+    description: Forme-toi au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
     ogImage: /seo/activites-pac.png
 
   # Redirections réseaux sociaux
   discord:
     title: Rejoindre notre Discord
-    description: Rejoignez la communauté Efrei Para sur Discord
+    description: Rejoins la communauté Efrei Para sur Discord
     robots: noindex, nofollow
     ogImage: /seo/discord.png
 
   instagram:
     title: Notre Instagram
-    description: Suivez-nous sur Instagram pour ne rien rater de nos aventures
+    description: Suis-nous sur Instagram pour ne rien rater de nos aventures
     robots: noindex, nofollow
     ogImage: /seo/instagram.png
 
-  # Page QR Code
   qr:
-    title: QR Code
-    description: Scannez notre QR Code pour accéder rapidement à nos informations
+    title: QR code
+    description: Scanne notre QR code pour retrouver Efrei Para
     robots: noindex, nofollow

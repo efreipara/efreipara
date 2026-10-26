@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  const { socials } = useSocials()
+  const { socials, club } = await useClub()
+  const { version } = useAppConfig()
+  const { labels } = await useLabels()
   const { activitiesIndex, activities, footerPages, footerLegal, footerTitles } =
     await useNavigation()
 
@@ -17,7 +19,7 @@
     },
     {
       label: footerTitles.value.social,
-      children: socials.map((s) => ({ label: s.name, to: s.url, target: '_blank' })),
+      children: socials.value.map((s) => ({ label: s.name, to: s.url, target: '_blank' })),
     },
     {
       label: footerTitles.value.legal,
@@ -27,69 +29,65 @@
 </script>
 
 <template>
-  <!-- Séparateur visuel avec icône parachute -->
   <USeparator icon="efreipara:parachute" class="h-px" />
 
   <UFooter :ui="{ top: 'border-b border-default' }">
-    <!-- Colonnes de navigation du footer -->
     <template #top>
       <UContainer>
+        <!-- Slots left / right inutilisés : pas de grille xl à trois colonnes, colonnes en grille simple -->
         <UFooterColumns
           :columns="columns"
           :ui="{
-            root: 'lg:grid lg:grid-cols-2 lg:gap-8 xl:grid-cols-2 xl:gap-8',
-            left: 'mb-10 lg:mb-0',
-            center:
-              'flex-col md:grid auto-cols-fr md:col-span-2 lg:col-span-2 text-center md:text-left grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:col-span-2 sm:max-md:[&>div:nth-child(odd)]:text-end sm:max-md:[&>div:nth-child(odd)_a]:justify-end sm:max-md:[&>div:nth-child(even)]:text-start sm:max-md:[&>div:nth-child(even)_a]:justify-start md:max-lg:[&>div]:text-center md:max-lg:[&>div_a]:justify-center',
-            right: 'mt-10 lg:mt-0',
-            label: 'text-sm font-semibold',
-            list: 'mt-6 space-y-4',
-            item: 'relative',
-            link: 'group text-sm flex items-center justify-center md:justify-start gap-1.5 focus-visible:outline-primary',
-            linkLeadingIcon: 'size-5 shrink-0',
-            linkLabel: 'truncate',
-            linkLabelExternalIcon: 'size-3 absolute top-0 text-dimmed inline-block',
+            root: 'xl:block',
+            center: 'grid grid-flow-row grid-cols-2 gap-8 lg:grid-cols-4',
           }"
         />
       </UContainer>
     </template>
 
-    <!-- Section gauche : Copyright et informations de licence -->
     <template #left>
       <div class="flex flex-col">
         <p class="text-muted text-sm">
           &copy; {{ new Date().getFullYear() }}
           <UIcon name="efreipara:parachute" class="mx-1 h-3 w-3" />
-          Efrei Para
+          {{ footerTitles.copyright }}
         </p>
         <p class="text-muted text-sm">
-          Code source :
-          <a href="https://opensource.org/license/MIT">MIT</a>
+          {{ footerTitles.code.label }}
+          <a
+            :href="`${club.github.repo}/blob/main/CHANGELOG.md`"
+            target="_blank"
+            :aria-label="fillLabel(footerTitles.code.changelog, { version })"
+            class="text-xs"
+          >
+            (v{{ version }})
+          </a>
+          :
+          <a :href="footerTitles.code.url">{{ footerTitles.code.license }}</a>
         </p>
         <p class="text-muted text-sm">
-          Contenus :
-          <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-            CC BY-NC 4.0 (sauf mention contraire)
+          {{ footerTitles.content.label }}
+          <a :href="footerTitles.content.url">
+            {{ footerTitles.content.license }}
             <UIcon name="creativecommons:cc" class="ml-0.5 h-4 w-4" />
             <UIcon name="creativecommons:by" class="ml-0.5 h-4 w-4" />
             <UIcon name="creativecommons:nc" class="ml-0.5 h-4 w-4" />
           </a>
         </p>
         <p class="text-muted text-sm">
-          Photos, vidéos & logos : Tous droits réservés / All rights reserved.
+          {{ footerTitles.media }}
         </p>
       </div>
     </template>
 
-    <!-- Section droite : Boutons des réseaux sociaux -->
     <template #right>
       <UButton
-        to="https://www.efrei.fr"
+        :to="footerTitles.school.url"
         target="_blank"
-        aria-label="Efrei"
+        :aria-label="footerTitles.school.label"
         color="neutral"
         variant="ghost"
-        class="text-muted rounded-full p-2"
+        class="text-muted p-2"
       >
         <Icon
           name="efrei:logo"
@@ -104,10 +102,10 @@
         :to="social.url"
         target="_blank"
         :icon="social.icon"
-        :aria-label="`${social.name} Efrei Para`"
+        :aria-label="fillLabel(labels.socialLink, { name: social.name })"
         color="neutral"
         variant="ghost"
-        class="text-muted rounded-full p-2"
+        class="text-muted p-2"
       />
     </template>
   </UFooter>

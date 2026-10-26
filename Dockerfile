@@ -9,12 +9,10 @@ RUN bun install --frozen-lockfile
 ARG CDN_URL
 ARG PLAUSIBLE_URL
 ARG PLAUSIBLE_DOMAIN
-ARG NUXT_PUBLIC_SITE_URL
 
 ENV CDN_URL=$CDN_URL
 ENV PLAUSIBLE_URL=$PLAUSIBLE_URL
 ENV PLAUSIBLE_DOMAIN=$PLAUSIBLE_DOMAIN
-ENV NUXT_PUBLIC_SITE_URL=$NUXT_PUBLIC_SITE_URL
 
 COPY . .
 RUN bun run generate
@@ -36,5 +34,7 @@ COPY --from=builder /app/.output/public /usr/share/nginx/html
 USER 101
 
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -q --spider http://127.0.0.1:8080/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -40,8 +40,23 @@ efreipara/
 ├── content/             # Contenu en Markdown/YAML
 ├── public/              # Fichiers publics statiques
 ├── nuxt.config.ts       # Configuration principale de Nuxt
-└── content.config.ts    # Configuration de Nuxt Content
+├── content.config.ts    # Configuration de Nuxt Content
+└── content.schemas.ts   # Schémas des collections de contenu
 ```
+
+## 📚 Documentation
+
+La documentation détaillée du projet est dans le dossier [`docs/`](docs/) :
+
+| Document                                  | Contenu                                                       |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| [PRD.md](docs/PRD.md)                     | Ce que fait le site : pages, sections, comportements          |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md)   | Stack, organisation du code, génération, Docker, nginx        |
+| [CONTENT.md](docs/CONTENT.md)             | Collections de contenu, formats, fichiers attendus sur le CDN |
+| [DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) | Thème, couleurs, polices, icônes, composants réutilisables    |
+| [SECURITY.md](docs/SECURITY.md)           | Modèle de menace et règles à respecter                        |
+| [CODE_STYLE.md](docs/CODE_STYLE.md)       | Conventions de code, formatage, commits                       |
+| [TESTING.md](docs/TESTING.md)             | Vérifications avant de livrer                                 |
 
 ## 🚀 Pour les développeurs
 
@@ -49,13 +64,13 @@ efreipara/
 
 Ce projet utilise les technologies et modules suivants :
 
-- **[Bun](https://bun.sh)** - Runtime JavaScript rapide pour le développement et la production
-- **[Nuxt](https://nuxt.com)** - Framework Vue.js full-stack
+- **[Bun](https://bun.sh)** - Gestion des paquets, scripts et génération du site
+- **[Nuxt](https://nuxt.com)** - Framework Vue.js, utilisé en génération statique (`nuxt generate`)
 - **[Nuxt UI](https://ui.nuxt.com)** - Bibliothèque de composants UI
 - **[Nuxt Content](https://content.nuxt.com)** - Gestion de contenu basée sur les fichiers
 - **[Plausible Analytics](https://plausible.io)** - Analytiques respectueuses de la vie privée
 - **[TailwindCSS](https://tailwindcss.com)** - Framework CSS utility-first
-- **[Nginx](https://www.nginx.com)** - Serveur web pour la production
+- **[Nginx](https://www.nginx.com)** - Sert le site généré en production
 - **[Docker](https://www.docker.com)** - Conteneurisation pour le déploiement
 
 #### Librairies d'icônes
@@ -65,10 +80,12 @@ Le projet utilise [@nuxt/icon](https://github.com/nuxt/icon) avec les collection
 - **[Tabler Icons](https://icon-sets.iconify.design/tabler/)** (`@iconify-json/tabler`) - Collection d'icônes moderne et légère
 - **[Simple Icons](https://icon-sets.iconify.design/simple-icons/)** (`@iconify-json/simple-icons`) - Icônes de marques et logos populaires
 
-Mais aussi des icônes personnalisées ajoutées dans le dossier `assets/icons/`, comme :
+Mais aussi des icônes personnalisées ajoutées dans le dossier `app/assets/icons/` :
 
 - Logos Efrei Para
 - Logo Efrei
+- Logo iFly
+- Pictogrammes Creative Commons
 
 ### Installation et démarrage
 
@@ -104,8 +121,15 @@ bun dev
 # Linter le code
 bun lint
 
+# Vérifier les types (vue-tsc)
+bun run typecheck
+
 # Pour formatter le code avec Prettier
 bun format
+
+# Tests : logique et contenu (Vitest), puis site généré (Playwright, sur Brave ou Chromium)
+bun run test
+bun run generate && bun run test:e2e
 
 # Pour construire l'image Docker (les variables d'environnement doivent être définies)
 bun docker:build
@@ -129,12 +153,9 @@ PLAUSIBLE_URL=https://...
 
 # Domaine pour Plausible Analytics
 PLAUSIBLE_DOMAIN=...
-
-# URL du site (pour le SEO et autres métadonnées)
-NUXT_PUBLIC_SITE_URL=https://...
 ```
 
-#### Pour Docker Compose
+#### Pour l'image Docker
 
 Le fichier `.env.example` contient toutes les variables nécessaires. Copiez-le vers `.env` et modifiez les valeurs selon votre environnement :
 
@@ -142,7 +163,7 @@ Le fichier `.env.example` contient toutes les variables nécessaires. Copiez-le 
 cp .env.example .env
 ```
 
-Les variables d'environnement sont injectées au moment du build Docker via `build args`, ce qui permet de générer une version statique optimisée avec les bons URLs
+`bun run docker:build` lit le `.env` et passe les variables en `build args` : elles sont figées dans le site généré au moment du build, et `CDN_URL` et `PLAUSIBLE_URL` servent aussi à la CSP de nginx au démarrage du conteneur.
 
 ## ✏️ Pour les éditeurs de contenu
 
@@ -152,11 +173,19 @@ Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt
 
 ### Pages éditables
 
-- **FAQ** : `content/faq.yml` - Questions fréquemment posées
-- **Documents** : `content/documents.yml` - Liste des documents téléchargeables
-- **Règlement** : `content/reglement.md` - Règlement intérieur du club
-- **Mentions légales** : `content/mentions-legales.md`
-- **RGPD** : `content/rgpd.md` - Politique de confidentialité
+Tous les textes du site sont éditables. Les plus courants :
+
+- **Prochain événement** : `content/global/next-event.yml` - Bannière en haut du site
+- **Galerie** : `content/pages/galerie.yml` - Albums photos
+- **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
+- **Documents** : `content/pages/documents.yml` - Liens vers les documents utiles
+- **Activités** : `content/pages/activites/*.yml` - Une page par activité, et tout ce qui la présente ailleurs (menu, accueil, galerie)
+- **Coordonnées et réseaux** : `content/global/club.yml` - E-mail, adresse, Discord, Instagram…
+- **Règlement** : `content/pages/legal/reglement.md` - Règlement intérieur du club
+- **Mentions légales** : `content/pages/legal/mentions-legales.md`
+- **RGPD** : `content/pages/legal/rgpd.md` - Politique de confidentialité
+
+La liste complète des fichiers, leurs champs et les conventions sont décrits dans [docs/CONTENT.md](docs/CONTENT.md).
 
 ## 🔧 Maintenance
 
@@ -186,6 +215,10 @@ Le site est déployé automatiquement via Docker. La configuration se trouve dan
 
 - `Dockerfile` - Configuration de l'image Docker
 - `nginx/` - Configuration du serveur web
+
+## 🏷️ Versions
+
+Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/) : la version courante est dans `package.json`, l'historique dans [CHANGELOG.md](CHANGELOG.md), et chaque version a son tag git `vX.Y.Z`.
 
 ## 📝 Licence
 

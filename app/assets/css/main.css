@@ -104,9 +104,63 @@
   --color-headline: #afbae0;
 }
 
+/* Teinte d'activité : activityClass() (app/utils/activities.ts) pose --activity, lue par les utilitaires suivants */
+@source inline('activity-{oa,tandem,soufflerie,pac}');
+
+@utility activity-* {
+  --activity: --value(--color-efreipara-*);
+}
+
+@utility bg-tint-* {
+  background-color: color-mix(
+    in oklch,
+    var(--activity, var(--ui-primary)) calc(--value(integer) * 1%),
+    transparent
+  );
+}
+
+@utility border-tint-* {
+  border-color: color-mix(
+    in oklch,
+    var(--activity, var(--ui-primary)) calc(--value(integer) * 1%),
+    transparent
+  );
+}
+
+@utility ring-tint-* {
+  --tw-ring-color: color-mix(
+    in oklch,
+    var(--activity, var(--ui-primary)) calc(--value(integer) * 1%),
+    transparent
+  );
+}
+
+@utility text-activity {
+  color: var(--activity, var(--ui-primary));
+}
+
+/* Texte teinté : la couleur pleine n'atteint pas 4,5:1 (or du tandem en clair : 1,8:1,
+   rouge de la PAC en sombre : 2,9:1) ; assombrie en clair, éclaircie en sombre */
+@utility text-activity-strong {
+  color: color-mix(in oklch, var(--activity, var(--ui-primary)) 65%, black);
+  @variant dark {
+    color: color-mix(in oklch, var(--activity, var(--ui-primary)) 70%, white);
+  }
+}
+
+/* Texte sur fond plein d'activité : noir sur les teintes claires (or, rose, violet), blanc sur
+   le rouge de la PAC ; le blanc partout n'atteint que 1,9:1 sur l'or du tandem */
+@utility text-on-activity {
+  color: oklch(from var(--activity, var(--ui-primary)) clamp(0, (0.62 - l) * 100, 1) 0 0);
+}
+
+@utility bg-activity {
+  background-color: var(--activity, var(--ui-primary));
+}
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 150ms ease;
 }
 .fade-enter-from,
 .fade-leave-to {
@@ -145,20 +199,32 @@ html.a11y-highContrast {
 
 html.a11y-highContrast img,
 html.a11y-highContrast video,
-html.a11y-highContrast no-contrast {
+html.a11y-highContrast .no-contrast {
   filter: contrast(0.667); /* annule le contrast(1.5) du parent : 1 / 1.5 */
+}
+
+/* Réglage système « réduire les animations » : animations et transitions quasi instantanées */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Animation d'entrée depuis le bas */
 .hero-slide-up {
   opacity: 0;
-  animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: heroSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes heroSlideUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;

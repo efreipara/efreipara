@@ -1,29 +1,18 @@
+# Lien du logo vers l’accueil (nom lu par les lecteurs d’écran)
+logo:
+  label: Efrei Para, accueil
+
+# Réseaux affichés dans l’en-tête sur grand écran (clés de club.yml), dans l’ordre
+headerSocials:
+  - instagram
+  - discord
+
 activitiesIndex:
   label: Nos activités
   to: /activites
   icon: tabler:parachute
 
-activities:
-  - slot: tandem
-    label: Saut en Tandem
-    description: Découverte avec un moniteur
-    to: /activites/tandem
-  - slot: soufflerie
-    label: Soufflerie
-    description: Chute libre en tunnel de vent
-    to: /activites/soufflerie
-  - slot: pac
-    label: PAC
-    description: Progression Accompagnée en Chute
-    to: /activites/pac
-  - slot: oa
-    label: Saut en OA
-    description: Saut solo en ouverture automatique
-    to: /activites/oa
-
 pages:
-  - label: À propos
-    to: /about
   - label: Documents
     to: /documents
     icon: tabler:file-description
@@ -43,6 +32,12 @@ pages:
     icon: tabler:help
     header: 3
 
+# Bouton du menu d’accessibilité (icône pleine quand une option est active)
+accessibilityMenu:
+  label: Options d’accessibilité
+  icon: tabler:accessible
+  activeIcon: tabler:accessible-filled
+
 accessibility:
   - key: dyslexic
     label: Police dyslexique
@@ -56,6 +51,28 @@ footer:
   club: Club
   social: Réseaux
   legal: Légal
+  copyright: Efrei Para
+  code:
+    label: Code source
+    changelog: 'v{version}, historique des versions'
+    license: MIT
+    url: https://opensource.org/license/MIT
+  content:
+    label: 'Contenus :'
+    license: CC BY-NC 4.0 (sauf mention contraire)
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+  media: 'Photos, vidéos & logos : Tous droits réservés / All rights reserved.'
+  school:
+    label: Efrei
+    url: https://www.efrei.fr
+
+# Boutons de l’en-tête (libellés lus par les lecteurs d’écran)
+menuButton:
+  open: Ouvrir le menu
+  close: Fermer le menu
+colorModeButton:
+  light: Passer en mode clair
+  dark: Passer en mode sombre
 
 legal:
   - label: Mentions légales

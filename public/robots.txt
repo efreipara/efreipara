@@ -1,21 +1,4 @@
 User-agent: *
-# Autorise uniquement la racine du site
-Allow: /$
-
-# Bloque tout le reste
-Disallow: /
-
-# Bloque les médias (en plus de Disallow: / qui les bloque déjà)
-Disallow: /_nuxt/
-Disallow: /images/
-Disallow: /img/
-Disallow: /videos/
-Disallow: /media/
-Disallow: /*.jpg$
-Disallow: /*.jpeg$
-Disallow: /*.png$
-Disallow: /*.gif$
-Disallow: /*.webp$
-Disallow: /*.mp4$
-Disallow: /*.mov$
-Disallow: /*.avi$
+# Rien n'est interdit : les robots doivent pouvoir lire la balise noindex des pages
+# (seo.yml : seule l'accueil est indexée) et les images de partage de /seo/.
+Allow: /

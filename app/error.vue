@@ -2,6 +2,8 @@
   import type { NuxtError } from '#app'
 
   const appConfig = useAppConfig()
+  const { club, getSocial } = await useClub()
+  const { labels } = await useLabels()
 
   const props = defineProps<{
     error: NuxtError
@@ -9,47 +11,28 @@
 
   console.error(props.error)
 
-  // Messages d'erreur personnalisés en français
-  const getCustomErrorMessage = (statusCode: number) => {
-    switch (statusCode) {
-      case 404:
-        return 'Page introuvable'
-      case 500:
-        return 'Erreur interne du serveur'
-      case 403:
-        return 'Accès refusé'
-      case 401:
-        return 'Non autorisé'
-      case 400:
-        return 'Requête incorrecte'
-      default:
-        return 'Une erreur est survenue'
-    }
-  }
+  // Titre et explication selon le code (labels.yml), message par défaut sinon
+  const errorMessage = (statusCode: number) =>
+    labels.value.error.messages[String(statusCode)] ?? labels.value.error.messages.default!
 
-  const getCustomErrorDescription = (statusCode: number) => {
-    switch (statusCode) {
-      case 404:
-        return "La page que vous recherchez n'existe pas ou a été déplacée."
-      case 500:
-        return "Une erreur interne s'est produite. Merci de nous le signaler."
-      case 403:
-        return "Vous n'avez pas les permissions nécessaires pour accéder à cette ressource."
-      case 401:
-        return 'Vous devez vous connecter pour accéder à cette page.'
-      case 400:
-        return "La requête envoyée n'est pas valide."
-      default:
-        return "Une erreur inattendue s'est produite. Veuillez réessayer plus tard."
-    }
-  }
-
-  // Créer un objet error personnalisé avec les messages en français
   const customError = computed(() => ({
     ...props.error,
-    statusMessage: getCustomErrorMessage(props.error.statusCode || 500),
-    message: getCustomErrorDescription(props.error.statusCode || 500),
+    statusMessage: errorMessage(props.error.statusCode || 500).title,
+    message: errorMessage(props.error.statusCode || 500).description,
   }))
+
+  // app.vue (et donc useSeo) n'est pas rendu à la place d'une page d'erreur
+  const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  const meta = computed(() =>
+    seo.value
+      ? buildSeoMeta(seo.value, 'error', { title: customError.value.statusMessage })
+      : undefined,
+  )
+  useHead({
+    title: computed(() => meta.value?.title ?? customError.value.statusMessage),
+    htmlAttrs: { lang: computed(() => meta.value?.htmlLang) },
+    meta: [{ name: 'robots', content: 'noindex' }],
+  })
 </script>
 
 <template>
@@ -61,34 +44,24 @@
       :drift="500"
       :initial-presence="0.7"
     />
-    <UError
-      :error="customError"
-      redirect="/"
-      :clear="{
-        label: 'Retour à l\'accueil',
-        color: 'neutral',
-        size: 'lg',
-        icon: appConfig.ui.icons.arrowLeft,
-        class: 'rounded-full cursor-pointer',
-      }"
-    >
+    <UError :error="customError">
       <template #links>
         <UButton
-          label="Retour à l'accueil"
-          color="neutral"
+          :label="labels.error.home"
+          variant="primary"
           size="lg"
           :icon="appConfig.ui.icons.arrowLeft"
-          class="cursor-pointer rounded-full"
           to="/"
         />
-        <ULink
-          to="https://github.com/efreipara/efreipara/issues/new"
+        <UButton
+          :to="club.github.issues"
           target="_blank"
-          class="flex items-center text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          :icon="getSocial('github')?.icon"
+          variant="tertiary"
+          size="lg"
         >
-          <UIcon :name="appConfig.socials.github.icon" class="mr-2" />
-          Signaler l'erreur
-        </ULink>
+          {{ labels.error.report }}
+        </UButton>
       </template>
     </UError>
   </UApp>

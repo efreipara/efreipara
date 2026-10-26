@@ -1,63 +1,46 @@
 <script setup lang="ts">
-  defineProps<{
+  import type { ButtonProps } from '@nuxt/ui'
+
+  const props = defineProps<{
     title: string
     description: string
     buttons: ('discord' | 'instagram' | 'github')[]
   }>()
 
-  const { getSocialUrl, getSocialIcon } = useSocials()
-  const appConfig = useAppConfig()
+  const { club, getSocial } = await useClub()
+  const { labels } = await useLabels()
+
+  const links = computed<ButtonProps[]>(() =>
+    props.buttons
+      .flatMap((key): ButtonProps[] => {
+        const social = getSocial(key)
+        if (!social) return []
+        return key === 'github'
+          ? [
+              {
+                label: labels.value.helpCta.github,
+                to: club.value.github.issues,
+                icon: social.icon,
+              },
+            ]
+          : [{ label: social.name, to: social.url, icon: social.icon }]
+      })
+      .map((link) => ({ ...link, target: '_blank', size: 'lg', variant: 'secondary' })),
+  )
 </script>
 
 <template>
-  <UCard class="mt-12">
-    <div class="space-y-6 text-center">
-      <div class="space-y-3">
-        <div class="flex justify-center">
-          <UIcon
-            :name="appConfig.efreipara.icons.extras.question"
-            class="text-primary-500 size-12"
-          />
-        </div>
-        <h2 class="text-2xl font-bold">{{ title }}</h2>
-        <p class="text-muted mx-auto max-w-xl">{{ description }}</p>
-      </div>
-      <div class="flex flex-wrap justify-center gap-3">
-        <UButton
-          v-if="buttons.includes('discord')"
-          :to="getSocialUrl('Discord')"
-          target="_blank"
-          size="lg"
-          :icon="getSocialIcon('Discord')"
-          color="primary"
-          class="rounded-full"
-        >
-          Discord
-        </UButton>
-        <UButton
-          v-if="buttons.includes('instagram')"
-          :to="getSocialUrl('Instagram')"
-          target="_blank"
-          size="lg"
-          :icon="getSocialIcon('Instagram')"
-          color="primary"
-          class="rounded-full"
-        >
-          Instagram
-        </UButton>
-        <UButton
-          v-if="buttons.includes('github')"
-          to="https://github.com/efreipara/efreipara/issues/new"
-          target="_blank"
-          size="lg"
-          :icon="getSocialIcon('GitHub')"
-          color="primary"
-          variant="subtle"
-          class="rounded-full"
-        >
-          Signaler sur GitHub
-        </UButton>
-      </div>
-    </div>
-  </UCard>
+  <UPageCTA
+    :title="title"
+    :description="description"
+    :links="links"
+    variant="subtle"
+    class="mt-16 rounded-2xl"
+    :ui="{
+      container: 'px-6 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-12',
+      title: 'font-title text-left text-2xl tracking-normal sm:text-3xl',
+      description: 'mt-3 max-w-2xl text-left',
+      links: 'justify-start',
+    }"
+  />
 </template>

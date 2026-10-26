@@ -1,45 +1,39 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
+  import type { ActivityType } from '~/utils/activities'
 
   defineProps<{
     activite: ActivityType
     label: string
     features: { title: string; description: string; icon: string }[]
+    band?: boolean
   }>()
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
+  const { labels } = await useLabels()
 </script>
 
 <template>
-  <UContainer class="py-12">
-    <h2 class="font-title mb-8 text-2xl font-bold">Pourquoi choisir {{ label }} ?</h2>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      <div
+  <SharedSection
+    :headline="labels.activity.headlines.features"
+    headline-tone="text-activity-strong"
+    :title="fillLabel(labels.activity.features, { label })"
+    :band="band"
+    :class="activityClass(activite)"
+  >
+    <ul class="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      <UPageFeature
         v-for="feature in features"
         :key="feature.title"
-        class="flex gap-4 rounded-2xl p-5"
-        :style="{
-          backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 8%, transparent)`,
+        as="li"
+        :icon="feature.icon"
+        :title="feature.title"
+        :description="feature.description"
+        :ui="{
+          leading: 'bg-tint-10 size-10 shrink-0 justify-center rounded-xl p-0',
+          leadingIcon: 'text-activity size-5',
+          title: 'text-highlighted text-base text-wrap',
+          description: 'text-wrap',
         }"
-      >
-        <div
-          class="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl"
-          :style="{
-            backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 15%, transparent)`,
-          }"
-        >
-          <UIcon :name="feature.icon" class="size-5" :style="{ color: activityCssVar[activite] }" />
-        </div>
-        <div>
-          <p class="mb-1 font-semibold">{{ feature.title }}</p>
-          <p class="text-muted text-sm">{{ feature.description }}</p>
-        </div>
-      </div>
-    </div>
-  </UContainer>
+      />
+    </ul>
+  </SharedSection>
 </template>

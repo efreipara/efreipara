@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
-
   const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
-  const { getIcon } = useEventIcon()
+  const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
+  const { labels } = await useLabels()
 
   const bannerId = computed(() => getEventBannerId())
   const isBannerClosed = ref(false)
@@ -14,97 +13,83 @@
 
   const showBanner = computed(() => !!event.value && shouldShowEvent() && !isBannerClosed.value)
 
+  // Fermeture gérée ici et non par UBanner : sessionStorage (UBanner utilise localStorage)
+  // et animation de sortie de la Transition
   const handleClose = () => {
     isBannerClosed.value = true
     if (import.meta.client) {
       sessionStorage.setItem(`banner-${bannerId.value}`, 'true')
     }
   }
-
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
-
-  const color = computed(
-    () => activityCssVar[event.value?.type as ActivityType] ?? 'var(--ui-primary)',
-  )
-
-  const colorMode = useColorMode()
-  const isDark = computed(() => colorMode.value === 'dark')
-
-  const bannerStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '18%' : '10%'}, transparent)`,
-    borderBottomColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '35%' : '20%'}, transparent)`,
-  }))
-
-  const iconBoxStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${color.value} ${isDark.value ? '30%' : '20%'}, transparent)`,
-  }))
-
-  const iconColorStyle = computed(() => ({
-    color: color.value,
-  }))
 </script>
 
 <template>
   <ClientOnly>
+    <!-- Ouverture en hauteur (grille 0fr → 1fr) : la page descend avec la bannière, sans saut -->
     <Transition
       appear
-      enter-active-class="transition-all duration-300 ease-out"
-      enter-from-class="-translate-y-full opacity-0"
-      enter-to-class="translate-y-0 opacity-100"
-      leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="translate-y-0 opacity-100"
-      leave-to-class="-translate-y-full opacity-0"
+      enter-active-class="transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
+      enter-from-class="grid-rows-[0fr] opacity-0"
+      enter-to-class="grid-rows-[1fr]"
+      leave-active-class="transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"
+      leave-from-class="grid-rows-[1fr]"
+      leave-to-class="grid-rows-[0fr] opacity-0"
     >
-      <div v-if="showBanner && event" class="border-b" :style="bannerStyle">
-        <UContainer>
-          <div class="flex items-center gap-3 py-2.5">
-            <div
-              class="hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
-              :style="iconBoxStyle"
-            >
-              <UIcon :name="getIcon(event.type)" class="size-4" :style="iconColorStyle" />
-            </div>
-
-            <p class="flex-1 truncate text-sm font-bold">{{ event.title }}</p>
-
-            <div class="flex shrink-0 items-center gap-2">
-              <UButton
-                :to="event.url"
-                target="_blank"
-                size="sm"
-                color="neutral"
-                variant="subtle"
-                :trailing-icon="appConfig.efreipara.icons.extras.arrowNarrowRight"
-                class="cursor-pointer rounded-full"
+      <div v-if="showBanner && event" class="grid">
+        <div class="min-h-0 overflow-hidden">
+          <UBanner
+            :title="event.title"
+            :actions="[
+              {
+                label: labels.banner.register,
+                to: event.url,
+                target: '_blank',
+                size: 'sm',
+                variant: 'primary',
+                trailingIcon: labels.banner.registerIcon,
+              },
+              {
+                label: labels.banner.info,
+                to: getEventInfoUrl(event.type),
+                size: 'sm',
+                variant: 'tertiary',
+                leadingIcon: getIcon(event.type),
+                class: 'text-default hidden sm:flex',
+              },
+            ]"
+            :class="[
+              activityClass(event.type),
+              'bg-tint-10 dark:bg-tint-18 border-tint-20 dark:border-tint-35 border-b',
+            ]"
+            :ui="{
+              root: 'z-auto',
+              container: 'h-auto gap-2 py-2.5',
+              left: 'hidden lg:hidden',
+              center: 'flex-1 gap-3',
+              title: 'text-default flex-1 font-bold',
+              actions: 'gap-2',
+              right: 'flex-none lg:flex-none',
+            }"
+          >
+            <template #leading>
+              <div
+                class="bg-tint-20 dark:bg-tint-30 hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
               >
-                Inscription
-              </UButton>
-              <UButton
-                :to="getEventInfoUrl(event.type)"
-                size="sm"
-                color="neutral"
-                variant="ghost"
-                :leading-icon="getIcon(event.type)"
-                class="hidden cursor-pointer rounded-full sm:flex"
-              >
-                En savoir plus
-              </UButton>
+                <UIcon :name="getIcon(event.type)" class="text-activity size-4" />
+              </div>
+            </template>
+            <template #close>
               <UButton
                 :icon="appConfig.ui.icons.close"
                 color="neutral"
                 variant="ghost"
                 size="sm"
-                class="cursor-pointer rounded-full"
+                :aria-label="labels.banner.close"
                 @click="handleClose"
               />
-            </div>
-          </div>
-        </UContainer>
+            </template>
+          </UBanner>
+        </div>
       </div>
     </Transition>
   </ClientOnly>

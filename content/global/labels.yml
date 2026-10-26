@@ -1,0 +1,50 @@
+# Libellés des composants communs à plusieurs pages ; {nom} est remplacé par la valeur correspondante
+banner:
+  register: Inscription
+  registerIcon: tabler:arrow-narrow-right
+  info: En savoir plus
+  close: Fermer la bannière
+
+# Lien vers un réseau (pied de page, menu mobile)
+socialLink: '{name} Efrei Para'
+
+# Sections d'une page d'activité
+activity:
+  goTo: Aller à {label}
+  features: Pourquoi choisir {label} ?
+  steps: Comment ça se passe ?
+  requirements: Prérequis
+  partners: Nos partenaires
+  # Surtitres des sections (au-dessus des titres ci-dessus)
+  headlines:
+    features: Les points forts
+    steps: Le déroulé
+    requirements: Avant de t’inscrire
+    partners: Ils nous accompagnent
+  # Texte alternatif des photos du carrousel
+  photo: '{label}, photo {n}'
+
+helpCta:
+  github: Signaler sur GitHub
+
+legal:
+  # Surtitre de l’en-tête des pages légales
+  headline: Informations légales
+  # Titre du sommaire (colonne de droite, menu repliable sur téléphone)
+  toc: Sur cette page
+  updatedAt: 'Dernière mise à jour :'
+
+# Page d'erreur : titre et explication selon le code HTTP
+error:
+  home: Retour à l'accueil
+  report: Signaler l'erreur
+  messages:
+    '404':
+      title: Page introuvable
+      description: Cette page n’existe pas ou a changé d’adresse.
+    '500':
+      title: Une erreur est survenue
+      description: Le site a rencontré un problème. Tu peux nous le signaler pour qu’on le corrige.
+    default:
+      title: Erreur inattendue
+      description: Réessaie dans quelques instants ; si ça continue, signale-le-nous.

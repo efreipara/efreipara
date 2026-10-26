@@ -1,127 +1,108 @@
 <script setup lang="ts">
-  import { marked } from 'marked'
-  import DOMPurify from 'isomorphic-dompurify'
-
   const { data: faqData } = await useAsyncData('faq', () => queryCollection('faq').first())
-  const appConfig = useAppConfig()
 
-  const parseMarkdown = (text: string) => {
-    const html = marked(text, { breaks: true }) as string
-    return DOMPurify.sanitize(html)
-  }
+  const { getCategoryColor, getCategoryText } = useCategoryColor()
 
-  const { getCategoryColor } = useCategoryColor()
+  const categoriesData = computed(() =>
+    (faqData.value?.categories ?? []).map((category, catIndex) => ({
+      name: category.name,
+      color: category.color,
+      icon: category.icon,
+      questions: category.questions.map((question, i) => ({
+        label: question.question,
+        content: question.answer,
+        value: `${catIndex}-${i}`,
+        buttons: question.buttons,
+      })),
+    })),
+  )
 
-  const categoriesData = computed(() => {
-    if (!faqData.value?.categories) return []
-    return faqData.value.categories.map((category, catIndex) => {
-      return {
-        name: category.name,
-        color: (category as unknown as { color?: string }).color,
-        icon: category.questions[0]?.icon || appConfig.efreipara.icons.extras.question,
-        questions: category.questions.map((question, i) => ({
-          label: question.question,
-          content: question.answer,
-          icon: question.icon || appConfig.efreipara.icons.extras.question,
-          value: `${catIndex}-${i}`,
-          buttons: question.buttons,
-        })),
-      }
-    })
+  // Question ouverte : trait vertical de la couleur de la catégorie, déroulé depuis le haut
+  const accordionUi = (color?: string) => ({
+    root: 'border-accented border-t',
+    item: [
+      'border-accented relative last:border-b',
+      'before:absolute before:top-3 before:bottom-3 before:-left-3 before:w-[3px] before:origin-top before:scale-y-0 before:rounded-full lg:before:-left-5',
+      'before:transition-transform before:duration-300 before:ease-[cubic-bezier(0.23,1,0.32,1)] data-[state=open]:before:scale-y-100 motion-reduce:before:transition-none',
+      getCategoryColor(color).bar,
+    ],
+    trigger:
+      'text-highlighted cursor-pointer gap-4 py-4.5 text-base focus-visible:outline-inverted focus-visible:outline-2 focus-visible:outline-offset-2',
+    body: 'text-muted pb-5 text-base leading-relaxed sm:ps-12',
   })
-
-  const categoryId = (name: string) =>
-    name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/[^a-z0-9-]/g, '')
 </script>
 
 <template>
   <div>
     <SharedPageHero
-      :title="faqData?.title || 'Questions Fréquentes'"
+      :headline="faqData?.headline"
+      :title="faqData?.title"
       :description="faqData?.description"
-    />
-
-    <UContainer class="pb-16">
+    >
       <SharedCategoryChips :categories="categoriesData" />
+    </SharedPageHero>
 
-      <!-- Sections par catégorie -->
-      <div class="flex flex-col gap-10">
-        <template v-for="(category, catIndex) in categoriesData" :key="catIndex">
-          <section :id="categoryId(category.name)">
-            <!-- En-tête de catégorie -->
-            <div class="mb-4 flex items-center gap-4">
-              <div
-                class="flex size-12 shrink-0 items-center justify-center rounded-2xl"
-                :class="getCategoryColor(category.color).bg"
-              >
-                <UIcon
-                  :name="category.icon"
-                  class="size-6"
-                  :class="getCategoryColor(category.color).text"
-                />
-              </div>
-              <div class="min-w-0 flex-1">
-                <h2 class="font-title text-xl font-bold">{{ category.name }}</h2>
-              </div>
-              <UBadge color="neutral" variant="subtle" size="sm" class="shrink-0">
-                {{ category.questions.length }}
-                question{{ category.questions.length > 1 ? 's' : '' }}
-              </UBadge>
-            </div>
-
-            <!-- Accordéon des questions -->
-            <UCard variant="subtle">
-              <UAccordion
-                :items="category.questions"
-                type="single"
-                collapsible
-                :unmount-on-hide="false"
-                :ui="{
-                  trigger: 'text-base font-medium py-4 cursor-pointer gap-4',
-                  leadingIcon: getCategoryColor(category.color).text,
-                  body: 'text-muted pb-4',
-                  item: 'border-b border-neutral-200 dark:border-neutral-800 last:border-b-0',
-                }"
-              >
-                <template #body="{ item }">
-                  <div class="space-y-4">
-                    <div
-                      class="prose prose-sm dark:prose-invert max-w-none"
-                      v-html="parseMarkdown(item.content)"
-                    />
-                    <div v-if="item.buttons?.length" class="flex flex-wrap gap-2">
-                      <UButton
-                        v-for="(button, btnIndex) in item.buttons"
-                        :key="btnIndex"
-                        :to="button.to"
-                        :target="button.target"
-                        :icon="button.icon"
-                        :variant="
-                          (button.variant as
-                            'solid' | 'subtle' | 'outline' | 'ghost' | 'soft' | 'link') || 'solid'
-                        "
-                        color="neutral"
-                        size="sm"
-                        class="rounded-full"
-                      >
-                        {{ button.label }}
-                      </UButton>
-                    </div>
-                  </div>
-                </template>
-              </UAccordion>
-            </UCard>
-          </section>
-
-          <USeparator v-if="catIndex < categoriesData.length - 1" />
+    <!-- L'en-tête précède sur bande : la première catégorie ne l'est pas -->
+    <SharedCategorySection
+      v-for="(category, catIndex) in categoriesData"
+      :key="category.name"
+      :name="category.name"
+      :color="category.color"
+      :count="faqData?.count ? countLabel(category.questions.length, faqData.count) : ''"
+      :band="isBandSection(catIndex, false)"
+    >
+      <UAccordion
+        :items="category.questions"
+        type="single"
+        collapsible
+        :unmount-on-hide="false"
+        :ui="accordionUi(category.color)"
+      >
+        <template #leading="{ index }">
+          <span
+            aria-hidden="true"
+            class="font-title w-8 shrink-0 text-xl"
+            :class="getCategoryText(category.color)"
+          >
+            {{ String(index + 1).padStart(2, '0') }}
+          </span>
         </template>
-      </div>
+        <!-- + qui devient − : la barre verticale pivote à plat -->
+        <template #trailing>
+          <span
+            aria-hidden="true"
+            class="text-muted group-data-[state=open]:text-highlighted relative ms-auto size-3.5 shrink-0"
+          >
+            <span
+              class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-current"
+            />
+            <span
+              class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rotate-90 rounded-full bg-current transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-data-[state=open]:rotate-0 motion-reduce:transition-none"
+            />
+          </span>
+        </template>
+        <template #body="{ item }">
+          <div class="space-y-4">
+            <MDC :value="item.content" class="[&_p]:my-0 [&_p]:leading-[inherit] [&_p+p]:mt-3" />
+            <div v-if="item.buttons?.length" class="flex flex-wrap gap-x-5 gap-y-2">
+              <UButton
+                v-for="(button, btnIndex) in item.buttons"
+                :key="btnIndex"
+                :to="button.to"
+                :target="button.target"
+                :icon="button.icon"
+                variant="secondary"
+                size="sm"
+              >
+                {{ button.label }}
+              </UButton>
+            </div>
+          </div>
+        </template>
+      </UAccordion>
+    </SharedCategorySection>
 
+    <UContainer class="pb-12 sm:pb-16">
       <SharedHelpCta
         v-if="faqData?.helpcta"
         :title="faqData.helpcta.title"

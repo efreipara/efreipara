@@ -4,8 +4,6 @@ description: Politique de protection des données personnelles
 updatedAt: 2026-01-22
 ---
 
-# Politique de protection des données personnelles (RGPD)
-
 ## 1. Responsable de traitement
 
 Les données personnelles collectées via le site **Efrei Para** sont traitées par le club **Efrei Para**, en tant que responsable de traitement.
@@ -18,7 +16,7 @@ Contact → [voir la page de contact](/contact)
 
 ### 2.1 Données fournies via les formulaires
 
-Selon l’activité ou l’événement concerné, Efrei Para peut collecter les données suivantes via des formulaires en ligne (gérés via Google Forms) :
+Selon l’activité ou l’événement concerné, Efrei Para peut collecter les données suivantes via des formulaires en ligne (gérés via Google Forms) :
 
 - statut (étudiant, alumni, personnel de l’école, personne externe)
 - nom et prénom
@@ -41,7 +39,7 @@ Aucun cookie n’est utilisé et les données sont agrégées.
 
 ## 3. Finalités du traitement
 
-Les données sont utilisées pour :
+Les données sont utilisées pour :
 
 - répondre aux demandes de contact
 - gérer les listes d’intérêt, pré-inscriptions et inscriptions aux activités
@@ -54,7 +52,7 @@ Certaines données ne sont demandées que pour des événements spécifiques et 
 
 ## 4. Bases légales
 
-Les traitements reposent sur :
+Les traitements reposent sur :
 
 - le **consentement** (formulaires, listes d’intérêt, droit à l’image)
 - l’**intérêt légitime** du club (organisation des activités, statistiques anonymes)
@@ -78,7 +76,7 @@ Ce consentement peut être retiré à tout moment par simple demande écrite. Le
 
 ## 7. Destinataires des données
 
-Les données personnelles sont accessibles uniquement :
+Les données personnelles sont accessibles uniquement :
 
 - aux membres habilités du bureau Efrei Para
 - à l’administration technique du site
@@ -88,16 +86,16 @@ Les données ne sont jamais vendues ni cédées à des tiers à des fins commerc
 
 ## 8. Durées de conservation
 
-Sauf obligation légale spécifique :
+Sauf obligation légale spécifique :
 
-- demandes de contact : **3 ans**
-- listes d’intérêt / pré-inscriptions : **1 an après l’année scolaire concernée**
-- données liées aux événements : durée nécessaire à leur gestion
-- statistiques de fréquentation : durée limitée selon paramétrage
+- demandes de contact : **3 ans**
+- listes d’intérêt / pré-inscriptions : **1 an après l’année scolaire concernée**
+- données liées aux événements : durée nécessaire à leur gestion
+- statistiques de fréquentation : durée limitée selon paramétrage
 
 ## 9. Vos droits
 
-Vous disposez des droits suivants : accès, rectification, effacement, opposition, limitation et portabilité lorsque applicable.
+Vous disposez des droits suivants : accès, rectification, effacement, opposition, limitation et portabilité lorsque applicable.
 
 Pour exercer vos droits → [voir la page de contact](/contact)
 

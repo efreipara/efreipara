@@ -1,18 +1,50 @@
 title: Baptêmes en soufflerie
-description: Ressentez les sensations uniques de la chute libre en toute sécurité. Apprenez les bases du vol en soufflerie verticale avec des moniteurs diplômés.
+description: Ressens les sensations de la chute libre en toute sécurité. Apprends les bases du vol en soufflerie verticale avec des moniteurs diplômés.
 label: Soufflerie
 alt: Baptêmes en soufflerie avec Efrei Para
 imageCount: 6
+icon: activite:soufflerie
+
+# Menu de l'en-tête et pied de page
+menu:
+  label: Soufflerie
+  description: Chute libre en tunnel de vent
+
+# Carte de l'accueil
+card:
+  title: Baptêmes en soufflerie
+  description: >-
+    Vole dans le tunnel en toute sécurité. Idéal pour débuter, progresser
+    et s’amuser entre amis.
+
+# Section de la page /activites
+section:
+  title: Baptêmes en soufflerie
+  description: 'Vole sans parachute : la chute libre, version indoor.'
+  features:
+    - title: Sensations réelles
+      description: Le même flux d’air qu’en chute libre, sans altitude ni stress.
+      icon: tabler:wind
+    - title: Fun & accessible
+      description: Idéal pour une première approche ou pour s’amuser entre amis.
+      icon: tabler:mood-happy
+    - title: Progression rapide
+      description: En quelques vols, tu comprends la position, l’équilibre et la stabilité.
+      icon: tabler:target
+    - title: Parfait pour l’hiver
+      description: L’activité indoor qui prolonge la saison du parachutisme.
+      icon: tabler:snowflake
+  linkLabel: Découvrir le baptême en soufflerie
 
 features:
   - title: Sensations réelles
-    description: 180 km/h de flux d’air — exactement ce que ressent un parachutiste en chute libre, sans altitude ni stress.
+    description: '180 km/h de flux d’air : exactement ce que ressent un parachutiste en chute libre, sans altitude ni stress.'
     icon: tabler:wind
   - title: Fun & accessible
     description: Parfait pour une sortie entre amis ou une première approche du parachutisme, dès 5 ans.
     icon: tabler:mood-happy
   - title: Photos & vidéo incluses
-    description: Ton vol est filmé — photos et vidéo incluses pour revivre et partager l’expérience.
+    description: 'Ton vol est filmé : photos et vidéo incluses pour revivre et partager l’expérience.'
     icon: tabler:video
   - title: Parfait pour l’hiver
     description: L’activité indoor qui prolonge la saison du parachutisme toute l’année, quelle que soit la météo.
@@ -20,14 +52,14 @@ features:
 
 intro:
   - |-
-    La <b class="text-highlighted">soufflerie verticale</b>, c’est la chute libre version indoor : toutes les sensations, sans avion ni altitude.
+    La **soufflerie verticale**, c’est la chute libre version indoor : toutes les sensations, sans avion ni altitude.
   - |-
-    À <b class="text-highlighted">iFLY Paris</b> (Porte de la Villette), tu voles sur un flux d’air à 180 km/h, encadré par un moniteur diplômé. En quelques secondes, tu comprends ce que ressentent les parachutistes en chute libre.
+    À **iFLY Paris** (Porte de la Villette), tu voles sur un flux d’air à 180 km/h, avec un moniteur diplômé à tes côtés. En quelques secondes, tu comprends ce que ressentent les parachutistes en chute libre.
   - |-
-    Le tout se termine en <b class="text-highlighted">soirée conviviale</b> — snacks et boissons pour partager les sensations du vol avec les autres participants.
+    Le tout se termine en **soirée conviviale**, avec snacks et boissons pour partager les sensations du vol avec les autres participants.
 
 stats:
-  - value: '180km/h'
+  - value: '180 km/h'
     label: Vitesse du flux d’air
     icon: tabler:wind
   - value: '2 vols'
@@ -48,16 +80,16 @@ steps:
     description: Tu enfiles une combinaison, un casque et des protège-oreilles adaptés au tunnel de vent.
     icon: tabler:helmet
   - title: Briefing position
-    description: Le moniteur t’explique la position de base dans le couloir d’accès — corps arqué, bras et jambes tendus — avant d’entrer dans le tunnel.
+    description: Le moniteur t’explique la position de base dans le couloir d’accès (corps arqué, bras et jambes tendus) avant d’entrer dans le tunnel.
     icon: tabler:book
-  - title: 1er vol — vol classique
+  - title: '1er vol : vol classique'
     description: Tu entres dans le tunnel. Le moniteur est avec toi pour t’aider à trouver l’équilibre et la stabilité sur le flux d’air.
     icon: tabler:wind
-  - title: 2e vol — Fly Up
-    description: Montée verticale jusqu’en haut du tunnel avec le moniteur — une sensation unique de vol libre en hauteur.
+  - title: '2e vol : Fly Up'
+    description: 'Montée verticale jusqu’en haut du tunnel avec le moniteur : une sensation unique de vol libre en hauteur.'
     icon: tabler:arrow-up
   - title: Démonstration du moniteur
-    description: Le moniteur réalise une démonstration spectaculaire dans le tunnel — figures avancées, acrobaties — pour te montrer jusqu’où peut mener la pratique.
+    description: Le moniteur réalise une démonstration spectaculaire dans le tunnel (figures avancées, acrobaties) pour te montrer jusqu’où peut mener la pratique.
     icon: tabler:star
   - title: Débriefing
     description: Le moniteur commente ta session, tes progrès et tes axes d’amélioration.
@@ -70,7 +102,7 @@ requirements:
   - icon: tabler:user
     label: 5 ans minimum
   - icon: tabler:weight
-    label: Poids inférieur à 115 kg (105 kg si moins d'1m85)
+    label: Poids inférieur à 115 kg (105 kg si moins de 1,85 m)
   - icon: tabler:heart-rate-monitor
     label: Pas d’antécédents cardiaques, dorsaux ou cervicaux
   - icon: tabler:bone

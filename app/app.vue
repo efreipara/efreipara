@@ -17,11 +17,7 @@
     },
   })
 
-  // SEO automatique basé sur le chemin de la route
-  const seoKey = computed(() => {
-    const path = route.path === '/' ? 'index' : route.path.slice(1).replace(/\//g, '-')
-    return path
-  })
+  const seoKey = computed(() => seoKeyFromPath(route.path))
 
   useSeo(seoKey)
 </script>

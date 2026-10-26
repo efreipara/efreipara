@@ -1,22 +1,24 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
+  import type { ActivityType } from '~/utils/activities'
 
   defineProps<{
     activite: ActivityType
     steps: { title: string; description: string; icon: string }[]
+    band?: boolean
   }>()
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
+  const { labels } = await useLabels()
 </script>
 
 <template>
-  <UContainer class="overflow-x-hidden py-12">
-    <h2 class="font-title mb-8 text-2xl font-bold">Comment ça se passe ?</h2>
+  <SharedSection
+    :headline="labels.activity.headlines.steps"
+    headline-tone="text-activity-strong"
+    :title="labels.activity.steps"
+    :band="band"
+    :class="activityClass(activite)"
+    :ui="{ container: 'overflow-x-hidden' }"
+  >
     <UTimeline
       :items="steps.map((s, i) => ({ ...s, value: i }))"
       class="md:translate-x-[calc(50%-1rem)]"
@@ -27,15 +29,10 @@
       }"
     >
       <template #indicator="{ item }">
-        <div
-          class="flex size-8 items-center justify-center rounded-full"
-          :style="{
-            backgroundColor: `color-mix(in oklch, ${activityCssVar[activite]} 15%, transparent)`,
-          }"
-        >
-          <UIcon :name="item.icon" class="size-4" :style="{ color: activityCssVar[activite] }" />
+        <div class="bg-tint-15 flex size-8 items-center justify-center rounded-full">
+          <UIcon :name="item.icon" class="text-activity size-4" />
         </div>
       </template>
     </UTimeline>
-  </UContainer>
+  </SharedSection>
 </template>

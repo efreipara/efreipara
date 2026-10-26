@@ -1,6 +1,7 @@
 hero:
+  headline: Adhésion
   title: Rejoins Efrei Para
-  description: Que tu souhaites simplement participer à nos activités ou t’investir dans l’organisation, il y a une place pour toi !
+  description: Que tu souhaites simplement participer à nos activités ou t’investir dans l’organisation, il y a une place pour toi !
 
 alert:
   title: Prérequis important
@@ -9,34 +10,38 @@ alert:
 
 options:
   - title: Devenir membre
-    description: 'Tu veux devenir membre Efrei Para ? Cela te donnera accès à l’espace membre sur notre Discord et d’obtenir des points LXP !'
+    description: 'Tu veux devenir membre d’Efrei Para ? Tu auras accès à l’espace membre de notre Discord, et tu gagneras des points LXP !'
     icon: tabler:users-group
     link: https://forms.gle/1kAbhqg7K1HSAoE19
     linkText: Remplir le formulaire
-    color: text-efreipara-tandem
+    type: tandem
     slug: devenir-membre
     ogImage: /seo/devenir-membre.png
   - title: Rejoindre le bureau
-    description: 'Tu veux t’impliquer davantage ? Candidate pour rejoindre le bureau et participe activement à l’organisation du club.'
+    description: 'Tu veux t’impliquer davantage ? Candidate pour rejoindre le bureau et participe activement à l’organisation du club.'
     icon: tabler:crown
     link: https://forms.gle/Xz3DZBcAFBhqSkJ48
     linkText: Candidater
-    color: text-efreipara-oa
+    type: oa
     slug: rejoindre-bureau
     ogImage: /seo/rejoindre-bureau.png
 
+# Photo du CDN à côté des trois raisons
 why:
-  title: Pourquoi nous rejoindre ?
+  headline: La vie du club
+  image: tandem/tandem-8.jpg
+  alt: Membres d’Efrei Para en harnais sur l’herbe devant l’avion, hélice en marche, avec les moniteurs avant le saut
+  title: Pourquoi nous rejoindre ?
   features:
     - title: Activités uniques
       description: Sauts en parachute, soufflerie et formations
       icon: tabler:parachute
-      class: text-efreipara-tandem
+      type: tandem
     - title: Communauté passionnée
       description: Rencontre des personnes partageant ta passion
       icon: tabler:users
-      class: text-efreipara-oa
+      type: oa
     - title: Expériences inoubliables
       description: Crée des souvenirs qui durent toute une vie
       icon: tabler:star
-      class: text-efreipara-soufflerie
+      type: soufflerie

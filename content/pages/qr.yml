@@ -1,0 +1,9 @@
+alt: QR code Efrei Para
+home:
+  label: Retour à l’accueil
+  icon: efreipara:parachute
+fullscreen:
+  enterLabel: Plein écran
+  exitLabel: Quitter le plein écran
+  enterIcon: tabler:maximize
+  exitIcon: tabler:minimize

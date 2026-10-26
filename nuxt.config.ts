@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
+import pkg from './package.json'
+import { redirectRoutes } from './content.routes'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -22,15 +24,9 @@ export default defineNuxtConfig({
         },
       },
     },
-    // Optimisation des dépendances pour éviter les problèmes de compatibilité avec les modules externes
+    // Pré-bundlées en dev : sinon Vite les découvre au premier import et recharge la page
     optimizeDeps: {
-      include: [
-        '@plausible-analytics/tracker',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        'isomorphic-dompurify',
-        'marked',
-      ],
+      include: ['@plausible-analytics/tracker', '@vue/devtools-core', '@vue/devtools-kit'],
     },
   },
 
@@ -39,20 +35,19 @@ export default defineNuxtConfig({
     'rehype-target-blank': fileURLToPath(new URL('./rehype-target-blank.mjs', import.meta.url)),
   },
 
-  // Modules Nuxt : UI, analytics, fonts, icônes, images et gestion de contenu
   modules: [
     '@nuxt/ui',
     '@nuxtjs/plausible',
     '@nuxt/fonts',
     '@nuxt/icon',
-    '@nuxt/image',
     '@nuxt/content',
     '@nuxt/eslint',
   ],
   css: ['~/assets/css/main.css'],
 
-  // Icônes NuxtUI remplacées par leurs équivalents Tabler
+  // Version affichée dans le pied de page ; icônes NuxtUI remplacées par leurs équivalents Tabler
   appConfig: {
+    version: pkg.version,
     ui: {
       icons: {
         arrowDown: 'tabler:arrow-down',
@@ -102,7 +97,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // Variables d'environnement accessibles côté client
+  // Tout runtimeConfig.public est écrit dans le HTML : rien de secret (SECURITY.md)
   runtimeConfig: {
     public: {
       cdnUrl: process.env.CDN_URL || '',
@@ -111,8 +106,13 @@ export default defineNuxtConfig({
     },
   },
 
-  // Mode sombre par défaut pour l'identité visuelle du club
   app: {
+    head: {
+      link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: '16x16 24x24 32x32 48x48' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+    },
     pageTransition: {
       name: 'fade',
       mode: 'out-in',
@@ -123,7 +123,6 @@ export default defineNuxtConfig({
     storage: 'sessionStorage',
   },
 
-  // Polices hébergées localement pour de meilleures performances et confidentialité
   fonts: {
     defaults: {
       weights: ['100 900'],
@@ -131,7 +130,7 @@ export default defineNuxtConfig({
       subsets: ['latin'],
     },
     families: [
-      { name: 'Outfit', provider: 'local' },
+      { name: 'Outfit', provider: 'local', weights: ['100 900'] },
       { name: 'Racing Sans One', provider: 'local', weights: [400] },
       {
         name: 'Open Dyslexic',
@@ -145,9 +144,8 @@ export default defineNuxtConfig({
     },
   },
 
-  // Collections d'icônes personnalisées (Efrei Para, Efrei, Creative Commons, Logos partenaires)
   icon: {
-    // Toutes les icônes doivent donc être embarquées dans le bundle client au build.
+    // Aucune icône chargée à l'exécution : toutes sont embarquées au build
     fallbackToApi: false,
     clientBundle: {
       // Le scanner par défaut ne lit que les templates : ajouter les YAML de contenu,
@@ -176,27 +174,20 @@ export default defineNuxtConfig({
         prefix: 'ifly',
         dir: './app/assets/icons/ifly',
       },
+      {
+        prefix: 'activite',
+        dir: './app/assets/icons/activite',
+      },
     ],
   },
 
-  // Configuration CDN pour les images (CDN Cloudflare)
-  image: {
-    domains: [process.env.CDN_URL?.replace('https://', '') || ''],
-    alias: {
-      cdn: process.env.CDN_URL || '',
-    },
-  },
-
-  // Plausible Analytics : analytique respectueuse de la vie privée
   plausible: {
     enabled: true,
     apiHost: process.env.PLAUSIBLE_URL || '',
     domain: process.env.PLAUSIBLE_DOMAIN || '',
-    //ignoredHostnames: ['localhost'],
     autoOutboundTracking: true,
   },
 
-  // Configuration Nuxt Content avec plugin rehype pour ouvrir les liens externes dans un nouvel onglet
   content: {
     database: {
       type: 'libsql',
@@ -217,12 +208,17 @@ export default defineNuxtConfig({
     },
   },
 
-  // Configuration Nitro : ne pas échouer si une page ne peut pas être pré-rendue
+  // Ancienne page À propos, retirée : l'adresse publique mène à l'accueil
+  routeRules: {
+    '/about': { redirect: '/' },
+  },
+
+  // Une page en erreur est absente de la sortie sans faire échouer le build : relire le journal
   nitro: {
     prerender: {
       failOnError: false,
-      // Routes sans lien entrant : le crawler ne les trouve pas seul.
-      routes: ['/devenir-membre', '/discord', '/instagram', '/rejoindre-bureau'],
+      // Redirections, sans lien entrant : le crawler ne les trouve pas seul.
+      routes: [...redirectRoutes(), '/about'],
     },
   },
 })

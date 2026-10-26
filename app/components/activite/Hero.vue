@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import type { ActivityType } from '~/composables/useActivities'
+  import type { ActivityType } from '~/utils/activities'
 
   const props = defineProps<{
     activite: ActivityType
@@ -9,83 +9,62 @@
     alt: string
   }>()
 
-  const { getIcon } = useEventIcon()
+  const { getIcon, byKey } = await useActivities()
   const { buildCdnUrl } = useCdnAsset()
+  const { labels } = await useLabels()
+  const appConfig = useAppConfig()
 
   const icon = getIcon(props.activite)
   const imageUrl = buildCdnUrl(`${props.activite}.jpg`)
 
-  const activityCssVar: Record<ActivityType, string> = {
-    oa: 'var(--color-efreipara-oa)',
-    tandem: 'var(--color-efreipara-tandem)',
-    soufflerie: 'var(--color-efreipara-soufflerie)',
-    pac: 'var(--color-efreipara-pac)',
-  }
+  const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)
 
-  const iconStyle = computed(() => ({
-    color: activityCssVar[props.activite],
-  }))
-  const bgStyle = computed(() => ({
-    backgroundColor: `color-mix(in oklch, ${activityCssVar[props.activite]} 12%, transparent)`,
-  }))
-
-  const activities = Object.keys(activityCssVar) as ActivityType[]
-  const currentIndex = activities.indexOf(props.activite)
-  const prevActivity = activities[(currentIndex - 1 + activities.length) % activities.length]
-  const nextActivity = activities[(currentIndex + 1) % activities.length]
-
-  const [{ data: prevPage }, { data: nextPage }] = await Promise.all([
-    useAsyncData(`${prevActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `pages/activites/${prevActivity}`).first(),
-    ),
-    useAsyncData(`${nextActivity}-nav`, () =>
-      queryCollection('activites').where('stem', '=', `pages/activites/${nextActivity}`).first(),
-    ),
-  ])
+  const prevPage = computed(() => byKey(prevActivity))
+  const nextPage = computed(() => byKey(nextActivity))
 </script>
 
 <template>
-  <div class="relative overflow-hidden">
+  <div class="relative overflow-hidden" :class="activityClass(activite)">
     <img
       :src="imageUrl"
+      alt=""
       aria-hidden="true"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-20 blur-sm dark:opacity-15"
     />
 
     <NuxtLink
       :to="`/activites/${prevActivity}`"
-      :aria-label="`Aller à ${prevPage?.label}`"
+      :aria-label="fillLabel(labels.activity.goTo, { label: prevPage?.label ?? '' })"
       class="absolute top-2 bottom-0 left-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-r-lg transition-colors hover:bg-black/5 2xl:flex dark:hover:bg-white/5"
     >
-      <UIcon name="tabler:chevron-left" class="size-6 text-gray-400" />
-      <span class="text-xs text-gray-400">{{ prevPage?.label }}</span>
+      <UIcon :name="appConfig.ui.icons.chevronLeft" class="text-dimmed size-6" />
+      <span class="text-dimmed text-xs">{{ prevPage?.label }}</span>
     </NuxtLink>
     <NuxtLink
       :to="`/activites/${nextActivity}`"
-      :aria-label="`Aller à ${nextPage?.label}`"
+      :aria-label="fillLabel(labels.activity.goTo, { label: nextPage?.label ?? '' })"
       class="absolute top-2 right-0 bottom-0 z-10 hidden w-18 flex-col items-center justify-center gap-2 rounded-l-lg transition-colors hover:bg-black/5 2xl:flex dark:hover:bg-white/5"
     >
-      <UIcon name="tabler:chevron-right" class="size-6 text-gray-400" />
-      <span class="text-xs text-gray-400">{{ nextPage?.label }}</span>
+      <UIcon :name="appConfig.ui.icons.chevronRight" class="text-dimmed size-6" />
+      <span class="text-dimmed text-xs">{{ nextPage?.label }}</span>
     </NuxtLink>
 
     <UContainer class="relative">
       <UPageHero orientation="horizontal" :ui="{ title: 'font-title' }">
         <template #headline>
           <div
-            class="hero-slide-up inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
-            :style="{ ...bgStyle, ...iconStyle }"
-            style="animation-delay: 0.4s"
+            class="hero-slide-up bg-tint-12 text-activity-strong inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold"
+            style="animation-delay: 0.2s"
           >
             <UIcon :name="icon" class="size-3.5" />
             {{ label }}
           </div>
         </template>
         <template #title>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.1s">{{ title }}</span>
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.05s">{{ title }}</span>
         </template>
         <template #description>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.25s">
+          <span class="hero-slide-up inline-block" style="animation-delay: 0.12s">
             {{ description }}
           </span>
         </template>
