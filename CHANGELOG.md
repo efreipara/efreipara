@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.15.0 — 27 octobre 2026
+
+### Ajouts
+
+- Version texte du site pour les assistants d'IA (ChatGPT, Claude, Perplexity…) à l'adresse `/llms.txt` : le club, les activités en détail, l'adhésion, la FAQ, les documents et le contact en un seul fichier, sans l'interface, refait à chaque publication à partir du contenu.
+
 ## 1.14.5 — 26 octobre 2026
 
 ### Corrections

@@ -125,6 +125,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - Modifier le fichier YAML ou Markdown, respecter l'indentation (deux espaces) et mettre entre guillemets un texte qui contient `:` suivi d'un espace ou commence par un caractère spécial.
 - Les apostrophes typographiques (`’`) sont la norme dans les textes.
 - Vérifier le rendu avec `bun dev`, puis lancer `bun run test` (voir ci-dessous).
+- `/llms.txt` (version texte pour les agents d'IA) se refait à chaque publication à partir des mêmes fichiers : rien à modifier à part. Il reprend les titres et textes des pages, pas les libellés d'interface (boutons, icônes, textes pour lecteurs d'écran).
 
 ## Vérifier le contenu
 
@@ -134,6 +135,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
 - chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
 - chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;
-- chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma.
+- chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma ;
+- `/llms.txt`, construit à partir du contenu, n'a pas de valeur manquante et ses liens internes mènent à des pages.
 
 Le message d’échec donne le fichier et le chemin du champ en cause.
