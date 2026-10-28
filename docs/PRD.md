@@ -96,7 +96,7 @@ Albums photo des événements, hébergés sur des sites externes (principalement
 - **Filtres** : « Tout voir » et une pastille par type d'activité présent ; la pastille active prend la couleur de l'activité, un second clic revient à « Tout voir ». Un compteur (« 7 albums », dans la teinte de l'activité filtrée, annoncé aux lecteurs d'écran) suit le filtre ; au changement, les albums glissent vers leur nouvelle place et la carte mise en avant se redimensionne (immédiat avec « réduire les animations »).
 - Albums triés du plus récent au plus ancien. Sans filtre et à partir de trois albums, le premier est mis en avant (deux colonnes sur deux lignes en `lg`).
 - **Carte** : photo de couverture, badge du type, titre, date (« 6 mars 2026 »), lieu, « Voir l'album sur {source} ». Un clic ouvre l'album dans un nouvel onglet.
-- **Photo** : celle de l'album si elle se charge, sinon une photo de repli du CDN ; un squelette s'affiche jusqu'au chargement ou à l'échec définitif.
+- **Photo** : photo de l'album sur le CDN ; un squelette s'affiche jusqu'au chargement ou à l'échec définitif. La photo de la carte mise en avant est chargée en priorité, les autres au défilement.
 
 ### Documents — `/documents`
 

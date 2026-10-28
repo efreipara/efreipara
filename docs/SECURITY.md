@@ -33,7 +33,7 @@
 
 Tous les en-têtes sont dans [`nginx/security-headers.conf.template`](../nginx/security-headers.conf.template), ré-inclus dans chaque `location` qui pose un en-tête ([ARCHITECTURE.md](ARCHITECTURE.md#nginx)) :
 
-- `Content-Security-Policy` : `default-src 'self'` ; scripts et styles `'self' 'unsafe-inline'` (payload en ligne de Nuxt) ; images `'self' data: ${CDN_URL} https://efreipicturestudio.fr` ; médias `'self' ${CDN_URL}` ; connexions `'self' ${PLAUSIBLE_URL}` ; polices `'self' data:` ; `object-src 'none'`, `frame-ancestors 'self'`, `base-uri 'self'`, `form-action 'self'`.
+- `Content-Security-Policy` : `default-src 'self'` ; scripts et styles `'self' 'unsafe-inline'` (payload en ligne de Nuxt) ; images `'self' data: ${CDN_URL} https://efreipicturestudio.fr` (couvertures d'albums, désactivées dans `SharedAlbumCard` tant que leur API répond `Cross-Origin-Resource-Policy: same-origin` ; origine gardée pour les rétablir) ; médias `'self' ${CDN_URL}` ; connexions `'self' ${PLAUSIBLE_URL}` ; polices `'self' data:` ; `object-src 'none'`, `frame-ancestors 'self'`, `base-uri 'self'`, `form-action 'self'`.
 - `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (capteurs, caméra, micro, géolocalisation, paiement, USB coupés), `Strict-Transport-Security: max-age=31536000` (sans `includeSubDomains` ni `preload`).
 
 Règles :

@@ -13,22 +13,26 @@
   const { buildCdnUrl } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  // `photo` en priorité ; repli sur le CDN (<type>/<date>.jpg) si absente ou en erreur
-  const failed = ref(false)
   // Chargée ou définitivement en échec : le squelette disparaît
   const settled = ref(false)
-  const fallback = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
-  const src = computed(() =>
-    props.item.photo && !failed.value ? props.item.photo : fallback.value || props.item.photo,
-  )
 
-  const onError = () => {
-    if (props.item.photo && !failed.value) {
-      failed.value = true
-      if (fallback.value) return
-    }
-    settled.value = true
-  }
+  // Couvertures d'Efrei Picture Studio (`photo`) bloquées par leur en-tête
+  // Cross-Origin-Resource-Policy: same-origin : photo du CDN (<type>/<date>.jpg) seule.
+  // S'ils l'ouvrent (cross-origin), rétablir ce bloc à la place des deux lignes suivantes.
+  // const failed = ref(false)
+  // const fallback = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
+  // const src = computed(() =>
+  //   props.item.photo && !failed.value ? props.item.photo : fallback.value || props.item.photo,
+  // )
+  // const onError = () => {
+  //   if (props.item.photo && !failed.value) {
+  //     failed.value = true
+  //     if (fallback.value) return
+  //   }
+  //   settled.value = true
+  // }
+  const src = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
+  const onError = () => (settled.value = true)
 
   // Un chargement ou une erreur survenus avant l'hydratation ne sont pas captés par @load/@error
   const checkPhoto = (el: unknown) => {
@@ -62,6 +66,8 @@
         alt=""
         class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
         :class="settled ? 'opacity-100' : 'opacity-0'"
+        :loading="featured ? 'eager' : 'lazy'"
+        :fetchpriority="featured ? 'high' : undefined"
         @load="settled = true"
         @error="onError"
       />
