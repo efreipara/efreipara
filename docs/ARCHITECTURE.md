@@ -40,7 +40,7 @@ app/
 ├── assets/
 │   ├── css/main.css  # Tailwind + Nuxt UI, palette navy, couleurs, utilitaires, accessibilité
 │   ├── icons/        # collections d'icônes maison (efreipara, efrei, ifly, creativecommons, activite)
-│   └── images/       # avion.svg, qr.svg, main-hero.jpg (affiche de la vidéo)
+│   └── images/       # avion.svg, qr.svg, main-hero.webp (affiche de la vidéo)
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)

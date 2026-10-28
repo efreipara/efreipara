@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import poster from '~/assets/images/main-hero.webp'
+
   defineProps<{
     links: { label: string; to: string; icon: string; variant?: 'primary' | 'secondary' }[]
     scrollIcon: string
@@ -12,16 +14,28 @@
   const description = computed(() => seo.value?.pages['index']?.description)
   const siteName = computed(() => seo.value?.defaults.siteName)
 
-  // Pas d'attribut autoplay : la lecture attend le montage, pour respecter « réduire les animations »
+  // Affiche = image LCP de l'accueil
+  useHead({ link: [{ rel: 'preload', as: 'image', href: poster, fetchpriority: 'high' }] })
+
+  // Pas d'attribut autoplay : la lecture attend le montage, pour respecter « réduire les animations »,
+  // puis la fin du chargement, pour que la vidéo ne concurrence pas l'affichage de la page
   const videoEl = useTemplateRef<HTMLVideoElement>('heroVideo')
   const playing = ref(false)
 
   const play = () => videoEl.value?.play().catch(() => (playing.value = false))
   const togglePlay = () => (playing.value ? videoEl.value?.pause() : play())
 
+  const playWhenIdle = () =>
+    'requestIdleCallback' in window
+      ? requestIdleCallback(play, { timeout: 2000 })
+      : setTimeout(play)
+
   onMounted(() => {
-    if (!prefersReducedMotion()) play()
+    if (prefersReducedMotion()) return
+    if (document.readyState === 'complete') playWhenIdle()
+    else window.addEventListener('load', playWhenIdle, { once: true })
   })
+  onBeforeUnmount(() => window.removeEventListener('load', playWhenIdle))
 </script>
 
 <template>
@@ -35,8 +49,9 @@
         loop
         muted
         playsinline
+        preload="none"
         class="absolute inset-0 h-full w-full object-cover"
-        poster="~/assets/images/main-hero.jpg"
+        :poster="poster"
         @play="playing = true"
         @pause="playing = false"
       >

@@ -90,16 +90,16 @@ Le nom doit être écrit en entier dans le YAML : c'est ce qui permet au scan de
 
 Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adresse sur le CDN (`buildCdnUrl`) à partir de conventions de nommage :
 
-| Fichier sur le CDN              | Utilisé pour                                                                 |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| `main-hero.mp4`                 | vidéo du hero d'accueil (affiche locale : `app/assets/images/main-hero.jpg`) |
-| `<activité>.jpg`                | hero d'une activité, section de `/activites`                                 |
-| `<activité>/<activité>-<n>.jpg` | carrousel, `n` de 1 à `imageCount`                                           |
-| `<slug>.jpg`                    | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)                |
-| valeur de `cta.image`           | photo de l'appel à l'action                                                  |
-| valeur de `home.why.image`      | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil                      |
-| valeur de `rejoindre.why.image` | photo à côté de « Pourquoi nous rejoindre ? »                                |
-| `<type>/<date>.jpg`             | photo de repli d'un album de la galerie                                      |
+| Fichier sur le CDN              | Utilisé pour                                                                  |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `main-hero.mp4`                 | vidéo du hero d'accueil (affiche locale : `app/assets/images/main-hero.webp`) |
+| `<activité>.jpg`                | hero d'une activité, section de `/activites`                                  |
+| `<activité>/<activité>-<n>.jpg` | carrousel, `n` de 1 à `imageCount`                                            |
+| `<slug>.jpg`                    | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)                 |
+| valeur de `cta.image`           | photo de l'appel à l'action                                                   |
+| valeur de `home.why.image`      | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil                       |
+| valeur de `rejoindre.why.image` | photo à côté de « Pourquoi nous rejoindre ? »                                 |
+| `<type>/<date>.jpg`             | photo de repli d'un album de la galerie                                       |
 
 Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référencées par `seo.yml`), les logos partenaires sans icône (`public/partners/`), le QR code et l'avion (`app/assets/images/`).
 
