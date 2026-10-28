@@ -2,6 +2,18 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.15.1 — 28 octobre 2026
+
+### Modifications
+
+- Pages plus rapides à s'afficher, surtout sur téléphone : la vidéo de l'accueil démarre une fois la page chargée (son image d'attente, plus légère, s'affiche d'abord), la photo du haut de chaque page est chargée en premier et les photos plus bas (carrousels, partenaires, « Prêt à prendre de la hauteur ? ») seulement à l'approche.
+- Pages d'activité : le contenu ne saute plus vers le bas quand la photo du haut finit de charger.
+
+### Corrections
+
+- Galerie et derniers albums de l'accueil : la photo de chaque album s'affiche directement, sans tentative ratée sur le site d'Efrei Picture Studio (qui bloque l'affichage de ses miniatures ailleurs que chez lui).
+- Accessibilité : sur la galerie et sur « Nous rejoindre », les titres des cartes suivent maintenant l'ordre des niveaux de titre (lecteurs d'écran, navigation par titres).
+
 ## 1.15.0 — 27 octobre 2026
 
 ### Ajouts

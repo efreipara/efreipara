@@ -7,6 +7,8 @@
     featured?: boolean
     labels: { link: string; linkSource: string }
     icons: { date: string; location: string }
+    /** Niveau du titre : h2 quand aucun titre de section ne précède les cartes */
+    heading?: 'h2' | 'h3'
   }>()
 
   const { getIcon, getGalleryLabel } = await useActivities()
@@ -64,10 +66,10 @@
         :ref="checkPhoto"
         :src="src"
         alt=""
-        class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
-        :class="settled ? 'opacity-100' : 'opacity-0'"
         :loading="featured ? 'eager' : 'lazy'"
         :fetchpriority="featured ? 'high' : undefined"
+        class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
+        :class="settled ? 'opacity-100' : 'opacity-0'"
         @load="settled = true"
         @error="onError"
       />
@@ -87,12 +89,13 @@
     <div
       class="absolute right-0 bottom-0 left-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
     >
-      <h3
+      <component
+        :is="heading ?? 'h3'"
         class="font-title mb-1.5 leading-tight font-bold"
         :class="featured ? 'lg:text-xl' : 'text-base'"
       >
         {{ item.title }}
-      </h3>
+      </component>
       <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
         <span class="flex items-center gap-1">
           <UIcon :name="icons.date" class="size-3" />

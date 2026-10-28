@@ -75,10 +75,10 @@
             />
           </template>
           <template #body>
-            <h3 class="font-title text-highlighted mb-3 flex items-center gap-2.5 text-2xl">
+            <h2 class="font-title text-highlighted mb-3 flex items-center gap-2.5 text-2xl">
               <UIcon :name="option.icon" class="text-activity size-6 shrink-0" />
               {{ option.title }}
-            </h3>
+            </h2>
             <p class="text-muted mb-8 flex-1">{{ option.description }}</p>
             <div class="text-activity-strong flex items-center gap-1.5 font-semibold">
               <span>{{ option.linkText }}</span>
