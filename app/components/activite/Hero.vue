@@ -29,6 +29,7 @@
       :src="imageUrl"
       alt=""
       aria-hidden="true"
+      fetchpriority="high"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-20 blur-sm dark:opacity-15"
     />
 
@@ -68,7 +69,12 @@
             {{ description }}
           </span>
         </template>
-        <img :src="imageUrl" :alt="alt" class="w-full rounded-2xl" />
+        <img
+          :src="imageUrl"
+          :alt="alt"
+          fetchpriority="high"
+          class="aspect-square w-full rounded-2xl object-cover"
+        />
       </UPageHero>
     </UContainer>
   </div>

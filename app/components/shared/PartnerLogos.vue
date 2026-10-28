@@ -27,6 +27,7 @@
           v-else-if="partner.logo"
           :src="partner.logo"
           alt=""
+          loading="lazy"
           class="no-contrast h-full w-full object-contain"
         />
         <span v-else class="text-sm font-medium text-gray-700">{{ partner.name }}</span>

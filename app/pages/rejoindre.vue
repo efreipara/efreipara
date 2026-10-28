@@ -70,6 +70,7 @@
             <img
               :src="buildCdnUrl(`${option.slug}.jpg`)"
               alt=""
+              fetchpriority="high"
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </template>

@@ -39,7 +39,8 @@
       <img
         :src="buildCdnUrl(cta?.image ?? '')"
         :alt="cta?.alt"
-        class="relative z-10 w-full rounded-lg"
+        loading="lazy"
+        class="relative z-10 aspect-5/3 w-full rounded-lg object-cover"
       />
     </UPageCTA>
   </UPageSection>

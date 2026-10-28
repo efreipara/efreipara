@@ -73,6 +73,8 @@
       <img
         :src="buildCdnUrl(`${section.key}.jpg`)"
         :alt="section.alt"
+        :loading="i === 0 ? 'eager' : 'lazy'"
+        :fetchpriority="i === 0 ? 'high' : undefined"
         class="aspect-4/3 w-full rounded-2xl object-cover"
       />
     </SharedSection>

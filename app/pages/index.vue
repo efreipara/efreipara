@@ -74,6 +74,8 @@
       <img
         src="~/assets/images/avion.svg"
         alt=""
+        width="428"
+        height="151"
         aria-hidden="true"
         class="hidden w-full max-w-md justify-self-end opacity-90 lg:block dark:opacity-80"
       />

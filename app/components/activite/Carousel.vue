@@ -57,6 +57,7 @@
           :alt="fillLabel(labels.activity.photo, { label, n: item.index })"
           width="500"
           height="400"
+          loading="lazy"
           class="aspect-5/4 w-full rounded-lg object-cover"
           @error="onError(item.url)"
         />
