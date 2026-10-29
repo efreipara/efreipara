@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.16.1 — 29 octobre 2026
+
+### Corrections
+
+- Pied de page : la mention « tous droits réservés » vise désormais les photos, vidéos et logos du club ; les logos des partenaires sont indiqués comme appartenant à leurs titulaires.
+
 ## 1.16.0 — 29 octobre 2026
 
 ### Ajouts
