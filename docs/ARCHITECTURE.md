@@ -44,6 +44,7 @@ app/
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)
+├── plugins/          # media-guard.client.ts : ni menu contextuel ni glisser sur img / video / picture
 └── utils/            # fonctions pures, sans Nuxt, testées par Vitest
 server/routes/        # llms.txt.ts : version Markdown du site, prérendue
 content/

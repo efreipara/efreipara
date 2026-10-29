@@ -23,7 +23,9 @@
           <SharedHeadline as="h2" :icon="page?.email.icon" class="mb-4">
             {{ page?.email.title }}
           </SharedHeadline>
-          <p class="font-title text-highlighted text-xl break-all sm:text-2xl">{{ club.email }}</p>
+          <p class="font-title text-highlighted text-xl break-all select-text sm:text-2xl">
+            {{ club.email }}
+          </p>
           <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.email.description }}</p>
           <UButton
             :to="`mailto:${club.email}`"
@@ -65,7 +67,7 @@
           <SharedHeadline as="h2" :icon="page?.address.icon" class="mb-4">
             {{ page?.address.title }}
           </SharedHeadline>
-          <p class="font-title text-highlighted text-xl">{{ club.address }}</p>
+          <p class="font-title text-highlighted text-xl select-text">{{ club.address }}</p>
           <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.address.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton

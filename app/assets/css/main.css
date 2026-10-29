@@ -158,6 +158,38 @@
   background-color: var(--activity, var(--ui-primary));
 }
 
+/* Comportement d'application : texte non sélectionnable sauf `select-text`, pas de flash à
+   l'appui, pas de zoom au double appui (le pincement reste), médias sans menu ni glisser */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  img,
+  video {
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Image dans un lien : le clic droit et l'appui long visent le lien (copier l'adresse) */
+  a img {
+    pointer-events: none;
+  }
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 150ms ease;

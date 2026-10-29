@@ -83,7 +83,10 @@
         </template>
         <template #body="{ item }">
           <div class="space-y-4">
-            <MDC :value="item.content" class="[&_p]:my-0 [&_p]:leading-[inherit] [&_p+p]:mt-3" />
+            <MDC
+              :value="item.content"
+              class="select-text [&_p]:my-0 [&_p]:leading-[inherit] [&_p+p]:mt-3"
+            />
             <div v-if="item.buttons?.length" class="flex flex-wrap gap-x-5 gap-y-2">
               <UButton
                 v-for="(button, btnIndex) in item.buttons"

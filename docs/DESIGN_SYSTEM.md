@@ -129,6 +129,12 @@ Chaque bouton a un **rôle**, porté par une variante de `UButton` définie dans
 - Tout élément pressable s'enfonce légèrement à l'appui : `active:scale-[0.97]` pour les boutons (réglé pour tous les `UButton` dans `app.config.ts`, `ui.button.slots.base`) et pour le logo et les liens du menu de l'en-tête (`ui.title` de `UHeader`, `ui.link` de `UNavigationMenu`), `active:scale-[0.98]` pour les cartes et les éléments larges (`ui.root` des `UPageCard`, albums de la galerie, tuiles du sous-menu « Nos activités », lignes du menu mobile). Associer `transition` (et non `transition-colors`) pour que l'enfoncement soit animé.
 - Transition de 150 à 200 ms qui inclut `scale` (`transition`, ou `transition-transform` sur un lien simple). Les effets de survol Tailwind ne s'appliquent qu'aux appareils à pointeur : rien ne reste bloqué après un appui sur mobile.
 
+### Sélection et médias
+
+- Le texte n'est pas sélectionnable (`user-select: none` sur `body`, `main.css`) ; un texte qu'on recopie (coordonnées, réponse, texte juridique) porte `select-text`. Les champs de saisie restent sélectionnables.
+- Photos et vidéo : ni menu à l'appui long (`-webkit-touch-callout`), ni glisser, ni menu contextuel (plugin `media-guard.client.ts`). Une image dans un lien ne reçoit pas le pointeur (`a img`) : clic droit et appui long ouvrent le menu du lien. Aucun attribut à ajouter sur une nouvelle `<img>`.
+- Le pincement pour zoomer n'est jamais bloqué (`touch-action: manipulation` ne retire que le double appui).
+
 ### Liens et survol
 
 - Lien interne vers une autre page : flèche `arrowRight` qui glisse de `0.5` au survol (`group-hover:translate-x-0.5`).

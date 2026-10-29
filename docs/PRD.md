@@ -57,6 +57,7 @@ En bas de l'accueil, de la page des activités, de chaque activité, de la galer
 - **Menu d'accessibilité** (icône dans l'en-tête, pleine quand une option est active) : cases « Police dyslexique » (Open Dyslexic partout, titres compris) et « Contraste élevé » (contraste renforcé, photos et vidéos épargnées). Les choix sont gardés sur l'appareil.
 - **Clair / sombre** : bouton dans l'en-tête, avec une transition en cercle depuis le bouton quand le navigateur le permet. Par défaut, le thème du système ; un choix manuel vaut pour la session du navigateur.
 - Changement de page en fondu.
+- **Comportement d'application** : le texte n'est pas sélectionnable, sauf ce qu'on recopie (e-mail et adresse de la page Contact, réponses de la FAQ, pages légales). Photos et vidéo ne se glissent pas et n'ouvrent pas de menu au clic droit ni à l'appui long ; sur une carte cliquable (album de la galerie, logo de partenaire, document…), ce menu est celui du lien, pour en copier l'adresse ; la vidéo d'accueil n'a ni image dans l'image ni diffusion. Pas de surbrillance à l'appui ni de zoom au double appui ; le zoom à deux doigts reste possible.
 
 ## 3. Pages
 

@@ -40,12 +40,15 @@
       <!-- Texte sur 7 colonnes, sommaire collant sur 3 ; sur téléphone, sommaire repliable au-dessus -->
       <UPage :ui="{ center: 'lg:col-span-7', right: 'lg:col-span-3' }">
         <div
-          class="legal-content [&_h2]:outline-none [&_h2:first-child]:mt-0 [&_h3]:outline-none"
+          class="legal-content select-text [&_h2]:outline-none [&_h2:first-child]:mt-0 [&_h3]:outline-none"
           @click.capture="onAnchorClick"
         >
           <ContentRenderer :value="page" />
         </div>
-        <div v-if="page.updatedAt" class="border-default text-muted mt-12 border-t pt-6 text-sm">
+        <div
+          v-if="page.updatedAt"
+          class="border-default text-muted mt-12 border-t pt-6 text-sm select-text"
+        >
           {{ labels.legal.updatedAt }}
           {{
             new Date(page.updatedAt).toLocaleDateString('fr-FR', {

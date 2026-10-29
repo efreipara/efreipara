@@ -2,6 +2,14 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.16.0 — 29 octobre 2026
+
+### Ajouts
+
+- Le site se comporte davantage comme une application : le texte ne se sélectionne plus par erreur en touchant ou en faisant glisser, et l'appui ne fait plus clignoter les boutons sur téléphone. Ce qu'on peut vouloir recopier le reste : e-mail et adresse de la page Contact, réponses de la FAQ et pages légales.
+- Photos et vidéo ne s'enregistrent plus d'un simple clic droit, appui long ou glisser-déposer. Sur une carte cliquable (album de la galerie, logo de partenaire, document…), le clic droit ou l'appui long ouvre le menu du lien, pour copier son adresse.
+- Le double appui ne zoome plus par accident ; le zoom à deux doigts reste disponible.
+
 ## 1.15.2 — 29 octobre 2026
 
 ### Modifications
