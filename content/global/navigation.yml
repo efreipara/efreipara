@@ -61,7 +61,8 @@ footer:
     label: 'Contenus :'
     license: CC BY-NC 4.0 (sauf mention contraire)
     url: https://creativecommons.org/licenses/by-nc/4.0/
-  media: 'Photos, vidéos & logos du club : Tous droits réservés / All rights reserved. Logos des partenaires : propriété de leurs titulaires.'
+  media: 'Photos, vidéos & logos du club : Tous droits réservés / All rights reserved.'
+  partnerLogos: 'Logos des partenaires : propriété de leurs titulaires.'
   school:
     label: Efrei
     url: https://www.efrei.fr

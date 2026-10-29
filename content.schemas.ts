@@ -473,6 +473,7 @@ export const collections = {
         }),
         content: z.object({ label: z.string(), license: z.string(), url: z.string().url() }),
         media: z.string(),
+        partnerLogos: z.string(),
         school: z.object({ label: z.string(), url: z.string().url() }),
       }),
       menuButton: z.object({ open: z.string(), close: z.string() }),

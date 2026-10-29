@@ -77,6 +77,9 @@
         <p class="text-muted text-sm">
           {{ footerTitles.media }}
         </p>
+        <p class="text-muted text-sm">
+          {{ footerTitles.partnerLogos }}
+        </p>
       </div>
     </template>
 
