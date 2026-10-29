@@ -53,6 +53,8 @@
         loop
         muted
         playsinline
+        disablepictureinpicture
+        disableremoteplayback
         preload="none"
         class="absolute inset-0 h-full w-full object-cover"
         :poster="poster"

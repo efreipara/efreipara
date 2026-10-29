@@ -323,3 +323,54 @@ test.describe('boutons', () => {
     expect(offset).toBeLessThanOrEqual(1)
   })
 })
+
+test.describe('comportement d’application', () => {
+  const userSelect = (locator: ReturnType<Page['locator']>) =>
+    locator.evaluate((el) => getComputedStyle(el).userSelect)
+
+  // Événement annulable, comme le clic droit ou l'appui long : true si le site l'a bloqué
+  const contextMenuBlocked = (locator: ReturnType<Page['locator']>) =>
+    locator.evaluate(
+      (el) => !el.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true })),
+    )
+
+  test('le texte n’est pas sélectionnable par défaut', async ({ page }) => {
+    await gotoReady(page, '/')
+    expect(await userSelect(page.locator('body'))).toBe('none')
+  })
+
+  test('l’e-mail et l’adresse du club restent copiables', async ({ page }) => {
+    const { email, address } = readYaml<{ email: string; address: string }>('global/club.yml')
+    await gotoReady(page, '/contact')
+    expect(await userSelect(page.getByText(email, { exact: true }))).toBe('text')
+    expect(await userSelect(page.getByText(address, { exact: true }))).toBe('text')
+  })
+
+  test('les réponses de la FAQ et les pages légales restent copiables', async ({ page }) => {
+    const faq = readYaml<{ categories: { questions: { question: string }[] }[] }>('pages/faq.yml')
+    await gotoReady(page, '/faq')
+    await page.getByRole('button', { name: faq.categories[0]!.questions[0]!.question }).click()
+    expect(await userSelect(page.getByRole('region').first().locator('.select-text'))).toBe('text')
+
+    await gotoReady(page, '/rgpd')
+    expect(await userSelect(page.locator('.legal-content'))).toBe('text')
+  })
+
+  test('les images n’ont pas de menu contextuel, les liens si', async ({ page }) => {
+    await gotoReady(page, '/')
+    expect(await contextMenuBlocked(page.locator('main img:not(a img)').first())).toBe(true)
+    expect(await contextMenuBlocked(page.locator('header a[href="/"]').first())).toBe(false)
+  })
+
+  test('sur une carte d’album, le pointeur vise le lien et non la photo', async ({ page }) => {
+    await gotoReady(page, '/galerie')
+    const img = page.locator('main a img').first()
+    await img.scrollIntoViewIfNeeded()
+    const target = await img.evaluate((el) => {
+      const { left, top, width, height } = el.getBoundingClientRect()
+      const hit = document.elementFromPoint(left + width / 2, top + height / 2)
+      return { isImg: hit instanceof HTMLImageElement, inLink: !!hit?.closest('a') }
+    })
+    expect(target).toEqual({ isImg: false, inLink: true })
+  })
+})
