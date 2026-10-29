@@ -1,3 +1,6 @@
+// Largeurs de chaque photo du CDN (<chemin>-<largeur>.webp), produites par scripts/cdn-build.ts
+export const CDN_IMAGE_WIDTHS = [480, 960, 1600] as const
+
 export const resolveCdnUrl = ({
   baseUrl,
   path,

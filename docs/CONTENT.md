@@ -103,6 +103,15 @@ Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adre
 
 Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référencées par `seo.yml`), les logos partenaires sans icône (`public/partners/`), le QR code et l'avion (`app/assets/images/`).
 
+### Préparer les médias
+
+`bun run cdn:build` (`scripts/cdn-build.ts`) transforme les originaux en fichiers à téléverser sur le CDN. Il faut `cwebp`, `ffmpeg` et `ffprobe` (Homebrew : `brew install webp ffmpeg`).
+
+- Originaux dans `cdn/sources/`, rangés comme sur le CDN, sans suffixe de taille (`activites/tandem/photo.jpg`, `accueil/video.mov`). Résultat dans `cdn/dist/`, à téléverser à la main. Le dossier `cdn/` est ignoré par git : les originaux ne vont jamais dans le dépôt public.
+- Photo (`.jpg`, `.png`, `.webp`, `.tif`) : WebP en 3 largeurs, `<chemin>-480.webp`, `-960`, `-1600` (`CDN_IMAGE_WIDTHS`, `app/utils/cdn.ts`), qualité 80, jamais agrandie : un original plus petit que la largeur est gardé à sa taille, et le script le signale. Exporter les photos droites : l'orientation EXIF n'est pas appliquée.
+- Vidéo (`.mov`, `.mp4`) : `<chemin>-av1.mp4` (AV1, CRF 33) et `<chemin>-h264.mp4` (H.264, CRF 23, lu par tous les navigateurs), 1 080 px au plus, sans son, lecture possible avant la fin du téléchargement (`faststart`). Réglages choisis par mesure VMAF sur la vidéo d'accueil : même fidélité à l'original que l'ancien fichier, 29 % plus léger en AV1.
+- Un fichier déjà produit et plus récent que son original n'est pas refait.
+
 ## Ajouter une collection
 
 1. Créer le fichier dans `content/global/` (commun à plusieurs pages) ou `content/pages/`.

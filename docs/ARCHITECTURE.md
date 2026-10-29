@@ -57,6 +57,8 @@ rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
 public/               # polices, favicon, icône tactile, robots.txt, images OpenGraph (seo/), logos partenaires
 nginx/                # templates de configuration (serveur, en-têtes de sécurité)
 tests/                # unit/ et content/ (Vitest), e2e/ (Playwright) : voir TESTING.md
+scripts/cdn-build.ts  # médias du CDN : originaux de cdn/sources/ → cdn/dist/ (CONTENT.md)
+cdn/                  # originaux et fichiers générés pour le CDN, ignoré par git
 .mcp.json             # serveurs MCP du projet (Playwright sur Brave, pour Claude Code)
 Dockerfile            # build Bun puis service nginx
 ```
@@ -108,7 +110,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`, `toAbsoluteUrl`                                                                       | `app.vue`, `useSeo`                                                                     |
 | `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                                                           | `useNextEvent`                                                                          |
-| `cdn.ts`            | `resolveCdnUrl`                                                                                                                              | `useCdnAsset`                                                                           |
+| `cdn.ts`            | `resolveCdnUrl`, `CDN_IMAGE_WIDTHS`                                                                                                          | `useCdnAsset`, `scripts/cdn-build.ts`                                                   |
 | `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                                       |
 | `anchor.ts`         | `toAnchorId`                                                                                                                                 | Documents, FAQ, `SharedCategoryChips`                                                   |
 | `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                               | galerie                                                                                 |
@@ -169,7 +171,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN` passés en variables d'environnement, puis `bun run generate`.
 - **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web. `HEALTHCHECK` : `wget` sur `/` toutes les 30 s.
-- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code et `assets/` (bannière du README).
+- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code, `assets/` (bannière du README) et `cdn/` (médias du CDN).
 - `bun run docker:build` construit l'image en local à partir du `.env`, chargé par `set -a && . ./.env` (commentaires acceptés).
 
 ### nginx

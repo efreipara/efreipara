@@ -133,6 +133,9 @@ bun run generate && bun run test:e2e
 
 # Pour construire l'image Docker (les variables d'environnement doivent être définies)
 bun docker:build
+
+# Préparer photos et vidéo pour le CDN : cdn/sources/ → cdn/dist/ (voir docs/CONTENT.md)
+bun run cdn:build
 ```
 
 ### Variables d'environnement
@@ -186,6 +189,10 @@ Tous les textes du site sont éditables. Les plus courants :
 - **RGPD** : `content/pages/legal/rgpd.md` - Politique de confidentialité
 
 La liste complète des fichiers, leurs champs et les conventions sont décrits dans [docs/CONTENT.md](docs/CONTENT.md).
+
+### Photos et vidéo
+
+Elles ne sont pas dans le dépôt mais sur le CDN. Déposer les originaux dans `cdn/sources/` (dossier ignoré par git), lancer `bun run cdn:build`, puis téléverser le contenu de `cdn/dist/` : noms et formats dans [docs/CONTENT.md](docs/CONTENT.md#fichiers-du-cdn).
 
 ## 🔧 Maintenance
 
