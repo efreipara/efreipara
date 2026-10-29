@@ -192,7 +192,7 @@ La liste complète des fichiers, leurs champs et les conventions sont décrits d
 
 ### Photos et vidéo
 
-Elles ne sont pas dans le dépôt mais sur le CDN. Déposer les originaux dans `cdn/sources/` (dossier ignoré par git), lancer `bun run cdn:build`, puis téléverser le contenu de `cdn/dist/` : noms et formats dans [docs/CONTENT.md](docs/CONTENT.md#fichiers-du-cdn).
+Elles ne sont pas dans le dépôt mais sur le CDN. Déposer les originaux dans `cdn/sources/` (dossier ignoré par git), lancer `bun run cdn:build`, puis téléverser le contenu de `cdn/dist/`. Les couvertures de la galerie sont téléchargées par le script d'après `galerie.yml` : noms et formats dans [docs/CONTENT.md](docs/CONTENT.md#fichiers-du-cdn).
 
 ## 🔧 Maintenance
 

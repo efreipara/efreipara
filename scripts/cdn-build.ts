@@ -1,15 +1,19 @@
 // Prépare les médias du CDN : cdn/sources/ (originaux) → cdn/dist/ (fichiers à téléverser).
 // Photos : WebP en 3 largeurs, suffixées (-480, -960, -1600), jamais agrandies au-delà de l'original.
 // Vidéos : <nom>-av1.mp4 et <nom>-h264.mp4 (secours), 1080 px au plus, sans son.
+// Couvertures de la galerie : téléchargées depuis Efrei Picture Studio d'après galerie.yml.
 // Outils requis : cwebp, ffmpeg et ffprobe (Homebrew : webp, ffmpeg). Voir docs/CONTENT.md.
-import { mkdir, readdir, stat } from 'node:fs/promises'
+import { mkdir, readdir, readFile, stat } from 'node:fs/promises'
 import { dirname, extname, join, relative } from 'node:path'
 import { $ } from 'bun'
+import { parse } from 'yaml'
 import { CDN_IMAGE_WIDTHS } from '../app/utils/cdn'
+import type { GalleryItem } from '../app/utils/gallery'
 
 const root = join(import.meta.dir, '../cdn')
 const sources = join(root, 'sources')
 const dist = join(root, 'dist')
+const galleryContent = join(import.meta.dir, '../content/pages/galerie.yml')
 const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'])
 const videoExtensions = new Set(['.mov', '.mp4', '.m4v'])
 
@@ -71,6 +75,23 @@ const buildVideo = async (source: string) => {
   }
 }
 
+// `photo` d'un album pointe sur la vignette (/thumbnail) : l'original est en /full.
+// Téléchargé une seule fois ; supprimer le fichier de cdn/sources/ pour le reprendre.
+const fetchGalleryCovers = async () => {
+  const { items } = parse(await readFile(galleryContent, 'utf8')) as { items: GalleryItem[] }
+  for (const { type, date, photo } of items) {
+    if (!photo?.endsWith('/thumbnail')) continue
+    const output = join(sources, 'galerie', `${type}-${date}.jpg`)
+    if (await Bun.file(output).exists()) continue
+    const response = await fetch(photo.replace(/\/thumbnail$/, '/full'))
+    if (!response.ok || response.headers.get('content-type') !== 'image/jpeg')
+      throw new Error(`Couverture introuvable (${response.status}) : ${photo}`)
+    await Bun.write(output, response)
+    console.log(`${relative(root, output)} (téléchargée)`)
+  }
+}
+
+await fetchGalleryCovers()
 const files = await walk(sources)
 for (const file of files) {
   const extension = extname(file).toLowerCase()
