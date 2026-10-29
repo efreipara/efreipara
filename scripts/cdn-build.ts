@@ -50,7 +50,8 @@ const buildImage = async (source: string) => {
     const output = join(dist, `${base}-${target}.webp`)
     if (await isUpToDate(source, output)) continue
     await mkdir(dirname(output), { recursive: true })
-    await $`cwebp -quiet -q 80 -m 6 -sharp_yuv -metadata none -resize ${Math.min(target, width)} 0 ${source} -o ${output}`
+    // EXIF et XMP retirés ; profil ICC gardé, sinon une photo Display P3 est lue en sRGB, couleurs ternes
+    await $`cwebp -quiet -q 80 -m 6 -sharp_yuv -metadata icc -resize ${Math.min(target, width)} 0 ${source} -o ${output}`
     console.log(
       `${relative(root, output)}${width < target ? ` (${width} px, original plus petit)` : ''}`,
     )
