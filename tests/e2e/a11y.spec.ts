@@ -15,7 +15,10 @@ for (const colorScheme of ['light', 'dark'] as const) {
 
         const { violations } = await new AxeBuilder({ page }).analyze()
         const unexpected = violations
-          .filter((v) => v.impact === 'serious' || v.impact === 'critical')
+          // heading-order est « moderate » mais vérifié aussi : titres dans l'ordre sur chaque page
+          .filter(
+            (v) => v.impact === 'serious' || v.impact === 'critical' || v.id === 'heading-order',
+          )
           .filter((v) => !knownViolations[v.id]?.includes(path))
           .map(
             (v) => `${v.id} (${v.impact}) : ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`,

@@ -26,7 +26,8 @@
 
 - clé SEO, canonique, fusion des métadonnées et URL absolue des images de partage (`seo`) ;
 - affichage et clé de fermeture de la bannière d'événement (`event`) ;
-- adresse CDN et jeton de développement (`cdn`) ;
+- adresse CDN et jeton de développement, chemins et `srcset` des photos (`cdn`) ;
+- chaque export de `app/utils/` et `app/composables/` est vu par l'import automatique de Nuxt (`auto-imports`) : un export manqué ne casse pas le build, seulement le rendu (« … is not defined », erreur 500 à la génération) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
@@ -34,7 +35,7 @@
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, SEO de chaque page (dans `seo.yml` ou dans son fichier, jamais aux deux endroits), fichiers d'activité ;
 - site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ;
-- accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test. Corriger une violation connue retire sa ligne de la liste.
+- accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test, de même que `heading-order` (ordre des titres, « moderate » pour axe). Corriger une violation connue retire sa ligne de la liste.
 
 Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.
 

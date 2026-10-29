@@ -46,12 +46,12 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée, sauf si son propre fichier porte ses options SEO (pages légales, options de `rejoindre.yml`) : jamais aux deux endroits (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
-- **`home`** : chaque section (`about`, `activites`, `why`, `albums`, `partners`) a son `headline` (surtitre) et son `title` ; `activites.cardLink` (« En savoir plus » des cartes d'activité) et `activites.link` ; `why.image` (chemin sur le CDN) et `why.alt` pour la photo, `why.items[]` les points forts ; `albums.link` vers la galerie ; `hero.links` (boutons sous la phrase d'accroche ; `variant` : `primary` par défaut ou `secondary`, voir [rôles des boutons](DESIGN_SYSTEM.md#boutons)), `hero.scrollIcon` (flèche vers le bas) et `hero.video` (`pause`, `play` : `label` et `icon` du bouton de la vidéo) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why.items[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`, photo `<clé>.jpg`), les albums de `galerie.yml`.
+- **`home`** : chaque section (`about`, `activites`, `why`, `albums`, `partners`) a son `headline` (surtitre) et son `title` ; `activites.cardLink` (« En savoir plus » des cartes d'activité) et `activites.link` ; `why.image` (chemin sur le CDN) et `why.alt` pour la photo, `why.items[]` les points forts ; `albums.link` vers la galerie ; `hero.links` (boutons sous la phrase d'accroche ; `variant` : `primary` par défaut ou `secondary`, voir [rôles des boutons](DESIGN_SYSTEM.md#boutons)), `hero.scrollIcon` (flèche vers le bas) et `hero.video` (`pause`, `play` : `label` et `icon` du bouton de la vidéo) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why.items[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`, photo `activites/<clé>`), les albums de `galerie.yml`.
 - **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`.
   - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `features[]`, `linkLabel` : section de `/activites`, qui reprend `alt` pour la photo).
   - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
 - **En-tête des pages** : `headline` (surtitre court au-dessus du titre) dans `activites.yml`, `galerie.yml`, `contact.yml`, `rejoindre.yml` (sous `hero`) et `documents.yml`, `faq.yml` (à la racine).
-- **`galerie`** : `hero.allLabel` (filtre « Tout voir »), `count` (`one`, `other` : « 7 albums » au-dessus de la grille), `hero.linkLabel` et `hero.linkSourceLabel` (avec `{source}`) ; `albumIcons` (`date`, `location` : icônes des cartes) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de repli), `location`, `url` de l'album, `photo` (URL de la couverture, facultative) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
+- **`galerie`** : `hero.allLabel` (filtre « Tout voir »), `count` (`one`, `other` : « 7 albums » au-dessus de la grille), `hero.linkLabel` et `hero.linkSourceLabel` (avec `{source}`) ; `albumIcons` (`date`, `location` : icônes des cartes) ; `items[]` avec `title`, `type` (clé d'activité), `date` (`AAAA-MM-JJ`, sert au tri et à la photo de la carte), `location`, `url` de l'album, `photo` (URL `…/thumbnail` de la couverture sur Efrei Picture Studio, facultative, non affichée : leur API la réserve à leur propre site ; `bun run cdn:build` en tire la photo du CDN de la carte, voir [Préparer les médias](#préparer-les-médias)) et `source` (nom du site, affiché dans « Voir l'album sur … »). L'ordre du fichier est indifférent.
 - **`documents`** : `count` (`one`, `other` : « 3 docs ») ; catégories (`name`, `description`, `icon`, `color`) et documents (`title`, `description`, `url`, `icon`, `type` : `internal` pour une page du site, `external` sinon). Le site affiché à droite d'un document vient de son `url` (domaine) ou, pour une page du site, de `seo.defaults.siteName`.
 - **`faq`** : `count` (`one`, `other`) ; catégories (`name`, `color`, `icon` de la pastille, `questions[]`) ; une question a `question`, `answer` (numérotée à l'affichage) et des `buttons` facultatifs (`label`, `to`, `icon`, `target`), tous secondaires.
 - **`documents`, `faq`** : `color` vaut `blue`, `green`, `purple`, `red`, `orange` ou `gray` (`useCategoryColor`) ; autre valeur ou absence → couleur primaire. `helpcta` : `title`, `description`, `buttons` ⊂ `discord`, `instagram`, `github` (libellés et liens tirés de `club`).
@@ -88,20 +88,35 @@ Le nom doit être écrit en entier dans le YAML : c'est ce qui permet au scan de
 
 ## Fichiers du CDN
 
-Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adresse sur le CDN (`buildCdnUrl`) à partir de conventions de nommage :
+Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adresse sur le CDN (`buildCdnUrl`, `cdnImage`) à partir de conventions de nommage.
 
-| Fichier sur le CDN              | Utilisé pour                                                                 |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| `main-hero.mp4`                 | vidéo du hero d'accueil (affiche locale : `app/assets/images/main-hero.jpg`) |
-| `<activité>.jpg`                | hero d'une activité, section de `/activites`                                 |
-| `<activité>/<activité>-<n>.jpg` | carrousel, `n` de 1 à `imageCount`                                           |
-| `<slug>.jpg`                    | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)                |
-| valeur de `cta.image`           | photo de l'appel à l'action                                                  |
-| valeur de `home.why.image`      | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil                      |
-| valeur de `rejoindre.why.image` | photo à côté de « Pourquoi nous rejoindre ? »                                |
-| `<type>/<date>.jpg`             | photo de repli d'un album de la galerie                                      |
+Chaque photo existe en 3 largeurs, `<base>-480.webp`, `<base>-960.webp` et `<base>-1600.webp` ([Préparer les médias](#préparer-les-médias)) ; le code et le contenu ne citent que la **base**, sans largeur ni extension (`activites/carrousel/tandem-4`), et le navigateur choisit la largeur ([règle d'affichage](DESIGN_SYSTEM.md#formes)). Une photo citée doit exister dans les 3 largeurs.
+
+| Base sur le CDN                      | Utilisée pour                                                    |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `activites/<activité>`               | hero d'une activité, section de `/activites`, carte de l'accueil |
+| `activites/carrousel/<activité>-<n>` | carrousel, `n` de 1 à `imageCount`                               |
+| `rejoindre/<slug>`                   | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)    |
+| `galerie/<type>-<date>`              | photo d'un album de la galerie                                   |
+| valeur de `cta.image`                | photo de l'appel à l'action (`rejoindre/rejoindre-bureau`)       |
+| valeur de `home.why.image`           | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil          |
+| valeur de `rejoindre.why.image`      | photo à côté de « Pourquoi nous rejoindre ? »                    |
+
+Vidéo du hero d'accueil : `accueil/video-av1.mp4`, puis `accueil/video-h264.mp4` pour les navigateurs qui ne lisent pas l'AV1 ; affiche locale `app/assets/images/main-hero.webp` (première image de la vidéo).
+
+Les champs `image` du contenu sont vérifiés par le schéma : une base sans extension (`.jpg` refusé).
 
 Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référencées par `seo.yml`), les logos partenaires sans icône (`public/partners/`), le QR code et l'avion (`app/assets/images/`).
+
+### Préparer les médias
+
+`bun run cdn:build` (`scripts/cdn-build.ts`) transforme les originaux en fichiers à téléverser sur le CDN. Il faut `cwebp`, `ffmpeg` et `ffprobe` (Homebrew : `brew install webp ffmpeg`).
+
+- Originaux dans `cdn/sources/`, rangés comme sur le CDN, sans suffixe de taille (`activites/tandem.jpg`, `activites/carrousel/tandem-1.jpg`, `accueil/video.mov`). Résultat dans `cdn/dist/`, à téléverser à la main. Le dossier `cdn/` est ignoré par git : les originaux ne vont jamais dans le dépôt public.
+- Photo (`.jpg`, `.png`, `.webp`, `.tif`) : WebP en 3 largeurs, `<chemin>-480.webp`, `-960`, `-1600` (`CDN_IMAGE_WIDTHS`, `app/utils/cdn.ts`), qualité 80, jamais agrandie : un original plus petit que la largeur est gardé à sa taille, et le script le signale. Métadonnées EXIF et XMP retirées (appareil, date, position GPS), profil couleur gardé (Display P3 des iPhone et Mac, sinon couleurs ternes). Exporter les photos droites : l'orientation EXIF n'est pas appliquée.
+- Vidéo (`.mov`, `.mp4`) : `<chemin>-av1.mp4` (AV1, CRF 33) et `<chemin>-h264.mp4` (H.264, CRF 23, lu par tous les navigateurs), 1 080 px au plus, sans son ni métadonnées (date, titre, piste de timecode), lecture possible avant la fin du téléchargement (`faststart`). Réglages choisis par mesure VMAF sur la vidéo d'accueil : même fidélité à l'original que l'ancien fichier, 29 % plus léger en AV1.
+- Couverture d'album : pour chaque album de `galerie.yml` dont `photo` finit par `/thumbnail`, le script télécharge l'original en pleine taille (`/full`) dans `cdn/sources/galerie/<type>-<date>.jpg` s'il n'y est pas déjà. Ajouter un album = renseigner `url` et `photo`, puis lancer le script ; pour reprendre une couverture changée, supprimer son fichier de `cdn/sources/`.
+- Un fichier déjà produit et plus récent que son original n'est pas refait.
 
 ## Ajouter une collection
 

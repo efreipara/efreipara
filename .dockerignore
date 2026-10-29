@@ -35,3 +35,5 @@ temp.txt
 
 # Ressources non nécessaires au build Docker
 assets
+# Médias du CDN (originaux, fichiers générés) : plusieurs centaines de Mo, téléversés à part
+cdn

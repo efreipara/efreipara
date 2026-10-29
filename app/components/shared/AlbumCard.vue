@@ -7,28 +7,37 @@
     featured?: boolean
     labels: { link: string; linkSource: string }
     icons: { date: string; location: string }
+    /** Niveau du titre : h2 quand aucun titre de section ne précède les cartes */
+    heading?: 'h2' | 'h3'
   }>()
 
   const { getIcon, getGalleryLabel } = await useActivities()
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  // `photo` en priorité ; repli sur le CDN (<type>/<date>.jpg) si absente ou en erreur
-  const failed = ref(false)
   // Chargée ou définitivement en échec : le squelette disparaît
   const settled = ref(false)
-  const fallback = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
-  const src = computed(() =>
-    props.item.photo && !failed.value ? props.item.photo : fallback.value || props.item.photo,
+
+  const fallback = computed(() =>
+    cdnImage(galleryFallbackPath(props.item), props.featured ? 'featured' : 'third'),
   )
 
-  const onError = () => {
-    if (props.item.photo && !failed.value) {
-      failed.value = true
-      if (fallback.value) return
-    }
-    settled.value = true
-  }
+  // Couvertures d'Efrei Picture Studio (`photo`) bloquées par leur en-tête
+  // Cross-Origin-Resource-Policy: same-origin : photo du CDN (galerie/<type>-<date>) seule.
+  // S'ils l'ouvrent (cross-origin), rétablir ce bloc à la place des deux lignes suivantes.
+  // const failed = ref(false)
+  // const image = computed(() =>
+  //   props.item.photo && !failed.value ? { src: props.item.photo } : fallback.value,
+  // )
+  // const onError = () => {
+  //   if (props.item.photo && !failed.value) {
+  //     failed.value = true
+  //     if (fallback.value.src) return
+  //   }
+  //   settled.value = true
+  // }
+  const image = fallback
+  const onError = () => (settled.value = true)
 
   // Un chargement ou une erreur survenus avant l'hydratation ne sont pas captés par @load/@error
   const checkPhoto = (el: unknown) => {
@@ -58,8 +67,10 @@
       <USkeleton v-if="!settled" class="absolute inset-0 rounded-none" />
       <img
         :ref="checkPhoto"
-        :src="src"
+        v-bind="image"
         alt=""
+        :loading="featured ? 'eager' : 'lazy'"
+        :fetchpriority="featured ? 'high' : undefined"
         class="h-full w-full object-cover transition-[opacity,scale] duration-500 group-hover:scale-105"
         :class="settled ? 'opacity-100' : 'opacity-0'"
         @load="settled = true"
@@ -81,12 +92,13 @@
     <div
       class="absolute right-0 bottom-0 left-0 p-4 text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.8)]"
     >
-      <h3
+      <component
+        :is="heading ?? 'h3'"
         class="font-title mb-1.5 leading-tight font-bold"
         :class="featured ? 'lg:text-xl' : 'text-base'"
       >
         {{ item.title }}
-      </h3>
+      </component>
       <div class="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/70">
         <span class="flex items-center gap-1">
           <UIcon :name="icons.date" class="size-3" />

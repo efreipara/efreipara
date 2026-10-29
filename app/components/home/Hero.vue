@@ -1,27 +1,45 @@
 <script setup lang="ts">
+  import poster from '~/assets/images/main-hero.webp'
+
   defineProps<{
     links: { label: string; to: string; icon: string; variant?: 'primary' | 'secondary' }[]
     scrollIcon: string
     video: { pause: { label: string; icon: string }; play: { label: string; icon: string } }
   }>()
 
+  // AV1 d'abord ; le navigateur qui ne le décode pas prend le H.264 (codecs relevés dans les fichiers)
   const { buildCdnUrl } = useCdnAsset()
-  const videoUrl = buildCdnUrl('main-hero.mp4')
+  const videoSources = [
+    { src: buildCdnUrl('accueil/video-av1.mp4'), type: 'video/mp4; codecs="av01.0.08M.08"' },
+    { src: buildCdnUrl('accueil/video-h264.mp4'), type: 'video/mp4; codecs="avc1.640028"' },
+  ].filter(({ src }) => src)
 
   const { data: seo } = useNuxtData('seo')
   const description = computed(() => seo.value?.pages['index']?.description)
   const siteName = computed(() => seo.value?.defaults.siteName)
 
-  // Pas d'attribut autoplay : la lecture attend le montage, pour respecter « réduire les animations »
+  // Affiche = image LCP de l'accueil
+  useHead({ link: [{ rel: 'preload', as: 'image', href: poster, fetchpriority: 'high' }] })
+
+  // Pas d'attribut autoplay : la lecture attend le montage, pour respecter « réduire les animations »,
+  // puis la fin du chargement, pour que la vidéo ne concurrence pas l'affichage de la page
   const videoEl = useTemplateRef<HTMLVideoElement>('heroVideo')
   const playing = ref(false)
 
   const play = () => videoEl.value?.play().catch(() => (playing.value = false))
   const togglePlay = () => (playing.value ? videoEl.value?.pause() : play())
 
+  const playWhenIdle = () =>
+    'requestIdleCallback' in window
+      ? requestIdleCallback(play, { timeout: 2000 })
+      : setTimeout(play)
+
   onMounted(() => {
-    if (!prefersReducedMotion()) play()
+    if (prefersReducedMotion()) return
+    if (document.readyState === 'complete') playWhenIdle()
+    else window.addEventListener('load', playWhenIdle, { once: true })
   })
+  onBeforeUnmount(() => window.removeEventListener('load', playWhenIdle))
 </script>
 
 <template>
@@ -35,12 +53,13 @@
         loop
         muted
         playsinline
+        preload="none"
         class="absolute inset-0 h-full w-full object-cover"
-        poster="~/assets/images/main-hero.jpg"
+        :poster="poster"
         @play="playing = true"
         @pause="playing = false"
       >
-        <source v-if="videoUrl" :src="videoUrl" type="video/mp4" />
+        <source v-for="source in videoSources" :key="source.src" v-bind="source" />
       </video>
 
       <!-- Voile sombre pour la lisibilité du texte, épargné par le contraste élevé -->
@@ -90,7 +109,7 @@
       </div>
 
       <UButton
-        v-if="videoUrl"
+        v-if="videoSources.length"
         :icon="playing ? video.pause.icon : video.play.icon"
         :aria-label="playing ? video.pause.label : video.play.label"
         color="neutral"

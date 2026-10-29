@@ -103,6 +103,7 @@
           :key="item.url"
           :item="item"
           :featured="index === 0 && showHeroLayout"
+          heading="h2"
           :labels="cardLabels"
           :icons="page?.albumIcons ?? { date: '', location: '' }"
           :class="index === 0 && showHeroLayout && 'lg:col-span-2 lg:row-span-2'"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   const { getIcon } = await useActivities()
   const { partners } = await usePartners()
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
   const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
@@ -74,6 +74,8 @@
       <img
         src="~/assets/images/avion.svg"
         alt=""
+        width="428"
+        height="151"
         aria-hidden="true"
         class="hidden w-full max-w-md justify-self-end opacity-90 lg:block dark:opacity-80"
       />
@@ -103,7 +105,7 @@
         >
           <template #header>
             <img
-              :src="buildCdnUrl(`${item.key}.jpg`)"
+              v-bind="cdnImage(`activites/${item.key}`, 'quarter')"
               alt=""
               loading="lazy"
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -158,7 +160,7 @@
         </ul>
       </template>
       <img
-        :src="buildCdnUrl(home.why.image)"
+        v-bind="cdnImage(home.why.image, 'half')"
         :alt="home.why.alt"
         loading="lazy"
         class="aspect-4/3 w-full rounded-2xl object-cover"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { ButtonProps } from '@nuxt/ui'
 
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
 
   const { data: cta } = await useAsyncData('cta', () => queryCollection('cta').first())
 
@@ -37,9 +37,10 @@
       :ui="{ title: 'font-title' }"
     >
       <img
-        :src="buildCdnUrl(cta?.image ?? '')"
+        v-bind="cdnImage(cta?.image ?? '', 'half')"
         :alt="cta?.alt"
-        class="relative z-10 w-full rounded-lg"
+        loading="lazy"
+        class="relative z-10 aspect-5/3 w-full rounded-lg object-cover"
       />
     </UPageCTA>
   </UPageSection>

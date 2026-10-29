@@ -31,3 +31,6 @@ CLAUDE.local.md
 # Tests
 test-results
 playwright-report
+
+# Médias du CDN : originaux et fichiers générés, téléversés à la main (dépôt public)
+cdn/

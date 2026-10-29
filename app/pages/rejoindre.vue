@@ -5,7 +5,7 @@
   const joinOptions = computed(() => rejoindreData.value?.options ?? [])
   const { getSocial } = await useClub()
   const discord = computed(() => getSocial('discord'))
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 </script>
 
@@ -68,16 +68,17 @@
         >
           <template #header>
             <img
-              :src="buildCdnUrl(`${option.slug}.jpg`)"
+              v-bind="cdnImage(`rejoindre/${option.slug}`, 'pair')"
               alt=""
+              fetchpriority="high"
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </template>
           <template #body>
-            <h3 class="font-title text-highlighted mb-3 flex items-center gap-2.5 text-2xl">
+            <h2 class="font-title text-highlighted mb-3 flex items-center gap-2.5 text-2xl">
               <UIcon :name="option.icon" class="text-activity size-6 shrink-0" />
               {{ option.title }}
-            </h3>
+            </h2>
             <p class="text-muted mb-8 flex-1">{{ option.description }}</p>
             <div class="text-activity-strong flex items-center gap-1.5 font-semibold">
               <span>{{ option.linkText }}</span>
@@ -118,7 +119,7 @@
         </ul>
       </template>
       <img
-        :src="buildCdnUrl(rejoindreData.why.image)"
+        v-bind="cdnImage(rejoindreData.why.image, 'half')"
         :alt="rejoindreData.why.alt"
         loading="lazy"
         class="aspect-4/3 w-full rounded-2xl object-cover"

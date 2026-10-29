@@ -178,7 +178,7 @@ test.describe('réduire les animations', () => {
       'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
       'base64',
     )
-    await page.route(/\/tandem\/tandem-\d+\.jpg/, (route) =>
+    await page.route(/\/activites\/carrousel\/tandem-\d+-\d+\.webp/, (route) =>
       route.fulfill({ contentType: 'image/png', body: pixel }),
     )
     await gotoReady(page, '/activites/tandem')

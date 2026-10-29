@@ -65,9 +65,9 @@ describe('hasGalleryHeroLayout', () => {
 })
 
 describe('galleryFallbackPath', () => {
-  it('construit <type>/<date>.jpg', () => {
+  it('construit galerie/<type>-<date>', () => {
     expect(galleryFallbackPath({ type: 'tandem', date: '2025-05-18' })).toBe(
-      'tandem/2025-05-18.jpg',
+      'galerie/tandem-2025-05-18',
     )
   })
 })

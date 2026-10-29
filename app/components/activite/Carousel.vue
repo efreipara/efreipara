@@ -8,7 +8,7 @@
     band?: boolean
   }>()
 
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const { labels } = await useLabels()
 
   const failedUrls = ref(new Set<string>())
@@ -16,8 +16,8 @@
   const images = computed(() =>
     Array.from({ length: props.imageCount }, (_, i) => ({
       index: i + 1,
-      url: buildCdnUrl(`${props.activite}/${props.activite}-${i + 1}.jpg`),
-    })).filter((img) => !failedUrls.value.has(img.url)),
+      ...cdnImage(`activites/carrousel/${props.activite}-${i + 1}`, 'third'),
+    })).filter((img) => !failedUrls.value.has(img.src)),
   )
 
   const onError = (url: string) => {
@@ -53,12 +53,15 @@
         }"
       >
         <img
-          :src="item.url"
+          :src="item.src"
+          :srcset="item.srcset"
+          :sizes="item.sizes"
           :alt="fillLabel(labels.activity.photo, { label, n: item.index })"
           width="500"
           height="400"
+          loading="lazy"
           class="aspect-5/4 w-full rounded-lg object-cover"
-          @error="onError(item.url)"
+          @error="onError(item.src)"
         />
       </UCarousel>
     </UContainer>

@@ -28,7 +28,7 @@
 - **Aucun serveur à l'exécution** : pas d'API, pas de base de données, pas de cookie. La seule route de `server/` (`/llms.txt`) est prérendue en fichier. Tout ce qui dépend de la configuration (`runtimeConfig`, variables d'environnement, contenu) est figé au moment du `generate` : changer une valeur impose de reconstruire.
 - **SSR obligatoire** (`ssr: true`) : Nuxt Content interroge sa base SQLite pendant le prérendu, et chaque page est écrite en HTML complet avec son payload.
 - **Interactivité côté navigateur uniquement** : bannière d'événement (`ClientOnly`), accessibilité, thème, filtres de la galerie, compteurs animés, redirections.
-- **Appels externes limités** au CDN, à Plausible et aux miniatures des albums (Efrei Picture Studio) ; polices et icônes sont servies par le site. Toute nouvelle origine doit d'abord être ajoutée à la CSP ([SECURITY.md](SECURITY.md#4-csp-et-origines-externes)).
+- **Appels externes limités** au CDN et à Plausible ; polices et icônes sont servies par le site. Toute nouvelle origine doit d'abord être ajoutée à la CSP ([SECURITY.md](SECURITY.md#4-csp-et-origines-externes)).
 
 ## Organisation du code
 
@@ -40,7 +40,7 @@ app/
 ├── assets/
 │   ├── css/main.css  # Tailwind + Nuxt UI, palette navy, couleurs, utilitaires, accessibilité
 │   ├── icons/        # collections d'icônes maison (efreipara, efrei, ifly, creativecommons, activite)
-│   └── images/       # avion.svg, qr.svg, main-hero.jpg (affiche de la vidéo)
+│   └── images/       # avion.svg, qr.svg, main-hero.webp (affiche de la vidéo)
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)
@@ -57,6 +57,8 @@ rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
 public/               # polices, favicon, icône tactile, robots.txt, images OpenGraph (seo/), logos partenaires
 nginx/                # templates de configuration (serveur, en-têtes de sécurité)
 tests/                # unit/ et content/ (Vitest), e2e/ (Playwright) : voir TESTING.md
+scripts/cdn-build.ts  # médias du CDN : originaux de cdn/sources/ → cdn/dist/ (CONTENT.md)
+cdn/                  # originaux et fichiers générés pour le CDN, ignoré par git
 .mcp.json             # serveurs MCP du projet (Playwright sur Brave, pour Claude Code)
 Dockerfile            # build Bun puis service nginx
 ```
@@ -91,7 +93,7 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 | `useLabels`                     | Collection `labels` : libellés des composants communs                                                                                                                                               |
 | `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                                                                              |
 | `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                                                                                             |
-| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config)                                                                                                        |
+| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config) ; `cdnImage(base, emplacement)` : `src`, `srcset`, `sizes` d'une photo                                 |
 | `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                                                                        |
 | `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                                                                        |
 | `useSmoothScroll`               | `scrollToId(id, { focus })` : défilement doux interruptible, immédiat avec « réduire les animations », focus sur la cible en option (pastilles de catégories, sommaire et titres des pages légales) |
@@ -108,7 +110,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`, `toAbsoluteUrl`                                                                       | `app.vue`, `useSeo`                                                                     |
 | `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                                                           | `useNextEvent`                                                                          |
-| `cdn.ts`            | `resolveCdnUrl`                                                                                                                              | `useCdnAsset`                                                                           |
+| `cdn.ts`            | `resolveCdnUrl`, `CDN_IMAGE_WIDTHS`, `CDN_IMAGE_LAYOUTS`, `cdnImagePath`, `cdnSrcset`                                                        | `useCdnAsset`, `scripts/cdn-build.ts`                                                   |
 | `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                                       |
 | `anchor.ts`         | `toAnchorId`                                                                                                                                 | Documents, FAQ, `SharedCategoryChips`                                                   |
 | `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                               | galerie                                                                                 |
@@ -144,7 +146,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 ## CDN
 
-`useCdnAsset().buildCdnUrl(chemin)` (règle : `resolveCdnUrl`) renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. La vidéo d'accueil passe aussi par `buildCdnUrl` ; sans `CDN_URL`, elle n'est pas affichée. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
+`useCdnAsset().buildCdnUrl(chemin)` (règle : `resolveCdnUrl`) renvoie `CDN_URL` + chemin (chaîne vide si `CDN_URL` est absent). En développement seulement, si `CDN_DEV_TOKEN` est défini, il ajoute `?token=…` pour passer la protection anti-hotlink ; le jeton n'est injecté dans `runtimeConfig.public` qu'en `NODE_ENV=development`. Les photos passent par `cdnImage(base, emplacement)` : `src` en 960, `srcset` des largeurs utiles et `sizes` de l'emplacement (`CDN_IMAGE_LAYOUTS`) ; sans `CDN_URL`, ni `srcset` ni `sizes`. La vidéo d'accueil passe aussi par `buildCdnUrl` (deux `<source>`, AV1 puis H.264) ; sans `CDN_URL`, elle n'est pas affichée. Les noms de fichiers attendus sur le CDN sont dans [CONTENT.md](CONTENT.md#fichiers-du-cdn).
 
 ## Icônes
 
@@ -169,7 +171,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN` passés en variables d'environnement, puis `bun run generate`.
 - **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web. `HEALTHCHECK` : `wget` sur `/` toutes les 30 s.
-- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code et `assets/` (bannière du README).
+- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code, `assets/` (bannière du README) et `cdn/` (médias du CDN).
 - `bun run docker:build` construit l'image en local à partir du `.env`, chargé par `set -a && . ./.env` (commentaires acceptés).
 
 ### nginx
