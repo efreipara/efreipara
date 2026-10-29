@@ -20,6 +20,6 @@ export const filterGallery = <T extends GalleryItem>(items: T[], filter: string 
 export const hasGalleryHeroLayout = (filter: string | null, count: number) =>
   filter ? false : count >= 3
 
-// Photo de repli sur le CDN
+// Photo de l'album sur le CDN (base, sans largeur ni extension)
 export const galleryFallbackPath = (item: Pick<GalleryItem, 'type' | 'date'>) =>
-  `${item.type}/${item.date}.jpg`
+  `galerie/${item.type}-${item.date}`

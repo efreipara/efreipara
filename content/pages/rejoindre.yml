@@ -29,7 +29,7 @@ options:
 # Photo du CDN à côté des trois raisons
 why:
   headline: La vie du club
-  image: tandem/tandem-8.jpg
+  image: activites/carrousel/tandem-8
   alt: Membres d’Efrei Para en harnais sur l’herbe devant l’avion, hélice en marche, avec les moniteurs avant le saut
   title: Pourquoi nous rejoindre ?
   features:

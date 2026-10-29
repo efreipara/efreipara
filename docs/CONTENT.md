@@ -46,7 +46,7 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`seo`** : `pages` est indexé par la clé de route (voir [ARCHITECTURE.md](ARCHITECTURE.md#seo)) : une nouvelle page ajoute son entrée, sauf si son propre fichier porte ses options SEO (pages légales, options de `rejoindre.yml`) : jamais aux deux endroits (`title`, `description`, `ogImage` et `robots` facultatifs) ; sans `robots`, elle reprend `defaults.robots` (`noindex, follow` : seule l'accueil est indexée). `pages.index.description` est aussi la phrase du hero d'accueil.
 - **`nextEvent`** : un seul événement (`title`, `date` `AAAA-MM-JJ`, `type` = clé d'activité, `url` du formulaire). La bannière disparaît d'elle-même après la date.
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
-- **`home`** : chaque section (`about`, `activites`, `why`, `albums`, `partners`) a son `headline` (surtitre) et son `title` ; `activites.cardLink` (« En savoir plus » des cartes d'activité) et `activites.link` ; `why.image` (chemin sur le CDN) et `why.alt` pour la photo, `why.items[]` les points forts ; `albums.link` vers la galerie ; `hero.links` (boutons sous la phrase d'accroche ; `variant` : `primary` par défaut ou `secondary`, voir [rôles des boutons](DESIGN_SYSTEM.md#boutons)), `hero.scrollIcon` (flèche vers le bas) et `hero.video` (`pause`, `play` : `label` et `icon` du bouton de la vidéo) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why.items[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`, photo `<clé>.jpg`), les albums de `galerie.yml`.
+- **`home`** : chaque section (`about`, `activites`, `why`, `albums`, `partners`) a son `headline` (surtitre) et son `title` ; `activites.cardLink` (« En savoir plus » des cartes d'activité) et `activites.link` ; `why.image` (chemin sur le CDN) et `why.alt` pour la photo, `why.items[]` les points forts ; `albums.link` vers la galerie ; `hero.links` (boutons sous la phrase d'accroche ; `variant` : `primary` par défaut ou `secondary`, voir [rôles des boutons](DESIGN_SYSTEM.md#boutons)), `hero.scrollIcon` (flèche vers le bas) et `hero.video` (`pause`, `play` : `label` et `icon` du bouton de la vidéo) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why.items[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`, photo `activites/<clé>`), les albums de `galerie.yml`.
 - **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`.
   - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `features[]`, `linkLabel` : section de `/activites`, qui reprend `alt` pour la photo).
   - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
@@ -88,18 +88,23 @@ Le nom doit être écrit en entier dans le YAML : c'est ce qui permet au scan de
 
 ## Fichiers du CDN
 
-Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adresse sur le CDN (`buildCdnUrl`) à partir de conventions de nommage :
+Les photos et la vidéo ne sont pas dans le dépôt. Le code construit leur adresse sur le CDN (`buildCdnUrl`, `cdnImage`) à partir de conventions de nommage.
 
-| Fichier sur le CDN              | Utilisé pour                                                                  |
-| ------------------------------- | ----------------------------------------------------------------------------- |
-| `main-hero.mp4`                 | vidéo du hero d'accueil (affiche locale : `app/assets/images/main-hero.webp`) |
-| `<activité>.jpg`                | hero d'une activité, section de `/activites`                                  |
-| `<activité>/<activité>-<n>.jpg` | carrousel, `n` de 1 à `imageCount`                                            |
-| `<slug>.jpg`                    | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)                 |
-| valeur de `cta.image`           | photo de l'appel à l'action                                                   |
-| valeur de `home.why.image`      | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil                       |
-| valeur de `rejoindre.why.image` | photo à côté de « Pourquoi nous rejoindre ? »                                 |
-| `<type>/<date>.jpg`             | photo d'un album de la galerie                                                |
+Chaque photo existe en 3 largeurs, `<base>-480.webp`, `<base>-960.webp` et `<base>-1600.webp` ([Préparer les médias](#préparer-les-médias)) ; le code et le contenu ne citent que la **base**, sans largeur ni extension (`activites/carrousel/tandem-4`), et le navigateur choisit la largeur ([règle d'affichage](DESIGN_SYSTEM.md#formes)). Une photo citée doit exister dans les 3 largeurs.
+
+| Base sur le CDN                      | Utilisée pour                                                    |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `activites/<activité>`               | hero d'une activité, section de `/activites`, carte de l'accueil |
+| `activites/carrousel/<activité>-<n>` | carrousel, `n` de 1 à `imageCount`                               |
+| `rejoindre/<slug>`                   | cartes de `/rejoindre` (`devenir-membre`, `rejoindre-bureau`)    |
+| `galerie/<type>-<date>`              | photo d'un album de la galerie                                   |
+| valeur de `cta.image`                | photo de l'appel à l'action (`rejoindre/rejoindre-bureau`)       |
+| valeur de `home.why.image`           | photo à côté de « Pourquoi Efrei Para ? » sur l'accueil          |
+| valeur de `rejoindre.why.image`      | photo à côté de « Pourquoi nous rejoindre ? »                    |
+
+Vidéo du hero d'accueil : `accueil/video-av1.mp4`, puis `accueil/video-h264.mp4` pour les navigateurs qui ne lisent pas l'AV1 ; affiche locale `app/assets/images/main-hero.webp` (première image de la vidéo).
+
+Les champs `image` du contenu sont vérifiés par le schéma : une base sans extension (`.jpg` refusé).
 
 Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référencées par `seo.yml`), les logos partenaires sans icône (`public/partners/`), le QR code et l'avion (`app/assets/images/`).
 

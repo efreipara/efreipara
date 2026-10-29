@@ -1,6 +1,6 @@
 <script setup lang="ts">
   const { getIcon } = await useActivities()
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
   const { data: page } = await useAsyncData('activites-index', () =>
@@ -71,7 +71,7 @@
         </ul>
       </template>
       <img
-        :src="buildCdnUrl(`${section.key}.jpg`)"
+        v-bind="cdnImage(`activites/${section.key}`, 'half')"
         :alt="section.alt"
         :loading="i === 0 ? 'eager' : 'lazy'"
         :fetchpriority="i === 0 ? 'high' : undefined"

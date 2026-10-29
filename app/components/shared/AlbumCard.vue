@@ -12,28 +12,31 @@
   }>()
 
   const { getIcon, getGalleryLabel } = await useActivities()
-  const { buildCdnUrl } = useCdnAsset()
+  const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
   // Chargée ou définitivement en échec : le squelette disparaît
   const settled = ref(false)
 
+  const fallback = computed(() =>
+    cdnImage(galleryFallbackPath(props.item), props.featured ? 'featured' : 'third'),
+  )
+
   // Couvertures d'Efrei Picture Studio (`photo`) bloquées par leur en-tête
-  // Cross-Origin-Resource-Policy: same-origin : photo du CDN (<type>/<date>.jpg) seule.
+  // Cross-Origin-Resource-Policy: same-origin : photo du CDN (galerie/<type>-<date>) seule.
   // S'ils l'ouvrent (cross-origin), rétablir ce bloc à la place des deux lignes suivantes.
   // const failed = ref(false)
-  // const fallback = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
-  // const src = computed(() =>
-  //   props.item.photo && !failed.value ? props.item.photo : fallback.value || props.item.photo,
+  // const image = computed(() =>
+  //   props.item.photo && !failed.value ? { src: props.item.photo } : fallback.value,
   // )
   // const onError = () => {
   //   if (props.item.photo && !failed.value) {
   //     failed.value = true
-  //     if (fallback.value) return
+  //     if (fallback.value.src) return
   //   }
   //   settled.value = true
   // }
-  const src = computed(() => buildCdnUrl(galleryFallbackPath(props.item)))
+  const image = fallback
   const onError = () => (settled.value = true)
 
   // Un chargement ou une erreur survenus avant l'hydratation ne sont pas captés par @load/@error
@@ -64,7 +67,7 @@
       <USkeleton v-if="!settled" class="absolute inset-0 rounded-none" />
       <img
         :ref="checkPhoto"
-        :src="src"
+        v-bind="image"
         alt=""
         :loading="featured ? 'eager' : 'lazy'"
         :fetchpriority="featured ? 'high' : undefined"

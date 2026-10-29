@@ -26,7 +26,7 @@
 
 - clé SEO, canonique, fusion des métadonnées et URL absolue des images de partage (`seo`) ;
 - affichage et clé de fermeture de la bannière d'événement (`event`) ;
-- adresse CDN et jeton de développement (`cdn`) ;
+- adresse CDN et jeton de développement, chemins et `srcset` des photos (`cdn`) ;
 - chaque export de `app/utils/` et `app/composables/` est vu par l'import automatique de Nuxt (`auto-imports`) : un export manqué ne casse pas le build, seulement le rendu (« … is not defined », erreur 500 à la génération) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;

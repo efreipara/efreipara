@@ -9,6 +9,11 @@ const link = z.object({ label: z.string(), icon: z.string() })
 // Rôle d'un bouton d'appel à l'action (variantes de UButton dans app.config.ts), principal par défaut
 const buttonRole = z.enum(['primary', 'secondary']).optional()
 
+// Photo du CDN : chemin sans largeur ni extension (activites/carrousel/tandem-4), voir docs/CONTENT.md
+const cdnImage = z
+  .string()
+  .regex(/^[a-z0-9-]+(\/[a-z0-9-]+)*$/, 'chemin du CDN sans largeur ni extension')
+
 // Encadré d'aide en bas de Documents et FAQ
 const helpCta = z.object({
   title: z.string(),
@@ -54,7 +59,7 @@ export const collections = {
       why: z.object({
         headline: z.string(),
         title: z.string(),
-        image: z.string(),
+        image: cdnImage,
         alt: z.string(),
         items: z.array(
           z.object({
@@ -268,7 +273,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      image: z.string(),
+      image: cdnImage,
       alt: z.string(),
       links: z.array(
         z.object({
@@ -371,7 +376,7 @@ export const collections = {
       why: z.object({
         headline: z.string(),
         title: z.string(),
-        image: z.string(),
+        image: cdnImage,
         alt: z.string(),
         features: z.array(
           z.object({

@@ -2,6 +2,14 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.15.2 — 29 octobre 2026
+
+### Modifications
+
+- Photos beaucoup plus légères sur tout le site : chaque photo existe en plusieurs tailles et le navigateur charge celle qui convient à l'écran, sans perte de netteté. Sur téléphone, les pages se chargent plus vite et consomment moins de données.
+- Vidéo de l'accueil près de 30 % plus légère, à qualité identique, dans un format plus récent ; les navigateurs qui ne le lisent pas reçoivent l'ancien format.
+- Galerie : les photos des albums sont plus nettes, en particulier l'album mis en avant sur grand écran.
+
 ## 1.15.1 — 28 octobre 2026
 
 ### Modifications

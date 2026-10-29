@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { resolveCdnUrl } from '../../app/utils/cdn'
+import { cdnImagePath, cdnSrcset, resolveCdnUrl } from '../../app/utils/cdn'
 
 const baseUrl = 'https://cdn.example.org'
 
@@ -42,5 +42,33 @@ describe('resolveCdnUrl', () => {
     expect(resolveCdnUrl({ baseUrl, path: 'a.jpg', devToken: '  ', isDev: true })).toBe(
       'https://cdn.example.org/a.jpg',
     )
+  })
+})
+
+describe('cdnImagePath', () => {
+  it('ajoute la largeur et .webp au chemin', () => {
+    expect(cdnImagePath('activites/tandem', 960)).toBe('activites/tandem-960.webp')
+  })
+})
+
+describe('cdnSrcset', () => {
+  const urlFor = (path: string) => `${baseUrl}/${path}`
+
+  it('liste les trois largeurs par défaut', () => {
+    expect(cdnSrcset(urlFor, 'galerie/tandem-2025-05-18')).toBe(
+      `${baseUrl}/galerie/tandem-2025-05-18-480.webp 480w, ` +
+        `${baseUrl}/galerie/tandem-2025-05-18-960.webp 960w, ` +
+        `${baseUrl}/galerie/tandem-2025-05-18-1600.webp 1600w`,
+    )
+  })
+
+  it("s'arrête au plafond", () => {
+    expect(cdnSrcset(urlFor, 'activites/carrousel/oa-1', 960)).toBe(
+      `${baseUrl}/activites/carrousel/oa-1-480.webp 480w, ${baseUrl}/activites/carrousel/oa-1-960.webp 960w`,
+    )
+  })
+
+  it('est vide sans CDN', () => {
+    expect(cdnSrcset(() => '', 'activites/oa')).toBe('')
   })
 })

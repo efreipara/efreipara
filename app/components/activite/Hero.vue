@@ -10,12 +10,14 @@
   }>()
 
   const { getIcon, byKey } = await useActivities()
-  const { buildCdnUrl } = useCdnAsset()
+  const { buildCdnUrl, cdnImage } = useCdnAsset()
   const { labels } = await useLabels()
   const appConfig = useAppConfig()
 
   const icon = getIcon(props.activite)
-  const imageUrl = buildCdnUrl(`${props.activite}.jpg`)
+  const image = cdnImage(`activites/${props.activite}`, 'half')
+  // Fond flouté à 20 % d'opacité : la plus petite largeur suffit
+  const backgroundUrl = buildCdnUrl(cdnImagePath(`activites/${props.activite}`, 480))
 
   const { prev: prevActivity, next: nextActivity } = adjacentActivities(props.activite)
 
@@ -26,10 +28,9 @@
 <template>
   <div class="relative overflow-hidden" :class="activityClass(activite)">
     <img
-      :src="imageUrl"
+      :src="backgroundUrl"
       alt=""
       aria-hidden="true"
-      fetchpriority="high"
       class="pointer-events-none absolute inset-0 h-full w-full mask-[linear-gradient(to_bottom,black_50%,transparent_100%)] object-cover opacity-20 blur-sm dark:opacity-15"
     />
 
@@ -70,7 +71,7 @@
           </span>
         </template>
         <img
-          :src="imageUrl"
+          v-bind="image"
           :alt="alt"
           fetchpriority="high"
           class="aspect-square w-full rounded-2xl object-cover"
