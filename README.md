@@ -229,17 +229,27 @@ Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/) : la ve
 
 ## 📝 Licence
 
+Chaque partie du dépôt a sa propre licence.
+
 ### Code source
 
-Le code source de ce projet est sous licence [MIT](https://opensource.org/license/MIT) - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Le code source (tout ce qui n'est pas listé ci-dessous, documentation de `docs/` comprise) est sous licence [MIT](https://opensource.org/license/MIT) : voir [LICENSE](LICENSE).
 
 ### Contenus
 
-Les contenus textuels et documentaires sont sous licence [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/deed.fr), sauf mention contraire.
+Les textes de `content/` sont sous licence [Creative Commons Attribution - Pas d'utilisation commerciale 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/deed.fr), sauf mention contraire : voir [LICENSES/CC-BY-NC-4.0.txt](LICENSES/CC-BY-NC-4.0.txt).
 
-### Photos, vidéos & logos
+### Polices
 
-Les photos, vidéos et logos sont **Tous droits réservés / All rights reserved** et ne peuvent être réutilisés sans autorisation explicite du club Efrei Para.
+Outfit, Racing Sans One et OpenDyslexic (fichiers `woff2` de `public/`) sont sous licence [SIL Open Font License 1.1](https://openfontlicense.org) : voir [LICENSES/OFL-1.1.txt](LICENSES/OFL-1.1.txt).
+
+### Photos, vidéos & logos du club
+
+Les photos, vidéos et logos d'Efrei Para sont **Tous droits réservés / All rights reserved** et ne peuvent être réutilisés sans autorisation explicite du club.
+
+### Logos des partenaires
+
+Les logos d'Efrei, d'iFly, de Skydive Event et de Creative Commons appartiennent à leurs propriétaires. Ils ne sont couverts par aucune des licences ci-dessus.
 
 ## 📧 Contact
 
