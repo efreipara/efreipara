@@ -34,3 +34,6 @@ playwright-report
 
 # Médias du CDN : originaux et fichiers générés, téléversés à la main (dépôt public)
 cdn/
+
+# Rapports d'audit de sécurité : locaux, jamais publiés (dépôt public)
+reports/
