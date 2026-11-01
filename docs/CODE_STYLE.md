@@ -33,7 +33,7 @@
 ## Formatage et lint
 
 - **Prettier** ([`.prettierrc.json`](../.prettierrc.json)) : sans point-virgule, guillemets simples, virgules finales, 100 colonnes, `htmlWhitespaceSensitivity: ignore`, plugin Tailwind. `bun run format` formate tout le dépôt, Markdown compris. VS Code formate à l'enregistrement (`.vscode/settings.json`).
-- **ESLint** ([`eslint.config.mjs`](../eslint.config.mjs)) : configuration `@nuxt/eslint`, plus balises auto-fermantes partout, composants en `PascalCase` dans les templates, variables inutilisées et `v-html` en erreur (le Markdown du contenu passe par `<MDC>`, voir [SECURITY.md](SECURITY.md#2-html-issu-du-contenu)). `bun run lint`, `bun run lint:fix`.
+- **ESLint** ([`eslint.config.mjs`](../eslint.config.mjs)) : configuration `@nuxt/eslint`, plus balises auto-fermantes partout, composants en `PascalCase` dans les templates, variables inutilisées et `v-html` en erreur (le Markdown du contenu passe par `<MDC>`, voir [SECURITY.md](SECURITY.md#2-html-issu-du-contenu)). `.claude/skills/` est exclu : ce code tiers est repris sans modification ([README des skills](../.claude/skills/README.md)). `bun run lint`, `bun run lint:fix`.
 
 ## Commits
 

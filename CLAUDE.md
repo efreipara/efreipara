@@ -78,7 +78,7 @@ Les skills du dépôt (`.claude/skills/`) s'utilisent selon la demande. Charger 
 | Fin d'une livraison `feat`, avant le dernier commit                       | `code-review-and-quality`      |
 | Demande floue, où plusieurs interprétations changent le résultat          | `interview-me`                 |
 
-- Uniquement sur demande explicite : `code-simplification`, `security-and-hardening`.
+- Uniquement sur demande explicite : `code-simplification`, `security-and-hardening`, `security-audit` (audit complet en six phases, rapports dans `reports/`, ignoré par git).
 - Un skill s'applique à la tâche en cours : ignorer ses consignes d'accueil ou de présentation.
 - **La documentation du projet prime sur un skill** : composants Nuxt UI et règles de `docs/DESIGN_SYSTEM.md` (formes arrondies, teintes d'activité, polices comprises), invariants de `docs/SECURITY.md`, vérifications de `docs/TESTING.md`. Un skill ne justifie ni nouvelle dépendance (React, Motion / Framer Motion…) ni écart à ces règles ; ses exemples React se transposent en Vue, Nuxt UI et CSS / WAAPI.
 - Une petite modification (libellé, style, correction évidente) ne charge aucun skill.
