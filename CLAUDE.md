@@ -137,7 +137,7 @@ bun run test:e2e:headed  # les mêmes dans une fenêtre Brave visible
 bun run test:all      # generate + test + test:e2e
 bun run format        # Prettier sur tout le dépôt
 bun run generate      # génère le site statique dans .output/public
-bun run preview       # sert le site généré
+bun run preview       # sert le site généré sur http://127.0.0.1:4173 (règles de nginx)
 bun run docker:build  # image Docker à partir du .env
 ```
 

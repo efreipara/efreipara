@@ -14,7 +14,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: `http://localhost:${port}`,
+    baseURL: `http://127.0.0.1:${port}`,
     locale: 'fr-FR',
     // PW_SLOWMO ralentit chaque action (mode visible : test:e2e:headed)
     launchOptions: { executablePath, slowMo: Number(process.env.PW_SLOWMO ?? 0) },
@@ -38,7 +38,7 @@ export default defineConfig({
   // Le site doit avoir été généré avant (bun run generate)
   webServer: {
     command: `PORT=${port} bun tests/e2e/serve.ts`,
-    url: `http://localhost:${port}`,
+    url: `http://127.0.0.1:${port}`,
     reuseExistingServer: !process.env.CI,
   },
 })

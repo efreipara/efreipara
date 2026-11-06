@@ -12,6 +12,7 @@ const fileAt = async (path: string) => {
 
 Bun.serve({
   port,
+  hostname: '127.0.0.1',
   async fetch(req) {
     const path = normalize(decodeURIComponent(new URL(req.url).pathname))
     if (path.split('/').some((part) => part.startsWith('.'))) {
@@ -29,4 +30,4 @@ Bun.serve({
   },
 })
 
-console.log(`Site généré servi sur http://localhost:${port}`)
+console.log(`Site généré servi sur http://127.0.0.1:${port}`)

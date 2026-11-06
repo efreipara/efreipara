@@ -208,5 +208,6 @@ Toute nouvelle variable est ajoutée à `.env.example`, au README et, si elle se
 ## Environnements et déploiement
 
 - `bun run dev` : développement local sur `http://localhost:3000`, sans Docker.
+- `bun run preview` : sert le site généré (`.output/public`) sur `http://127.0.0.1:4173` avec les règles de nginx, par `tests/e2e/serve.ts`, sans les en-têtes de sécurité (vérifiés dans le conteneur).
 - Chaque push déclenche une construction de l'image Docker et sa mise en ligne : la branche **`dev`** alimente la préproduction, **`main`** la production. On travaille sur `dev` ; `main` ne reçoit que ce qui est prêt à publier.
 - Pas de CI dans le dépôt : lint et vérifications sont faits en local ([TESTING.md](TESTING.md)).

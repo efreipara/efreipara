@@ -17,7 +17,7 @@
 - `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête), `llms` (`/llms.txt` construit à partir des vrais fichiers). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
 - `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, plus :
   - `fixtures.ts` : coupe toute requête hors du site (CDN, Plausible, albums, réseaux), relève les erreurs console, et `gotoReady` attend l'hydratation de Vue avant d'interagir ;
-  - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404) ;
+  - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404), sur `127.0.0.1` seulement ; c'est aussi `bun run preview` ;
   - `routes.ts` : la liste des pages, la même que celle des tests de contenu, et les redirections de `content.routes.ts` ;
   - `a11y-known.ts` : les violations graves déjà présentes, par règle et par page.
 - Un `describe` par fonction (Vitest) ou par sujet (Playwright), cas décrits en français.
