@@ -182,6 +182,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 | Chemin                            | Cache                                                         |
 | --------------------------------- | ------------------------------------------------------------- |
+| `/_nuxt/builds/` (noms stables)   | `no-cache` (manifeste de version)                             |
 | `/_nuxt/` (noms hachés)           | `public, max-age=31536000, immutable`                         |
 | `/__nuxt_content/` (noms stables) | `no-cache`                                                    |
 | polices `.woff` / `.woff2`        | `public, max-age=31536000, immutable` (renommer pour changer) |
@@ -189,7 +190,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 | pages HTML (`/`)                  | `no-cache`, `try_files $uri $uri/index.html $uri.html =404`   |
 
 - Vraie 404 : `error_page 404 /404.html` ; un 403 est rendu comme une 404. Les chemins commençant par `.` sont refusés, avant toute autre règle.
-- gzip activé, `server_tokens off`.
+- gzip activé, `server_tokens off`. Redirections de dossier relatives (`absolute_redirect off`, `port_in_redirect off`) : elles ne reprennent ni l'hôte demandé ni le port 8080.
 - `security-headers.conf.template` contient tous les en-têtes de sécurité ; nginx n'héritant pas des `add_header` dans un `location` qui en déclare, **chaque `location` qui pose un en-tête ré-inclut ce fichier**. Contenu détaillé : [SECURITY.md](SECURITY.md#4-csp-et-origines-externes).
 
 ## Variables d'environnement
