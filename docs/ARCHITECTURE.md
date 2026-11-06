@@ -44,7 +44,8 @@ app/
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)
-├── plugins/          # media-guard.client.ts : ni menu contextuel ni glisser sur img / video / picture
+├── plugins/          # media-guard.client.ts : ni menu contextuel ni glisser sur img / video / picture ;
+│                     # link-goals.client.ts : événement Plausible à chaque clic de lien
 └── utils/            # fonctions pures, sans Nuxt, testées par Vitest
 server/routes/        # llms.txt.ts : version Markdown du site, prérendue
 content/
@@ -124,6 +125,7 @@ Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à 
 | `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                              | `HomeStatCounter`, `HomeHero`, `ActiviteCarousel`, `ColorModeButton`, `useSmoothScroll` |
 | `sections.ts`       | `isBandSection`                                                                                                                              | `ActivitePage`, `/activites`                                                            |
 | `llms.ts`           | `buildLlmsText`                                                                                                                              | `server/routes/llms.txt.ts`                                                             |
+| `goals.ts`          | `GOAL_SEPARATOR`, `linkLabel`, `pageGoalName`, `goalName`                                                                                    | `plugins/link-goals.client.ts`                                                          |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 
@@ -145,6 +147,13 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - `og:image` et `twitter:image` sont rendues absolues (`toAbsoluteUrl`, `baseUrl` + chemin) au moment d'écrire les balises.
 - `/llms.txt` ([llms.txt](https://llmstxt.org)) : `server/routes/llms.txt.ts` lit les collections avec `queryCollection(event, …)` (importé de `@nuxt/content/server`) et les passe à `buildLlmsText` (`app/utils/llms.ts`), qui écrit le Markdown : intitulés et textes du contenu, liens rendus absolus avec `baseUrl` de `seo.yml`, sections facultatives absentes omises, événement repris seulement s'il est à venir au `generate`. Servi en `text/plain`, UTF-8 (`charset` de nginx), cache d'une heure comme les autres `.txt`.
 - Icônes du navigateur déclarées dans `app.head.link` de `nuxt.config.ts` : `favicon.ico` (16 à 48 px) et `apple-touch-icon.png` (180 px).
+
+## Mesure d'audience
+
+- `@nuxtjs/plausible` (configuré dans `nuxt.config.ts`) envoie les pages vues et, avec `autoOutboundTracking`, l'événement `Outbound Link: Click` (propriété `url`) pour un lien externe.
+- `plugins/link-goals.client.ts` écoute `click` et `auxclick` (bouton du milieu) sur `document`, en phase de capture : chemin et titre de l'onglet sont encore ceux de la page quittée. Pour un `a[href]`, il envoie l'événement `<portée> › <lien>` par `$plausible.trackEvent` (rien n'est envoyé si Plausible est désactivé ou l'hôte ignoré). Un lien externe envoie donc deux événements.
+- Portée : la valeur de l'ancêtre `[data-goal-zone]` (en-tête, menu déroulant des activités et menu mobile, téléportés hors du `<header>`, bannière, pied de page, libellés de `labels.goalZones`), sinon le nom de la page (`pageGoalName`, `utils/goals.ts`) : `goal` de `seo.yml`, sinon le titre de l'onglet sans « - Efrei Para » (pages légales, redirections, erreurs).
+- Lien (`linkLabel`) : `data-goal-title` du lien, sinon texte d'un élément `[data-goal-title]` à l'intérieur (titre d'une carte d'album ou de document), sinon `aria-label`, sinon texte visible ; espaces repliés, coupé à 60 caractères.
 
 ## CDN
 

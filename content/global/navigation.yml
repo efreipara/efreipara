@@ -55,6 +55,8 @@ footer:
   code:
     label: Code source
     changelog: 'v{version}, historique des versions'
+    # Nom du lien dans les événements Plausible, sans le numéro de version
+    changelogGoal: Historique des versions
     license: MIT
     url: https://opensource.org/license/MIT
   content:

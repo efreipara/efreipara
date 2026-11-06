@@ -8,6 +8,12 @@ banner:
 # Lien vers un réseau (pied de page, menu mobile)
 socialLink: '{name} Efrei Para'
 
+# Événements Plausible : un clic dans ces zones est nommé « <zone> › <lien> » au lieu de « <page> › <lien> »
+goalZones:
+  header: En-tête
+  footer: Pied de page
+  banner: Bannière
+
 # Sections d'une page d'activité
 activity:
   goTo: Aller à {label}

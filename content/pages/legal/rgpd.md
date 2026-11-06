@@ -1,7 +1,7 @@
 ---
 title: Politique RGPD
 description: Politique de protection des données personnelles
-updatedAt: 2026-01-22
+updatedAt: 2026-11-07
 ---
 
 ## 1. Responsable de traitement
@@ -32,7 +32,7 @@ Ces données sont **strictement nécessaires** à l’organisation, à la sécur
 
 ### 2.2 Données de navigation
 
-Le site collecte des données de navigation à des fins statistiques (pages consultées, type d’appareil, pays, durée de visite).
+Le site collecte des données de navigation à des fins statistiques (pages consultées, liens cliqués, type d’appareil, pays, durée de visite).
 
 La mesure d’audience est réalisée à l’aide de [**Plausible Analytics**](https://plausible.io/), auto-hébergé pour le compte du club.
 Aucun cookie n’est utilisé et les données sont agrégées.

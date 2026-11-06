@@ -312,6 +312,7 @@ export const collections = {
         close: z.string(),
       }),
       socialLink: z.string(),
+      goalZones: z.object({ header: z.string(), footer: z.string(), banner: z.string() }),
       activity: z.object({
         goTo: z.string(),
         features: z.string(),
@@ -471,6 +472,7 @@ export const collections = {
         code: z.object({
           label: z.string(),
           changelog: z.string(),
+          changelogGoal: z.string(),
           license: z.string(),
           url: z.string().url(),
         }),
@@ -513,6 +515,7 @@ export const collections = {
           description: z.string(),
           ogImage: z.string().optional(),
           robots: z.string().optional(),
+          goal: z.string().optional(),
         }),
       ),
     }),

@@ -55,7 +55,11 @@
 </script>
 
 <template>
-  <UHeader :title="logo.label" :ui="{ title: 'transition active:scale-[0.97]' }">
+  <UHeader
+    :title="logo.label"
+    :ui="{ title: 'transition active:scale-[0.97]' }"
+    :data-goal-zone="labels.goalZones.header"
+  >
     <template #title>
       <Icon name="efreipara:logo" class="text-efreipara ml-2 h-12 w-32 dark:hidden" />
       <Icon name="efreipara:logo-color" class="ml-2 hidden h-12 w-32 dark:block" />
@@ -74,7 +78,7 @@
       }"
     >
       <template #activities-content>
-        <div class="grid grid-cols-2 gap-1 p-2">
+        <div class="grid grid-cols-2 gap-1 p-2" :data-goal-zone="labels.goalZones.header">
           <ULink
             v-for="activity in activities"
             :key="activity.slot"
@@ -140,7 +144,7 @@
 
     <!-- Mobile : menu de navigation -->
     <template #body>
-      <div class="flex flex-col">
+      <div class="flex flex-col" :data-goal-zone="labels.goalZones.header">
         <NuxtLink
           :to="activitiesIndex.to"
           class="text-toned hover:text-highlighted hover:bg-elevated/50 aria-[current=page]:text-highlighted aria-[current=page]:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition active:scale-[0.98]"

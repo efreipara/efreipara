@@ -20,6 +20,8 @@ export interface SeoPage {
   description: string
   ogImage?: string
   robots?: string
+  // Nom de la page dans les événements Plausible (utils/goals.ts), si le titre ne convient pas
+  goal?: string
 }
 
 // Options SEO portées par le fichier de contenu d'une page (front-matter légal, option de « Nous rejoindre »)

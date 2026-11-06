@@ -2,6 +2,16 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.0 — 7 novembre 2026
+
+### Ajouts
+
+- Mesure d'audience : chaque clic sur un lien est compté dans Plausible sous un nom lisible, comme « Accueil › Nous rejoindre » ou « Pied de page › Instagram Efrei Para », pour savoir quels boutons et liens servent vraiment. Toujours sans cookie ni donnée personnelle.
+
+### Modifications
+
+- Politique RGPD : les liens cliqués figurent parmi les données de navigation mesurées.
+
 ## 1.16.4 — 6 novembre 2026
 
 ### Corrections

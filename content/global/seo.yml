@@ -17,6 +17,7 @@ defaults:
 pages:
   index:
     title: Efrei Para
+    goal: Accueil
     description: Défie la gravité et vis des sensations uniques avec Efrei Para
     robots: index, follow
 
@@ -26,6 +27,7 @@ pages:
 
   faq:
     title: Questions fréquentes (FAQ)
+    goal: FAQ
     description: Toutes les réponses à tes questions sur Efrei Para, nos activités et le parachutisme
 
   rejoindre:
@@ -62,6 +64,7 @@ pages:
 
   activites-pac:
     title: Formation PAC (Progression Accompagnée en Chute)
+    goal: Formation PAC
     description: Forme-toi au parachutisme avec la méthode PAC. Une formation complète pour devenir parachutiste autonome.
     ogImage: /seo/activites-pac.png
 

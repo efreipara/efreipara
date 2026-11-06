@@ -35,7 +35,7 @@
       leave-from-class="grid-rows-[1fr]"
       leave-to-class="grid-rows-[0fr] opacity-0"
     >
-      <div v-if="showBanner && event" class="grid">
+      <div v-if="showBanner && event" class="grid" :data-goal-zone="labels.goalZones.banner">
         <div class="min-h-0 overflow-hidden">
           <UBanner
             :title="event.title"
