@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.1 — 7 novembre 2026
+
+### Corrections
+
+- Mesure d'audience : les clics dans le menu du téléphone (logo, réseaux) et dans le menu déroulant des activités sont comptés sous des noms corrects, comme « En-tête › Saut en Tandem ».
+
 ## 1.17.0 — 7 novembre 2026
 
 ### Ajouts

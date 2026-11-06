@@ -41,6 +41,11 @@
     headerSocials.value.map((key) => getSocial(key)).filter((social) => !!social),
   )
 
+  // Fenêtre du menu mobile, téléportée hors du <header> : même zone Plausible (utils/goals.ts)
+  const menuContentAttrs = computed<Record<string, string>>(() => ({
+    'data-goal-zone': labels.value.goalZones.header,
+  }))
+
   // Le sous-menu des activités est rendu par le slot #activities-content
   const items = computed<NavigationMenuItem[]>(() => [
     {
@@ -59,6 +64,7 @@
     :title="logo.label"
     :ui="{ title: 'transition active:scale-[0.97]' }"
     :data-goal-zone="labels.goalZones.header"
+    :menu="{ content: menuContentAttrs }"
   >
     <template #title>
       <Icon name="efreipara:logo" class="text-efreipara ml-2 h-12 w-32 dark:hidden" />
@@ -94,6 +100,7 @@
             <div class="min-w-0 flex-1">
               <p
                 class="text-toned group-hover:text-highlighted text-sm font-medium transition-colors"
+                data-goal-title
               >
                 {{ activity.label }}
               </p>
@@ -144,7 +151,7 @@
 
     <!-- Mobile : menu de navigation -->
     <template #body>
-      <div class="flex flex-col" :data-goal-zone="labels.goalZones.header">
+      <div class="flex flex-col">
         <NuxtLink
           :to="activitiesIndex.to"
           class="text-toned hover:text-highlighted hover:bg-elevated/50 aria-[current=page]:text-highlighted aria-[current=page]:bg-elevated/50 flex items-center gap-3 rounded-lg px-2 py-2.5 transition active:scale-[0.98]"

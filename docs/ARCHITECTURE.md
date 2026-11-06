@@ -152,8 +152,8 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - `@nuxtjs/plausible` (configuré dans `nuxt.config.ts`) envoie les pages vues et, avec `autoOutboundTracking`, l'événement `Outbound Link: Click` (propriété `url`) pour un lien externe.
 - `plugins/link-goals.client.ts` écoute `click` et `auxclick` (bouton du milieu) sur `document`, en phase de capture : chemin et titre de l'onglet sont encore ceux de la page quittée. Pour un `a[href]`, il envoie l'événement `<portée> › <lien>` par `$plausible.trackEvent` (rien n'est envoyé si Plausible est désactivé ou l'hôte ignoré). Un lien externe envoie donc deux événements.
-- Portée : la valeur de l'ancêtre `[data-goal-zone]` (en-tête, menu déroulant des activités et menu mobile, téléportés hors du `<header>`, bannière, pied de page, libellés de `labels.goalZones`), sinon le nom de la page (`pageGoalName`, `utils/goals.ts`) : `goal` de `seo.yml`, sinon le titre de l'onglet sans « - Efrei Para » (pages légales, redirections, erreurs).
-- Lien (`linkLabel`) : `data-goal-title` du lien, sinon texte d'un élément `[data-goal-title]` à l'intérieur (titre d'une carte d'album ou de document), sinon `aria-label`, sinon texte visible ; espaces repliés, coupé à 60 caractères.
+- Portée : la valeur de l'ancêtre `[data-goal-zone]` (en-tête ; menu déroulant des activités et fenêtre du menu mobile, téléportés hors du `<header>`, la fenêtre par `menu.content` de `UHeader` ; bannière ; pied de page ; libellés de `labels.goalZones`), sinon le nom de la page (`pageGoalName`, `utils/goals.ts`) : `goal` de `seo.yml`, sinon le titre de l'onglet sans « - Efrei Para » (pages légales, redirections, erreurs).
+- Lien (`linkLabel`) : `data-goal-title` du lien, sinon texte d'un élément `[data-goal-title]` à l'intérieur (titre d'une carte d'album ou de document, d'une activité du menu déroulant), sinon `aria-label`, sinon texte visible ; espaces repliés, coupé à 60 caractères.
 
 ## CDN
 
