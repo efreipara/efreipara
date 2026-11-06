@@ -16,7 +16,7 @@
 
 - Tout ce qui est dans `runtimeConfig.public` est écrit dans le HTML et le JavaScript envoyés au visiteur : rien de secret n'y entre. `CDN_DEV_TOKEN` n'y est injecté qu'en `NODE_ENV=development` (`nuxt.config.ts`) et n'est utilisé qu'en dev (`useCdnAsset`) ; un build de production ne le contient jamais, même s'il est présent dans l'environnement.
 - Les build args Docker sont visibles dans l'historique de l'image : ils ne portent que des valeurs publiques (`CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN`). Un secret de build passerait par `docker build --secret`, jamais par `ARG`.
-- `.env` est hors dépôt (`.gitignore`) et hors image (`.dockerignore`) ; seul `.env.example`, sans valeur, est versionné.
+- `.env` est hors dépôt (`.gitignore`) et hors image (`.dockerignore`) ; seul `.env.example`, sans valeur, est versionné. Clés et identifiants (`*.pem`, `*.key`, `*.p12`, `*.pfx`, `credentials*.json`, `.npmrc`) sont aussi ignorés par git.
 
 ### 2. HTML issu du contenu
 

@@ -17,12 +17,19 @@ logs
 .DS_Store
 .fleet
 .idea
-*.pem
 
 # Local env files
 .env
 .env.*
 !.env.example
+
+# Clés et identifiants : jamais versionnés (dépôt public)
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+.npmrc
 
 # Claude Code (fichiers personnels)
 CLAUDE.local.md
@@ -37,3 +44,4 @@ cdn/
 
 # Rapports d'audit de sécurité : locaux, jamais publiés (dépôt public)
 reports/
+SECURITY_AUDIT.md
