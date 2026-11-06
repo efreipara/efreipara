@@ -6,6 +6,9 @@ const activity = z.enum(ACTIVITY_KEYS)
 // Bouton dont seul le libellé et l'icône viennent du contenu
 const link = z.object({ label: z.string(), icon: z.string() })
 
+// Destination d'un lien : https:, mailto:, chemin du site ou ancre ; jamais javascript: ni data:
+const href = z.string().regex(/^(https:\/\/|mailto:|\/(?!\/)|#)/)
+
 // Rôle d'un bouton d'appel à l'action (variantes de UButton dans app.config.ts), principal par défaut
 const buttonRole = z.enum(['primary', 'secondary']).optional()
 
@@ -30,7 +33,7 @@ export const collections = {
     schema: z.object({
       hero: z.object({
         links: z.array(
-          z.object({ label: z.string(), to: z.string(), icon: z.string(), variant: buttonRole }),
+          z.object({ label: z.string(), to: href, icon: z.string(), variant: buttonRole }),
         ),
         scrollIcon: z.string(),
         video: z.object({ pause: link, play: link }),
@@ -53,7 +56,7 @@ export const collections = {
         cardLink: z.string(),
         link: z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
         }),
       }),
       why: z.object({
@@ -73,7 +76,7 @@ export const collections = {
       albums: z.object({
         headline: z.string(),
         title: z.string(),
-        link: z.object({ label: z.string(), to: z.string() }),
+        link: z.object({ label: z.string(), to: href }),
       }),
       partners: z.object({ headline: z.string(), title: z.string() }),
     }),
@@ -98,7 +101,7 @@ export const collections = {
           type: activity,
           date: z.string().date(),
           location: z.string(),
-          url: z.string(),
+          url: href,
           photo: z.string().optional(),
           source: z.string().optional(),
         }),
@@ -186,7 +189,7 @@ export const collections = {
                 .array(
                   z.object({
                     label: z.string(),
-                    to: z.string(),
+                    to: href,
                     icon: z.string().optional(),
                     target: z.string().optional(),
                   }),
@@ -217,7 +220,7 @@ export const collections = {
             z.object({
               title: z.string(),
               description: z.string(),
-              url: z.string(),
+              url: href,
               icon: z.string().optional(),
               type: z.enum(['internal', 'external']),
             }),
@@ -278,7 +281,7 @@ export const collections = {
       links: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           icon: z.string(),
           variant: buttonRole,
         }),
@@ -341,7 +344,7 @@ export const collections = {
       title: z.string(),
       date: z.string().date(),
       type: activity,
-      url: z.string(),
+      url: href,
     }),
   },
   partners: {
@@ -353,7 +356,7 @@ export const collections = {
           name: z.string(),
           icon: z.string().optional(),
           logo: z.string().optional(),
-          url: z.string(),
+          url: href,
           activites: z.array(activity).optional(),
         }),
       ),
@@ -392,7 +395,7 @@ export const collections = {
           title: z.string(),
           description: z.string(),
           icon: z.string(),
-          link: z.string(),
+          link: href,
           linkText: z.string(),
           type: activity,
           slug: z.string(),
@@ -448,13 +451,13 @@ export const collections = {
       ),
       activitiesIndex: z.object({
         label: z.string(),
-        to: z.string(),
+        to: href,
         icon: z.string(),
       }),
       pages: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           icon: z.string().optional(),
           header: z.number().optional(),
         }),
@@ -481,7 +484,7 @@ export const collections = {
       legal: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           target: z.string().optional(),
         }),
       ),

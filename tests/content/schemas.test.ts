@@ -21,6 +21,15 @@ describe('schémas des collections', () => {
     }
   }
 
+  it('refuse un lien javascript:, data: ou //hôte', () => {
+    const file = 'pages/rejoindre.yml'
+    for (const link of ['javascript:alert(1)', 'data:text/html,x', '//exemple.test']) {
+      const data = structuredClone(readContent(file))
+      data.options[0].link = link
+      expect(collections.rejoindre.schema.safeParse(data).success).toBe(false)
+    }
+  })
+
   it('chaque fichier de content/ appartient à une collection', () => {
     const covered = new Set(Object.values(collections).flatMap((c) => sourceFiles(c.source)))
     expect(allContentFiles().filter((file) => !covered.has(file))).toEqual([])

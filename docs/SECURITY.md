@@ -28,6 +28,7 @@
 
 - Un lien externe s'ouvre dans un nouvel onglet avec `rel="noopener noreferrer"` : `NuxtLink` / `UButton` l'ajoutent pour une URL externe ; le Markdown de Content passe par `rehype-target-blank.mjs` ; un lien écrit à la main avec `target="_blank"` porte le `rel`.
 - Les redirections (`RedirectPage`) n'envoient que vers des URL du dépôt (`club.yml`, `rejoindre.yml`), jamais vers une adresse lue dans la query string.
+- Les liens écrits dans le contenu n'acceptent que `https:`, `mailto:`, un chemin du site ou une ancre (schéma `href` de `content.schemas.ts`, [CONTENT.md](CONTENT.md#formats-acceptés)) : un lien `javascript:` ou `data:` fait échouer les tests de contenu.
 
 ### 4. CSP et origines externes
 
