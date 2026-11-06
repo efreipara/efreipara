@@ -29,6 +29,7 @@
 - adresse CDN et jeton de développement, chemins et `srcset` des photos (`cdn`) ;
 - chaque export de `app/utils/` et `app/composables/` est vu par l'import automatique de Nuxt (`auto-imports`) : un export manqué ne casse pas le build, seulement le rendu (« … is not defined », erreur 500 à la génération) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
+- lecture des options d'accessibilité enregistrées, valeur illisible ou inconnue comprise (`accessibility`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
 - Markdown de `/llms.txt` : ordre des activités, libellés remplis, sections facultatives omises, liens absolus, événement passé masqué (`llms`) ;
