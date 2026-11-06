@@ -16,21 +16,23 @@ dist
 .data
 
 # Variables d'environnement locales et fichiers d'éditeur
-.env
-.env.*
+**/.env
+**/.env.*
 !.env.example
 .vscode
 
-# Rapports de test et fichiers Claude Code
+# Rapports de test et d'audit, fichiers Claude Code
 test-results
 playwright-report
+reports
+SECURITY_AUDIT.md
 .claude
 CLAUDE.local.md
 
-# Fichiers temporaires et logs locaux
-*.log
-npm-debug.log*
-.DS_Store
+# Fichiers temporaires et logs locaux, à toute profondeur
+**/*.log
+**/npm-debug.log*
+**/.DS_Store
 temp.txt
 
 # Ressources non nécessaires au build Docker
