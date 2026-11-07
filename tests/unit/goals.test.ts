@@ -20,6 +20,11 @@ const seoData = {
   },
 } as unknown as SeoData
 
+const faqSeo = {
+  ...seoData,
+  pages: { faq: { title: 'Questions fréquentes (FAQ)', description: '', goal: 'FAQ' } },
+} as SeoData
+
 describe('linkLabel', () => {
   it("préfère l'aria-label au texte", () => {
     expect(linkLabel(link({ 'aria-label': 'Instagram Efrei Para' }, ''))).toBe(
@@ -53,16 +58,20 @@ describe('linkLabel', () => {
 
 describe('pageGoalName', () => {
   it('prend le champ goal de seo.yml', () => {
-    expect(pageGoalName('index', 'Efrei Para', seoData)).toBe('Accueil')
+    expect(pageGoalName('/', 'Efrei Para', seoData)).toBe('Accueil')
   })
 
   it("retire « - Efrei Para » du titre de l'onglet", () => {
-    expect(pageGoalName('contact', 'Contact - Efrei Para', seoData)).toBe('Contact')
-    expect(pageGoalName('rgpd', 'Politique RGPD - Efrei Para', seoData)).toBe('Politique RGPD')
+    expect(pageGoalName('/contact', 'Contact - Efrei Para', seoData)).toBe('Contact')
+    expect(pageGoalName('/rgpd', 'Politique RGPD - Efrei Para', seoData)).toBe('Politique RGPD')
+  })
+
+  it('ignore la barre oblique finale du chemin', () => {
+    expect(pageGoalName('/faq/', 'Questions fréquentes (FAQ) - Efrei Para', faqSeo)).toBe('FAQ')
   })
 
   it('garde le titre tel quel sans données SEO', () => {
-    expect(pageGoalName('contact', 'Contact - Efrei Para', null)).toBe('Contact - Efrei Para')
+    expect(pageGoalName('/contact', 'Contact - Efrei Para', null)).toBe('Contact - Efrei Para')
   })
 })
 

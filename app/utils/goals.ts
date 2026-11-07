@@ -1,4 +1,4 @@
-import type { SeoData } from './seo'
+import { seoKeyFromPath, type SeoData } from './seo'
 
 export const GOAL_SEPARATOR = ' › '
 const MAX_LABEL_LENGTH = 60
@@ -25,8 +25,8 @@ export const linkLabel = (link: LinkLike) => {
 }
 
 // Nom court de seo.yml (`goal`) sinon titre de l'onglet sans « - Efrei Para »
-export const pageGoalName = (key: string, documentTitle: string, seoData?: SeoData | null) => {
-  const goal = seoData?.pages[key]?.goal
+export const pageGoalName = (pathname: string, documentTitle: string, seoData?: SeoData | null) => {
+  const goal = seoData?.pages[seoKeyFromPath(pathname.replace(/(.)\/$/, '$1'))]?.goal
   if (goal) return goal
   const suffix = seoData ? `${seoData.defaults.separator}${seoData.defaults.siteName}` : ''
   const title = clean(documentTitle)

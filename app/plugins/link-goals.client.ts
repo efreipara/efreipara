@@ -11,8 +11,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const zone = link.closest<HTMLElement>('[data-goal-zone]')?.dataset.goalZone
     // Phase de capture : chemin et titre sont encore ceux de la page quittée
-    const path = location.pathname.replace(/(.)\/$/, '$1')
-    const scope = zone ?? pageGoalName(seoKeyFromPath(path), document.title, seoData.value)
+    const scope = zone ?? pageGoalName(location.pathname, document.title, seoData.value)
     const name = goalName(scope, linkLabel(link))
     if (name) nuxtApp.$plausible?.trackEvent(name)
   }
