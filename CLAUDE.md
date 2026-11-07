@@ -17,6 +17,7 @@ La documentation est découpée par usage dans `docs/`. **Lire le ou les documen
 | [`docs/SECURITY.md`](docs/SECURITY.md)           | Modèle de menace, invariants (secrets, `v-html`, CSP, dépôt)     | ajouter une variable, un `v-html`, une origine externe, un en-tête |
 | [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md)       | Conventions de code, Prettier, ESLint, format des commits        | écrire du code ou un commit                                        |
 | [`docs/TESTING.md`](docs/TESTING.md)             | Vérifications avant de livrer                                    | terminer une livraison                                             |
+| [`docs/plausible/`](docs/plausible/README.md)    | Noms des événements Plausible, création des Goals                | créer les Goals d'un site Plausible                                |
 
 Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md`.
 
@@ -24,16 +25,17 @@ Installation et variables d'environnement : `README.md` ; historique des version
 
 **Toute modification qui change ce qu'un document décrit met à jour ce document dans le même commit.** Une tâche n'est pas terminée tant que la documentation ne reflète pas le code.
 
-| Ce qui est modifié                                                         | Document à mettre à jour     |
-| -------------------------------------------------------------------------- | ---------------------------- |
-| Page, section, comportement visible, bannière, redirection, accessibilité  | `docs/PRD.md`                |
-| Module, composable, `nuxt.config.ts`, organisation du code, Docker, nginx  | `docs/ARCHITECTURE.md`       |
-| `content.schemas.ts`, collection, champ, format, nommage des images du CDN | `docs/CONTENT.md`            |
-| Couleur, police, icône, règle visuelle, composant réutilisable             | `docs/DESIGN_SYSTEM.md`      |
-| Secret, `v-html`, origine externe, CSP, en-tête, image Docker              | `docs/SECURITY.md`           |
-| Convention, Prettier, ESLint, format des commits                           | `docs/CODE_STYLE.md`         |
-| Outil de test, script ou liste de vérifications                            | `docs/TESTING.md`            |
-| Variable d'environnement, installation, édition de contenu                 | `README.md` + `.env.example` |
+| Ce qui est modifié                                                         | Document à mettre à jour            |
+| -------------------------------------------------------------------------- | ----------------------------------- |
+| Page, section, comportement visible, bannière, redirection, accessibilité  | `docs/PRD.md`                       |
+| Module, composable, `nuxt.config.ts`, organisation du code, Docker, nginx  | `docs/ARCHITECTURE.md`              |
+| `content.schemas.ts`, collection, champ, format, nommage des images du CDN | `docs/CONTENT.md`                   |
+| Couleur, police, icône, règle visuelle, composant réutilisable             | `docs/DESIGN_SYSTEM.md`             |
+| Secret, `v-html`, origine externe, CSP, en-tête, image Docker              | `docs/SECURITY.md`                  |
+| Convention, Prettier, ESLint, format des commits                           | `docs/CODE_STYLE.md`                |
+| Outil de test, script ou liste de vérifications                            | `docs/TESTING.md`                   |
+| Lien, libellé de lien ou page ajouté, renommé ou retiré                    | `docs/plausible/` (`bun run goals`) |
+| Variable d'environnement, installation, édition de contenu                 | `README.md` + `.env.example`        |
 
 - Chaque information n'est écrite qu'à **un seul endroit** ; les autres documents y renvoient par un lien.
 - Les documents décrivent l'**état actuel** : corriger le texte existant, ne pas ajouter de note datée (l'historique va dans `CHANGELOG.md`).
@@ -135,6 +137,7 @@ bun run test          # Vitest : logique pure et contenu
 bun run test:e2e      # Playwright sur le site généré (après generate)
 bun run test:e2e:headed  # les mêmes dans une fenêtre Brave visible
 bun run test:all      # generate + test + test:e2e
+bun run goals         # liste des Goals Plausible (docs/plausible/), après generate
 bun run format        # Prettier sur tout le dépôt
 bun run generate      # génère le site statique dans .output/public
 bun run preview       # sert le site généré sur http://127.0.0.1:4173 (règles de nginx)

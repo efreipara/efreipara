@@ -161,7 +161,7 @@ Plausible compte les pages vues et les clics vers les liens externes, sans cooki
 
 Chaque clic sur un lien est aussi compté sous le nom « <page> › <lien> » (« Accueil › Nous rejoindre », « Contact › Instagram »). Dans l'en-tête (menus compris), la bannière et le pied de page, la page est remplacée par la zone (« Header › Galerie », « Footer › FAQ », « Bannière › Inscription »), quelle que soit la page visitée. Le lien est nommé par son libellé (ou le titre de la carte) : renommer un libellé dans le contenu change le nom de l'événement.
 
-Un événement n'apparaît dans Plausible que lorsqu'un objectif (Goal) de même nom, à la lettre et aux majuscules près, est créé dans les réglages du site ; les clics antérieurs ne sont pas repris.
+Un événement n'apparaît dans Plausible que lorsqu'un objectif (Goal) de même nom, à la lettre et aux majuscules près, est créé dans les réglages du site ; les clics antérieurs ne sont pas repris. La liste de tous les noms et la façon de créer les Goals sont dans [plausible/README.md](plausible/README.md).
 
 ## 5. Hors périmètre
 
