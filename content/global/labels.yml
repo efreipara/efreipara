@@ -10,8 +10,8 @@ socialLink: '{name} Efrei Para'
 
 # Événements Plausible : un clic dans ces zones est nommé « <zone> › <lien> » au lieu de « <page> › <lien> »
 goalZones:
-  header: En-tête
-  footer: Pied de page
+  header: Header
+  footer: Footer
   banner: Bannière
 
 # Sections d'une page d'activité

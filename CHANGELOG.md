@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.2 — 7 novembre 2026
+
+### Modifications
+
+- Mesure d'audience : les clics dans l'en-tête et le pied de page sont nommés « Header › … » et « Footer › … », par exemple « Header › Galerie ».
+
 ## 1.17.1 — 7 novembre 2026
 
 ### Corrections
