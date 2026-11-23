@@ -66,7 +66,8 @@
               container: 'h-auto gap-2 py-2.5',
               left: 'hidden lg:hidden',
               center: 'flex-1 gap-3',
-              title: 'text-default flex-1 font-bold',
+              // text-clip retire le truncate de Nuxt UI : le titre passe à la ligne au lieu d'être coupé
+              title: 'text-default flex-1 font-bold text-clip text-pretty',
               actions: 'gap-2',
               right: 'flex-none lg:flex-none',
             }"

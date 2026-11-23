@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.5 — 23 novembre 2026
+
+### Corrections
+
+- La bannière du prochain événement affiche son texte en entier sur téléphone, sur plusieurs lignes, au lieu de le couper après quelques mots.
+
 ## 1.17.4 — 23 novembre 2026
 
 ### Corrections
