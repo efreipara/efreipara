@@ -30,6 +30,19 @@ describe('schémas des collections', () => {
     }
   })
 
+  it('refuse un événement sans date ni mois, avec les deux, ou aux mois désordonnés', () => {
+    const base = { title: 'Saut', type: 'tandem' }
+    for (const event of [
+      base,
+      { ...base, date: '2027-05-15', months: ['2027-05'] },
+      { ...base, months: ['2027-06', '2027-05'] },
+      { ...base, months: ['2027-13'] },
+    ]) {
+      expect(collections.events.schema.safeParse({ items: [event] }).success).toBe(false)
+    }
+    expect(collections.events.schema.safeParse({ items: [] }).success).toBe(true)
+  })
+
   it('chaque fichier de content/ appartient à une collection', () => {
     const covered = new Set(Object.values(collections).flatMap((c) => sourceFiles(c.source)))
     expect(allContentFiles().filter((file) => !covered.has(file))).toEqual([])

@@ -8,12 +8,14 @@
   )
   const { getPartnersByActivity } = await usePartners()
   const partners = computed(() => getPartnersByActivity(props.activite))
+  const { events } = await useUpcomingEvents(props.activite)
 
   // Sections présentes, dans l'ordre : une sur deux sur bande, sans trou quand une section manque
   const present = computed(() =>
     (
       [
         ['stats', page.value?.stats?.length],
+        ['events', events.value.length],
         ['intro', page.value?.intro?.length],
         ['carousel', page.value?.imageCount],
         ['features', page.value?.features?.length],
@@ -43,6 +45,12 @@
       :activite="activite"
       :stats="page.stats"
       :band="band('stats')"
+    />
+    <ActiviteEvents
+      v-if="events.length"
+      :activite="activite"
+      :events="events"
+      :band="band('events')"
     />
     <ActiviteIntro v-if="page?.intro?.length" :paragraphs="page.intro" :band="band('intro')" />
     <ActiviteCarousel

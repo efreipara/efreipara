@@ -11,6 +11,7 @@ const data = (overrides: Partial<LlmsData> = {}): LlmsData => ({
   home: {
     about: { paragraphs: ['Le club de parachutisme'] },
     why: { title: 'Pourquoi Efrei Para ?', items: [item('Accessible')] },
+    events: { title: 'Prochains événements' },
     partners: { title: 'Nos partenaires' },
   },
   activitesIndex: { hero: { title: 'Nos activités', description: 'Quatre façons de voler' } },
@@ -33,13 +34,25 @@ const data = (overrides: Partial<LlmsData> = {}): LlmsData => ({
       steps: 'Déroulé',
       requirements: 'Prérequis',
     },
+    events: { or: 'ou' },
   },
   rejoindre: {
     hero: { title: 'Rejoins Efrei Para', description: 'Une place pour toi' },
     alert: item('Discord'),
     options: [{ ...item('Devenir membre'), link: 'https://forms.gle/x', linkText: 'Formulaire' }],
   },
-  nextEvent: { title: 'Prochain saut', date: '2026-11-02', url: 'https://forms.gle/y' },
+  events: {
+    items: [
+      { title: 'Saut en tandem', months: ['2027-05', '2027-06'], type: 'tandem' },
+      {
+        title: 'Prochain saut',
+        location: 'Péronne',
+        date: '2026-11-02',
+        type: 'tandem',
+        url: 'https://forms.gle/y',
+      },
+    ],
+  },
   faq: {
     title: 'FAQ',
     description: 'Questions',
@@ -102,14 +115,14 @@ describe('buildLlmsText', () => {
     expect(text).toContain('[Formulaire](https://forms.gle/x)')
   })
 
-  it('montre le prochain événement à venir', () => {
+  it('liste les événements à venir, du plus proche au plus lointain', () => {
     expect(buildLlmsText(data(), today)).toContain(
-      '## Prochain saut\n\n2026-11-02 : https://forms.gle/y',
+      '## Prochains événements\n\n- **Prochain saut** : 2026-11-02, Péronne : https://forms.gle/y\n- **Saut en tandem** : mai ou juin\u00A02027',
     )
   })
 
-  it('masque un événement passé ou absent', () => {
+  it('masque un événement passé, et la section sans événement', () => {
     expect(buildLlmsText(data(), new Date('2026-11-03'))).not.toContain('Prochain saut')
-    expect(buildLlmsText(data({ nextEvent: null }), today)).not.toContain('Prochain saut')
+    expect(buildLlmsText(data({ events: null }), today)).not.toContain('Prochains événements')
   })
 })

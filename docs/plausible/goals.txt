@@ -1,10 +1,12 @@
 Accueil › Baptême en soufflerie
 Accueil › Efrei
 Accueil › iFly
+Accueil › Inscription
 Accueil › Sauts en tandem
 Accueil › Skydive Event Paris
 Bannière › Inscription
 Baptêmes en soufflerie › iFly
+Baptêmes en soufflerie › Inscription
 Contact › Apple Plans
 Contact › Bento
 Contact › Contacter par e-mail
@@ -47,6 +49,7 @@ Footer › LinkedIn
 Footer › LinkedIn Efrei Para
 Footer › MIT
 Footer › Statut du site
+Formation PAC › Inscription
 Header › Bento Efrei Para
 Header › Discord Efrei Para
 Header › GitHub Efrei Para
@@ -73,4 +76,6 @@ Politique de confidentialité › HelloAsso
 Politique de confidentialité › Plausible Analytics
 Règlement intérieur › Bureau des Sports (BDS)
 Règlement intérieur › Efrei
+Saut en ouverture automatique (OA) › Inscription
+Saut en tandem › Inscription
 Saut en tandem › Skydive Event Paris

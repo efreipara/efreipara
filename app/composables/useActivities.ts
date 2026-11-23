@@ -28,23 +28,19 @@ export const useActivities = async () => {
 }
 
 /**
- * Composable pour gérer le prochain événement affiché en bannière
+ * Événements à venir (global/events.yml), triés, d'une seule activité si `type` est donné.
+ * Date du jour : celle du generate (dans le payload, même rendu au prérendu et à l'hydratation),
+ * puis celle du navigateur : un événement passé depuis le dernier generate disparaît.
  */
-export const useNextEvent = () => {
-  const { data: event } = useAsyncData('nextEvent', () => queryCollection('nextEvent').first())
+export const useUpcomingEvents = async (type?: ActivityType) => {
+  // Avant l'await : le contexte Nuxt et le composant ne sont plus connus après
+  const today = useState('events-today', () => new Date().toISOString())
+  onMounted(() => (today.value = new Date().toISOString()))
+  const { data } = await useAsyncData('events', () => queryCollection('events').first())
 
-  const getEventInfoUrl = (type: ActivityType): string => {
-    return `/activites/${type}`
-  }
+  const events = computed(() =>
+    upcomingEvents(data.value?.items ?? [], new Date(today.value), type),
+  )
 
-  const shouldShowEvent = (): boolean => !!event.value && isUpcomingEvent(event.value.date)
-
-  const getEventBannerId = (): string => eventBannerId(event.value)
-
-  return {
-    event,
-    getEventInfoUrl,
-    getEventBannerId,
-    shouldShowEvent,
-  }
+  return { events }
 }

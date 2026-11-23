@@ -14,7 +14,7 @@ export default defineContentConfig({
     cta: defineCollection(collections.cta),
     club: defineCollection(collections.club),
     labels: defineCollection(collections.labels),
-    nextEvent: defineCollection(collections.nextEvent),
+    events: defineCollection(collections.events),
     partners: defineCollection(collections.partners),
     rejoindre: defineCollection(collections.rejoindre),
     qr: defineCollection(collections.qr),

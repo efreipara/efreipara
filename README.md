@@ -178,7 +178,7 @@ Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt
 
 Tous les textes du site sont éditables. Les plus courants :
 
-- **Prochain événement** : `content/global/next-event.yml` - Bannière en haut du site
+- **Événements à venir** : `content/global/events.yml` - Bannière, accueil et pages d'activité
 - **Galerie** : `content/pages/galerie.yml` - Albums photos
 - **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
 - **Documents** : `content/pages/documents.yml` - Liens vers les documents utiles

@@ -77,6 +77,11 @@ why:
       icon: tabler:heart
       type: soufflerie
 
+# Événements à venir (global/events.yml), section masquée quand il n'y en a aucun
+events:
+  headline: À venir
+  title: Prochains événements
+
 # Trois derniers albums de la galerie (galerie.yml)
 albums:
   headline: En images

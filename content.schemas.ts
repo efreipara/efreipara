@@ -73,6 +73,7 @@ export const collections = {
           }),
         ),
       }),
+      events: z.object({ headline: z.string(), title: z.string() }),
       albums: z.object({
         headline: z.string(),
         title: z.string(),
@@ -306,10 +307,20 @@ export const collections = {
     source: 'global/labels.yml',
     schema: z.object({
       banner: z.object({
+        title: z.string(),
+        titleAt: z.string(),
+        more: z.string(),
+        moreLabel: z.object({ one: z.string(), other: z.string() }),
+        close: z.string(),
+      }),
+      events: z.object({
         register: z.string(),
         registerIcon: z.string(),
         info: z.string(),
-        close: z.string(),
+        soon: z.string(),
+        or: z.string(),
+        dateIcon: z.string(),
+        locationIcon: z.string(),
       }),
       socialLink: z.string(),
       goalZones: z.object({ header: z.string(), footer: z.string(), banner: z.string() }),
@@ -319,12 +330,14 @@ export const collections = {
         steps: z.string(),
         requirements: z.string(),
         partners: z.string(),
+        events: z.string(),
         photo: z.string(),
         headlines: z.object({
           features: z.string(),
           steps: z.string(),
           requirements: z.string(),
           partners: z.string(),
+          events: z.string(),
         }),
       }),
       helpCta: z.object({ github: z.string() }),
@@ -338,14 +351,33 @@ export const collections = {
       }),
     }),
   },
-  nextEvent: {
+  events: {
     type: 'data' as const,
-    source: 'global/next-event.yml',
+    source: 'global/events.yml',
     schema: z.object({
-      title: z.string(),
-      date: z.string().date(),
-      type: activity,
-      url: href,
+      items: z.array(
+        z
+          .object({
+            title: z.string(),
+            location: z.string().optional(),
+            date: z.string().date().optional(),
+            months: z
+              .array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'mois au format AAAA-MM'))
+              .nonempty()
+              .optional(),
+            type: activity,
+            url: href.optional(),
+          })
+          .refine(
+            (event) => (event.date === undefined) !== (event.months === undefined),
+            'indiquer `date` (jour fixé) ou `months` (mois possibles), pas les deux',
+          )
+          .refine(
+            (event) =>
+              !event.months || event.months.every((m, i, all) => i === 0 || all[i - 1]! < m),
+            '`months` en ordre croissant, sans doublon',
+          ),
+      ),
     }),
   },
   partners: {

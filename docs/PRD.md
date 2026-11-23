@@ -33,12 +33,16 @@ Partout (menus, accueil, `/activites`, précédent / suivant des pages d'activit
 - **Grand écran (`lg` et plus)** : logo à gauche, menu centré, actions à droite. Le menu commence par « Nos activités », qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`). À droite : les réseaux choisis dans `navigation.yml` (Instagram et Discord), le menu d'accessibilité et le bouton clair / sombre.
 - **Petit écran** : logo, puis accessibilité, clair / sombre et bouton burger (l'icône menu tourne et s'efface pendant que la croix apparaît, et l'inverse à la fermeture). Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
 
+### Événements
+
+Les événements à venir viennent de `events.yml`. Chacun a un titre court, une activité, un lieu et un lien d'inscription facultatifs, et soit un **jour fixé**, soit des **mois possibles** quand la date n'est pas encore connue (« janvier ou février 2027 »). Un événement reste affiché jusqu'à son jour inclus, ou jusqu'à la fin de son dernier mois possible ; cette date est vérifiée dans le navigateur, si bien qu'un événement passé disparaît même sans nouvelle publication. Pas de page agenda ni d'historique : seuls les événements à venir sont montrés.
+
 ### Bannière d'événement
 
-Au-dessus de l'en-tête, une bannière annonce le prochain événement (`next-event.yml`).
+Au-dessus de l'en-tête, une bannière annonce l'événement le plus proche **dont le jour est fixé** ; sans un tel événement, pas de bannière.
 
-- Affichée seulement si la date de l'événement est aujourd'hui ou plus tard.
-- Teintée par la couleur de l'activité, avec son icône, le titre (entier, sur plusieurs lignes si besoin), un bouton « Inscription » (formulaire externe, nouvel onglet), « En savoir plus » vers la page de l'activité (avec son icône) et une croix « Fermer la bannière ». Sous 768 px, l'icône de gauche est masquée et les boutons passent sous le titre.
+- Phrase générée : « Prochain événement : baptême en soufflerie à iFly Paris le vendredi 4 décembre » (lieu omis s'il n'est pas connu). S'il y a d'autres événements à venir, un lien souligné « · +N » termine la phrase et mène à la section de l'accueil (nom pour les lecteurs d'écran : « Voir N autres événements »).
+- Teintée par la couleur de l'activité, avec son icône, le titre (entier, sur plusieurs lignes si besoin), un bouton « Inscription » (formulaire externe, nouvel onglet ; absent sans lien), « En savoir plus » vers la page de l'activité (avec son icône) et une croix « Fermer la bannière ». Sous 768 px, l'icône de gauche est masquée et les boutons passent sous le titre.
 - Fermée, elle ne revient pas pendant la session du navigateur pour cet événement ; un nouvel événement (autre date ou autre type) la fait réapparaître.
 - Rendue côté navigateur uniquement, elle s'ouvre en douceur en poussant la page, et se referme de la même façon.
 
@@ -68,6 +72,7 @@ En bas de l'accueil, de la page des activités, de chaque activité, de la galer
 
 - **Qui sommes-nous ?** : paragraphes de présentation (mots clés en gras), puis trois chiffres (membres, activités, année de création) dont le nombre défile de 0 à sa valeur (2,5 s) quand il devient visible, le suffixe (« + ») conservé ; illustration d'avion à droite à partir de `lg`.
 - **Nos activités** : quatre cartes à photo (étiquette de l'activité avec son icône, titre, description, « En savoir plus »), sur 1, 2 puis 4 colonnes ; bouton « Découvrir toutes nos activités en détail » à droite du titre sur grand écran.
+- **Prochains événements** (ancre `#evenements`), seulement s'il y en a : une carte par événement, du plus proche au plus lointain, sur 1, 2 puis 3 colonnes, teintée par l'activité. Pavé de date (jour et mois, ou icône de calendrier sans jour fixé), activité, titre, date en toutes lettres, lieu, bouton « Inscription » (ou « Inscriptions bientôt » sans lien) et « En savoir plus » vers la page de l'activité.
 - **Pourquoi Efrei Para ?** : photo de groupe du club et trois points forts teintés.
 - **Derniers albums** : les trois albums les plus récents de la galerie (mêmes cartes que `/galerie`), et un lien vers la galerie.
 - **Nos partenaires** : logos sur tuiles blanches, liens externes.
@@ -78,17 +83,18 @@ Une section par activité, image et texte alternés gauche / droite sur grand é
 
 ### Page d'une activité — `/activites/[activite]`
 
-Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute autre adresse donne une 404. Les sections suivantes s'affichent dans l'ordre, chacune seulement si son contenu existe ; elles alternent fond clair et bande sans trou quand une section manque, et celles qui ont un titre portent un surtitre teinté (« Les points forts », « Le déroulé », « Avant de t’inscrire », « Ils nous accompagnent ») :
+Seules les quatre clés existent (`oa`, `tandem`, `soufflerie`, `pac`) ; toute autre adresse donne une 404. Les sections suivantes s'affichent dans l'ordre, chacune seulement si son contenu existe ; elles alternent fond clair et bande sans trou quand une section manque, et celles qui ont un titre portent un surtitre teinté (« À venir », « Les points forts », « Le déroulé », « Avant de t’inscrire », « Ils nous accompagnent ») :
 
 1. **Hero** : badge de l'activité, titre, description, photo, fond flouté de la même photo. Sur très grand écran (`2xl`), liens latéraux vers l'activité précédente et suivante.
 2. **Chiffres** clés (altitude, durée, vitesse…).
-3. **Introduction** : paragraphes, mots clés en gras.
-4. **Carrousel** de photos : défilement automatique (3 s, en pause au survol, désactivé avec « réduire les animations »), en boucle, 1 / 2 / 3 photos visibles selon la largeur ; une photo introuvable est retirée.
-5. **Pourquoi choisir {activité} ?** : points forts.
-6. **Comment ça se passe ?** : frise des étapes, alternée gauche / droite à partir de `md`.
-7. **Prérequis**.
-8. **Nos partenaires** liés à l'activité.
-9. Appel à l'action.
+3. **Prochains événements** de l'activité : mêmes cartes que l'accueil, sans l'activité ni « En savoir plus ».
+4. **Introduction** : paragraphes, mots clés en gras.
+5. **Carrousel** de photos : défilement automatique (3 s, en pause au survol, désactivé avec « réduire les animations »), en boucle, 1 / 2 / 3 photos visibles selon la largeur ; une photo introuvable est retirée.
+6. **Pourquoi choisir {activité} ?** : points forts.
+7. **Comment ça se passe ?** : frise des étapes, alternée gauche / droite à partir de `md`.
+8. **Prérequis**.
+9. **Nos partenaires** liés à l'activité.
+10. Appel à l'action.
 
 ### Galerie — `/galerie`
 
@@ -153,7 +159,7 @@ Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont 
 
 ### Version pour les agents d'IA — `/llms.txt`
 
-Le contenu du site en un seul fichier Markdown, sans interface, au format [llms.txt](https://llmstxt.org) : présentation du club, points forts, chaque activité (description, chiffres, points forts, déroulé, prérequis), prochain événement s'il est à venir au moment de la publication, adhésion, FAQ complète, documents, galerie, partenaires, contact et liens vers les pages légales (sans leur texte). Chaque section donne l'adresse de la page correspondante. Aucun lien du site n'y mène.
+Le contenu du site en un seul fichier Markdown, sans interface, au format [llms.txt](https://llmstxt.org) : présentation du club, points forts, chaque activité (description, chiffres, points forts, déroulé, prérequis), événements à venir au moment de la publication (jour fixé ou mois possibles, lieu, lien), adhésion, FAQ complète, documents, galerie, partenaires, contact et liens vers les pages légales (sans leur texte). Chaque section donne l'adresse de la page correspondante. Aucun lien du site n'y mène.
 
 ## 4. Mesure d'audience
 
@@ -165,4 +171,4 @@ Un événement n'apparaît dans Plausible que lorsqu'un objectif (Goal) de même
 
 ## 5. Hors périmètre
 
-Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, calendrier d'événements, galerie hébergée sur le site, traduction, recherche.
+Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, page agenda et historique des événements (seuls les événements à venir sont montrés, voir [Événements](#événements)), galerie hébergée sur le site, traduction, recherche.

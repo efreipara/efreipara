@@ -1,0 +1,8 @@
+# Prochains événements : bannière (le plus proche qui a une date), accueil et pages d'activité.
+# `date` quand le jour est fixé, sinon `months` (mois possibles) ; `location` et `url` facultatifs.
+items:
+  - title: Baptême en soufflerie
+    location: iFly Paris
+    date: '2026-12-04'
+    type: soufflerie
+    url: 'https://www.helloasso.com/associations/bds-efrei/evenements/efrei-para'

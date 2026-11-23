@@ -2,6 +2,19 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.18.0 — 23 novembre 2026
+
+### Ajouts
+
+- Section « Prochains événements » sur l’accueil et sur la page de chaque activité concernée : date, lieu et bouton d’inscription pour chaque événement à venir.
+- Un événement peut être annoncé avant que son jour soit fixé, avec les mois possibles (« janvier ou février 2027 ») ; l’inscription y est indiquée « bientôt ».
+- Quand plusieurs événements sont prévus, la bannière annonce le plus proche et propose « +1 » (ou plus) pour voir les autres.
+
+### Modifications
+
+- La phrase de la bannière et les dates sont écrites automatiquement à partir de l’événement : plus de date erronée dans le titre.
+- Un événement passé disparaît du site dès le lendemain, sans attendre une nouvelle mise en ligne.
+
 ## 1.17.7 — 23 novembre 2026
 
 ### Modifications

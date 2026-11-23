@@ -17,7 +17,7 @@ const scriptFile = join(root, 'docs/plausible/goals-console.js')
 const seo = readYaml<SeoData>('global/seo.yml')
 const labels = readYaml<{
   goalZones: { banner: string }
-  banner: { register: string }
+  events: { register: string }
   error: { home: string }
 }>('global/labels.yml')
 const notFound = '/page-inexistante'
@@ -83,6 +83,9 @@ test.describe('goals Plausible', () => {
         await page.locator('header nav a[href="/activites/tandem"]').waitFor()
       }
       await add()
+      // Cartes d'événements (accueil, pages d'activité), présentes seulement avant un événement
+      if (path === '/' || path.startsWith('/activites/'))
+        names.add(goalName(pageGoalName(path, await page.title(), seo), labels.events.register))
     }
 
     await page.setViewportSize({ width: 390, height: 844 })
@@ -92,7 +95,7 @@ test.describe('goals Plausible', () => {
     await add()
 
     // La bannière n'est affichée qu'avant un événement : nom tiré du contenu (formulaire externe)
-    names.add(goalName(labels.goalZones.banner, labels.banner.register))
+    names.add(goalName(labels.goalZones.banner, labels.events.register))
 
     expect(names.has(null), 'lien sans nom').toBe(false)
     const sorted = [...names].map(String).sort((a, b) => a.localeCompare(b, 'fr'))

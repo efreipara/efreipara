@@ -1,17 +1,27 @@
 <script setup lang="ts">
-  const { event, getEventInfoUrl, getEventBannerId, shouldShowEvent } = useNextEvent()
+  const { events } = await useUpcomingEvents()
   const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
   const { labels } = await useLabels()
 
-  const bannerId = computed(() => getEventBannerId())
+  // Événement annoncé : le plus proche dont le jour est fixé ; les autres sont comptés dans « +N »
+  const event = computed(() => bannerEvent(events.value))
+  const others = computed(() => events.value.length - 1)
+  const title = computed(() => event.value && bannerTitle(event.value, labels.value.banner))
+  const moreLabel = computed(() =>
+    fillLabel(labels.value.banner.moreLabel[others.value > 1 ? 'other' : 'one'], {
+      count: others.value,
+    }),
+  )
+
+  const bannerId = computed(() => eventBannerId(event.value))
   const isBannerClosed = ref(false)
 
   onMounted(() => {
     isBannerClosed.value = sessionStorage.getItem(`banner-${bannerId.value}`) === 'true'
   })
 
-  const showBanner = computed(() => !!event.value && shouldShowEvent() && !isBannerClosed.value)
+  const showBanner = computed(() => !!event.value && !isBannerClosed.value)
 
   // Fermeture gérée ici et non par UBanner : sessionStorage (UBanner utilise localStorage)
   // et animation de sortie de la Transition
@@ -38,19 +48,23 @@
       <div v-if="showBanner && event" class="grid" :data-goal-zone="labels.goalZones.banner">
         <div class="min-h-0 overflow-hidden">
           <UBanner
-            :title="event.title"
+            :title="title"
             :actions="[
+              ...(event.url
+                ? [
+                    {
+                      label: labels.events.register,
+                      to: event.url,
+                      target: '_blank',
+                      size: 'sm' as const,
+                      variant: 'primary' as const,
+                      trailingIcon: labels.events.registerIcon,
+                    },
+                  ]
+                : []),
               {
-                label: labels.banner.register,
-                to: event.url,
-                target: '_blank',
-                size: 'sm',
-                variant: 'primary',
-                trailingIcon: labels.banner.registerIcon,
-              },
-              {
-                label: labels.banner.info,
-                to: getEventInfoUrl(event.type),
+                label: labels.events.info,
+                to: `/activites/${event.type}`,
                 size: 'sm',
                 variant: 'tertiary',
                 leadingIcon: getIcon(event.type),
@@ -79,6 +93,19 @@
               >
                 <UIcon :name="getIcon(event.type)" class="text-activity size-4" />
               </div>
+            </template>
+            <template #title>
+              {{ title }}
+              <template v-if="others > 0">
+                <span aria-hidden="true">·</span>
+                <NuxtLink
+                  to="/#evenements"
+                  :aria-label="moreLabel"
+                  class="ms-1 underline underline-offset-2"
+                >
+                  {{ fillLabel(labels.banner.more, { count: others }) }}
+                </NuxtLink>
+              </template>
             </template>
             <template #close>
               <UButton

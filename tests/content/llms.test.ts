@@ -17,7 +17,7 @@ const data = {
   })),
   labels: single('labels'),
   rejoindre: single('rejoindre'),
-  nextEvent: single('nextEvent'),
+  events: single('events'),
   faq: single('faq'),
   documents: single('documents'),
   galerie: single('galerie'),
