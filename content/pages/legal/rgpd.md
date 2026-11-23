@@ -1,7 +1,7 @@
 ---
-title: Politique RGPD
+title: Politique de confidentialité
 description: Politique de protection des données personnelles
-updatedAt: 2026-11-07
+updatedAt: 2026-11-23
 ---
 
 ## 1. Responsable de traitement
@@ -34,8 +34,17 @@ Ces données sont **strictement nécessaires** à l’organisation, à la sécur
 
 Le site collecte des données de navigation à des fins statistiques (pages consultées, liens cliqués, type d’appareil, pays, durée de visite).
 
-La mesure d’audience est réalisée à l’aide de [**Plausible Analytics**](https://plausible.io/), auto-hébergé pour le compte du club.
-Aucun cookie n’est utilisé et les données sont agrégées.
+La mesure d’audience est réalisée à l’aide de [**Plausible Analytics**](https://plausible.io/), hébergé pour le compte du club.
+Aucun cookie n’est utilisé, l’adresse IP n’est pas conservée et les données sont agrégées : elles ne permettent d’identifier personne.
+
+### 2.3 Préférences enregistrées sur votre appareil
+
+Le site garde sur votre appareil, sans jamais les transmettre :
+
+- les options d’accessibilité choisies (police pour la dyslexie, contraste élevé), jusqu’à ce que vous les désactiviez ou effaciez les données du site
+- le thème clair ou sombre et la fermeture de la bannière d’événement, effacés à la fermeture du navigateur
+
+Ces informations servent uniquement à appliquer vos choix et ne nécessitent pas de consentement.
 
 ## 3. Finalités du traitement
 
@@ -84,21 +93,32 @@ Les données personnelles sont accessibles uniquement :
 
 Les données ne sont jamais vendues ni cédées à des tiers à des fins commerciales.
 
-## 8. Durées de conservation
+## 8. Transferts hors de l’Union européenne
+
+Certains prestataires sont établis aux États-Unis ou peuvent y traiter des données :
+
+- **Google** (Google Forms) : réponses aux formulaires
+- **Cloudflare** (DNS et diffusion des contenus) : données techniques de connexion, comme l’adresse IP
+
+Ces transferts sont encadrés par le cadre de protection des données UE–États-Unis (Data Privacy Framework) et par les clauses contractuelles types de la Commission européenne.
+
+Le site, la mesure d’audience et HelloAsso traitent les données en France.
+
+## 9. Durées de conservation
 
 Sauf obligation légale spécifique :
 
 - demandes de contact : **3 ans**
 - listes d’intérêt / pré-inscriptions : **1 an après l’année scolaire concernée**
-- données liées aux événements : durée nécessaire à leur gestion
-- statistiques de fréquentation : durée limitée selon paramétrage
+- données liées aux événements : **1 an après l’année scolaire de l’événement**, sauf obligation comptable
+- statistiques de fréquentation : agrégées et anonymes, sans limite de durée
 
-## 9. Vos droits
+## 10. Vos droits
 
 Vous disposez des droits suivants : accès, rectification, effacement, opposition, limitation et portabilité lorsque applicable.
 
 Pour exercer vos droits → [voir la page de contact](/contact)
 
-## 10. Réclamation
+## 11. Réclamation
 
-Vous pouvez déposer une réclamation auprès de la CNIL (www.cnil.fr).
+Vous pouvez déposer une réclamation auprès de la [CNIL](https://www.cnil.fr/fr/plaintes).

@@ -2,6 +2,13 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.6 — 23 novembre 2026
+
+### Corrections
+
+- Mentions légales : le responsable de la publication est nommé, l’hébergement est décrit sans détail technique superflu, et la propriété intellectuelle suit les licences du site (textes en CC BY-NC 4.0, photos et logos du club protégés, logos des partenaires à leurs titulaires, code en MIT).
+- La politique RGPD devient la « Politique de confidentialité ». Elle précise les données transférées hors de l’Union européenne (Google Forms, Cloudflare), les préférences gardées sur l’appareil (accessibilité, thème), et des durées de conservation chiffrées.
+
 ## 1.17.5 — 23 novembre 2026
 
 ### Corrections
