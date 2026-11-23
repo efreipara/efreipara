@@ -2,23 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
-## 1.18.0 — 23 novembre 2026
-
-### Ajouts
-
-- Sur téléphone, la bannière du prochain événement propose aussi « En savoir plus », à côté de « Inscription », pour découvrir l’activité avant de s’inscrire.
-
-## 1.17.6 — 23 novembre 2026
-
-### Corrections
-
-- Sur téléphone et petite tablette, la bannière du prochain événement place ses boutons sous le titre : le texte tient sur deux lignes au lieu de s’empiler dans une colonne étroite.
-
 ## 1.17.5 — 23 novembre 2026
 
 ### Corrections
 
-- La bannière du prochain événement affiche son texte en entier sur téléphone, sur plusieurs lignes, au lieu de le couper après quelques mots.
+- La bannière du prochain événement affiche son texte en entier sur téléphone, au lieu de le couper après quelques mots. Les boutons passent sous le titre, qui tient ainsi sur deux lignes.
+- Sur téléphone, la bannière propose aussi « En savoir plus », à côté de « Inscription », pour découvrir l’activité avant de s’inscrire.
 
 ## 1.17.4 — 23 novembre 2026
 
