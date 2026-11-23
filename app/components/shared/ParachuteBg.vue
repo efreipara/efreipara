@@ -15,6 +15,8 @@
       drift?: number
       /** Part (0 à 1) des parachutes déjà en vol au chargement */
       initialPresence?: number
+      /** Fixé à la fenêtre au lieu de remplir son parent */
+      fixed?: boolean
     }>(),
     {
       icon: 'efreipara-parachute',
@@ -25,6 +27,7 @@
       size: () => ({ min: 14, max: 28 }),
       drift: 24,
       initialPresence: 0,
+      fixed: false,
     },
   )
 
@@ -55,7 +58,12 @@
 </script>
 
 <template>
-  <div class="parachute-bg" :style="{ '--drop-color': currentColor }" aria-hidden="true">
+  <div
+    class="parachute-bg"
+    :class="{ 'is-fixed': props.fixed }"
+    :style="{ '--drop-color': currentColor }"
+    aria-hidden="true"
+  >
     <span v-for="(style, i) in drops" :key="i" class="drop" :style="style">
       <Icon :name="props.icon" />
     </span>
@@ -70,6 +78,10 @@
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
+  }
+
+  .parachute-bg.is-fixed {
+    position: fixed;
   }
 
   .drop {

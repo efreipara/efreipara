@@ -94,6 +94,7 @@
     >
       <component
         :is="heading ?? 'h3'"
+        data-goal-title
         class="font-title mb-1.5 leading-tight font-bold"
         :class="featured ? 'lg:text-xl' : 'text-base'"
       >

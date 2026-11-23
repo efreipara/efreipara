@@ -30,7 +30,7 @@ categories:
         icon: tabler:info-circle
         type: internal
 
-      - title: Politique RGPD
+      - title: Politique de confidentialité
         description: Politique de protection des données personnelles
         url: /rgpd
         icon: tabler:shield-check-filled

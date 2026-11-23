@@ -15,9 +15,9 @@
 
 - `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
 - `tests/content/` : `schemas`, `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête), `llms` (`/llms.txt` construit à partir des vrais fichiers). Lecture des fichiers et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
-- `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, plus :
+- `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, `goals` (noms des événements Plausible de chaque lien, comparés à [`docs/plausible/goals.txt`](plausible/README.md)), plus :
   - `fixtures.ts` : coupe toute requête hors du site (CDN, Plausible, albums, réseaux), relève les erreurs console, et `gotoReady` attend l'hydratation de Vue avant d'interagir ;
-  - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404) ;
+  - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404), sur `127.0.0.1` seulement ; c'est aussi `bun run preview` ;
   - `routes.ts` : la liste des pages, la même que celle des tests de contenu, et les redirections de `content.routes.ts` ;
   - `a11y-known.ts` : les violations graves déjà présentes, par règle et par page.
 - Un `describe` par fonction (Vitest) ou par sujet (Playwright), cas décrits en français.
@@ -25,16 +25,18 @@
 ## Ce qui doit être testé
 
 - clé SEO, canonique, fusion des métadonnées et URL absolue des images de partage (`seo`) ;
-- affichage et clé de fermeture de la bannière d'événement (`event`) ;
+- événements (`event`) : à venir (jour fixé ou fin du dernier mois possible), tri, filtre par activité, choix de l'événement de la bannière, dates en toutes lettres, phrase de la bannière, clé de fermeture ; schéma : `date` ou `months`, jamais les deux ni aucun ;
 - adresse CDN et jeton de développement, chemins et `srcset` des photos (`cdn`) ;
 - chaque export de `app/utils/` et `app/composables/` est vu par l'import automatique de Nuxt (`auto-imports`) : un export manqué ne casse pas le build, seulement le rendu (« … is not defined », erreur 500 à la génération) ;
 - valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
+- lecture des options d'accessibilité enregistrées, valeur illisible ou inconnue comprise (`accessibility`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
-- Markdown de `/llms.txt` : ordre des activités, libellés remplis, sections facultatives omises, liens absolus, événement passé masqué (`llms`) ;
+- Markdown de `/llms.txt` : ordre des activités, libellés remplis, sections facultatives omises, liens absolus, événements à venir listés, passés masqués (`llms`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, SEO de chaque page (dans `seo.yml` ou dans son fichier, jamais aux deux endroits), fichiers d'activité ;
-- site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ; comportement d'application (texte non sélectionnable sauf zones `select-text`, pas de menu contextuel sur les images, menu du lien sur une image dans un lien) ;
+- site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections et raccourcis d'activité ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ; événements, horloge du navigateur figée autour du premier événement daté du contenu : bannière et sections jusqu'au jour même, retirés le lendemain sans nouveau `generate` (`events.spec.ts`) ; comportement d'application (texte non sélectionnable sauf zones `select-text`, pas de menu contextuel sur les images, menu du lien sur une image dans un lien) ;
+- événements Plausible : nom d'un lien (`data-goal-title`, `aria-label`, texte), nom de la page (`goal` de `seo.yml`, titre de l'onglet) (`goals`) ; liste de tous les noms à jour avec les liens du site généré (`goals.spec.ts`) ;
 - accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test, de même que `heading-order` (ordre des titres, « moderate » pour axe). Corriger une violation connue retire sa ligne de la liste.
 
 Une correction de bogue dans une de ces zones s'accompagne d'un test qui échouait avant.
@@ -47,6 +49,7 @@ bun run test:watch   # mode interactif
 bun run test:e2e     # tests Playwright, sur le site déjà généré (headless)
 bun run test:e2e:headed  # les mêmes dans une fenêtre Brave visible, ralentis (PW_SLOWMO=400)
 bun run test:all     # generate, puis test, puis test:e2e
+bun run goals        # réécrit docs/plausible/goals.txt et goals-console.js d'après le site généré
 ```
 
 - Navigateur des tests Playwright : `PLAYWRIGHT_BROWSER_PATH` s'il est défini, sinon **Brave** (`/Applications/Brave Browser.app`), sinon le Chromium de Playwright, à installer une fois avec `bunx playwright install chromium`.

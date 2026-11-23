@@ -31,7 +31,7 @@
 <template>
   <USeparator icon="efreipara:parachute" class="h-px" />
 
-  <UFooter :ui="{ top: 'border-b border-default' }">
+  <UFooter :ui="{ top: 'border-b border-default' }" :data-goal-zone="labels.goalZones.footer">
     <template #top>
       <UContainer>
         <!-- Slots left / right inutilisés : pas de grille xl à trois colonnes, colonnes en grille simple -->
@@ -58,6 +58,7 @@
             :href="`${club.github.repo}/blob/main/CHANGELOG.md`"
             target="_blank"
             :aria-label="fillLabel(footerTitles.code.changelog, { version })"
+            :data-goal-title="footerTitles.code.changelogGoal"
             class="text-xs"
           >
             (v{{ version }})
@@ -76,6 +77,9 @@
         </p>
         <p class="text-muted text-sm">
           {{ footerTitles.media }}
+        </p>
+        <p class="text-muted text-sm">
+          {{ footerTitles.partnerLogos }}
         </p>
       </div>
     </template>

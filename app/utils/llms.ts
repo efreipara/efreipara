@@ -1,5 +1,5 @@
 import { orderActivities } from './activities'
-import { isUpcomingEvent } from './event'
+import { formatEventMonths, upcomingEvents, type EventItem } from './event'
 import { fillLabel } from './labels'
 import type { SeoData } from './seo'
 
@@ -26,17 +26,21 @@ export interface LlmsData {
   home: {
     about: { paragraphs: string[] }
     why: { title: string; items: Item[] }
+    events: { title: string }
     partners: { title: string }
   }
   activitesIndex: { hero: { title: string; description: string } }
   activites: Activity[]
-  labels: { activity: { features: string; steps: string; requirements: string } }
+  labels: {
+    activity: { features: string; steps: string; requirements: string }
+    events: { or: string }
+  }
   rejoindre: {
     hero: { title: string; description: string }
     alert: Item
     options: (Item & { link: string; linkText: string })[]
   }
-  nextEvent?: { title: string; date: string; url: string } | null
+  events?: { items: EventItem[] } | null
   faq: {
     title: string
     description: string
@@ -106,10 +110,21 @@ export const buildLlmsText = (data: LlmsData, today: Date = new Date()) => {
     ]),
   )
 
-  const event =
-    data.nextEvent && isUpcomingEvent(data.nextEvent.date, today)
-      ? `## ${data.nextEvent.title}\n\n${data.nextEvent.date} : ${url(data.nextEvent.url)}`
-      : undefined
+  // Jour fixé en AAAA-MM-JJ, sinon mois possibles en toutes lettres
+  const upcoming = upcomingEvents(data.events?.items ?? [], today)
+  const events =
+    !!upcoming.length &&
+    `## ${data.home.events.title}\n\n${list(
+      upcoming.map((event) =>
+        [
+          `**${event.title}** : ${event.date ?? formatEventMonths(event.months ?? [], data.labels.events.or)}`,
+          event.location && `, ${event.location}`,
+          event.url && ` : ${url(event.url)}`,
+        ]
+          .filter(Boolean)
+          .join(''),
+      ),
+    )}`
 
   const { contact, club } = data
 
@@ -125,7 +140,7 @@ export const buildLlmsText = (data: LlmsData, today: Date = new Date()) => {
         data.activitesIndex.hero.description,
         ...activities,
       ]),
-      event,
+      events,
       join([
         `## ${data.rejoindre.hero.title}`,
         pageUrl('/rejoindre'),

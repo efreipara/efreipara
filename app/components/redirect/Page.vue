@@ -20,7 +20,9 @@
     queryCollection('rejoindre').first(),
   )
 
-  const social = redirectsData.value?.socials[key]
+  const socials = redirectsData.value?.socials
+  // Clé propre uniquement : `__proto__` ou `constructor` ne désignent aucun réseau
+  const social = socials && Object.hasOwn(socials, key) ? socials[key] : undefined
   const network = getSocial(key)
   const option = rejoindreData.value?.options.find((o) => o.slug === key)
   const form = redirectsData.value?.form

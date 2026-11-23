@@ -13,4 +13,7 @@ export default withNuxt({
     'vue/no-v-html': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   },
+}).append({
+  // Skills tiers repris sans modification
+  ignores: ['.claude/skills/**'],
 })

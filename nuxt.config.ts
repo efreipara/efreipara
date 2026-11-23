@@ -2,12 +2,14 @@
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
-import { redirectRoutes } from './content.routes'
+import { activityShortcuts, redirectRoutes } from './content.routes'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
   ssr: true, // Nuxt content a besoin du SSR
   devtools: { enabled: true },
+  // Hôte explicite : sans lui, Nuxt 4.6.4 résout devServer.host en {} et `nuxt dev` plante
+  devServer: { host: 'localhost' },
   vite: {
     // Minification avec Oxc (défaut Vite 8) : suppression des console.log, debugger et commentaires légaux en production
     build: {
@@ -103,6 +105,8 @@ export default defineNuxtConfig({
       cdnUrl: process.env.CDN_URL || '',
       cdnDevToken: process.env.NODE_ENV === 'development' ? process.env.CDN_DEV_TOKEN || '' : '',
       plausibleUrl: process.env.PLAUSIBLE_URL || '',
+      // Liens vers ces pages comptés comme sortants par plugins/link-goals.client.ts
+      redirectPaths: redirectRoutes(),
     },
   },
 
@@ -209,16 +213,25 @@ export default defineNuxtConfig({
   },
 
   // Ancienne page À propos, retirée : l'adresse publique mène à l'accueil
+  // Raccourcis d'activité (/tandem) : arrivée directe sur la page, sans écran de redirection
   routeRules: {
     '/about': { redirect: '/' },
+    ...Object.fromEntries(
+      activityShortcuts().map((key) => [`/${key}`, { redirect: `/activites/${key}` }]),
+    ),
   },
 
   // Une page en erreur est absente de la sortie sans faire échouer le build : relire le journal
   nitro: {
     prerender: {
       failOnError: false,
-      // Redirections et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
-      routes: [...redirectRoutes(), '/about', '/llms.txt'],
+      // Redirections, raccourcis et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
+      routes: [
+        ...redirectRoutes(),
+        ...activityShortcuts().map((key) => `/${key}`),
+        '/about',
+        '/llms.txt',
+      ],
     },
   },
 })

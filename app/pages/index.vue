@@ -17,6 +17,26 @@
     linkSource: galerie.value?.hero.linkSourceLabel ?? '',
   }))
 
+  const { events } = await useUpcomingEvents()
+
+  // Sections présentes, dans l'ordre : une sur deux sur bande, la première sur fond clair
+  const present = computed(() =>
+    (
+      [
+        ['about', true],
+        ['activites', true],
+        ['events', events.value.length],
+        ['why', true],
+        ['albums', latestAlbums.value.length],
+        ['partners', true],
+      ] as const
+    )
+      .filter(([, shown]) => !!shown)
+      .map(([name]) => name),
+  )
+  const band = (name: (typeof present.value)[number]) =>
+    isBandSection(present.value.indexOf(name), false)
+
   const sectionLink = (link?: { label: string; to: string }) =>
     link
       ? [
@@ -42,6 +62,7 @@
       :headline="home.about.headline"
       :title="home.about.title"
       orientation="horizontal"
+      :band="band('about')"
     >
       <template #description>
         <div class="space-y-4">
@@ -85,7 +106,7 @@
       :headline="home.activites.headline"
       :title="home.activites.title"
       :links="sectionLink(home.activites.link)"
-      band
+      :band="band('activites')"
     >
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <UPageCard
@@ -135,10 +156,22 @@
     </SharedSection>
 
     <SharedSection
+      v-if="events.length"
+      id="evenements"
+      class="scroll-mt-(--ui-header-height)"
+      :headline="home.events.headline"
+      :title="home.events.title"
+      :band="band('events')"
+    >
+      <SharedEventList :events="events" show-activity />
+    </SharedSection>
+
+    <SharedSection
       :headline="home.why.headline"
       :title="home.why.title"
       orientation="horizontal"
       reverse
+      :band="band('why')"
     >
       <template #body>
         <ul class="flex flex-col gap-6">
@@ -172,7 +205,7 @@
       :headline="home.albums.headline"
       :title="home.albums.title"
       :links="sectionLink(home.albums.link)"
-      band
+      :band="band('albums')"
     >
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <SharedAlbumCard
@@ -185,7 +218,11 @@
       </div>
     </SharedSection>
 
-    <SharedSection :headline="home.partners.headline" :title="home.partners.title">
+    <SharedSection
+      :headline="home.partners.headline"
+      :title="home.partners.title"
+      :band="band('partners')"
+    >
       <SharedPartnerLogos :partners="partners" />
     </SharedSection>
 

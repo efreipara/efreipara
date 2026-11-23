@@ -44,14 +44,15 @@ app/
 ├── components/       # rangés par zone : activite/, app/, header/, home/, legal/, redirect/, shared/
 ├── composables/      # useXxx.ts (contenu partagé, SEO, CDN, accessibilité…)
 ├── pages/            # routes (noms en français)
-├── plugins/          # media-guard.client.ts : ni menu contextuel ni glisser sur img / video / picture
+├── plugins/          # media-guard.client.ts : ni menu contextuel ni glisser sur img / video / picture ;
+│                     # link-goals.client.ts : événement Plausible à chaque clic de lien
 └── utils/            # fonctions pures, sans Nuxt, testées par Vitest
 server/routes/        # llms.txt.ts : version Markdown du site, prérendue
 content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
 content.schemas.ts    # source et schéma Zod de chaque collection (importés aussi par les tests)
-content.routes.ts     # routes de redirection lues dans le contenu (prérendu, tests)
+content.routes.ts     # routes de redirection et raccourcis d'activité lus dans le contenu (prérendu, tests)
 content.config.ts     # déclare les collections (defineCollection) à partir de content.schemas.ts
 nuxt.config.ts        # modules, icônes, polices, Content, Plausible, prérendu, minification
 rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
@@ -86,18 +87,19 @@ Nuxt importe les composants automatiquement en préfixant le nom du dossier : `c
 
 ### Composables
 
-| Composable                      | Rôle                                                                                                                                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useNavigation`                 | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                                                                           |
-| `usePartners`                   | Collection `partners`, filtre par activité                                                                                                                                                          |
-| `useActivities`, `useNextEvent` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`, `getGalleryLabel`) ; prochain événement et règle d'affichage                                                |
-| `useLabels`                     | Collection `labels` : libellés des composants communs                                                                                                                                               |
-| `useClub`                       | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                                                                              |
-| `useSeo`                        | Métadonnées d'une page depuis `seo.yml`                                                                                                                                                             |
-| `useCdnAsset`                   | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config) ; `cdnImage(base, emplacement)` : `src`, `srcset`, `sizes` d'une photo                                 |
-| `useCategoryColor`              | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                                                                        |
-| `useAccessibility`              | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                                                                        |
-| `useSmoothScroll`               | `scrollToId(id, { focus })` : défilement doux interruptible, immédiat avec « réduire les animations », focus sur la cible en option (pastilles de catégories, sommaire et titres des pages légales) |
+| Composable                           | Rôle                                                                                                                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useNavigation`                      | Collection `navigation` : liens de l'en-tête (triés par `header`), du pied, accessibilité                                                                                                               |
+| `usePartners`                        | Collection `partners`, filtre par activité                                                                                                                                                              |
+| `useActivities`, `useUpcomingEvents` | (`useActivities.ts`) activités dans l'ordre (menu, icône, libellés, `byKey`, `getIcon`, `getGalleryLabel`) ; événements à venir, triés, d'une activité si demandé (bannière, accueil, pages d'activité) |
+| `useLabels`                          | Collection `labels` : libellés des composants communs                                                                                                                                                   |
+| `useClub`                            | Collection `club` : coordonnées, réseaux (`getSocial(key)`), liens d'itinéraire (`maps`), dépôt GitHub                                                                                                  |
+| `useSeo`                             | Métadonnées d'une page depuis `seo.yml`                                                                                                                                                                 |
+| `useCdnAsset`                        | `buildCdnUrl(chemin)` : adresse complète sur le CDN (appelle `resolveCdnUrl` avec la config) ; `cdnImage(base, emplacement)` : `src`, `srcset`, `sizes` d'une photo                                     |
+| `useCategoryColor`                   | Classes Tailwind d'une couleur de catégorie (Documents, FAQ)                                                                                                                                            |
+| `useAccessibility`                   | Options d'accessibilité : état partagé, `localStorage`, classes sur `<html>`                                                                                                                            |
+| `useSeason`                          | Collection `seasons` : saison en cours d'après la date du navigateur, connue seulement une fois la page montée (aucune au prérendu) ; décor et case du menu d'accessibilité                             |
+| `useSmoothScroll`                    | `scrollToId(id, { focus })` : défilement doux interruptible, immédiat avec « réduire les animations », focus sur la cible en option (pastilles de catégories, sommaire et titres des pages légales)     |
 
 Les clés d'activité sont écrites une seule fois : `ACTIVITY_KEYS` (`utils/activities.ts`, dans l'ordre d'affichage), d'où découlent le type `ActivityType`, `isActivity`, les enums de `content.schemas.ts` et les tests. Tout ce qui décrit une activité (libellés, icône, menu, carte d'accueil, section de `/activites`) est dans son fichier de contenu ; `useActivities` les lit et les trie (`orderActivities`). Ajouter une activité : voir [CONTENT.md](CONTENT.md#ajouter-une-activité).
 
@@ -107,22 +109,25 @@ Les clés ne sont pas dans le dossier `shared/` de Nuxt : le build serveur y lai
 
 Les règles qui méritent un test vivent dans `app/utils/`, sans dépendance à Nuxt : composants et composables les appellent, Vitest les importe directement ([TESTING.md](TESTING.md)). Nuxt les auto-importe ; leur nom ne doit pas reprendre celui d'une variable locale courante ni commencer par `use`.
 
-| Module              | Fonctions                                                                                                                                    | Utilisé par                                                                             |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`, `toAbsoluteUrl`                                                                       | `app.vue`, `useSeo`                                                                     |
-| `event.ts`          | `isUpcomingEvent`, `eventBannerId`                                                                                                           | `useNextEvent`                                                                          |
-| `cdn.ts`            | `resolveCdnUrl`, `CDN_IMAGE_WIDTHS`, `CDN_IMAGE_LAYOUTS`, `cdnImagePath`, `cdnSrcset`                                                        | `useCdnAsset`, `scripts/cdn-build.ts`                                                   |
-| `stat.ts`           | `parseStatValue`                                                                                                                             | `HomeStatCounter`                                                                       |
-| `anchor.ts`         | `toAnchorId`                                                                                                                                 | Documents, FAQ, `SharedCategoryChips`                                                   |
-| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                               | galerie                                                                                 |
-| `labels.ts`         | `fillLabel`, `countLabel`                                                                                                                    | composants qui affichent un libellé du contenu                                          |
-| `contact.ts`        | `mapUrls`                                                                                                                                    | `useClub`                                                                               |
-| `navigation.ts`     | `sortHeaderLinks`                                                                                                                            | `useNavigation`                                                                         |
-| `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass` | `useActivities`, `ActiviteHero`, tout composant teinté par activité                     |
-| `category-color.ts` | `categoryColorClasses`, `categoryTextClass`                                                                                                  | `useCategoryColor`                                                                      |
-| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                              | `HomeStatCounter`, `HomeHero`, `ActiviteCarousel`, `ColorModeButton`, `useSmoothScroll` |
-| `sections.ts`       | `isBandSection`                                                                                                                              | `ActivitePage`, `/activites`                                                            |
-| `llms.ts`           | `buildLlmsText`                                                                                                                              | `server/routes/llms.txt.ts`                                                             |
+| Module              | Fonctions                                                                                                                                                                                               | Utilisé par                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `seo.ts`            | `seoKeyFromPath`, `buildCanonicalUrl`, `buildSeoMeta`, `toAbsoluteUrl`                                                                                                                                  | `app.vue`, `useSeo`                                                                     |
+| `event.ts`          | `isUpcomingEvent`, `eventStart`, `eventEnd`, `upcomingEvents`, `bannerEvent`, `formatEventDate`, `formatEventMonths`, `formatEventWhen`, `eventDateParts`, `lowerFirst`, `bannerTitle`, `eventBannerId` | `useUpcomingEvents`, `AppEventBanner`, `SharedEventList`, `buildLlmsText`               |
+| `cdn.ts`            | `resolveCdnUrl`, `CDN_IMAGE_WIDTHS`, `CDN_IMAGE_LAYOUTS`, `cdnImagePath`, `cdnSrcset`                                                                                                                   | `useCdnAsset`, `scripts/cdn-build.ts`                                                   |
+| `stat.ts`           | `parseStatValue`                                                                                                                                                                                        | `HomeStatCounter`                                                                       |
+| `accessibility.ts`  | `defaultAccessibility`, `parseAccessibility` (valeur du `localStorage` illisible ou inconnue : options par défaut), `isAdjusted` (option écartée de sa valeur par défaut)                               | `useAccessibility`, `AppHeader`                                                         |
+| `season.ts`         | `isMonthDay`, `isInSeason`, `activeSeason`                                                                                                                                                              | `useSeason`, `content.schemas.ts`                                                       |
+| `anchor.ts`         | `toAnchorId`                                                                                                                                                                                            | Documents, FAQ, `SharedCategoryChips`                                                   |
+| `gallery.ts`        | `galleryTypes`, `filterGallery`, `hasGalleryHeroLayout`, `galleryFallbackPath`                                                                                                                          | galerie                                                                                 |
+| `labels.ts`         | `fillLabel`, `countLabel`                                                                                                                                                                               | composants qui affichent un libellé du contenu                                          |
+| `contact.ts`        | `mapUrls`                                                                                                                                                                                               | `useClub`                                                                               |
+| `navigation.ts`     | `sortHeaderLinks`                                                                                                                                                                                       | `useNavigation`                                                                         |
+| `activities.ts`     | `ACTIVITY_KEYS`, `isActivity`, `orderActivities`, `adjacentActivities`, `ACTIVITY_CSS_VAR`, `activityColor`, `activityTint`, `activityClass`                                                            | `useActivities`, `ActiviteHero`, tout composant teinté par activité                     |
+| `category-color.ts` | `categoryColorClasses`, `categoryTextClass`                                                                                                                                                             | `useCategoryColor`                                                                      |
+| `motion.ts`         | `prefersReducedMotion` (lit `matchMedia`, non testé par Vitest)                                                                                                                                         | `HomeStatCounter`, `HomeHero`, `ActiviteCarousel`, `ColorModeButton`, `useSmoothScroll` |
+| `sections.ts`       | `isBandSection`                                                                                                                                                                                         | `ActivitePage`, `/activites`                                                            |
+| `llms.ts`           | `buildLlmsText`                                                                                                                                                                                         | `server/routes/llms.txt.ts`                                                             |
+| `goals.ts`          | `GOAL_SEPARATOR`, `linkLabel`, `pageGoalName`, `goalName`                                                                                                                                               | `plugins/link-goals.client.ts`                                                          |
 
 Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentielle : un `!mot` (négation) peut générer une classe `!important` inutile.
 
@@ -130,8 +135,9 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - Chaque page ou composant lit sa collection avec `await useAsyncData('<clé>', () => queryCollection('<collection>').first())` (ou `.where('stem', '=', …)` pour un fichier d'une collection à plusieurs fichiers : activité ; `.path('/<slug>')` pour une page légale, dont la source a le préfixe `/` ; `.select(…).all()` pour la liste des activités). Au `generate`, la requête s'exécute pendant le prérendu et le résultat est écrit dans le payload de la page ; dans le navigateur, une navigation interne relit les données sous `/__nuxt_content/`.
 - **Une clé = une requête** : deux appels avec la même clé partagent le même résultat (`rejoindre` est lu par la page et par les redirections, `galerie` par la galerie et par les derniers albums de l'accueil, `seo` par `useSeo` et par `HomeHero` via `useNuxtData('seo')`). Ne jamais réutiliser une clé pour une autre requête.
-- Les clés en place : `seo`, `navigation`, `club`, `labels`, `partners`, `nextEvent`, `qr`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
-- Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Dans un `<script setup>`, les `await` successifs restent sûrs.
+- Les clés en place : `seo`, `navigation`, `club`, `labels`, `partners`, `events`, `qr`, `cta`, `home`, `galerie`, `documents`, `faq`, `contact`, `rejoindre`, `redirects`, `activites-index`, `activites` (liste commune : menu, icônes, libellés), `home-activites` (cartes de l'accueil), `activites-sections` (sections de `/activites`), la clé de l'activité (`tandem`…) et le slug d'une page légale.
+- Un composable qui en appelle un autre lance les deux requêtes ensemble (`Promise.all`) : appelé après un `await`, un composable perd le contexte Nuxt (erreur E1001). Il appelle aussi `useState`, `onMounted` et les autres fonctions liées au composant **avant** son premier `await`. Dans un `<script setup>`, les `await` successifs restent sûrs.
+- Date du jour des événements (`useUpcomingEvents`) : un `useState('events-today')` prend la date du `generate`, écrite dans le payload, si bien que le prérendu et l'hydratation affichent les mêmes événements ; `onMounted` la remplace par celle du navigateur, et un événement passé depuis la dernière publication disparaît sans nouveau `generate`. La bannière, rendue seulement dans le navigateur, utilise directement cette date.
 - Nuxt Content **ne valide pas** les données contre le schéma : il les enregistre telles quelles (un nombre reste un nombre là où le schéma attend du texte). Le schéma sert aux types et aux colonnes SQL ; la validation est faite par les tests de contenu ([TESTING.md](TESTING.md)).
 - Base de Content : SQLite (`.data/content/contents.db`, connecteur natif), reconstruite à chaque build, jamais versionnée.
 
@@ -142,8 +148,15 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - Images OpenGraph dans `public/seo/`. `baseUrl` est écrit dans `seo.yml` : le canonique pointe toujours vers la production, quel que soit l'environnement.
 - Seule l'accueil est destinée aux moteurs de recherche : `seo.yml` met `noindex, follow` par défaut (`index, follow` sur `index`). `public/robots.txt` n'interdit rien : une page bloquée ne serait pas lue, sa balise `noindex` non plus, et les robots d'aperçu (LinkedIn, X) ne verraient ni la page ni son image.
 - `og:image` et `twitter:image` sont rendues absolues (`toAbsoluteUrl`, `baseUrl` + chemin) au moment d'écrire les balises.
-- `/llms.txt` ([llms.txt](https://llmstxt.org)) : `server/routes/llms.txt.ts` lit les collections avec `queryCollection(event, …)` (importé de `@nuxt/content/server`) et les passe à `buildLlmsText` (`app/utils/llms.ts`), qui écrit le Markdown : intitulés et textes du contenu, liens rendus absolus avec `baseUrl` de `seo.yml`, sections facultatives absentes omises, événement repris seulement s'il est à venir au `generate`. Servi en `text/plain`, UTF-8 (`charset` de nginx), cache d'une heure comme les autres `.txt`.
+- `/llms.txt` ([llms.txt](https://llmstxt.org)) : `server/routes/llms.txt.ts` lit les collections avec `queryCollection(event, …)` (importé de `@nuxt/content/server`) et les passe à `buildLlmsText` (`app/utils/llms.ts`), qui écrit le Markdown : intitulés et textes du contenu, liens rendus absolus avec `baseUrl` de `seo.yml`, sections facultatives absentes omises, événements repris seulement s'ils sont à venir au `generate`. Servi en `text/plain`, UTF-8 (`charset` de nginx), cache d'une heure comme les autres `.txt`.
 - Icônes du navigateur déclarées dans `app.head.link` de `nuxt.config.ts` : `favicon.ico` (16 à 48 px) et `apple-touch-icon.png` (180 px).
+
+## Mesure d'audience
+
+- `@nuxtjs/plausible` (configuré dans `nuxt.config.ts`) envoie les pages vues et, avec `autoOutboundTracking`, l'événement `Outbound Link: Click` (propriété `url`) pour un lien externe.
+- `plugins/link-goals.client.ts` écoute `click` et `auxclick` (bouton du milieu) sur `document`, en phase de capture : chemin et titre de l'onglet sont encore ceux de la page quittée. Pour un `a[href]` qui sort du site (`isOutbound`, `utils/goals.ts` : autre origine, protocole autre que `http(s)` comme `mailto:`, ou chemin de `runtimeConfig.public.redirectPaths`, pages de redirection tirées de `content.routes.ts`), il envoie l'événement `<portée> › <lien>` par `$plausible.trackEvent` ; un lien interne n'envoie rien (rien n'est envoyé si Plausible est désactivé ou l'hôte ignoré). Un lien externe envoie donc deux événements.
+- Portée : la valeur de l'ancêtre `[data-goal-zone]` (en-tête ; menu déroulant des activités et fenêtre du menu mobile, téléportés hors du `<header>`, la fenêtre par `menu.content` de `UHeader` ; bannière ; pied de page ; libellés de `labels.goalZones`), sinon le nom de la page (`pageGoalName`, `utils/goals.ts`) : `goal` de `seo.yml`, sinon le titre de l'onglet sans « - Efrei Para » (pages légales, redirections, erreurs).
+- Lien (`linkLabel`) : `data-goal-title` du lien, sinon texte d'un élément `[data-goal-title]` à l'intérieur (titre d'une carte d'album ou de document, d'une activité du menu déroulant), sinon `aria-label`, sinon texte visible ; espaces repliés, coupé à 60 caractères.
 
 ## CDN
 
@@ -160,6 +173,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les redirections, qu'aucun lien n'atteint : `nitro.prerender.routes` les reçoit de `redirectRoutes()` (`content.routes.ts`), qui lit `redirects.yml › socials` et les options de `rejoindre.yml`. Une redirection ajoutée au contenu est donc prérendue sans toucher au code ; une autre page sans lien entrant s'ajoute à cette liste.
 - `/llms.txt` n'a pas de lien entrant : il est ajouté à `nitro.prerender.routes` et écrit en fichier dans la sortie.
 - `/about` (ancienne page À propos) est redirigée vers l'accueil par `routeRules` ; prérendue (`nitro.prerender.routes`), elle devient une page `meta refresh`.
+- Raccourcis d'activité : `activityShortcuts()` (`content.routes.ts`) lit les fichiers de `content/pages/activites/` ; chaque clé donne une `routeRules` `/<clé>` → `/activites/<clé>`, ajoutée à `nitro.prerender.routes` et prérendue comme `/about` (`meta refresh` à 0 s, sans écran de redirection).
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).
 - Le numéro de version du pied de page vient de `package.json`, lu au build dans `nuxt.config.ts` (`appConfig.version`) : seule cette chaîne est embarquée dans le site.
@@ -172,7 +186,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 - **Étape build** : `oven/bun:1.4-alpine`, `bun install --frozen-lockfile`, build args `CDN_URL`, `PLAUSIBLE_URL`, `PLAUSIBLE_DOMAIN` passés en variables d'environnement, puis `bun run generate`.
 - **Étape service** : `nginxinc/nginx-unprivileged:alpine-slim`, utilisateur `101`, port **8080**. Les templates `nginx/*.conf.template` sont copiés dans `/etc/nginx/templates/` : au démarrage, l'image remplace `${CDN_URL}` et `${PLAUSIBLE_URL}` (gardés en `ENV`) et écrit le résultat dans `conf.d/`. Seul `.output/public` est copié dans la racine web. `HEALTHCHECK` : `wget` sur `/` toutes les 30 s.
-- `.dockerignore` exclut git, dépendances, sorties de build, `.env` et `.env.*` (sauf `.env.example`), rapports de test, fichiers Claude Code, `assets/` (bannière du README) et `cdn/` (médias du CDN).
+- `.dockerignore` exclut git, dépendances, sorties de build, rapports de test et d'audit, fichiers Claude Code, `assets/` (bannière du README) et `cdn/` (médias du CDN). `.env`, `.env.*` (sauf `.env.example`), journaux et `.DS_Store` sont exclus à toute profondeur (`**/`).
 - `bun run docker:build` construit l'image en local à partir du `.env`, chargé par `set -a && . ./.env` (commentaires acceptés).
 
 ### nginx
@@ -181,6 +195,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 
 | Chemin                            | Cache                                                         |
 | --------------------------------- | ------------------------------------------------------------- |
+| `/_nuxt/builds/` (noms stables)   | `no-cache` (manifeste de version)                             |
 | `/_nuxt/` (noms hachés)           | `public, max-age=31536000, immutable`                         |
 | `/__nuxt_content/` (noms stables) | `no-cache`                                                    |
 | polices `.woff` / `.woff2`        | `public, max-age=31536000, immutable` (renommer pour changer) |
@@ -188,7 +203,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 | pages HTML (`/`)                  | `no-cache`, `try_files $uri $uri/index.html $uri.html =404`   |
 
 - Vraie 404 : `error_page 404 /404.html` ; un 403 est rendu comme une 404. Les chemins commençant par `.` sont refusés, avant toute autre règle.
-- gzip activé, `server_tokens off`.
+- gzip activé, `server_tokens off`. Redirections de dossier relatives (`absolute_redirect off`, `port_in_redirect off`) : elles ne reprennent ni l'hôte demandé ni le port 8080.
 - `security-headers.conf.template` contient tous les en-têtes de sécurité ; nginx n'héritant pas des `add_header` dans un `location` qui en déclare, **chaque `location` qui pose un en-tête ré-inclut ce fichier**. Contenu détaillé : [SECURITY.md](SECURITY.md#4-csp-et-origines-externes).
 
 ## Variables d'environnement
@@ -207,5 +222,6 @@ Toute nouvelle variable est ajoutée à `.env.example`, au README et, si elle se
 ## Environnements et déploiement
 
 - `bun run dev` : développement local sur `http://localhost:3000`, sans Docker.
+- `bun run preview` : sert le site généré (`.output/public`) sur `http://127.0.0.1:4173` avec les règles de nginx, par `tests/e2e/serve.ts`, sans les en-têtes de sécurité (vérifiés dans le conteneur).
 - Chaque push déclenche une construction de l'image Docker et sa mise en ligne : la branche **`dev`** alimente la préproduction, **`main`** la production. On travaille sur `dev` ; `main` ne reçoit que ce qui est prêt à publier.
 - Pas de CI dans le dépôt : lint et vérifications sont faits en local ([TESTING.md](TESTING.md)).

@@ -57,7 +57,9 @@
               :class="getCategoryColor(category.color).text"
             />
             <span class="min-w-0">
-              <span class="text-highlighted block font-semibold">{{ doc.title }}</span>
+              <span class="text-highlighted block font-semibold" data-goal-title>
+                {{ doc.title }}
+              </span>
               <span v-if="doc.description" class="text-muted mt-0.5 block text-sm">
                 {{ doc.description }}
               </span>

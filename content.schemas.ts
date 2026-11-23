@@ -1,10 +1,14 @@
 import { z } from '@nuxt/content'
 import { ACTIVITY_KEYS } from './app/utils/activities'
+import { isMonthDay } from './app/utils/season'
 
 const activity = z.enum(ACTIVITY_KEYS)
 
 // Bouton dont seul le libellé et l'icône viennent du contenu
 const link = z.object({ label: z.string(), icon: z.string() })
+
+// Destination d'un lien : https:, mailto:, chemin du site ou ancre ; jamais javascript: ni data:
+const href = z.string().regex(/^(https:\/\/|mailto:|\/(?!\/)|#)/)
 
 // Rôle d'un bouton d'appel à l'action (variantes de UButton dans app.config.ts), principal par défaut
 const buttonRole = z.enum(['primary', 'secondary']).optional()
@@ -30,7 +34,7 @@ export const collections = {
     schema: z.object({
       hero: z.object({
         links: z.array(
-          z.object({ label: z.string(), to: z.string(), icon: z.string(), variant: buttonRole }),
+          z.object({ label: z.string(), to: href, icon: z.string(), variant: buttonRole }),
         ),
         scrollIcon: z.string(),
         video: z.object({ pause: link, play: link }),
@@ -53,7 +57,7 @@ export const collections = {
         cardLink: z.string(),
         link: z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
         }),
       }),
       why: z.object({
@@ -70,10 +74,11 @@ export const collections = {
           }),
         ),
       }),
+      events: z.object({ headline: z.string(), title: z.string() }),
       albums: z.object({
         headline: z.string(),
         title: z.string(),
-        link: z.object({ label: z.string(), to: z.string() }),
+        link: z.object({ label: z.string(), to: href }),
       }),
       partners: z.object({ headline: z.string(), title: z.string() }),
     }),
@@ -98,7 +103,7 @@ export const collections = {
           type: activity,
           date: z.string().date(),
           location: z.string(),
-          url: z.string(),
+          url: href,
           photo: z.string().optional(),
           source: z.string().optional(),
         }),
@@ -186,7 +191,7 @@ export const collections = {
                 .array(
                   z.object({
                     label: z.string(),
-                    to: z.string(),
+                    to: href,
                     icon: z.string().optional(),
                     target: z.string().optional(),
                   }),
@@ -217,7 +222,7 @@ export const collections = {
             z.object({
               title: z.string(),
               description: z.string(),
-              url: z.string(),
+              url: href,
               icon: z.string().optional(),
               type: z.enum(['internal', 'external']),
             }),
@@ -278,7 +283,7 @@ export const collections = {
       links: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           icon: z.string(),
           variant: buttonRole,
         }),
@@ -303,24 +308,37 @@ export const collections = {
     source: 'global/labels.yml',
     schema: z.object({
       banner: z.object({
+        title: z.string(),
+        titleAt: z.string(),
+        more: z.string(),
+        moreLabel: z.object({ one: z.string(), other: z.string() }),
+        close: z.string(),
+      }),
+      events: z.object({
         register: z.string(),
         registerIcon: z.string(),
         info: z.string(),
-        close: z.string(),
+        soon: z.string(),
+        or: z.string(),
+        dateIcon: z.string(),
+        locationIcon: z.string(),
       }),
       socialLink: z.string(),
+      goalZones: z.object({ header: z.string(), footer: z.string(), banner: z.string() }),
       activity: z.object({
         goTo: z.string(),
         features: z.string(),
         steps: z.string(),
         requirements: z.string(),
         partners: z.string(),
+        events: z.string(),
         photo: z.string(),
         headlines: z.object({
           features: z.string(),
           steps: z.string(),
           requirements: z.string(),
           partners: z.string(),
+          events: z.string(),
         }),
       }),
       helpCta: z.object({ github: z.string() }),
@@ -334,14 +352,50 @@ export const collections = {
       }),
     }),
   },
-  nextEvent: {
+  events: {
     type: 'data' as const,
-    source: 'global/next-event.yml',
+    source: 'global/events.yml',
     schema: z.object({
-      title: z.string(),
-      date: z.string().date(),
-      type: activity,
-      url: z.string(),
+      items: z.array(
+        z
+          .object({
+            title: z.string(),
+            location: z.string().optional(),
+            date: z.string().date().optional(),
+            months: z
+              .array(z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'mois au format AAAA-MM'))
+              .nonempty()
+              .optional(),
+            type: activity,
+            url: href.optional(),
+          })
+          .refine(
+            (event) => (event.date === undefined) !== (event.months === undefined),
+            'indiquer `date` (jour fixé) ou `months` (mois possibles), pas les deux',
+          )
+          .refine(
+            (event) =>
+              !event.months || event.months.every((m, i, all) => i === 0 || all[i - 1]! < m),
+            '`months` en ordre croissant, sans doublon',
+          ),
+      ),
+    }),
+  },
+  seasons: {
+    type: 'data' as const,
+    source: 'global/seasons.yml',
+    schema: z.object({
+      items: z.array(
+        z.object({
+          key: z.string(),
+          start: z.string().refine(isMonthDay, 'jour au format MM-JJ'),
+          end: z.string().refine(isMonthDay, 'jour au format MM-JJ'),
+          icon: z.string(),
+          count: z.number().int().positive(),
+          color: z.string(),
+          colorDark: z.string().optional(),
+        }),
+      ),
     }),
   },
   partners: {
@@ -353,7 +407,7 @@ export const collections = {
           name: z.string(),
           icon: z.string().optional(),
           logo: z.string().optional(),
-          url: z.string(),
+          url: href,
           activites: z.array(activity).optional(),
         }),
       ),
@@ -392,7 +446,7 @@ export const collections = {
           title: z.string(),
           description: z.string(),
           icon: z.string(),
-          link: z.string(),
+          link: href,
           linkText: z.string(),
           type: activity,
           slug: z.string(),
@@ -448,13 +502,13 @@ export const collections = {
       ),
       activitiesIndex: z.object({
         label: z.string(),
-        to: z.string(),
+        to: href,
         icon: z.string(),
       }),
       pages: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           icon: z.string().optional(),
           header: z.number().optional(),
         }),
@@ -468,11 +522,13 @@ export const collections = {
         code: z.object({
           label: z.string(),
           changelog: z.string(),
+          changelogGoal: z.string(),
           license: z.string(),
           url: z.string().url(),
         }),
         content: z.object({ label: z.string(), license: z.string(), url: z.string().url() }),
         media: z.string(),
+        partnerLogos: z.string(),
         school: z.object({ label: z.string(), url: z.string().url() }),
       }),
       menuButton: z.object({ open: z.string(), close: z.string() }),
@@ -480,7 +536,7 @@ export const collections = {
       legal: z.array(
         z.object({
           label: z.string(),
-          to: z.string(),
+          to: href,
           target: z.string().optional(),
         }),
       ),
@@ -509,6 +565,7 @@ export const collections = {
           description: z.string(),
           ogImage: z.string().optional(),
           robots: z.string().optional(),
+          goal: z.string().optional(),
         }),
       ),
     }),

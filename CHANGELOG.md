@@ -2,6 +2,112 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.20.0 — 23 novembre 2026
+
+### Ajouts
+
+- Décorations de saison : en décembre, de petits flocons de neige tombent sur tout le site. D’autres thèmes pourront suivre au fil de l’année.
+- Nouvelle case « Décorations de saison » dans le menu d’accessibilité, pendant une saison, pour les couper ; le choix est gardé sur l’appareil. Rien ne tombe quand l’appareil demande de réduire les animations.
+
+## 1.19.0 — 23 novembre 2026
+
+### Ajouts
+
+- Adresses courtes pour chaque activité : efreipara.fr/tandem, /soufflerie, /pac et /oa mènent directement à la page de l’activité, pratiques sur une affiche ou dans un message.
+
+## 1.18.0 — 23 novembre 2026
+
+### Ajouts
+
+- Section « Prochains événements » sur l’accueil et sur la page de chaque activité concernée : date, lieu et bouton d’inscription pour chaque événement à venir.
+- Un événement peut être annoncé avant que son jour soit fixé, avec les mois possibles (« janvier ou février 2027 ») ; l’inscription y est indiquée « bientôt ».
+- Quand plusieurs événements sont prévus, la bannière annonce le plus proche et propose « +1 » (ou plus) pour voir les autres.
+
+### Modifications
+
+- La phrase de la bannière et les dates sont écrites automatiquement à partir de l’événement : plus de date erronée dans le titre.
+- Un événement passé disparaît du site dès le lendemain, sans attendre une nouvelle mise en ligne.
+
+## 1.17.7 — 23 novembre 2026
+
+### Modifications
+
+- Mesure d’audience : seuls les clics vers l’extérieur du site sont comptés (réseaux, formulaires, e-mail, partenaires, sites externes). La navigation entre les pages du site n’est plus suivie, en dehors des pages vues.
+
+## 1.17.6 — 23 novembre 2026
+
+### Corrections
+
+- Mentions légales : le responsable de la publication est nommé, l’hébergement est décrit sans détail technique superflu, et la propriété intellectuelle suit les licences du site (textes en CC BY-NC 4.0, photos et logos du club protégés, logos des partenaires à leurs titulaires, code en MIT).
+- La politique RGPD devient la « Politique de confidentialité ». Elle précise les données transférées hors de l’Union européenne (Google Forms, Cloudflare), les préférences gardées sur l’appareil (accessibilité, thème), et des durées de conservation chiffrées.
+
+## 1.17.5 — 23 novembre 2026
+
+### Corrections
+
+- La bannière du prochain événement affiche son texte en entier sur téléphone, au lieu de le couper après quelques mots. Les boutons passent sous le titre, qui tient ainsi sur deux lignes.
+- Sur téléphone, la bannière propose aussi « En savoir plus », à côté de « Inscription », pour découvrir l’activité avant de s’inscrire.
+
+## 1.17.4 — 23 novembre 2026
+
+### Corrections
+
+- Mise à jour technique du site et de ses outils, dont des correctifs de sécurité de Nuxt. Rien ne change pour les visiteurs.
+
+## 1.17.3 — 23 novembre 2026
+
+### Modifications
+
+- La bannière annonce le prochain événement : un baptême en soufflerie à iFly Paris le vendredi 4 décembre, avec inscription sur HelloAsso.
+
+## 1.17.2 — 7 novembre 2026
+
+### Modifications
+
+- Mesure d'audience : les clics dans l'en-tête et le pied de page sont nommés « Header › … » et « Footer › … », par exemple « Header › Galerie ».
+
+## 1.17.1 — 7 novembre 2026
+
+### Corrections
+
+- Mesure d'audience : les clics dans le menu du téléphone (logo, réseaux) et dans le menu déroulant des activités sont comptés sous des noms corrects, comme « En-tête › Saut en Tandem ».
+
+## 1.17.0 — 7 novembre 2026
+
+### Ajouts
+
+- Mesure d'audience : chaque clic sur un lien est compté dans Plausible sous un nom lisible, comme « Accueil › Nous rejoindre » ou « Pied de page › Instagram Efrei Para », pour savoir quels boutons et liens servent vraiment. Toujours sans cookie ni donnée personnelle.
+
+### Modifications
+
+- Politique RGPD : les liens cliqués figurent parmi les données de navigation mesurées.
+
+## 1.16.4 — 6 novembre 2026
+
+### Corrections
+
+- Après une mise en ligne, les visiteurs déjà venus reçoivent la nouvelle version du site au lieu de rester sur l'ancienne.
+- Des préférences d'accessibilité enregistrées abîmées dans le navigateur ne bloquent plus l'affichage : les options reviennent simplement à leur valeur par défaut.
+- Renforcement de la sécurité du serveur et de l'image du site, sans changement visible.
+
+## 1.16.3 — 1er novembre 2026
+
+### Corrections
+
+- Mise à jour technique du site et de ses outils, dont des correctifs de sécurité de Nuxt. Rien ne change pour les visiteurs.
+
+## 1.16.2 — 29 octobre 2026
+
+### Modifications
+
+- Pied de page : la mention des logos des partenaires passe sur sa propre ligne.
+
+## 1.16.1 — 29 octobre 2026
+
+### Corrections
+
+- Pied de page : la mention « tous droits réservés » vise désormais les photos, vidéos et logos du club ; les logos des partenaires sont indiqués comme appartenant à leurs titulaires.
+
 ## 1.16.0 — 29 octobre 2026
 
 ### Ajouts

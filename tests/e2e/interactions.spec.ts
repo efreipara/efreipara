@@ -75,6 +75,70 @@ test.describe('thème et accessibilité', () => {
   })
 })
 
+const seasons = readYaml<{ items: { key: string; count: number; start: string }[] }>(
+  'global/seasons.yml',
+)
+const winter = seasons.items.find((season) => season.key === 'hiver')!
+const seasonalLabel = 'Décorations de saison'
+
+// clock.install et non setFixedTime : une heure figée fait compter deux fois un clic dans le menu (Reka)
+test.describe('décorations de saison', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.clock.install({ time: new Date(`2026-${winter.start}T12:00:00`) })
+  })
+
+  test('la neige tombe en saison et se coupe dans le menu d’accessibilité', async ({ page }) => {
+    await gotoReady(page, '/')
+    const decor = page.locator('.seasonal-decor')
+    await expect(decor).toHaveAttribute('data-season', winter.key)
+    await expect(decor.locator('.drop')).toHaveCount(winter.count)
+    await expect(decor.locator('.parachute-bg')).toHaveAttribute('aria-hidden', 'true')
+
+    const menuButton = visible(page, page.getByRole('button', { name: accessibilityMenu }))
+    await menuButton.click()
+    const option = page.getByRole('menuitemcheckbox', { name: seasonalLabel })
+    await expect(option).toHaveAttribute('aria-checked', 'true')
+    await option.click()
+    await expect(option).toHaveAttribute('aria-checked', 'false')
+    await expect(decor).toHaveCount(0)
+    await expect(page.locator('html')).not.toHaveClass(/a11y-seasonal/)
+
+    // Le menu ne propose l'option qu'une fois la saison connue (page montée)
+    await gotoReady(page, '/')
+    await visible(page, page.getByRole('button', { name: accessibilityMenu })).click()
+    await expect(page.getByRole('menuitemcheckbox', { name: seasonalLabel })).toHaveAttribute(
+      'aria-checked',
+      'false',
+    )
+    await expect(page.locator('.seasonal-decor')).toHaveCount(0)
+  })
+
+  test('les clics traversent la neige', async ({ page }) => {
+    await gotoReady(page, '/faq')
+    await expect(page.locator('.seasonal-decor .drop').first()).toBeAttached()
+    await page.getByRole('contentinfo').getByRole('link', { name: 'Galerie' }).click()
+    await expect(page).toHaveURL(/\/galerie$/)
+  })
+
+  test('rien avec « réduire les animations »', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await gotoReady(page, '/')
+    await expect(page.locator('.seasonal-decor')).toBeAttached()
+    await expect(page.locator('.seasonal-decor')).toBeHidden()
+  })
+})
+
+test.describe('hors saison', () => {
+  test('ni neige ni option dans le menu', async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-07-10T12:00:00') })
+    await gotoReady(page, '/')
+    await visible(page, page.getByRole('button', { name: accessibilityMenu })).click()
+    await expect(page.getByRole('menuitemcheckbox', { name: 'Police dyslexique' })).toBeVisible()
+    await expect(page.getByRole('menuitemcheckbox', { name: seasonalLabel })).toHaveCount(0)
+    await expect(page.locator('.seasonal-decor')).toHaveCount(0)
+  })
+})
+
 // Le CDN est coupé : play() échouerait toujours. On le remplace pour compter les lectures.
 declare global {
   interface Window {

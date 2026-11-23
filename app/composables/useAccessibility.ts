@@ -1,19 +1,12 @@
-export type AccessibilityFeatures = {
-  dyslexic: boolean
-  highContrast: boolean
-}
-
-const defaultFeatures: AccessibilityFeatures = {
-  dyslexic: false,
-  highContrast: false,
-}
+import type { AccessibilityFeatures } from '~/utils/accessibility'
 
 export const useAccessibility = () => {
-  const features = useState<AccessibilityFeatures>('accessibility', () => ({ ...defaultFeatures }))
+  const features = useState<AccessibilityFeatures>('accessibility', () => ({
+    ...defaultAccessibility,
+  }))
 
   const init = () => {
-    const saved = localStorage.getItem('accessibility')
-    if (saved) features.value = { ...defaultFeatures, ...JSON.parse(saved) }
+    features.value = parseAccessibility(localStorage.getItem('accessibility'))
   }
 
   const toggle = (feature: keyof AccessibilityFeatures) => {
@@ -21,7 +14,5 @@ export const useAccessibility = () => {
     localStorage.setItem('accessibility', JSON.stringify(features.value))
   }
 
-  const hasActiveFeature = computed(() => Object.values(features.value).some(Boolean))
-
-  return { features, init, toggle, hasActiveFeature }
+  return { features, init, toggle }
 }

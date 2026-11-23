@@ -1,12 +1,36 @@
 # Libellés des composants communs à plusieurs pages ; {nom} est remplacé par la valeur correspondante
+
+# Bannière : prochain événement daté ; {date} en toutes lettres (« vendredi 4 décembre »)
 banner:
+  title: 'Prochain événement : {title} le {date}'
+  titleAt: 'Prochain événement : {title} à {location} le {date}'
+  # Lien à la fin du titre vers les autres événements (section de l'accueil)
+  more: '+{count}'
+  moreLabel:
+    one: Voir {count} autre événement
+    other: Voir {count} autres événements
+  close: Fermer la bannière
+
+# Événements (bannière, cartes de l'accueil et des pages d'activité)
+events:
   register: Inscription
   registerIcon: tabler:arrow-narrow-right
   info: En savoir plus
-  close: Fermer la bannière
+  # À la place du bouton Inscription, quand l'événement n'a pas encore de lien
+  soon: Inscriptions bientôt
+  # Entre les deux derniers mois possibles : « janvier ou février 2027 »
+  or: ou
+  dateIcon: tabler:calendar-week
+  locationIcon: tabler:map-pin
 
 # Lien vers un réseau (pied de page, menu mobile)
 socialLink: '{name} Efrei Para'
+
+# Événements Plausible : un clic dans ces zones est nommé « <zone> › <lien> » au lieu de « <page> › <lien> »
+goalZones:
+  header: Header
+  footer: Footer
+  banner: Bannière
 
 # Sections d'une page d'activité
 activity:
@@ -15,12 +39,14 @@ activity:
   steps: Comment ça se passe ?
   requirements: Prérequis
   partners: Nos partenaires
+  events: Prochains événements
   # Surtitres des sections (au-dessus des titres ci-dessus)
   headlines:
     features: Les points forts
     steps: Le déroulé
     requirements: Avant de t’inscrire
     partners: Ils nous accompagnent
+    events: À venir
   # Texte alternatif des photos du carrousel
   photo: '{label}, photo {n}'
 

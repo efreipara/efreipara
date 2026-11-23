@@ -20,6 +20,8 @@ export interface SeoPage {
   description: string
   ogImage?: string
   robots?: string
+  // Nom de la page dans les événements Plausible (utils/goals.ts), si le titre ne convient pas
+  goal?: string
 }
 
 // Options SEO portées par le fichier de contenu d'une page (front-matter légal, option de « Nous rejoindre »)
@@ -36,7 +38,9 @@ export const buildCanonicalUrl = (baseUrl: string, key: string) =>
 
 // `/seo/x.png` → `https://efreipara.fr/seo/x.png` : les aperçus de partage exigent une URL absolue
 export const toAbsoluteUrl = (baseUrl: string, path?: string) =>
-  path && baseUrl && path.startsWith('/') && !path.startsWith('//') ? `${baseUrl.replace(/\/+$/, '')}${path}` : path
+  path && baseUrl && path.startsWith('/') && !path.startsWith('//')
+    ? `${baseUrl.replace(/\/+$/, '')}${path}`
+    : path
 
 // Fusion defaults < seo.yml › pages.<clé> < options de la page (valeurs absentes ignorées)
 export const buildSeoMeta = (seoData: SeoData, key: string, overrides: SeoOverrides = {}) => {

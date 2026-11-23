@@ -17,21 +17,36 @@
   } = await useNavigation()
   const { labels } = await useLabels()
 
-  const { features, toggle, hasActiveFeature } = useAccessibility()
+  const { season } = await useSeason()
+  const { features, toggle } = useAccessibility()
 
   type AccessibilityKey = Parameters<typeof toggle>[0]
   const accessibilityClass: Record<string, string> = {
     dyslexic: 'cursor-pointer font-open-dyslexic',
-    highContrast: 'cursor-pointer',
   }
 
+  // Les décorations de saison ne se proposent que pendant une saison, avec son icône
+  const shownAccessibility = computed(() =>
+    accessibility.value
+      .filter((item) => item.key !== 'seasonal' || season.value)
+      .map((item) => ({
+        ...item,
+        key: item.key as AccessibilityKey,
+        icon: item.key === 'seasonal' ? (season.value?.icon ?? item.icon) : item.icon,
+      })),
+  )
+
+  const isMenuAdjusted = computed(() =>
+    shownAccessibility.value.some((item) => isAdjusted(features.value, item.key)),
+  )
+
   const accessibilityItems = computed(() => [
-    accessibility.value.map((item) => ({
+    shownAccessibility.value.map((item) => ({
       label: item.label,
       icon: item.icon,
       type: 'checkbox' as const,
-      checked: features.value[item.key as AccessibilityKey],
-      onUpdateChecked: () => toggle(item.key as AccessibilityKey),
+      checked: features.value[item.key],
+      onUpdateChecked: () => toggle(item.key),
       onSelect: (e: Event) => e.preventDefault(),
       class: accessibilityClass[item.key] ?? 'cursor-pointer',
     })),
@@ -40,6 +55,11 @@
   const desktopSocials = computed(() =>
     headerSocials.value.map((key) => getSocial(key)).filter((social) => !!social),
   )
+
+  // Fenêtre du menu mobile, téléportée hors du <header> : même zone Plausible (utils/goals.ts)
+  const menuContentAttrs = computed<Record<string, string>>(() => ({
+    'data-goal-zone': labels.value.goalZones.header,
+  }))
 
   // Le sous-menu des activités est rendu par le slot #activities-content
   const items = computed<NavigationMenuItem[]>(() => [
@@ -55,7 +75,12 @@
 </script>
 
 <template>
-  <UHeader :title="logo.label" :ui="{ title: 'transition active:scale-[0.97]' }">
+  <UHeader
+    :title="logo.label"
+    :ui="{ title: 'transition active:scale-[0.97]' }"
+    :data-goal-zone="labels.goalZones.header"
+    :menu="{ content: menuContentAttrs }"
+  >
     <template #title>
       <Icon name="efreipara:logo" class="text-efreipara ml-2 h-12 w-32 dark:hidden" />
       <Icon name="efreipara:logo-color" class="ml-2 hidden h-12 w-32 dark:block" />
@@ -74,7 +99,7 @@
       }"
     >
       <template #activities-content>
-        <div class="grid grid-cols-2 gap-1 p-2">
+        <div class="grid grid-cols-2 gap-1 p-2" :data-goal-zone="labels.goalZones.header">
           <ULink
             v-for="activity in activities"
             :key="activity.slot"
@@ -90,6 +115,7 @@
             <div class="min-w-0 flex-1">
               <p
                 class="text-toned group-hover:text-highlighted text-sm font-medium transition-colors"
+                data-goal-title
               >
                 {{ activity.label }}
               </p>
@@ -120,9 +146,9 @@
       </div>
       <UDropdownMenu :items="accessibilityItems">
         <UButton
-          :icon="hasActiveFeature ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
+          :icon="isMenuAdjusted ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
           color="neutral"
-          :variant="hasActiveFeature ? 'solid' : 'ghost'"
+          :variant="isMenuAdjusted ? 'solid' : 'ghost'"
           :aria-label="accessibilityMenu.label"
           class="p-2"
         />
