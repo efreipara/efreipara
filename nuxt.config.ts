@@ -8,6 +8,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
   ssr: true, // Nuxt content a besoin du SSR
   devtools: { enabled: true },
+  // Hôte explicite : sans lui, Nuxt 4.6.4 résout devServer.host en {} et `nuxt dev` plante
+  devServer: { host: 'localhost' },
   vite: {
     // Minification avec Oxc (défaut Vite 8) : suppression des console.log, debugger et commentaires légaux en production
     build: {
