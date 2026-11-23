@@ -137,6 +137,10 @@ Quatre cartes de même structure (surtitre avec icône, contenu, boutons en bas)
 
 Retirée tant qu'aucun texte n'est prêt ; l'adresse mène à l'accueil.
 
+### Raccourcis des activités — `/tandem`, `/soufflerie`, `/pac`, `/oa`
+
+Adresses courtes à partager pour chaque activité : `/<activité>` mène directement à `/activites/<activité>`, sans écran de redirection. Une activité ajoutée a son raccourci.
+
 ### QR code — `/qr`
 
 Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club : fond bleu nuit, parachutes blancs qui tombent, QR code centré, bouton discret vers l'accueil en haut à gauche, bouton plein écran en haut à droite, tous deux nommés pour les lecteurs d'écran. Non indexée.

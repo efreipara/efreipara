@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.19.0 — 23 novembre 2026
+
+### Ajouts
+
+- Adresses courtes pour chaque activité : efreipara.fr/tandem, /soufflerie, /pac et /oa mènent directement à la page de l’activité, pratiques sur une affiche ou dans un message.
+
 ## 1.18.0 — 23 novembre 2026
 
 ### Ajouts

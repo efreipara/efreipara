@@ -52,7 +52,7 @@ content/
 ├── global/           # données communes à plusieurs pages (navigation, SEO, CTA, partenaires, événement)
 └── pages/            # une source par page ; activites/ et legal/ en plusieurs fichiers
 content.schemas.ts    # source et schéma Zod de chaque collection (importés aussi par les tests)
-content.routes.ts     # routes de redirection lues dans le contenu (prérendu, tests)
+content.routes.ts     # routes de redirection et raccourcis d'activité lus dans le contenu (prérendu, tests)
 content.config.ts     # déclare les collections (defineCollection) à partir de content.schemas.ts
 nuxt.config.ts        # modules, icônes, polices, Content, Plausible, prérendu, minification
 rehype-target-blank.mjs  # plugin Markdown : liens externes en nouvel onglet
@@ -171,6 +171,7 @@ Une chaîne écrite dans `app/` est lue par Tailwind comme une classe potentiell
 - `bun run generate` prérend toutes les pages trouvées en suivant les liens, plus les redirections, qu'aucun lien n'atteint : `nitro.prerender.routes` les reçoit de `redirectRoutes()` (`content.routes.ts`), qui lit `redirects.yml › socials` et les options de `rejoindre.yml`. Une redirection ajoutée au contenu est donc prérendue sans toucher au code ; une autre page sans lien entrant s'ajoute à cette liste.
 - `/llms.txt` n'a pas de lien entrant : il est ajouté à `nitro.prerender.routes` et écrit en fichier dans la sortie.
 - `/about` (ancienne page À propos) est redirigée vers l'accueil par `routeRules` ; prérendue (`nitro.prerender.routes`), elle devient une page `meta refresh`.
+- Raccourcis d'activité : `activityShortcuts()` (`content.routes.ts`) lit les fichiers de `content/pages/activites/` ; chaque clé donne une `routeRules` `/<clé>` → `/activites/<clé>`, ajoutée à `nitro.prerender.routes` et prérendue comme `/about` (`meta refresh` à 0 s, sans écran de redirection).
 - `failOnError: false` : une page en erreur est absente de la sortie sans faire échouer le build ; relire le journal du `generate` ([TESTING.md](TESTING.md)).
 - Sortie dans `.output/public` (lien `dist`).
 - Le numéro de version du pied de page vient de `package.json`, lu au build dans `nuxt.config.ts` (`appConfig.version`) : seule cette chaîne est embarquée dans le site.

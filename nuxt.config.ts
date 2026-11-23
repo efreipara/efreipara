@@ -2,7 +2,7 @@
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
-import { redirectRoutes } from './content.routes'
+import { activityShortcuts, redirectRoutes } from './content.routes'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -213,16 +213,25 @@ export default defineNuxtConfig({
   },
 
   // Ancienne page À propos, retirée : l'adresse publique mène à l'accueil
+  // Raccourcis d'activité (/tandem) : arrivée directe sur la page, sans écran de redirection
   routeRules: {
     '/about': { redirect: '/' },
+    ...Object.fromEntries(
+      activityShortcuts().map((key) => [`/${key}`, { redirect: `/activites/${key}` }]),
+    ),
   },
 
   // Une page en erreur est absente de la sortie sans faire échouer le build : relire le journal
   nitro: {
     prerender: {
       failOnError: false,
-      // Redirections et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
-      routes: [...redirectRoutes(), '/about', '/llms.txt'],
+      // Redirections, raccourcis et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
+      routes: [
+        ...redirectRoutes(),
+        ...activityShortcuts().map((key) => `/${key}`),
+        '/about',
+        '/llms.txt',
+      ],
     },
   },
 })

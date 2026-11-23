@@ -1,6 +1,6 @@
 import { readYaml } from '../content/helpers'
 import { expect, test } from './fixtures'
-import { redirectRoutes } from './routes'
+import { redirectRoutes, shortcuts } from './routes'
 
 const club = readYaml<{ socials: { key: string; url: string }[] }>('global/club.yml')
 const rejoindre = readYaml<{ options: { slug: string; link: string }[] }>('pages/rejoindre.yml')
@@ -31,3 +31,10 @@ test('/about, page retirée, mène à l’accueil', async ({ page }) => {
   await page.goto('/about')
   await expect(page).toHaveURL(/\/$/)
 })
+
+for (const key of shortcuts) {
+  test(`/${key} mène directement à /activites/${key}`, async ({ page }) => {
+    await page.goto(`/${key}`)
+    await expect(page).toHaveURL(new RegExp(`/activites/${key}$`))
+  })
+}
