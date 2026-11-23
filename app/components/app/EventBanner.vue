@@ -65,16 +65,17 @@
               root: 'z-auto',
               container: 'h-auto gap-2 py-2.5',
               left: 'hidden lg:hidden',
-              center: 'flex-1 gap-3',
+              // Sous md, titre sur toute la largeur et boutons en dessous
+              center: 'flex-1 flex-wrap gap-x-3 gap-y-2 md:flex-nowrap',
               // text-clip retire le truncate de Nuxt UI : le titre passe à la ligne au lieu d'être coupé
-              title: 'text-default flex-1 font-bold text-clip text-pretty',
+              title: 'text-default basis-full font-bold text-clip text-pretty md:flex-1',
               actions: 'gap-2',
               right: 'flex-none lg:flex-none',
             }"
           >
             <template #leading>
               <div
-                class="bg-tint-20 dark:bg-tint-30 hidden size-9 shrink-0 items-center justify-center rounded-xl sm:flex"
+                class="bg-tint-20 dark:bg-tint-30 hidden size-9 shrink-0 items-center justify-center rounded-xl md:flex"
               >
                 <UIcon :name="getIcon(event.type)" class="text-activity size-4" />
               </div>
