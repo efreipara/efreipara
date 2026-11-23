@@ -54,7 +54,7 @@
                 size: 'sm',
                 variant: 'tertiary',
                 leadingIcon: getIcon(event.type),
-                class: 'text-default hidden sm:flex',
+                class: 'text-default',
               },
             ]"
             :class="[

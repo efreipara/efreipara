@@ -38,7 +38,7 @@ Partout (menus, accueil, `/activites`, précédent / suivant des pages d'activit
 Au-dessus de l'en-tête, une bannière annonce le prochain événement (`next-event.yml`).
 
 - Affichée seulement si la date de l'événement est aujourd'hui ou plus tard.
-- Teintée par la couleur de l'activité, avec son icône, le titre (entier, sur plusieurs lignes si besoin), un bouton « Inscription » (formulaire externe, nouvel onglet), « En savoir plus » vers la page de l'activité (masqué sur téléphone) et une croix « Fermer la bannière ». Sous 768 px, l'icône est masquée et les boutons passent sous le titre.
+- Teintée par la couleur de l'activité, avec son icône, le titre (entier, sur plusieurs lignes si besoin), un bouton « Inscription » (formulaire externe, nouvel onglet), « En savoir plus » vers la page de l'activité (avec son icône) et une croix « Fermer la bannière ». Sous 768 px, l'icône de gauche est masquée et les boutons passent sous le titre.
 - Fermée, elle ne revient pas pendant la session du navigateur pour cet événement ; un nouvel événement (autre date ou autre type) la fait réapparaître.
 - Rendue côté navigateur uniquement, elle s'ouvre en douceur en poussant la page, et se referme de la même façon.
 

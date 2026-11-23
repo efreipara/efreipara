@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.18.0 — 23 novembre 2026
+
+### Ajouts
+
+- Sur téléphone, la bannière du prochain événement propose aussi « En savoir plus », à côté de « Inscription », pour découvrir l’activité avant de s’inscrire.
+
 ## 1.17.6 — 23 novembre 2026
 
 ### Corrections
