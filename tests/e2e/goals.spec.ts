@@ -2,13 +2,14 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Page } from '@playwright/test'
 import { format, resolveConfig } from 'prettier'
-import { goalName, linkLabel, pageGoalName } from '../../app/utils/goals'
+import { goalName, isOutbound, linkLabel, pageGoalName } from '../../app/utils/goals'
 import type { SeoData } from '../../app/utils/seo'
+import { redirectRoutes } from '../../content.routes'
 import { readYaml, root } from '../content/helpers'
 import { expect, gotoReady, test } from './fixtures'
 import { pages } from './routes'
 
-// Noms des événements Plausible de chaque lien du site, comparés à docs/plausible/goals.txt.
+// Noms des événements Plausible de chaque lien qui sort du site, comparés à docs/plausible/goals.txt.
 // UPDATE_GOALS=1 (bun run goals) réécrit la liste et le script de la console.
 const listFile = join(root, 'docs/plausible/goals.txt')
 const scriptFile = join(root, 'docs/plausible/goals-console.js')
@@ -16,17 +17,20 @@ const scriptFile = join(root, 'docs/plausible/goals-console.js')
 const seo = readYaml<SeoData>('global/seo.yml')
 const labels = readYaml<{
   goalZones: { banner: string }
-  banner: { register: string; info: string }
+  banner: { register: string }
   error: { home: string }
 }>('global/labels.yml')
 const notFound = '/page-inexistante'
+const redirectPaths = redirectRoutes()
 
 // Même lecture du DOM que plugins/link-goals.client.ts, le nommage passe par utils/goals.ts
 const collect = async (page: Page) => {
-  const { pathname, title, links } = await page.evaluate(() => ({
+  const { origin, pathname, title, links } = await page.evaluate(() => ({
+    origin: location.origin,
     pathname: location.pathname,
     title: document.title,
     links: [...document.querySelectorAll('a[href]')].map((link) => ({
+      href: link.getAttribute('href'),
       own: link.getAttribute('data-goal-title'),
       marked: link.querySelector('[data-goal-title]')?.textContent ?? null,
       aria: link.getAttribute('aria-label'),
@@ -34,14 +38,16 @@ const collect = async (page: Page) => {
       zone: link.closest<HTMLElement>('[data-goal-zone]')?.dataset.goalZone,
     })),
   }))
-  return links.map((link) => {
-    const label = linkLabel({
-      getAttribute: (name) => (name === 'aria-label' ? link.aria : link.own),
-      querySelector: () => (link.marked === null ? null : { textContent: link.marked }),
-      textContent: link.text,
+  return links
+    .filter((link) => isOutbound(link.href, origin, redirectPaths))
+    .map((link) => {
+      const label = linkLabel({
+        getAttribute: (name) => (name === 'aria-label' ? link.aria : link.own),
+        querySelector: () => (link.marked === null ? null : { textContent: link.marked }),
+        textContent: link.text,
+      })
+      return goalName(link.zone ?? pageGoalName(pathname, title, seo), label)
     })
-    return goalName(link.zone ?? pageGoalName(pathname, title, seo), label)
-  })
 }
 
 const consoleScript = (
@@ -85,9 +91,8 @@ test.describe('goals Plausible', () => {
     await page.getByRole('dialog').waitFor()
     await add()
 
-    // La bannière n'est affichée qu'avant un événement : noms tirés du contenu
-    for (const action of [labels.banner.register, labels.banner.info])
-      names.add(goalName(labels.goalZones.banner, action))
+    // La bannière n'est affichée qu'avant un événement : nom tiré du contenu (formulaire externe)
+    names.add(goalName(labels.goalZones.banner, labels.banner.register))
 
     expect(names.has(null), 'lien sans nom').toBe(false)
     const sorted = [...names].map(String).sort((a, b) => a.localeCompare(b, 'fr'))

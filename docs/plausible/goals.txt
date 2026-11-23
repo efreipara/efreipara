@@ -1,23 +1,10 @@
 Accueil › Baptême en soufflerie
-Accueil › Baptêmes en soufflerie
-Accueil › Découvrir toutes nos activités en détail
 Accueil › Efrei
-Accueil › Formations PAC
 Accueil › iFly
-Accueil › Nos activités
-Accueil › Nous rejoindre
-Accueil › Sauts en ouverture automatique (OA)
 Accueil › Sauts en tandem
 Accueil › Skydive Event Paris
-Accueil › Voir nos activités
-Accueil › Voir toute la galerie
-Bannière › En savoir plus
 Bannière › Inscription
-Baptêmes en soufflerie › Aller à PAC
-Baptêmes en soufflerie › Aller à Tandem
 Baptêmes en soufflerie › iFly
-Baptêmes en soufflerie › Nous rejoindre
-Baptêmes en soufflerie › Voir nos activités
 Contact › Apple Plans
 Contact › Bento
 Contact › Contacter par e-mail
@@ -27,34 +14,22 @@ Contact › GitHub
 Contact › Google Maps
 Contact › Instagram
 Contact › LinkedIn
-Contact › Nous rejoindre
 Contact › Signaler sur GitHub
-Contact › Voir nos activités
 Contact › Waze
 Documents › Contre-indications médicales
 Documents › Discord
 Documents › Espace médical FFP
 Documents › Fédération Française de Parachutisme
 Documents › Instagram
-Documents › Mentions légales
 Documents › Modèle de certificat médical
-Documents › Politique de confidentialité
 Documents › Questionnaire de santé pour le Tandem
-Documents › Règlement intérieur
 Documents › Signaler sur GitHub
 Documents › Site d’iFly Paris
-FAQ › Devenir membre
 FAQ › Devenir membre du bureau
 FAQ › Discord
 FAQ › Espace médical FFP (infos)
 FAQ › Instagram
-FAQ › Nous contacter
-FAQ › PAC
-FAQ › Rejoindre Efrei Para
 FAQ › Rejoindre notre Discord
-FAQ › Sauts en OA
-FAQ › Sauts en tandem
-FAQ › Soufflerie
 FAQ › Suivre sur Instagram
 FAQ › Voir les contre-indications (FFP)
 Footer › Bento
@@ -62,10 +37,7 @@ Footer › Bento Efrei Para
 Footer › CC BY-NC 4.0 (sauf mention contraire)
 Footer › Discord
 Footer › Discord Efrei Para
-Footer › Documents
 Footer › Efrei
-Footer › FAQ
-Footer › Galerie
 Footer › GitHub
 Footer › GitHub Efrei Para
 Footer › Historique des versions
@@ -73,104 +45,32 @@ Footer › Instagram
 Footer › Instagram Efrei Para
 Footer › LinkedIn
 Footer › LinkedIn Efrei Para
-Footer › Mentions légales
 Footer › MIT
-Footer › Nos activités
-Footer › Nous contacter
-Footer › Nous rejoindre
-Footer › PAC
-Footer › Règlement
-Footer › RGPD
-Footer › Saut en OA
-Footer › Saut en Tandem
-Footer › Soufflerie
 Footer › Statut du site
-Formation PAC › Aller à OA
-Formation PAC › Aller à Soufflerie
-Formation PAC › Nous rejoindre
-Formation PAC › Voir nos activités
 Header › Bento Efrei Para
 Header › Discord Efrei Para
-Header › Documents
-Header › Efrei Para, accueil
-Header › FAQ
-Header › Galerie
 Header › GitHub Efrei Para
 Header › Instagram Efrei Para
 Header › LinkedIn Efrei Para
-Header › Nos activités
-Header › Nous rejoindre
-Header › PAC
-Header › Saut en OA
-Header › Saut en Tandem
-Header › Soufflerie
 Mentions légales › Bureau des Sports (BDS)
 Mentions légales › Cloudflare, Inc.
 Mentions légales › Creative Commons Attribution - Pas d’utilisation commercial…
-Mentions légales › Données personnelles
-Mentions légales › Éditeur du site
 Mentions légales › Efrei
 Mentions légales › GitHub
-Mentions légales › Hébergement
-Mentions légales › Mesure d’audience
 Mentions légales › MIT
 Mentions légales › ovhcloud.com
 Mentions légales › Plausible Analytics
-Mentions légales › politique de confidentialité
-Mentions légales › Propriété intellectuelle
-Mentions légales › Responsable de la publication
-Mentions légales › voir la page de contact
-Nos activités › Découvrir la formation PAC
-Nos activités › Découvrir le baptême en soufflerie
-Nos activités › Découvrir le saut en OA
-Nos activités › Découvrir le saut en tandem
-Nos activités › Nous rejoindre
-Nos activités › Voir nos activités
 Nos albums photos › Baptême en soufflerie
-Nos albums photos › Nous rejoindre
 Nos albums photos › Sauts en tandem
-Nos albums photos › Voir nos activités
 Nous rejoindre › Devenir membre
 Nous rejoindre › Rejoindre le bureau
 Nous rejoindre › Rejoindre le Discord
-Page introuvable › Retour à l'accueil
 Page introuvable › Signaler l'erreur
-Politique de confidentialité › 1. Responsable de traitement
-Politique de confidentialité › 10. Vos droits
-Politique de confidentialité › 11. Réclamation
-Politique de confidentialité › 2. Données collectées
-Politique de confidentialité › 2.1 Données fournies via les formulaires
-Politique de confidentialité › 2.2 Données de navigation
-Politique de confidentialité › 2.3 Préférences enregistrées sur votre appareil
-Politique de confidentialité › 3. Finalités du traitement
-Politique de confidentialité › 4. Bases légales
-Politique de confidentialité › 5. Prestataires et paiements
-Politique de confidentialité › 6. Images et droit à l’image
-Politique de confidentialité › 7. Destinataires des données
-Politique de confidentialité › 8. Transferts hors de l’Union européenne
-Politique de confidentialité › 9. Durées de conservation
 Politique de confidentialité › Bureau des Sports (BDS)
 Politique de confidentialité › CNIL
 Politique de confidentialité › Efrei
 Politique de confidentialité › HelloAsso
 Politique de confidentialité › Plausible Analytics
-Politique de confidentialité › voir la page de contact
-QR code › Retour à l’accueil
-Règlement intérieur › 1. Présentation
-Règlement intérieur › 2. Accès aux activités
-Règlement intérieur › 3. Règles de participation
-Règlement intérieur › 4. Sécurité
-Règlement intérieur › 5. Droit à l’image
-Règlement intérieur › 6. Comportement
-Règlement intérieur › 7. Sanctions
 Règlement intérieur › Bureau des Sports (BDS)
 Règlement intérieur › Efrei
-Saut en ouverture automatique (OA) › Aller à PAC
-Saut en ouverture automatique (OA) › Aller à Tandem
-Saut en ouverture automatique (OA) › Nous rejoindre
-Saut en ouverture automatique (OA) › Voir nos activités
-Saut en tandem › Aller à OA
-Saut en tandem › Aller à Soufflerie
-Saut en tandem › Nous rejoindre
 Saut en tandem › Skydive Event Paris
-Saut en tandem › Voir nos activités

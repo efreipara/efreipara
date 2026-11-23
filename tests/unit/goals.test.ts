@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { goalName, linkLabel, pageGoalName } from '../../app/utils/goals'
+import { goalName, isOutbound, linkLabel, pageGoalName } from '../../app/utils/goals'
 import type { SeoData } from '../../app/utils/seo'
 
 const link = (
@@ -83,5 +83,28 @@ describe('goalName', () => {
   it("n'envoie rien sans portée ni libellé", () => {
     expect(goalName('', 'FAQ')).toBeNull()
     expect(goalName('Accueil', '')).toBeNull()
+  })
+})
+
+describe('isOutbound', () => {
+  const origin = 'https://efreipara.fr'
+  const redirects = ['/discord', '/rejoindre-bureau']
+
+  it('compte un autre site, un e-mail et un téléphone', () => {
+    expect(isOutbound('https://www.instagram.com/efreipara', origin, redirects)).toBe(true)
+    expect(isOutbound('mailto:contact@efreipara.fr', origin, redirects)).toBe(true)
+    expect(isOutbound('tel:+33100000000', origin, redirects)).toBe(true)
+  })
+
+  it('compte une page de redirection, avec ou sans barre oblique finale', () => {
+    expect(isOutbound('/discord', origin, redirects)).toBe(true)
+    expect(isOutbound('/rejoindre-bureau/', origin, redirects)).toBe(true)
+  })
+
+  it('ignore les pages et ancres du site', () => {
+    expect(isOutbound('/galerie', origin, redirects)).toBe(false)
+    expect(isOutbound('#donnees', origin, redirects)).toBe(false)
+    expect(isOutbound('https://efreipara.fr/faq', origin, redirects)).toBe(false)
+    expect(isOutbound(null, origin, redirects)).toBe(false)
   })
 })

@@ -3,7 +3,7 @@
 > **Périmètre** : liste des noms d'événements envoyés à Plausible et création des Goals correspondants.
 > **À mettre à jour** par `bun run goals`, jamais à la main.
 
-Chaque clic sur un lien du site envoie un événement nommé `<page> › <lien>` ou `<zone> › <lien>` : la règle de nommage est décrite dans [PRD.md](../PRD.md#4-mesure-daudience), sa mise en œuvre dans [ARCHITECTURE.md](../ARCHITECTURE.md#mesure-daudience). Plausible ne compte un événement que si un Goal du même nom existe, et seulement à partir de sa création.
+Chaque clic sur un lien qui sort du site envoie un événement nommé `<page> › <lien>` ou `<zone> › <lien>` : la règle de nommage est décrite dans [PRD.md](../PRD.md#4-mesure-daudience), sa mise en œuvre dans [ARCHITECTURE.md](../ARCHITECTURE.md#mesure-daudience). Plausible ne compte un événement que si un Goal du même nom existe, et seulement à partir de sa création.
 
 ## Fichiers
 

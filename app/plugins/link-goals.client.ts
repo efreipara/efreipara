@@ -1,13 +1,15 @@
 import type { SeoData } from '~/utils/seo'
 
-// Chaque clic sur un lien envoie l'événement Plausible « <page> › <lien> » (ou « <zone> › <lien> »)
+// Un clic sur un lien qui sort du site envoie l'événement Plausible « <page> › <lien> »
+// (ou « <zone> › <lien> ») ; la navigation interne n'est pas suivie
 export default defineNuxtPlugin((nuxtApp) => {
   const { data: seoData } = useNuxtData<SeoData>('seo')
+  const { redirectPaths } = useRuntimeConfig().public
 
   const track = (event: MouseEvent) => {
     if (event.type === 'auxclick' && event.button !== 1) return
     const link = event.target instanceof Element ? event.target.closest('a[href]') : null
-    if (!link) return
+    if (!link || !isOutbound(link.getAttribute('href'), location.origin, redirectPaths)) return
 
     const zone = link.closest<HTMLElement>('[data-goal-zone]')?.dataset.goalZone
     // Phase de capture : chemin et titre sont encore ceux de la page quittée

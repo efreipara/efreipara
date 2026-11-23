@@ -103,6 +103,8 @@ export default defineNuxtConfig({
       cdnUrl: process.env.CDN_URL || '',
       cdnDevToken: process.env.NODE_ENV === 'development' ? process.env.CDN_DEV_TOKEN || '' : '',
       plausibleUrl: process.env.PLAUSIBLE_URL || '',
+      // Liens vers ces pages comptés comme sortants par plugins/link-goals.client.ts
+      redirectPaths: redirectRoutes(),
     },
   },
 

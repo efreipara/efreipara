@@ -35,3 +35,12 @@ export const pageGoalName = (pathname: string, documentTitle: string, seoData?: 
 
 export const goalName = (scope: string, label: string) =>
   scope && label ? `${scope}${GOAL_SEPARATOR}${label}` : null
+
+// Lien qui sort du site : autre origine, autre protocole (mailto:, tel:) ou page de redirection
+export const isOutbound = (href: string | null, origin: string, redirectPaths: string[]) => {
+  if (!href) return false
+  const url = new URL(href, origin)
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return true
+  if (url.origin !== origin) return true
+  return redirectPaths.includes(url.pathname.replace(/(.)\/$/, '$1'))
+}

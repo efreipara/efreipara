@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.7 — 23 novembre 2026
+
+### Modifications
+
+- Mesure d’audience : seuls les clics vers l’extérieur du site sont comptés (réseaux, formulaires, e-mail, partenaires, sites externes). La navigation entre les pages du site n’est plus suivie, en dehors des pages vues.
+
 ## 1.17.6 — 23 novembre 2026
 
 ### Corrections
