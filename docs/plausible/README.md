@@ -16,7 +16,7 @@ Les deux sont générés à partir du site : ne pas les modifier à la main.
 
 1. Publier la version du site dont les noms sont listés ici.
 2. Ouvrir une page de ce site, puis la console du navigateur, et y coller le contenu de `goals-console.js`. Chaque ligne affichée doit se terminer par `{status: 202}`.
-3. Recharger Settings → Goals dans Plausible (la liste proposée est calculée au chargement de la page), puis cliquer « + Add goal » : la fenêtre « We detected N custom events » propose de tous les ajouter.
+3. Recharger Settings → Goals dans Plausible (la liste proposée est calculée au chargement de la page), puis cliquer « + Add goal » : la fenêtre « We detected N custom events » propose de tous les ajouter. Plausible n'y cherche les événements que jusqu'à la date du jour en UTC : un envoi fait entre minuit et 1 h (2 h en été), heure de Paris, n'est proposé qu'à partir de minuit UTC.
 
 Le script crée une conversion par Goal. Sur la production, pour ne pas fausser les chiffres, créer plutôt chaque Goal à la main depuis `goals.txt` (« + Add goal », Custom event, nom collé tel quel).
 
