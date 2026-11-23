@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.17.3 — 23 novembre 2026
+
+### Modifications
+
+- La bannière annonce le prochain événement : un baptême en soufflerie à iFly Paris le vendredi 4 décembre, avec inscription sur HelloAsso.
+
 ## 1.17.2 — 7 novembre 2026
 
 ### Modifications
