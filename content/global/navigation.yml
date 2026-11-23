@@ -32,7 +32,7 @@ pages:
     icon: tabler:help
     header: 3
 
-# Bouton du menu d’accessibilité (icône pleine quand une option est active)
+# Bouton du menu d’accessibilité (icône pleine quand une option affichée n’est pas à sa valeur par défaut)
 accessibilityMenu:
   label: Options d’accessibilité
   icon: tabler:accessible
@@ -45,6 +45,10 @@ accessibility:
   - key: highContrast
     label: Contraste élevé
     icon: tabler:contrast
+  # Affichée seulement pendant une saison (seasons.yml), avec l’icône de la saison
+  - key: seasonal
+    label: Décorations de saison
+    icon: tabler:sparkles
 
 footer:
   activities: Activités

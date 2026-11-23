@@ -1,11 +1,14 @@
 export type AccessibilityFeatures = {
   dyslexic: boolean
   highContrast: boolean
+  // Décorations de saison (utils/season.ts), affichées par défaut
+  seasonal: boolean
 }
 
 export const defaultAccessibility: AccessibilityFeatures = {
   dyslexic: false,
   highContrast: false,
+  seasonal: true,
 }
 
 // Valeur du localStorage illisible ou modifiée à la main : seules les clés connues à valeur booléenne comptent
@@ -25,3 +28,7 @@ export const parseAccessibility = (saved: string | null): AccessibilityFeatures 
   }
   return features
 }
+
+// Option qui s'écarte de sa valeur par défaut : le bouton du menu passe en plein
+export const isAdjusted = (features: AccessibilityFeatures, key: keyof AccessibilityFeatures) =>
+  features[key] !== defaultAccessibility[key]

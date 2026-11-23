@@ -16,6 +16,7 @@ export default defineContentConfig({
     labels: defineCollection(collections.labels),
     events: defineCollection(collections.events),
     partners: defineCollection(collections.partners),
+    seasons: defineCollection(collections.seasons),
     rejoindre: defineCollection(collections.rejoindre),
     qr: defineCollection(collections.qr),
     redirects: defineCollection(collections.redirects),

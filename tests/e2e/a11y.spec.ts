@@ -27,5 +27,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
         expect(unexpected).toEqual([])
       })
     }
+
+    test('/ en décembre : la neige n’ajoute aucune violation', async ({ page }) => {
+      await page.clock.install({ time: new Date('2026-12-10T12:00:00') })
+      await gotoReady(page, '/')
+      await expect(page.locator('.seasonal-decor .drop').first()).toBeAttached()
+      await page.waitForTimeout(800)
+      const { violations } = await new AxeBuilder({ page }).include('.seasonal-decor').analyze()
+      expect(violations.map((v) => v.id)).toEqual([])
+    })
   })
 }

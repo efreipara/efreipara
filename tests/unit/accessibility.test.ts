@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { defaultAccessibility, parseAccessibility } from '../../app/utils/accessibility'
+import { defaultAccessibility, isAdjusted, parseAccessibility } from '../../app/utils/accessibility'
 
 describe('parseAccessibility', () => {
   it('reprend les options enregistrées', () => {
-    expect(parseAccessibility('{"dyslexic":true,"highContrast":false}')).toEqual({
+    expect(parseAccessibility('{"dyslexic":true,"highContrast":false,"seasonal":false}')).toEqual({
       dyslexic: true,
       highContrast: false,
+      seasonal: false,
     })
   })
 
@@ -13,6 +14,7 @@ describe('parseAccessibility', () => {
     expect(parseAccessibility('{"highContrast":true}')).toEqual({
       dyslexic: false,
       highContrast: true,
+      seasonal: true,
     })
   })
 
@@ -27,5 +29,14 @@ describe('parseAccessibility', () => {
     expect(
       parseAccessibility('{"dyslexic":"oui","highContrast":1,"__proto__":{"x":true},"autre":true}'),
     ).toEqual(defaultAccessibility)
+  })
+})
+
+describe('isAdjusted', () => {
+  it('signale une option écartée de sa valeur par défaut, dans un sens ou dans l’autre', () => {
+    expect(isAdjusted(defaultAccessibility, 'dyslexic')).toBe(false)
+    expect(isAdjusted(defaultAccessibility, 'seasonal')).toBe(false)
+    expect(isAdjusted({ ...defaultAccessibility, dyslexic: true }, 'dyslexic')).toBe(true)
+    expect(isAdjusted({ ...defaultAccessibility, seasonal: false }, 'seasonal')).toBe(true)
   })
 })

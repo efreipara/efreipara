@@ -25,3 +25,12 @@ describe('accessibilité', () => {
     expect(keys.filter((key) => !Object.hasOwn(defaultAccessibility, key))).toEqual([])
   })
 })
+
+describe('saisons', () => {
+  it('chaque saison a une clé unique', () => {
+    const keys = readYaml<{ items: { key: string }[] }>('global/seasons.yml').items.map(
+      (s) => s.key,
+    )
+    expect(keys.filter((key, i) => keys.indexOf(key) !== i)).toEqual([])
+  })
+})

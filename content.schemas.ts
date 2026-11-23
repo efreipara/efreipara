@@ -1,5 +1,6 @@
 import { z } from '@nuxt/content'
 import { ACTIVITY_KEYS } from './app/utils/activities'
+import { isMonthDay } from './app/utils/season'
 
 const activity = z.enum(ACTIVITY_KEYS)
 
@@ -377,6 +378,23 @@ export const collections = {
               !event.months || event.months.every((m, i, all) => i === 0 || all[i - 1]! < m),
             '`months` en ordre croissant, sans doublon',
           ),
+      ),
+    }),
+  },
+  seasons: {
+    type: 'data' as const,
+    source: 'global/seasons.yml',
+    schema: z.object({
+      items: z.array(
+        z.object({
+          key: z.string(),
+          start: z.string().refine(isMonthDay, 'jour au format MM-JJ'),
+          end: z.string().refine(isMonthDay, 'jour au format MM-JJ'),
+          icon: z.string(),
+          count: z.number().int().positive(),
+          color: z.string(),
+          colorDark: z.string().optional(),
+        }),
       ),
     }),
   },

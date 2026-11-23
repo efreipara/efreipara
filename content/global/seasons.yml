@@ -1,0 +1,12 @@
+# Décorations de saison : icônes qui tombent sur tout le site pendant une période de l’année.
+# Dates MM-JJ incluses, chaque année, vérifiées dans le navigateur ; une période peut passer
+# le 31 décembre (start: '12-20', end: '01-05'). Si deux périodes se chevauchent, la première gagne.
+items:
+  - key: hiver
+    start: '12-01'
+    end: '12-31'
+    icon: tabler:snowflake
+    count: 36
+    # Couleur des icônes en clair et en sombre (CSS)
+    color: var(--color-navy-300)
+    colorDark: white

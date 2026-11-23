@@ -17,21 +17,36 @@
   } = await useNavigation()
   const { labels } = await useLabels()
 
-  const { features, toggle, hasActiveFeature } = useAccessibility()
+  const { season } = await useSeason()
+  const { features, toggle } = useAccessibility()
 
   type AccessibilityKey = Parameters<typeof toggle>[0]
   const accessibilityClass: Record<string, string> = {
     dyslexic: 'cursor-pointer font-open-dyslexic',
-    highContrast: 'cursor-pointer',
   }
 
+  // Les décorations de saison ne se proposent que pendant une saison, avec son icône
+  const shownAccessibility = computed(() =>
+    accessibility.value
+      .filter((item) => item.key !== 'seasonal' || season.value)
+      .map((item) => ({
+        ...item,
+        key: item.key as AccessibilityKey,
+        icon: item.key === 'seasonal' ? (season.value?.icon ?? item.icon) : item.icon,
+      })),
+  )
+
+  const isMenuAdjusted = computed(() =>
+    shownAccessibility.value.some((item) => isAdjusted(features.value, item.key)),
+  )
+
   const accessibilityItems = computed(() => [
-    accessibility.value.map((item) => ({
+    shownAccessibility.value.map((item) => ({
       label: item.label,
       icon: item.icon,
       type: 'checkbox' as const,
-      checked: features.value[item.key as AccessibilityKey],
-      onUpdateChecked: () => toggle(item.key as AccessibilityKey),
+      checked: features.value[item.key],
+      onUpdateChecked: () => toggle(item.key),
       onSelect: (e: Event) => e.preventDefault(),
       class: accessibilityClass[item.key] ?? 'cursor-pointer',
     })),
@@ -131,9 +146,9 @@
       </div>
       <UDropdownMenu :items="accessibilityItems">
         <UButton
-          :icon="hasActiveFeature ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
+          :icon="isMenuAdjusted ? accessibilityMenu.activeIcon : accessibilityMenu.icon"
           color="neutral"
-          :variant="hasActiveFeature ? 'solid' : 'ghost'"
+          :variant="isMenuAdjusted ? 'solid' : 'ghost'"
           :aria-label="accessibilityMenu.label"
           class="p-2"
         />

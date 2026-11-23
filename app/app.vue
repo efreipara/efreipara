@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import type { AccessibilityFeatures } from '~/utils/accessibility'
+
   const route = useRoute()
   // useLayout (Nuxt 4.5) : layout résolu de la route, réactif à la navigation et aux route rules
   const layout = useLayout()
@@ -8,9 +10,10 @@
   onMounted(init)
   useHead({
     htmlAttrs: {
+      // Classe pour les options activées à la demande (les décorations de saison sont lues ailleurs)
       class: computed(() =>
-        (Object.entries(features.value) as [string, boolean][])
-          .filter(([, v]) => v)
+        (Object.entries(features.value) as [keyof AccessibilityFeatures, boolean][])
+          .filter(([k, v]) => v && !defaultAccessibility[k])
           .map(([k]) => `a11y-${k}`)
           .join(' '),
       ),
@@ -26,6 +29,7 @@
   <UApp>
     <AppEventBanner v-if="showLayout" />
     <AppHeader v-if="showLayout" />
+    <AppSeasonalDecor v-if="showLayout" />
     <UMain>
       <NuxtPage />
     </UMain>

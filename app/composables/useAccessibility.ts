@@ -14,7 +14,5 @@ export const useAccessibility = () => {
     localStorage.setItem('accessibility', JSON.stringify(features.value))
   }
 
-  const hasActiveFeature = computed(() => Object.values(features.value).some(Boolean))
-
-  return { features, init, toggle, hasActiveFeature }
+  return { features, init, toggle }
 }

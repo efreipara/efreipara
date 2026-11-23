@@ -2,6 +2,13 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.20.0 — 23 novembre 2026
+
+### Ajouts
+
+- Décorations de saison : en décembre, de petits flocons de neige tombent sur tout le site. D’autres thèmes pourront suivre au fil de l’année.
+- Nouvelle case « Décorations de saison » dans le menu d’accessibilité, pendant une saison, pour les couper ; le choix est gardé sur l’appareil. Rien ne tombe quand l’appareil demande de réduire les animations.
+
 ## 1.19.0 — 23 novembre 2026
 
 ### Ajouts
