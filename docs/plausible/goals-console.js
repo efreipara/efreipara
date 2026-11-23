@@ -1,7 +1,7 @@
 // Généré par `bun run goals` (docs/plausible/README.md) : ne pas modifier à la main.
 // À coller dans la console d'une page du site : envoie chaque nom une fois, à 150 ms d'intervalle.
 /* global plausible */
-{
+;(() => {
   const names = [
     'Accueil › Baptême en soufflerie',
     'Accueil › Efrei',
@@ -88,4 +88,4 @@
   names.forEach((name, i) => {
     setTimeout(() => plausible(name, { callback: (r) => console.log(i + 1, name, r) }), i * 150)
   })
-}
+})()
