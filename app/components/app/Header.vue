@@ -14,6 +14,7 @@
     headerLinks,
     menuButton,
     colorModeButton,
+    languageSwitch,
   } = await useNavigation()
   const { labels } = await useLabels()
 
@@ -153,6 +154,7 @@
           class="p-2"
         />
       </UDropdownMenu>
+      <HeaderLanguageSwitch :labels="languageSwitch" />
       <HeaderColorModeButton :labels="colorModeButton" class="p-2" />
     </template>
 

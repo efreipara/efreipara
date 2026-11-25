@@ -5,15 +5,17 @@ import {
   DEFAULT_LOCALE,
   LOCALE_CODES,
   contentKey,
+  delocalizePath,
   isLocale,
   localizedCollection,
   localizedSource,
+  localizePath,
 } from '../../app/utils/locales'
 
 describe('langues', () => {
-  it('le français est la langue par défaut', () => {
+  it('le français est la langue par défaut, l’anglais la seconde', () => {
     expect(DEFAULT_LOCALE).toBe('fr')
-    expect(LOCALE_CODES[0]).toBe('fr')
+    expect(LOCALE_CODES).toEqual(['fr', 'en'])
   })
 
   it('reconnaît une langue déclarée seulement', () => {
@@ -46,5 +48,22 @@ describe('contentProxy', () => {
     expect('hero' in t).toBe(true)
     expect(Object.keys(t)).toEqual(['hero'])
     expect({ ...t }).toEqual({ hero: { title: 'Bienvenue' } })
+  })
+})
+
+describe('adresses par langue', () => {
+  it('traduit le premier segment et garde clés et slugs', () => {
+    expect(localizePath('/', 'en')).toBe('/en')
+    expect(localizePath('/galerie', 'en')).toBe('/en/gallery')
+    expect(localizePath('/activites/tandem', 'en')).toBe('/en/activities/tandem')
+    expect(localizePath('/faq', 'en')).toBe('/en/faq')
+    expect(localizePath('/discord', 'en')).toBe('/en/discord')
+    expect(localizePath('/faq', 'fr')).toBe('/faq')
+  })
+
+  it('retrouve le chemin français', () => {
+    for (const path of ['/', '/galerie', '/activites', '/activites/tandem', '/faq', '/discord'])
+      expect(delocalizePath(localizePath(path, 'en'))).toBe(path)
+    expect(delocalizePath('/faq')).toBe('/faq')
   })
 })

@@ -342,7 +342,13 @@ export const collections = {
         }),
       }),
       helpCta: z.object({ github: z.string() }),
-      legal: z.object({ headline: z.string(), toc: z.string(), updatedAt: z.string() }),
+      legal: z.object({
+        headline: z.string(),
+        toc: z.string(),
+        updatedAt: z.string(),
+        // Note au-dessus d'une page légale non traduite (texte de la langue par défaut)
+        untranslated: z.string().optional(),
+      }),
       error: z.object({
         home: z.string(),
         report: z.string(),
@@ -533,6 +539,8 @@ export const collections = {
       }),
       menuButton: z.object({ open: z.string(), close: z.string() }),
       colorModeButton: z.object({ light: z.string(), dark: z.string() }),
+      // Lien vers l'autre langue : texte court (« EN ») et nom lu dans la langue de destination
+      languageSwitch: z.object({ label: z.string(), ariaLabel: z.string() }),
       legal: z.array(
         z.object({
           label: z.string(),

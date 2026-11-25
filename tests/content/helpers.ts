@@ -2,7 +2,7 @@ import { existsSync, globSync, readFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import { parse } from 'yaml'
 import { redirectRoutes } from '../../content.routes'
-import { DEFAULT_LOCALE, type LocaleCode } from '../../app/utils/locales'
+import { DEFAULT_LOCALE, localizePath, type LocaleCode } from '../../app/utils/locales'
 
 export const root = join(import.meta.dirname, '../..')
 export const contentDir = join(root, 'content')
@@ -47,8 +47,9 @@ export const allContentFiles = (locale?: LocaleCode) =>
 
 export const publicFileExists = (path: string) => existsSync(join(root, 'public', path))
 
-// Routes du site, déduites des pages et du contenu
-export const siteRoutes = () => {
+// Routes du site dans une langue, déduites des pages et du contenu de la langue par défaut (mêmes
+// clés et slugs partout, pages légales en repli)
+export const siteRoutes = (locale: LocaleCode = DEFAULT_LOCALE) => {
   const activities = sourceFiles('pages/activites/*.yml').map((f) => basename(f, '.yml'))
   const legal = sourceFiles('pages/legal/*.md').map((f) => basename(f, '.md'))
   const pages = globSync('*.vue', { cwd: join(root, 'app/pages') })
@@ -62,5 +63,5 @@ export const siteRoutes = () => {
     ...activities.map((a) => `/activites/${a}`),
     ...legal.map((slug) => `/${slug}`),
     ...redirectRoutes(),
-  ]
+  ].map((route) => localizePath(route, locale))
 }

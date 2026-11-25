@@ -1,0 +1,98 @@
+title: AFF training (PAC)
+description: Complete accelerated freefall training (PAC, the French AFF programme). Become an autonomous skydiver with professional instructors and master freefall.
+label: PAC
+alt: AFF training (PAC) with Efrei Para
+imageCount: 0
+icon: activite:pac
+
+menu:
+  label: PAC (AFF)
+  description: Accelerated freefall training
+
+card:
+  title: AFF training (PAC)
+  description: >-
+    Accelerated freefall, the French PAC way: a complete course towards
+    autonomy in freefall.
+
+section:
+  title: AFF training (PAC)
+  description: 'Become an autonomous skydiver: the complete course to the freedom of the sky.'
+  features:
+    - title: Complete training
+      description: Theory, ground sessions and several accompanied jumps to learn the basics of freefall.
+      icon: tabler:school
+    - title: Technical goals
+      description: You learn stability, body movements, canopy flying and how to handle your parachute.
+      icon: tabler:target
+    - title: Gradual autonomy
+      description: With every jump, you gain confidence until you can deploy and fly your canopy on your own.
+      icon: tabler:parachute
+    - title: Step-by-step commitment
+      description: Each stage brings you closer to full autonomy, supervised by experienced instructors.
+      icon: tabler:stairs
+  linkLabel: Discover AFF training
+
+features:
+  - title: Complete training
+    description: Theory, ground sessions and accompanied jumps to learn all the basics of freefall.
+    icon: tabler:school
+  - title: Technical goals
+    description: You learn stability, body movements, canopy flying and how to handle your parachute.
+    icon: tabler:target
+  - title: Gradual autonomy
+    description: With every jump, you gain confidence until you can deploy and fly your canopy on your own.
+    icon: tabler:stairs
+  - title: A licence at the end
+    description: 'The PAC leads to a real skydiving licence: the freedom to jump anywhere in France.'
+    icon: tabler:certificate
+
+intro:
+  - |-
+    **PAC** (*Progression Accompagnée en Chute*, the French equivalent of AFF) is the official course to become an autonomous skydiver in France. You learn to jump on your own and to manage your body position, your parachute and your safety from A to Z.
+  - |-
+    The course is made up of **7 levels** of jumps accompanied by one or two instructors in freefall, followed by supervised solo jumps. Each level validates specific technical skills before you move on to the next.
+  - |-
+    At the end of the PAC, you get your **skydiving licence** and the freedom to jump on your own at any French drop zone.
+
+stats:
+  - value: '4,000 m'
+    label: Exit altitude
+    icon: tabler:mountain
+  - value: '7'
+    label: Progression levels
+    icon: tabler:stairs
+  - value: '~10'
+    label: Jumps for the full course
+    icon: tabler:parachute
+  - value: '1'
+    label: Skydiving licence at the end
+    icon: tabler:certificate
+
+steps:
+  - title: Theory
+    description: 'You study the PAC learning booklet: aerology, equipment, emergency procedures and regulations.'
+    icon: tabler:book
+  - title: Ground training
+    description: Practical sessions on a simulator and a mock-up to master the moves before boarding the plane.
+    icon: tabler:school
+  - title: 'Levels 1 and 2: with two instructors'
+    description: Your first two jumps from 4,000 m, with two instructors in freefall who keep you stable and guide every move.
+    icon: tabler:users
+  - title: 'Levels 3 to 5: with one instructor'
+    description: You become more autonomous. A single instructor accompanies you in freefall to check your stability and moves.
+    icon: tabler:user-check
+  - title: 'Levels 6 and 7: supervised solo jumps'
+    description: You jump with no instructor beside you. The instructor watches from the ground or from another plane and debriefs every jump.
+    icon: tabler:parachute
+  - title: Getting your licence
+    description: Once all levels are validated, you get your skydiving licence and can jump on your own anywhere in France.
+    icon: tabler:certificate
+
+requirements:
+  - icon: tabler:user
+    label: Minimum age 15 (parental consent for minors)
+  - icon: tabler:heart-rate-monitor
+    label: Medical certificate of fitness required
+  - icon: tabler:calendar
+    label: Available over several weekends to complete the levels

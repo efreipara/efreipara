@@ -1,0 +1,86 @@
+hero:
+  links:
+    - label: Our activities
+      to: /en/activities
+      icon: tabler:parachute
+      variant: secondary
+    - label: Join us
+      to: /en/join
+      icon: tabler:user-plus
+  scrollIcon: tabler:caret-down-filled
+  video:
+    pause:
+      label: Pause the video
+      icon: tabler:player-pause
+    play:
+      label: Play the video
+      icon: tabler:player-play
+
+about:
+  headline: The club
+  title: Who are we?
+  paragraphs:
+    - |-
+      **Efrei Para** is the skydiving club of the Efrei sports association (BDS), founded in **2016**. Revived in 2023 after the Covid break, the club is more active than ever, with over **100 members** on Discord.
+    - |-
+      We organise **tandem jumps**, **wind tunnel first flights** and **static line (OA) jumps** throughout the year.
+    - 'Our goal: make skydiving accessible to students in a safe and friendly setting, with no prior experience needed.'
+
+stats:
+  - title: 100+
+    description: Active members on Discord
+    icon: tabler:users
+  - title: '4'
+    description: Activities on offer
+    icon: tabler:parachute
+  - title: '2016'
+    description: Year the club was founded
+    icon: tabler:calendar
+
+activites:
+  headline: Four ways to fly
+  title: Our activities
+  cardLink: Learn more
+  link:
+    label: Discover all our activities in detail
+    to: /en/activities
+
+why:
+  headline: The club spirit
+  title: Why Efrei Para?
+  image: activites/carrousel/tandem-4
+  alt: Efrei Para members in harnesses at the plane door, boarding with the tandem instructors
+  items:
+    - title: Open to everyone
+      description: >-
+        No experience needed. Never jumped? Just curious? We take care of
+        everything: briefing, equipment and supervision.
+      icon: tabler:mood-happy
+      type: tandem
+    - title: Professional supervision
+      description: >-
+        All our jumps are organised with qualified instructors in approved
+        centres. Safety comes first.
+      icon: tabler:shield-check
+      type: oa
+    - title: Student community
+      description: >-
+        Join a close-knit team of Efrei students. Unique events throughout the
+        year to share unforgettable experiences together.
+      icon: tabler:heart
+      type: soufflerie
+
+events:
+  headline: Coming up
+  title: Upcoming events
+
+albums:
+  headline: In pictures
+  title: Latest albums
+  link:
+    label: See the whole gallery
+    to: /en/gallery
+
+partners:
+  headline: They support us
+  title: Our partners

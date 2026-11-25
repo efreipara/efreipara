@@ -10,7 +10,7 @@ Site vitrine du club de parachutisme de l'Efrei (rattaché au BDS). Il présente
 
 - Public : étudiants de l'Efrei et curieux, souvent sur téléphone. Le ton tutoie le visiteur.
 - Site **public et statique** : pas de compte, pas de saisie enregistrée par le site, pas de back-office. Le contenu est modifié dans le dépôt (voir [CONTENT.md](CONTENT.md)).
-- Interface **100 % en français**. Le site est prêt à recevoir d'autres langues (une version anglaise est prévue, sous `/en/…`), mais aucune n'est encore écrite : pas de sélecteur de langue.
+- Site en **français**, avec une **version anglaise** complète sous `/en/…` (accueil `/en`, adresses traduites : `/en/activities`, `/en/gallery`, `/en/join` ; `/en/faq`, `/en/contact`, `/en/documents` ; les clés d'activité restent `/en/activities/soufflerie`). En anglais, le ton s'adresse aussi directement au visiteur (« you »). Les pages légales ne sont pas encore traduites : leur adresse anglaise (`/en/rgpd`…) affiche le texte français, précédé de « This page is only available in French. ». Les raccourcis (`/tandem`), l'ancienne `/about` et `/llms.txt` n'existent qu'en français.
 
 ### Activités
 
@@ -30,8 +30,8 @@ Partout (menus, accueil, `/activites`, précédent / suivant des pages d'activit
 ### En-tête
 
 - Logo Efrei Para (version claire ou sombre selon le thème), lien vers l'accueil annoncé « Efrei Para, accueil » par les lecteurs d'écran.
-- **Grand écran (`lg` et plus)** : logo à gauche, menu centré, actions à droite. Le menu commence par « Nos activités », qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`). À droite : les réseaux choisis dans `navigation.yml` (Instagram et Discord), le menu d'accessibilité et le bouton clair / sombre.
-- **Petit écran** : logo, puis accessibilité, clair / sombre et bouton burger (l'icône menu tourne et s'efface pendant que la croix apparaît, et l'inverse à la fermeture). Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
+- **Grand écran (`lg` et plus)** : logo à gauche, menu centré, actions à droite. Le menu commence par « Nos activités », qui déroule les quatre activités en grille 2 × 2 (libellé, description, teinte de l'activité au survol), puis les liens Documents, Galerie, FAQ, Nous rejoindre (ordre donné par le champ `header` de `navigation.yml`). À droite : les réseaux choisis dans `navigation.yml` (Instagram et Discord), le menu d'accessibilité, le **bouton de langue** (« EN » sur une page française, « FR » sur une page anglaise : il mène à la même page dans l'autre langue) et le bouton clair / sombre.
+- **Petit écran** : logo, puis accessibilité, langue, clair / sombre et bouton burger (l'icône menu tourne et s'efface pendant que la croix apparaît, et l'inverse à la fermeture). Le menu ouvert liste « Nos activités » et ses quatre activités, les autres pages de l'en-tête, puis tous les réseaux sociaux. La page en cours y est mise en évidence (fond léger, teinte de l'activité pour une page d'activité).
 
 ### Événements
 
@@ -156,11 +156,11 @@ Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'ic
 
 ### Erreurs
 
-Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub).
+Toute adresse inconnue donne une page d'erreur avec l'en-tête du site et un fond de parachutes : titre et explication en français selon le code (404 « Page introuvable », 500, autre), boutons « Retour à l'accueil » et « Signaler l'erreur » (nouvelle issue GitHub). Une adresse inconnue, même sous `/en/`, reçoit la page d'erreur en français (fichier `404.html` unique) ; une erreur survenue pendant la navigation dans la version anglaise s'affiche en anglais.
 
 ### Référencement
 
-Seule l'accueil apparaît dans les moteurs de recherche : les autres pages sont exclues par la balise `noindex`, mais gardent titre, description et image de partage pour les réseaux. Les pages d'erreur ont un titre (« Page introuvable - Efrei Para ») et ne sont pas indexées.
+Seules les deux pages d'accueil (`/` et `/en`) apparaissent dans les moteurs de recherche : les autres pages sont exclues par la balise `noindex`, mais gardent titre, description et image de partage pour les réseaux. Chaque page annonce sa version dans l'autre langue (`hreflang`), et son adresse canonique est la sienne (`/en/gallery` pour la galerie anglaise). Les pages d'erreur ont un titre (« Page introuvable - Efrei Para ») et ne sont pas indexées.
 
 ### Version pour les agents d'IA — `/llms.txt`
 
@@ -172,8 +172,10 @@ Plausible compte les pages vues et les clics vers les liens externes, sans cooki
 
 Chaque clic sur un lien qui sort du site (autre site, adresse e-mail, page de redirection comme `/discord` ou `/rejoindre-bureau`) est aussi compté sous le nom « <page> › <lien> » (« Contact › Instagram », « FAQ › Devenir membre du bureau ») ; la navigation entre les pages du site n'est suivie que par les pages vues. Dans l'en-tête (menus compris), la bannière et le pied de page, la page est remplacée par la zone (« Header › Instagram Efrei Para », « Footer › GitHub », « Bannière › Inscription »), quelle que soit la page visitée. Le lien est nommé par son libellé (ou le titre de la carte) : renommer un libellé dans le contenu change le nom de l'événement.
 
+Les pages anglaises envoient **les mêmes noms qu'en français** (« FAQ › Devenir membre du bureau » pour le même bouton de la FAQ anglaise) : les clics des deux langues comptent dans les mêmes Goals, et la version anglaise n'en demande aucun nouveau. Les pages vues distinguent les deux langues par l'adresse (`/en/…`).
+
 Un événement n'apparaît dans Plausible que lorsqu'un objectif (Goal) de même nom, à la lettre et aux majuscules près, est créé dans les réglages du site ; les clics antérieurs ne sont pas repris. La liste de tous les noms et la façon de créer les Goals sont dans [plausible/README.md](plausible/README.md).
 
 ## 5. Hors périmètre
 
-Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, page agenda et historique des événements (seuls les événements à venir sont montrés, voir [Événements](#événements)), galerie hébergée sur le site, recherche. La version anglaise est préparée côté code ([ARCHITECTURE.md](ARCHITECTURE.md#langues)) mais son texte reste à écrire.
+Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, page agenda et historique des événements (seuls les événements à venir sont montrés, voir [Événements](#événements)), galerie hébergée sur le site, recherche, traduction des pages légales et autres langues que le français et l'anglais.

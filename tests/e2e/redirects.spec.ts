@@ -1,3 +1,4 @@
+import { delocalizePath } from '../../app/utils/locales'
 import { readYaml } from '../content/helpers'
 import { expect, test } from './fixtures'
 import { redirectRoutes, shortcuts } from './routes'
@@ -7,7 +8,7 @@ const rejoindre = readYaml<{ options: { slug: string; link: string }[] }>('pages
 
 // Cible de chaque redirection : le réseau de même clé, ou le formulaire de l'option
 const targetOf = (path: string) => {
-  const slug = path.slice(1)
+  const slug = delocalizePath(path).slice(1)
   return (
     club.socials.find((social) => social.key === slug)?.url ??
     rejoindre.options.find((option) => option.slug === slug)?.link

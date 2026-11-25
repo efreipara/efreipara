@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const { getIcon } = await useActivities()
+  const { getIcon, activityPath } = await useActivities()
   const { partners } = await usePartners()
   const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
@@ -9,7 +9,9 @@
     key: 'home-activites',
     query: (q) => q.select('stem', 'label', 'card').all(),
   })
-  const activityCards = computed(() => orderActivities(cards.value ?? []))
+  const activityCards = computed(() =>
+    orderActivities(cards.value ?? []).map((card) => ({ ...card, to: activityPath(card.key) })),
+  )
 
   const { data: galerie } = await useContentData('galerie')
   const latestAlbums = computed(() => filterGallery(galerie.value?.items ?? [], null).slice(0, 3))

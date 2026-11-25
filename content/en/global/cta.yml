@@ -1,0 +1,13 @@
+title: Ready to take off?
+description: Join the Efrei Para team and live a unique experience in the world of skydiving. Whether you’ve never jumped or already have some experience, there’s a place for you.
+image: rejoindre/rejoindre-bureau
+alt: Efrei Para logo embroidered on a club jacket
+
+links:
+  - label: See our activities
+    to: /en/activities
+    icon: tabler:parachute
+    variant: secondary
+  - label: Join us
+    to: /en/join
+    icon: tabler:user-plus

@@ -6,7 +6,7 @@
 
 ## Principe
 
-Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Il est rangé **par langue** : `content/fr/` (seule langue aujourd'hui), plus tard `content/en/` avec exactement les mêmes fichiers ([ajouter une langue](ARCHITECTURE.md#ajouter-une-langue)). Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts) une fois par langue (`home_fr`), avec sa source et son schéma Zod dans [`content.schemas.ts`](../content.schemas.ts). Le code lit le texte en `t.cle.sous.cle` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)). Nuxt Content ne vérifie pas le schéma au build : c'est `bun run test` qui le fait, avec d'autres contrôles (voir [Vérifier le contenu](#vérifier-le-contenu)).
+Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Il est rangé **par langue** : `content/fr/` et `content/en/` ([Langues](#langues)). Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts) une fois par langue (`home_fr`, `home_en`), avec sa source et son schéma Zod dans [`content.schemas.ts`](../content.schemas.ts). Le code lit le texte en `t.cle.sous.cle` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)). Nuxt Content ne vérifie pas le schéma au build : c'est `bun run test` qui le fait, avec d'autres contrôles (voir [Vérifier le contenu](#vérifier-le-contenu)).
 
 Ce qui n'est pas dans `content/` :
 
@@ -63,7 +63,7 @@ Les sources sont relatives au dossier de la langue (`global/seo.yml` = `content/
 - **`club`** : `socials[]` (`key`, `name`, `icon`, `url`) dans l'ordre d'affichage, la `key` sert à retrouver un réseau (`discord`, `instagram`, `github`…) ; `address` est écrite une fois, les liens Google Maps, Apple Plans et Waze en sont calculés (`mapUrls`) ; `github.repo` (historique des versions) et `github.issues` (signalement).
 - **`cta`** : `title`, `description`, `image`, `alt` et `links[]` (`label`, `to`, `icon`, `variant` : `primary` par défaut ou `secondary`).
 - **`contact`** : chaque bloc a son `icon` ; `address.buttons.<carte>` a `label` et `icon`. Les adresses viennent de `club`.
-- **`labels`** : `banner` (`title` et `titleAt` : phrase de la bannière avec `{title}`, `{date}` et, pour `titleAt`, `{location}` ; `more` : lien « +N » avec `{count}` ; `moreLabel` : son nom pour les lecteurs d'écran, `one` / `other` avec `{count}` ; `close`) ; `events` (`register`, `registerIcon`, `info`, `soon` à la place d'« Inscription » sans `url`, `or` entre les deux derniers mois possibles, `dateIcon`, `locationIcon`) ; `socialLink` (`{name}`) ; `goalZones` (`header`, `footer`, `banner` : portée des événements Plausible des clics dans ces zones) ; `activity` (`goTo` et `features` avec `{label}`, `steps`, `requirements`, `partners`, `photo` avec `{label}` et `{n}` : texte alternatif des photos du carrousel, `events` : titre de la section des événements, `headlines` : surtitres des sections points forts, déroulé, prérequis, partenaires et événements) ; `helpCta.github` ; `legal.headline` (surtitre des pages légales), `legal.toc` (titre du sommaire), `legal.updatedAt` ; `error` (`home`, `report`, `messages` par code HTTP, dont `default` obligatoire).
+- **`labels`** : `banner` (`title` et `titleAt` : phrase de la bannière avec `{title}`, `{date}` et, pour `titleAt`, `{location}` ; `more` : lien « +N » avec `{count}` ; `moreLabel` : son nom pour les lecteurs d'écran, `one` / `other` avec `{count}` ; `close`) ; `events` (`register`, `registerIcon`, `info`, `soon` à la place d'« Inscription » sans `url`, `or` entre les deux derniers mois possibles, `dateIcon`, `locationIcon`) ; `socialLink` (`{name}`) ; `goalZones` (`header`, `footer`, `banner` : portée des événements Plausible des clics dans ces zones) ; `activity` (`goTo` et `features` avec `{label}`, `steps`, `requirements`, `partners`, `photo` avec `{label}` et `{n}` : texte alternatif des photos du carrousel, `events` : titre de la section des événements, `headlines` : surtitres des sections points forts, déroulé, prérequis, partenaires et événements) ; `helpCta.github` ; `legal.headline` (surtitre des pages légales), `legal.toc` (titre du sommaire), `legal.updatedAt`, `legal.untranslated` (note au-dessus d’une page légale non traduite, facultative) ; `error` (`home`, `report`, `messages` par code HTTP, dont `default` obligatoire).
 - **`qr`** : `alt` du QR code, `home` (`label`, `icon` du bouton vers l'accueil), `fullscreen` (`enterLabel`, `exitLabel`, `enterIcon`, `exitIcon`) ; les libellés sont lus par les lecteurs d'écran.
 - **`redirects`** : `form` (textes communs aux redirections vers un formulaire de `rejoindre.yml`) et `socials.<clé>` (`title`, `redirectText`, `buttonLabel`) : la page `/<clé>` mène au réseau de même clé dans `club.yml`. Ajouter une entrée crée la redirection et son prérendu ; elle a aussi besoin de son entrée dans `seo.yml`.
 - **`legal`** : un fichier `<slug>.md` répond à l'adresse `/<slug>` ; front-matter `title` et `description` (titre et description de l'en-tête de la page et de son SEO, absente de `seo.yml`), `updatedAt` (`AAAA-MM-JJ`, facultatif, affiché en bas de page), puis le texte en Markdown, sans titre `#` (le titre de la page vient du front-matter).
@@ -123,9 +123,18 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 - Couverture d'album : pour chaque album de `galerie.yml` dont `photo` finit par `/thumbnail`, le script télécharge l'original en pleine taille (`/full`) dans `cdn/sources/galerie/<type>-<date>.jpg` s'il n'y est pas déjà. Ajouter un album = renseigner `url` et `photo`, puis lancer le script ; pour reprendre une couverture changée, supprimer son fichier de `cdn/sources/`.
 - Un fichier déjà produit et plus récent que son original n'est pas refait.
 
+## Langues
+
+- `content/fr/` est la référence ; `content/en/` en est la traduction, fichier pour fichier, avec la même structure (mêmes champs, mêmes listes dans le même ordre).
+- **Ne se traduisent pas**, et restent identiques dans les deux langues : dates, types d'activité, icônes, images, couleurs, slugs, liens externes, et les noms Plausible (`goalZones`, `changelogGoal`, `goal` de `seo.yml`, en français partout).
+- **Liens internes** : chaque langue écrit l'adresse de sa propre page, `/rejoindre` en français, `/en/join` en anglais (adresses traduites : [ARCHITECTURE.md](ARCHITECTURE.md#langues)). Les clés et slugs ne changent pas : `/en/activities/tandem`, `/en/rgpd`, `/en/discord`.
+- **Écrits une seule fois**, en français : `club.yml`, `partners.yml`, `seasons.yml` (aucun texte à traduire) et les pages légales (pas encore traduites : la version anglaise du site affiche le texte français, avec une note). Ajouter un de ces fichiers dans `content/en/` le traduit.
+- Un événement, un album ou une question ajouté en français s'ajoute aussi en anglais, à la même place : les tests le signalent sinon.
+- Bouton de langue de l'en-tête : `navigation.yml › languageSwitch` (`label` visible, « EN » ; `ariaLabel` lu dans la langue de destination, qui commence par ce texte visible).
+
 ## Ajouter une collection
 
-1. Créer le fichier dans `content/<langue>/global/` (commun à plusieurs pages) ou `content/<langue>/pages/`, pour chaque langue.
+1. Créer le fichier dans `content/<langue>/global/` (commun à plusieurs pages) ou `content/<langue>/pages/`, pour chaque langue (ou l'ajouter à `OPTIONAL_TRANSLATIONS` s'il n'a rien à traduire).
 2. Ajouter sa source (relative au dossier de la langue) et son schéma Zod dans `content.schemas.ts` : `content.config.ts` en déclare une collection par langue.
 3. La lire avec `const { t } = await useT('<nom>')`.
 4. Ajouter l'entrée SEO si c'est une nouvelle page, et la mettre à jour ici.
@@ -144,6 +153,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 - Modifier le fichier YAML ou Markdown, respecter l'indentation (deux espaces) et mettre entre guillemets un texte qui contient `:` suivi d'un espace ou commence par un caractère spécial.
 - Les apostrophes typographiques (`’`) sont la norme dans les textes.
+- Modifier aussi le fichier de même nom dans l'autre langue ([Langues](#langues)).
 - Vérifier le rendu avec `bun dev`, puis lancer `bun run test` (voir ci-dessous).
 - `/llms.txt` (version texte pour les agents d'IA) se refait à chaque publication à partir des mêmes fichiers : rien à modifier à part. Il reprend les titres et textes des pages, pas les libellés d'interface (boutons, icônes, textes pour lecteurs d'écran).
 
@@ -151,10 +161,11 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 `bun run test` lance les tests de `tests/content/`, qui attrapent les erreurs d'édition que le build laisse passer :
 
-- chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), dans chaque langue ; chaque fichier appartient à une collection, chaque langue a les mêmes fichiers que le français, et `content/` ne contient qu'un dossier par langue déclarée ;
+- chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), dans chaque langue ; chaque fichier appartient à une collection, chaque langue a les mêmes fichiers que le français (sauf ceux écrits une seule fois), et `content/` ne contient qu'un dossier par langue déclarée ;
+- chaque fichier traduit suit la structure du français : aucun champ ni élément de liste manquant, données identiques (dates, types, icônes, liens externes, noms Plausible), liens internes à l'adresse traduite de l'original ;
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
-- chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
-- chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;
+- chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page de sa langue ou à un fichier de `public/` ;
+- dans chaque langue, chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;
 - chaque clé d'activité a son fichier et inversement ; une clé citée ailleurs (galerie, événement, partenaires, accueil) est vérifiée par le schéma ;
 - `/llms.txt`, construit à partir du contenu, n'a pas de valeur manquante et ses liens internes mènent à des pages.
 

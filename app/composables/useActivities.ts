@@ -8,11 +8,22 @@ import type { ActivityType } from '~/utils/activities'
  * Activités dans l'ordre d'affichage, avec ce que tout le site en montre (menu, icône, libellés)
  */
 export const useActivities = async () => {
+  // Avant l'await : le contexte Nuxt n'est plus connu après
+  const localePath = useLocalePath()
+  // Par nom de route : l'adresse traduite de la langue courante (/en/activities/tandem)
+  const activityPath = (key: string) =>
+    localePath({ name: 'activites-activite', params: { activite: key } })
+
   const { data } = await useContentData('activites', {
     query: (q) => q.select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
   })
 
-  const activities = computed(() => orderActivities(data.value ?? []))
+  const activities = computed(() =>
+    orderActivities(data.value ?? []).map((activity) => ({
+      ...activity,
+      to: activityPath(activity.key),
+    })),
+  )
 
   const byKey = (key: string) => activities.value.find((activity) => activity.key === key)
 
@@ -24,7 +35,7 @@ export const useActivities = async () => {
     return activity?.galleryLabel ?? activity?.label ?? key
   }
 
-  return { activities, byKey, getIcon, getGalleryLabel }
+  return { activities, activityPath, byKey, getIcon, getGalleryLabel }
 }
 
 /**

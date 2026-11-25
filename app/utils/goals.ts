@@ -36,6 +36,35 @@ export const pageGoalName = (pathname: string, documentTitle: string, seoData?: 
 export const goalName = (scope: string, label: string) =>
   scope && label ? `${scope}${GOAL_SEPARATOR}${label}` : null
 
+// Noms relevés sur les pages de la langue par défaut (bun run goals, goal-names.json) : une page
+// d'une autre langue envoie les mêmes noms, sans nouveau Goal
+export interface GoalNames {
+  /** Chemin français → nom de la page */
+  scopes: Record<string, string>
+  /** `<portée>|<href>` (suivi de `#<rang>` à partir du deuxième lien identique) → nom complet */
+  links: Record<string, string>
+  /** data-goal-key → libellé, pour les liens dont l'adresse varie (inscription à un événement) */
+  labels: Record<string, string>
+}
+
+// Rang : position du lien parmi ceux de même adresse dans la même zone (icône puis texte d'un
+// même réseau dans le pied de page), identique d'une langue à l'autre
+export const goalLinkKey = (scope: string, href: string, rank = 0) =>
+  `${scope}|${href}${rank ? `#${rank}` : ''}`
+
+// `path` et `href` interne sont déjà ramenés à l'adresse française (delocalizePath)
+export const defaultLocaleGoalName = (
+  names: GoalNames,
+  link: { zone?: string; path: string; href: string; rank?: number; key?: string | null },
+) => {
+  const scope = link.zone ?? names.scopes[link.path]
+  if (!scope) return null
+  const label = link.key ? names.labels[link.key] : undefined
+  return (
+    names.links[goalLinkKey(scope, link.href, link.rank)] ?? (label ? goalName(scope, label) : null)
+  )
+}
+
 // Lien qui sort du site : autre origine, autre protocole (mailto:, tel:) ou page de redirection
 export const isOutbound = (href: string | null, origin: string, redirectPaths: string[]) => {
   if (!href) return false

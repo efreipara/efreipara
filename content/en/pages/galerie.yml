@@ -1,0 +1,72 @@
+hero:
+  headline: In pictures
+  title: Our photo albums
+  description: Relive our events in pictures
+  linkLabel: See the album
+  linkSourceLabel: See the album on {source}
+  allLabel: Show all
+
+count:
+  one: album
+  other: albums
+
+albumIcons:
+  date: tabler:calendar-week
+  location: tabler:map-pin
+
+items:
+  - title: Wind tunnel first flights
+    type: soufflerie
+    date: 2026-03-06
+    location: iFly Paris, La Villette
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2026
+    photo: https://efreipicturestudio.fr/api/albums/images/6a06fc868b68cf06b56f500a/thumbnail
+
+  - title: Tandem jumps
+    type: tandem
+    date: 2025-05-18
+    location: Skydive Event Paris, Péronne
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/sauts-en-tandem--2025
+    photo: https://efreipicturestudio.fr/api/albums/images/685855de8b68cf06b56ecfc2/thumbnail
+
+  - title: Wind tunnel first flights
+    type: soufflerie
+    date: 2025-02-07
+    location: iFly Paris, La Villette
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2025-2025
+    photo: https://efreipicturestudio.fr/api/albums/images/67c62aaf8b68cf06b56e8dc9/thumbnail
+
+  - title: Wind tunnel first flights
+    type: soufflerie
+    date: 2024-12-06
+    location: iFly Paris, La Villette
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2025
+    photo: https://efreipicturestudio.fr/api/albums/images/6795576f8b68cf06b56e8312/thumbnail
+
+  - title: Tandem jumps
+    type: tandem
+    date: 2024-09-01
+    location: Skydive Event Paris, Péronne
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/saut-en-tandem-2024
+    photo: https://efreipicturestudio.fr/api/albums/images/66dcae6b8b68cf06b56e6466/thumbnail
+
+  - title: Wind tunnel first flights
+    type: soufflerie
+    date: 2024-01-26
+    location: iFly Paris, La Villette
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie-2024
+    photo: https://efreipicturestudio.fr/api/albums/images/65ce87928b68cf06b56e32b9/thumbnail
+
+  - title: Wind tunnel first flights
+    type: soufflerie
+    date: 2023-05-19
+    location: iFly Paris, La Villette
+    source: Efrei Picture Studio
+    url: https://efreipicturestudio.fr/gallery/bapteme-soufflerie--efrei-para-2023
+    photo: https://efreipicturestudio.fr/api/albums/images/648f5f518b68cf06b56dfc82/thumbnail

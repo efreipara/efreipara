@@ -7,6 +7,7 @@
     bodyAttrs: { class: 'bg-efreipara-background' },
   })
 
+  const localePath = useLocalePath()
   const { t } = await useT('qr')
   const isFullscreen = ref(false)
 
@@ -34,7 +35,7 @@
     />
     <div class="absolute top-4 left-4 z-20">
       <UButton
-        to="/"
+        :to="localePath('index')"
         :external="true"
         :icon="t.home.icon"
         :aria-label="t.home.label"

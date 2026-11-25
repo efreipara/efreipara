@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  const { getIcon } = await useActivities()
+  const { getIcon, activityPath } = await useActivities()
   const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
@@ -9,10 +9,10 @@
     query: (q) => q.select('stem', 'label', 'alt', 'section').all(),
   })
   const sections = computed(() =>
-    orderActivities(entries.value ?? []).map(({ key, to, label, alt, section }) => ({
+    orderActivities(entries.value ?? []).map(({ key, label, alt, section }) => ({
       ...section,
       key,
-      to,
+      to: activityPath(key),
       label,
       alt,
     })),

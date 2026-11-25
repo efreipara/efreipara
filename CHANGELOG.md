@@ -2,6 +2,18 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.21.0 — 25 novembre 2026
+
+### Ajouts
+
+- Version anglaise du site, à l’adresse efreipara.fr/en : accueil, activités, galerie, documents, FAQ, adhésion et contact, entièrement traduits.
+- Bouton « EN » / « FR » dans l’en-tête pour passer à la même page dans l’autre langue.
+
+### Modifications
+
+- Les pages légales (mentions légales, règlement, RGPD) restent en français pour l’instant : leur version anglaise affiche le texte français, signalé en tête de page.
+- Les clics suivis dans les statistiques gardent les mêmes noms dans les deux langues : aucun nouvel objectif à créer.
+
 ## 1.20.2 — 25 novembre 2026
 
 ### Corrections

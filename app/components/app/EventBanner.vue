@@ -1,6 +1,9 @@
 <script setup lang="ts">
+  import type { ButtonProps } from '@nuxt/ui'
+
   const { events } = await useUpcomingEvents()
-  const { getIcon } = await useActivities()
+  const { getIcon, activityPath } = await useActivities()
+  const localePath = useLocalePath()
   const appConfig = useAppConfig()
   const { labels } = await useLabels()
   const { localeProperties } = useI18n()
@@ -62,12 +65,13 @@
                       size: 'sm' as const,
                       variant: 'primary' as const,
                       trailingIcon: labels.events.registerIcon,
-                    },
+                      'data-goal-key': 'register',
+                    } as ButtonProps,
                   ]
                 : []),
               {
                 label: labels.events.info,
-                to: `/activites/${event.type}`,
+                to: activityPath(event.type),
                 size: 'sm',
                 variant: 'tertiary',
                 leadingIcon: getIcon(event.type),
@@ -102,7 +106,7 @@
               <template v-if="others > 0">
                 <span aria-hidden="true">·</span>
                 <NuxtLink
-                  to="/#evenements"
+                  :to="localePath({ name: 'index', hash: '#evenements' })"
                   :aria-label="moreLabel"
                   class="ms-1 underline underline-offset-2"
                 >

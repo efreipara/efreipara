@@ -6,7 +6,7 @@
 
 ## Langues
 
-- **Interface en français** : libellés, `aria-label`, messages d'erreur. Le texte visible va dans `content/<langue>/` ([CONTENT.md](CONTENT.md#principe)) ; le code ne nomme jamais une langue (`useT`, `LOCALES`).
+- **Interface en français et en anglais** : libellés, `aria-label`, messages d'erreur, dans `content/fr/` et `content/en/` ([CONTENT.md](CONTENT.md#langues)) ; le code ne nomme jamais une langue (`useT`, `LOCALES`) et ne construit pas d'adresse interne à la main : nom de route avec `localePath` ([ARCHITECTURE.md](ARCHITECTURE.md#langues)).
 - **URL et clés de contenu en français** : routes (`/activites`, `/rejoindre`, `/galerie`), clés d'activité (`soufflerie`), dossier `components/activite/`, champs YAML proches du domaine.
 - **Code en anglais** : variables, fonctions, types, composables (`useNextEvent`, `buildCdnUrl`, `ActivityType`).
 - **Commentaires en français**, rares : ils expliquent un choix ou une contrainte non évidente (contournement, ordre imposé, piège d'une bibliothèque), pas ce que le code dit déjà.

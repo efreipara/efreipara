@@ -12,10 +12,13 @@ export const useSeo = (
   pageKey: MaybeRefOrGetter<string>,
   overrides: MaybeRefOrGetter<SeoOverrides> = {},
 ) => {
+  const route = useRoute()
   const { data: seoData, status } = useContentData('seo')
 
   const seoMeta = computed(() =>
-    seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides)) : null,
+    seoData.value
+      ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides), route.path)
+      : null,
   )
 
   const absolute = (path?: string) => toAbsoluteUrl(seoData.value?.defaults.baseUrl ?? '', path)

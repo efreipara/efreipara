@@ -1,17 +1,19 @@
 import { readdirSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collections } from '../../content.schemas'
-import { LOCALE_CODES } from '../../app/utils/locales'
+import { DEFAULT_LOCALE, LOCALE_CODES, OPTIONAL_TRANSLATIONS } from '../../app/utils/locales'
 import { allContentFiles, contentDir, readContent, sourceFiles } from './helpers'
 
 describe('schémas des collections', () => {
   for (const locale of LOCALE_CODES) {
     for (const [name, collection] of Object.entries(collections)) {
       const files = sourceFiles(collection.source, locale)
+      const optional = locale !== DEFAULT_LOCALE && OPTIONAL_TRANSLATIONS.includes(name)
 
-      it(`${locale}/${name} : la source de la collection existe`, () => {
-        expect(files.length).toBeGreaterThan(0)
-      })
+      if (!optional)
+        it(`${locale}/${name} : la source de la collection existe`, () => {
+          expect(files.length).toBeGreaterThan(0)
+        })
 
       for (const file of files) {
         it(`${locale}/${name} : ${file} respecte son schéma`, () => {
@@ -31,8 +33,19 @@ describe('schémas des collections', () => {
       expect(allContentFiles(locale).filter((file) => !covered.has(file))).toEqual([])
     })
 
-    it(`${locale} : mêmes fichiers que la langue par défaut`, () => {
-      expect(allContentFiles(locale)).toEqual(allContentFiles())
+    it(`${locale} : mêmes fichiers que la langue par défaut, sauf collections facultatives`, () => {
+      const optionalFiles = new Set(
+        OPTIONAL_TRANSLATIONS.flatMap((name) =>
+          sourceFiles(collections[name as keyof typeof collections].source),
+        ),
+      )
+      const own = allContentFiles(locale)
+      expect(own.filter((file) => !allContentFiles().includes(file))).toEqual([])
+      expect(
+        allContentFiles().filter(
+          (file) => !own.includes(file) && (locale === DEFAULT_LOCALE || !optionalFiles.has(file)),
+        ),
+      ).toEqual([])
     })
   }
 

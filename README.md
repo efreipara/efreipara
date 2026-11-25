@@ -37,7 +37,7 @@ efreipara/
 │   ├── pages/           # Pages du site (routing automatique)
 │   ├── app.vue          # Composant racine de l'application
 │   └── app.config.ts    # Configuration de l'application
-├── content/             # Contenu en Markdown/YAML, un dossier par langue (fr/)
+├── content/             # Contenu en Markdown/YAML, un dossier par langue (fr/, en/)
 ├── public/              # Fichiers publics statiques
 ├── nuxt.config.ts       # Configuration principale de Nuxt
 ├── content.config.ts    # Configuration de Nuxt Content
@@ -172,7 +172,7 @@ cp .env.example .env
 
 ### Modifier le contenu du site
 
-Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/fr/` (un dossier par langue) et utilisent les formats Markdown (`.md`) ou YAML (`.yml`).
+Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/fr/`, traduits en anglais dans `content/en/` (même nom de fichier : modifier les deux), et utilisent les formats Markdown (`.md`) ou YAML (`.yml`). Coordonnées, partenaires, saisons et pages légales n'existent qu'en français. Règles de traduction : [docs/CONTENT.md](docs/CONTENT.md#langues).
 
 ### Pages éditables
 

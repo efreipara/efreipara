@@ -29,10 +29,19 @@ export const useContentData = <N extends ContentName, R = ContentItem<N> | null>
   const { locale } = useNuxtApp().$i18n
   return useAsyncData(
     computed(() => contentKey(options.key ?? name, locale.value)),
-    () => {
+    async () => {
+      const run = (code: LocaleCode) => {
+        const collection = queryCollection(
+          localizedCollection(name, code),
+        ) as CollectionQueryBuilder<ContentItem<N>>
+        return (options.query ? options.query(collection, code) : collection.first()) as Promise<R>
+      }
       const code = locale.value as LocaleCode
-      const collection = queryCollection(localizedCollection(name, code))
-      return (options.query ? options.query(collection, code) : collection.first()) as Promise<R>
+      const result = await run(code)
+      // Collection absente de la langue (OPTIONAL_TRANSLATIONS) : celle de la langue par défaut
+      return result == null && code !== DEFAULT_LOCALE && OPTIONAL_TRANSLATIONS.includes(name)
+        ? run(DEFAULT_LOCALE)
+        : result
     },
   )
 }

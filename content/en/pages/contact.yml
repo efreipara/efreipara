@@ -1,0 +1,38 @@
+hero:
+  headline: Write to us
+  title: Contact us
+  description: A question? Need some information? Don’t hesitate to write to us, we’ll get back to you quickly!
+
+email:
+  title: Email
+  description: Send us an email with any question
+  buttonLabel: Send an email
+  icon: tabler:mail
+
+socials:
+  title: Our social networks
+  description: Follow us and join our online community
+  icon: tabler:share
+
+address:
+  title: Address
+  description: Our Efrei campus
+  icon: tabler:map-pin
+  buttons:
+    google:
+      label: Google Maps
+      icon: simple-icons:googlemaps
+    apple:
+      label: Apple Maps
+      icon: simple-icons:apple
+    waze:
+      label: Waze
+      icon: simple-icons:waze
+
+support:
+  title: Technical support
+  description: A problem with the website?
+  icon: tabler:tool
+  buttons:
+    github: Report on GitHub
+    email: Contact by email

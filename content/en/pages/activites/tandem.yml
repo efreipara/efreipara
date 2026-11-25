@@ -1,0 +1,113 @@
+title: Tandem jump
+description: Make your first skydive! 50 seconds of freefall from 4,000 m, strapped to a professional instructor. No experience needed.
+label: Tandem
+alt: Tandem jump with Efrei Para
+imageCount: 9
+icon: activite:tandem
+
+menu:
+  label: Tandem jump
+  description: A first jump with an instructor
+
+card:
+  title: Tandem jumps
+  description: >-
+    With an experienced professional, enjoy an unforgettable freefall
+    at 200 km/h, from 4,000 m.
+
+section:
+  title: Tandem jumps
+  description: 'The ultimate experience: 50 seconds of freefall, strapped to a pro.'
+  features:
+    - title: Jump from 4,000 m
+      description: Take-off, panoramic views and a tandem exit from the plane.
+      icon: tabler:plane-tilt
+    - title: 200 km/h of pure thrill
+      description: Around fifty seconds of freefall, intense and magical.
+      icon: tabler:gauge
+    - title: Keep the memory
+      description: Video and photo option to relive your jump.
+      icon: tabler:video
+    - title: 100% accessible
+      description: No experience needed, the instructor handles everything.
+      icon: tabler:mood-happy
+  linkLabel: Discover the tandem jump
+
+features:
+  - title: Jump from 4,000 m
+    description: 'Stunning views from the plane and a long freefall: a real tandem, from real height.'
+    icon: tabler:mountain
+  - title: A 200 km/h rush
+    description: 'Lightning acceleration in just a few seconds: intense, magical and unforgettable.'
+    icon: tabler:gauge
+  - title: Fully supervised
+    description: 'Your instructor handles everything from start to finish: all you have to do is enjoy it.'
+    icon: tabler:user-check
+  - title: Zero requirements
+    description: Ideal for a stress-free first experience, with no prior training.
+    icon: tabler:mood-happy
+
+intro:
+  - |-
+    A tandem jump is the most spectacular and accessible way to discover **freefall**.
+  - |-
+    Strapped to an instructor, you climb to **4,000 metres**, jump with no technical preparation, and enjoy **around fifty seconds of freefall** before the canopy opens.
+  - |-
+    A full, intense, friendly… and unforgettable day.
+
+stats:
+  - value: '4,000 m'
+    label: Jump altitude
+    icon: tabler:mountain
+  - value: '1 day'
+    label: Total duration
+    icon: tabler:calendar
+  - value: '~50 s'
+    label: Of freefall
+    icon: tabler:wind
+  - value: '200 km/h'
+    label: Freefall speed
+    icon: tabler:gauge
+
+steps:
+  - title: Departure and organised car-sharing
+    description: 'We leave Efrei in the morning in organised groups: seats are shared out across cars, and the good vibes start on the road.'
+    icon: tabler:car
+  - title: Arrival & briefing
+    description: Welcome, check-in, a short safety briefing, a demonstration of the body position and harness fitting.
+    icon: tabler:clipboard-list
+  - title: Jump schedule
+    description: Depending on how many students have signed up, several groups jump one after the other. You can watch others jump before your turn.
+    icon: tabler:clock
+  - title: 'Climbing to 4,000 m'
+    description: 10 to 15 minutes of ascent with breathtaking views. A final harness check. The moment it all becomes real.
+    icon: tabler:plane-tilt
+  - title: 'Freefall: 50 seconds at 200 km/h'
+    description: 'You leave the plane and everything speeds up: 200 km/h in a few seconds, a feeling of floating in the void you will never forget.'
+    icon: tabler:wind
+  - title: Canopy opening & descent
+    description: At around 1,500 m, the parachute opens. Calm returns, with panoramic views and a gentle flight down.
+    icon: tabler:parachute
+  - title: Landing & lunch
+    description: Gear collection, lunch for all participants, a debrief of the jump and the first photos and videos.
+    icon: tabler:tools-kitchen-2
+  - title: Activities
+    description: Depending on the associations present (music, mini-games, challenges), to make it a real group experience.
+    icon: tabler:confetti
+  - title: Back to Paris
+    description: Late afternoon, car-sharing back home with epic stories of the day and the feeling of having lived something out of this world.
+    icon: tabler:home
+
+requirements:
+  - icon: tabler:user
+    label: Minimum age 15 (parental consent for minors)
+  - icon: tabler:weight
+    label: Weight under 100 kg
+  - icon: tabler:heart-rate-monitor
+    label: 'Medical certificate recommended: no serious contraindication'
+  - icon: tabler:cloud
+    label: Jumps depend on the weather and may be postponed in bad wind conditions
+  - icon: tabler:shirt
+    label: Comfortable clothes, trainers, and a fleece or windbreaker depending on the season
+  - icon: tabler:id-badge
+    label: ID, just in case

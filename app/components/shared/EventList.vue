@@ -7,7 +7,7 @@
     showActivity?: boolean
   }>()
 
-  const { getIcon, byKey } = await useActivities()
+  const { getIcon, byKey, activityPath } = await useActivities()
   const { labels } = await useLabels()
   const { localeProperties } = useI18n()
 
@@ -84,11 +84,12 @@
               :trailing-icon="labels.events.registerIcon"
               :aria-label="`${labels.events.register} : ${event.title}`"
               :data-goal-title="labels.events.register"
+              data-goal-key="register"
             />
             <p v-else class="text-muted text-sm italic">{{ labels.events.soon }}</p>
             <UButton
               v-if="showActivity"
-              :to="`/activites/${event.type}`"
+              :to="activityPath(event.type)"
               size="sm"
               variant="tertiary"
               :label="labels.events.info"

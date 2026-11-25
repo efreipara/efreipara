@@ -1,0 +1,108 @@
+title: Static line jump (OA)
+description: Feel the rush of skydiving solo, with a parachute that opens automatically as you leave the plane.
+label: OA
+alt: Static line jump (OA) with Efrei Para
+imageCount: 0
+icon: activite:oa
+galleryLabel: Static line
+
+menu:
+  label: Static line (OA)
+  description: Solo jump with automatic opening
+
+card:
+  title: Static line jumps (OA)
+  description: >-
+    Discover the real thing: briefing, equipment and a plane exit with
+    automatic opening. Accessible and supervised.
+
+section:
+  title: Static line jump (OA)
+  description: 'Your first real skydive: intense, supervised, unforgettable.'
+  features:
+    - title: Professional supervision
+      description: Qualified instructors and standard procedures for a safe, smooth jump.
+      icon: tabler:user-check
+    - title: Guaranteed thrills
+      description: 'A real plane exit: wind, altitude and the adrenaline rush that comes with it.'
+      icon: tabler:parachute
+    - title: Full briefing
+      description: 'Everything is explained before the jump: body position, safety, key moves.'
+      icon: tabler:book
+    - title: Open to everyone
+      description: No experience needed, just the urge to discover the sky.
+      icon: tabler:mood-happy
+  linkLabel: Discover the static line jump
+
+features:
+  - title: Professional supervision
+    description: Theory, safety drills and full support from experienced instructors.
+    icon: tabler:user-check
+  - title: A real plane exit
+    description: 'You take the big step into the void on your own: guaranteed thrills from the very first time.'
+    icon: tabler:parachute
+  - title: Automatic opening
+    description: 'The equipment takes care of the opening: you focus on the moves and the joy of flying.'
+    icon: tabler:shield-check
+  - title: Open to everyone
+    description: No requirements, just the urge to discover the sky in a serious and caring setting.
+    icon: tabler:mood-happy
+
+intro:
+  - |-
+    The static line jump (**OA**, *ouverture automatique*) is the best way into skydiving: you learn the basics, understand the moves, then live a real plane exit at **1,200 metres**, with a parachute that opens automatically.
+  - |-
+    A **full weekend**, educational, friendly… and packed with thrills.
+  - |-
+    OA is designed for people who want to make a real jump without having to handle freefall on day one. You discover the sport step by step, in a safe setting with gradual teaching.
+
+stats:
+  - value: '1,200 m'
+    label: Jump altitude
+    icon: tabler:mountain
+  - value: '1 weekend'
+    label: Total duration
+    icon: tabler:calendar-week
+  - value: '1 jump'
+    label: Included in the package
+    icon: tabler:parachute
+  - value: '~5 s'
+    label: Of freefall before opening
+    icon: tabler:wind
+
+steps:
+  - title: Theory class at Efrei (a few days before)
+    description: 'An evening at school: skydiving basics, correct body positions, safety rules, how the parachute works and weather conditions.'
+    icon: tabler:school
+  - title: 'Saturday morning: arrival at the drop zone'
+    description: 'Settling in, a welcome meeting and equipment collection. The atmosphere is friendly: we travel and settle in together.'
+    icon: tabler:map-pin
+  - title: 'Saturday: practical training on site'
+    description: Simulated plane exits on the ground, training in the correct position and rehearsal of the reserve procedure. The moves are repeated until they become second nature.
+    icon: tabler:repeat
+  - title: The jumps
+    description: Depending on the weather, jumps take place on Saturday or Sunday. An extra jump is possible on site (around €30 to €35).
+    icon: tabler:wind
+  - title: Canopy descent & landing
+    description: 'After the opening, a calm, panoramic descent guided by radio from the ground: smooth, pleasant, almost contemplative.'
+    icon: tabler:target
+  - title: Night in a dormitory on site
+    description: Dormitories are available and included at the drop zone. Perfect to unwind or to be ready for a jump on Sunday.
+    icon: tabler:bed
+  - title: 'Sunday: last jumps and return'
+    description: A last jump slot depending on conditions, debrief, packing up the gear and heading back to Paris in the afternoon.
+    icon: tabler:home
+
+requirements:
+  - icon: tabler:user
+    label: Minimum age 15 (parental consent for minors)
+  - icon: tabler:weight
+    label: Weight under 95 kg
+  - icon: tabler:heart-rate-monitor
+    label: 'Medical certificate recommended: no cardiac or neurological contraindication'
+  - icon: tabler:cloud
+    label: Jumps depend on the weather and may be postponed in bad wind conditions
+  - icon: tabler:shirt
+    label: Comfortable clothes, trainers and thin gloves depending on the season
+  - icon: tabler:bed
+    label: Bring an overnight bag for the dormitory

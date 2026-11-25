@@ -10,7 +10,9 @@ Chaque clic sur un lien qui sort du site envoie un événement nommé `<page> �
 - [`goals.txt`](goals.txt) : tous les noms, un par ligne, triés.
 - [`goals-console.js`](goals-console.js) : les mêmes noms, envoyés un par un depuis la console du navigateur.
 
-Les deux sont générés à partir du site : ne pas les modifier à la main.
+- [`../../app/utils/goal-names.json`](../../app/utils/goal-names.json) : les noms relevés sur chaque page française, par lien, repris par les pages anglaises pour envoyer les mêmes noms ([ARCHITECTURE.md](../ARCHITECTURE.md#mesure-daudience)).
+
+Les trois sont générés à partir du site : ne pas les modifier à la main. La version anglaise n'a pas de Goals propres.
 
 ## Créer les Goals d'un site Plausible
 
@@ -26,7 +28,9 @@ Le test `tests/e2e/goals.spec.ts` parcourt chaque page du site généré (menu d
 
 ```bash
 bun run generate
-bun run goals   # réécrit goals.txt et goals-console.js
+bun run goals   # réécrit goals.txt, goals-console.js et goal-names.json
 ```
+
+Le même test vérifie que chaque lien sortant des pages anglaises donne un nom déjà listé ; après `bun run goals`, relancer `bun run generate` pour embarquer la nouvelle table.
 
 Un nom ajouté ou modifié demande de créer son Goal dans Plausible ; un nom disparu laisse un Goal qui ne compte plus rien, à supprimer.

@@ -2,8 +2,9 @@
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
-import { activityShortcuts, redirectRoutes } from './content.routes'
-import { DEFAULT_LOCALE, LOCALES } from './app/utils/locales'
+import { activityShortcuts, allRedirectRoutes, siteBaseUrl } from './content.routes'
+import type { CustomRoutePages } from '@nuxtjs/i18n'
+import { DEFAULT_LOCALE, LOCALES, LOCALIZED_PATHS } from './app/utils/locales'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -108,7 +109,7 @@ export default defineNuxtConfig({
       cdnDevToken: process.env.NODE_ENV === 'development' ? process.env.CDN_DEV_TOKEN || '' : '',
       plausibleUrl: process.env.PLAUSIBLE_URL || '',
       // Liens vers ces pages comptés comme sortants par plugins/link-goals.client.ts
-      redirectPaths: redirectRoutes(),
+      redirectPaths: allRedirectRoutes(),
     },
   },
 
@@ -193,7 +194,9 @@ export default defineNuxtConfig({
     locales: [...LOCALES],
     defaultLocale: DEFAULT_LOCALE,
     strategy: 'prefix_except_default',
-    customRoutes: 'meta',
+    customRoutes: 'config',
+    pages: LOCALIZED_PATHS as CustomRoutePages,
+    baseUrl: siteBaseUrl(),
     detectBrowserLanguage: false,
     // Aucun message vue-i18n : ni compilateur de messages ni composants <i18n-t>, v-t
     bundle: { runtimeOnly: true, dropMessageCompiler: true, fullInstall: false },
@@ -241,7 +244,7 @@ export default defineNuxtConfig({
       failOnError: false,
       // Redirections, raccourcis et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
       routes: [
-        ...redirectRoutes(),
+        ...allRedirectRoutes(),
         ...activityShortcuts().map((key) => `/${key}`),
         '/about',
         '/llms.txt',

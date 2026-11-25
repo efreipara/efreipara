@@ -14,11 +14,11 @@
 ## Organisation
 
 - `tests/unit/<module>.test.ts` : un fichier par module testé, imports relatifs (`../../app/utils/…`).
-- `tests/content/` : `schemas` (chaque langue de `LOCALES`), `icons`, `links` (liens internes et SEO), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête), `llms` (`/llms.txt` construit à partir des vrais fichiers). Lecture des fichiers (relatifs au dossier d'une langue, le français par défaut) et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
-- `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y`, `goals` (noms des événements Plausible de chaque lien, comparés à [`docs/plausible/goals.txt`](plausible/README.md)), plus :
+- `tests/content/` : `schemas` (chaque langue de `LOCALES`), `translations` (structure et données des fichiers traduits), `icons`, `links` (liens internes et SEO, par langue), `coherence` (fichiers d'activité, options d'accessibilité, réseaux de l'en-tête), `llms` (`/llms.txt` construit à partir des vrais fichiers). Lecture des fichiers (relatifs au dossier d'une langue, le français par défaut) et liste des routes dans `helpers.ts` ; les schémas viennent de `content.schemas.ts`, les routes sont déduites de `app/pages/` et du contenu.
+- `tests/e2e/` : `pages`, `redirects`, `interactions`, `a11y` (pages des deux langues : langue, `hreflang`, canonique), `i18n` (bouton de langue, liens traduits, page légale en repli), `goals` (noms des événements Plausible de chaque lien, comparés à [`docs/plausible/goals.txt`](plausible/README.md) ; les pages anglaises doivent donner des noms déjà listés), plus :
   - `fixtures.ts` : coupe toute requête hors du site (CDN, Plausible, albums, réseaux), relève les erreurs console, et `gotoReady` attend l'hydratation de Vue avant d'interagir ;
   - `serve.ts` : sert `.output/public` avec les règles de nginx (`try_files`, vraie 404), sur `127.0.0.1` seulement ; c'est aussi `bun run preview` ;
-  - `routes.ts` : la liste des pages, la même que celle des tests de contenu, et les redirections de `content.routes.ts` ;
+  - `routes.ts` : la liste des pages de chaque langue, la même que celle des tests de contenu, et les redirections de `content.routes.ts` ;
   - `a11y-known.ts` : les violations graves déjà présentes, par règle et par page.
 - Un `describe` par fonction (Vitest) ou par sujet (Playwright), cas décrits en français.
 

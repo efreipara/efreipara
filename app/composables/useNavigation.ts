@@ -26,6 +26,7 @@ export const useNavigation = async () => {
   const footerTitles = computed(() => data.value!.footer)
   const menuButton = computed(() => data.value!.menuButton)
   const colorModeButton = computed(() => data.value!.colorModeButton)
+  const languageSwitch = computed(() => data.value!.languageSwitch)
 
   return {
     logo,
@@ -40,5 +41,6 @@ export const useNavigation = async () => {
     footerTitles,
     menuButton,
     colorModeButton,
+    languageSwitch,
   }
 }
