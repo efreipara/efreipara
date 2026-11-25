@@ -58,7 +58,7 @@
 
   // Fenêtre du menu mobile, téléportée hors du <header> : même zone Plausible (utils/goals.ts)
   const menuContentAttrs = computed<Record<string, string>>(() => ({
-    'data-goal-zone': labels.value.goalZones.header,
+    'data-goal-zone': labels.goalZones.header,
   }))
 
   // Le sous-menu des activités est rendu par le slot #activities-content

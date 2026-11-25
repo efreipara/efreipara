@@ -1,9 +1,10 @@
 <script setup lang="ts">
-  import type { LegalCollectionItem } from '@nuxt/content'
+  import type { ContentItem } from '~/composables/useT'
 
-  const props = defineProps<{ page: LegalCollectionItem }>()
+  const props = defineProps<{ page: ContentItem<'legal'> }>()
 
   const { labels } = await useLabels()
+  const { localeProperties } = useI18n()
   const toc = computed(() => props.page.body?.toc?.links ?? [])
 
   // Les liens du sommaire et des titres (ancres de Nuxt UI) font un router.push('#id') : interceptés
@@ -50,13 +51,7 @@
           class="border-default text-muted mt-12 border-t pt-6 text-sm select-text"
         >
           {{ labels.legal.updatedAt }}
-          {{
-            new Date(page.updatedAt).toLocaleDateString('fr-FR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          }}
+          {{ formatLongDate(page.updatedAt, localeProperties.language) }}
         </div>
         <template v-if="toc.length" #right>
           <UContentToc

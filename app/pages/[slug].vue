@@ -3,9 +3,10 @@
   const route = useRoute()
   const slug = route.params.slug as string
 
-  const { data: legal } = await useAsyncData(`legal-${slug}`, () =>
-    queryCollection('legal').path(`/${slug}`).first(),
-  )
+  const { data: legal } = await useContentData('legal', {
+    key: `legal-${slug}`,
+    query: (q) => q.path(`/${slug}`).first(),
+  })
 </script>
 
 <template>

@@ -1,18 +1,16 @@
 <script setup lang="ts">
-  const { data: documentsData } = await useAsyncData('documents', () => {
-    return queryCollection('documents').first()
-  })
+  const { t } = await useT('documents')
 
   const appConfig = useAppConfig()
 
   // Site de destination à droite de chaque document : le domaine du lien, ou le nom du club
-  const { data: seo } = useNuxtData('seo')
+  const { data: seo } = useContentData('seo')
   const siteName = computed(() => seo.value?.defaults.siteName)
 
   const { getCategoryColor } = useCategoryColor()
 
   const categoryChips = computed(() =>
-    (documentsData.value?.categories ?? []).map((c) => ({
+    (t.categories ?? []).map((c) => ({
       name: c.name,
       icon: c.icon || appConfig.ui.icons.folder,
       color: c.color,
@@ -22,24 +20,18 @@
 
 <template>
   <div>
-    <SharedPageHero
-      :headline="documentsData?.headline"
-      :title="documentsData?.title"
-      :description="documentsData?.description"
-    >
+    <SharedPageHero :headline="t.headline" :title="t.title" :description="t.description">
       <SharedCategoryChips :categories="categoryChips" />
     </SharedPageHero>
 
     <!-- Une ligne par document, séparée par des filets ; l'en-tête précède sur bande, d'où false -->
     <SharedCategorySection
-      v-for="(category, catIndex) in documentsData?.categories"
+      v-for="(category, catIndex) in t.categories"
       :key="category.name"
       :name="category.name"
       :color="category.color"
       :description="category.description"
-      :count="
-        documentsData?.count ? countLabel(category.documents.length, documentsData.count) : ''
-      "
+      :count="t.count ? countLabel(category.documents.length, t.count) : ''"
       :band="isBandSection(catIndex, false)"
     >
       <ul class="border-accented border-t">
@@ -84,10 +76,10 @@
 
     <UContainer class="pb-12 sm:pb-16">
       <SharedHelpCta
-        v-if="documentsData?.helpcta"
-        :title="documentsData.helpcta.title"
-        :description="documentsData.helpcta.description"
-        :buttons="documentsData.helpcta.buttons"
+        v-if="t.helpcta"
+        :title="t.helpcta.title"
+        :description="t.helpcta.description"
+        :buttons="t.helpcta.buttons"
       />
     </UContainer>
   </div>

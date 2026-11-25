@@ -3,9 +3,10 @@
 
   const props = defineProps<{ activite: ActivityType }>()
 
-  const { data: page } = await useAsyncData(props.activite, () =>
-    queryCollection('activites').where('stem', '=', `pages/activites/${props.activite}`).first(),
-  )
+  const { t } = await useT('activites', {
+    key: props.activite,
+    query: (q, locale) => q.where('stem', '=', activityStem(props.activite, locale)).first(),
+  })
   const { getPartnersByActivity } = await usePartners()
   const partners = computed(() => getPartnersByActivity(props.activite))
   const { events } = await useUpcomingEvents(props.activite)
@@ -14,13 +15,13 @@
   const present = computed(() =>
     (
       [
-        ['stats', page.value?.stats?.length],
+        ['stats', t.stats?.length],
         ['events', events.value.length],
-        ['intro', page.value?.intro?.length],
-        ['carousel', page.value?.imageCount],
-        ['features', page.value?.features?.length],
-        ['steps', page.value?.steps?.length],
-        ['requirements', page.value?.requirements?.length],
+        ['intro', t.intro?.length],
+        ['carousel', t.imageCount],
+        ['features', t.features?.length],
+        ['steps', t.steps?.length],
+        ['requirements', t.requirements?.length],
         ['partners', partners.value.length],
       ] as const
     )
@@ -33,17 +34,17 @@
 <template>
   <div>
     <ActiviteHero
-      v-if="page"
+      v-if="t.title"
       :activite="activite"
-      :title="page.title"
-      :description="page.description"
-      :label="page.label"
-      :alt="page.alt"
+      :title="t.title"
+      :description="t.description"
+      :label="t.label"
+      :alt="t.alt"
     />
     <ActiviteStats
-      v-if="page?.stats?.length"
+      v-if="t.stats?.length"
       :activite="activite"
-      :stats="page.stats"
+      :stats="t.stats"
       :band="band('stats')"
     />
     <ActiviteEvents
@@ -52,31 +53,31 @@
       :events="events"
       :band="band('events')"
     />
-    <ActiviteIntro v-if="page?.intro?.length" :paragraphs="page.intro" :band="band('intro')" />
+    <ActiviteIntro v-if="t.intro?.length" :paragraphs="t.intro" :band="band('intro')" />
     <ActiviteCarousel
-      v-if="page?.imageCount"
+      v-if="t.imageCount"
       :activite="activite"
-      :label="page.label"
-      :image-count="page.imageCount"
+      :label="t.label"
+      :image-count="t.imageCount"
       :band="band('carousel')"
     />
     <ActiviteFeatures
-      v-if="page?.features?.length"
+      v-if="t.features?.length"
       :activite="activite"
-      :label="page.label"
-      :features="page.features"
+      :label="t.label"
+      :features="t.features"
       :band="band('features')"
     />
     <ActiviteSteps
-      v-if="page?.steps?.length"
+      v-if="t.steps?.length"
       :activite="activite"
-      :steps="page.steps"
+      :steps="t.steps"
       :band="band('steps')"
     />
     <ActiviteRequirements
-      v-if="page?.requirements?.length"
+      v-if="t.requirements?.length"
       :activite="activite"
-      :requirements="page.requirements"
+      :requirements="t.requirements"
       :band="band('requirements')"
     />
     <ActivitePartners

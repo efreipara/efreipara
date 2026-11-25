@@ -16,6 +16,10 @@ export const orderActivities = <T extends { stem: string }>(items: T[]) =>
     .filter((item) => isActivity(item.key))
     .sort((a, b) => ACTIVITY_KEYS.indexOf(a.key) - ACTIVITY_KEYS.indexOf(b.key))
 
+// Stem d'un fichier d'activité dans Nuxt Content : chemin sous content/, sans extension
+export const activityStem = (key: ActivityType, locale: string) =>
+  `${locale}/pages/activites/${key}`
+
 // Activités voisines (précédent / suivant), en boucle
 export const adjacentActivities = (type: ActivityType) => {
   const index = ACTIVITY_KEYS.indexOf(type)

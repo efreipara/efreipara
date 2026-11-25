@@ -2,19 +2,23 @@ import { existsSync, globSync, readFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import { parse } from 'yaml'
 import { redirectRoutes } from '../../content.routes'
+import { DEFAULT_LOCALE, type LocaleCode } from '../../app/utils/locales'
 
 export const root = join(import.meta.dirname, '../..')
 export const contentDir = join(root, 'content')
 
+// Dossier d'une langue : les chemins de contenu des tests lui sont relatifs (langue par défaut sinon)
+export const localeDir = (locale: LocaleCode = DEFAULT_LOCALE) => join(contentDir, locale)
+
 export const readText = (path: string) => readFileSync(join(root, path), 'utf8')
 
-// Fichiers d'une source de collection (`pages/activites/*.yml` ou `{ include }`), relatifs à content/
-export const sourceFiles = (source: string | { include: string }) =>
-  globSync(typeof source === 'string' ? source : source.include, { cwd: contentDir }).sort()
+// Fichiers d'une source de collection (`pages/activites/*.yml` ou `{ include }`), relatifs au dossier de la langue
+export const sourceFiles = (source: string | { include: string }, locale?: LocaleCode) =>
+  globSync(typeof source === 'string' ? source : source.include, { cwd: localeDir(locale) }).sort()
 
 // YAML, ou front-matter d'un Markdown
-export const readContent = (file: string): unknown => {
-  const text = readFileSync(join(contentDir, file), 'utf8')
+export const readContent = (file: string, locale?: LocaleCode): unknown => {
+  const text = readFileSync(join(localeDir(locale), file), 'utf8')
   if (file.endsWith('.md')) {
     const match = text.match(/^---\n([\s\S]*?)\n---/)
     return match ? parse(match[1]!) : {}
@@ -22,7 +26,8 @@ export const readContent = (file: string): unknown => {
   return parse(text)
 }
 
-export const readYaml = <T = Record<string, unknown>>(file: string) => readContent(file) as T
+export const readYaml = <T = Record<string, unknown>>(file: string, locale?: LocaleCode) =>
+  readContent(file, locale) as T
 
 // Parcourt toutes les valeurs d'un document : [clé, valeur, chemin lisible]
 export const walk = (
@@ -37,7 +42,8 @@ export const walk = (
     for (const [k, v] of Object.entries(value)) walk(v, visit, path ? `${path}.${k}` : k, k)
 }
 
-export const allContentFiles = () => globSync('**/*.{yml,md}', { cwd: contentDir }).sort()
+export const allContentFiles = (locale?: LocaleCode) =>
+  globSync('**/*.{yml,md}', { cwd: localeDir(locale) }).sort()
 
 export const publicFileExists = (path: string) => existsSync(join(root, 'public', path))
 

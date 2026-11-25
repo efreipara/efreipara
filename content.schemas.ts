@@ -161,7 +161,7 @@ export const collections = {
   },
   legal: {
     type: 'page' as const,
-    // path = /<slug> (/rgpd…), lu par queryCollection('legal').path()
+    // path = /<slug> (/rgpd…), lu par useContentData('legal', { query: (q) => q.path(…) })
     source: { include: 'pages/legal/*.md', prefix: '/' },
     schema: z.object({
       title: z.string(),

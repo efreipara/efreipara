@@ -20,7 +20,9 @@
     },
   })
 
-  const seoKey = computed(() => seoKeyFromPath(route.path))
+  // Clé de seo.yml tirée de l'adresse française de la page : mêmes clés dans toutes les langues
+  const switchLocalePath = useSwitchLocalePath()
+  const seoKey = computed(() => seoKeyFromPath(switchLocalePath(DEFAULT_LOCALE) || route.path))
 
   useSeo(seoKey)
 </script>

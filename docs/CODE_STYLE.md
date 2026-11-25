@@ -6,7 +6,7 @@
 
 ## Langues
 
-- **Interface en français** : libellés, `aria-label`, messages d'erreur. Le texte visible va dans `content/` ([CONTENT.md](CONTENT.md#principe)).
+- **Interface en français** : libellés, `aria-label`, messages d'erreur. Le texte visible va dans `content/<langue>/` ([CONTENT.md](CONTENT.md#principe)) ; le code ne nomme jamais une langue (`useT`, `LOCALES`).
 - **URL et clés de contenu en français** : routes (`/activites`, `/rejoindre`, `/galerie`), clés d'activité (`soufflerie`), dossier `components/activite/`, champs YAML proches du domaine.
 - **Code en anglais** : variables, fonctions, types, composables (`useNextEvent`, `buildCdnUrl`, `ActivityType`).
 - **Commentaires en français**, rares : ils expliquent un choix ou une contrainte non évidente (contournement, ordre imposé, piège d'une bibliothèque), pas ce que le code dit déjà.
@@ -19,7 +19,7 @@
 - Composants rangés par zone dans `components/<zone>/`, nommés sans répéter la zone (`activite/Hero.vue` → `<ActiviteHero>`).
 - Composables : un fichier `useXxx.ts` dans `app/composables/`, `export const useXxx = () => { … }`, qui renvoie un objet. Les types partagés sont exportés du module qui les porte (`ActivityType` depuis `app/utils/activities.ts`).
 - Logique testable (calcul, tri, filtre, règle d'affichage) : une fonction pure dans `app/utils/`, appelée par le composant ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)).
-- Données : `await useAsyncData('<clé unique>', () => queryCollection(…))` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)) ; les champs facultatifs se lisent avec `?.` et un repli.
+- Texte et données du contenu : `const { t } = await useT('<collection>')` puis **`t.cle.sous.cle`** pour le texte principal du fichier ; `useContentData` quand il faut la ref ; jamais `queryCollection` directement ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)). Les champs facultatifs se lisent avec `?.` et un repli.
 - Variables inutilisées interdites ; un argument volontairement ignoré commence par `_`.
 
 ## Icônes, couleurs et classes

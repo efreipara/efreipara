@@ -8,6 +8,7 @@ import {
   formatEventDate,
   formatEventMonths,
   formatEventWhen,
+  formatLongDate,
   isUpcomingEvent,
   lowerFirst,
   upcomingEvents,
@@ -88,6 +89,17 @@ describe('formatEventDate', () => {
   it('ne décale pas la date selon le fuseau', () => {
     expect(formatEventDate('2027-01-01')).toBe('vendredi 1\u00A0janvier')
   })
+
+  it('écrit la date dans la langue demandée', () => {
+    expect(formatEventDate('2026-12-04', 'en-US')).toBe('Friday, December 4')
+  })
+})
+
+describe('formatLongDate', () => {
+  it('écrit le jour, le mois et l’année, en français par défaut', () => {
+    expect(formatLongDate('2026-03-12')).toBe('12 mars 2026')
+    expect(formatLongDate('2026-03-12', 'en-GB')).toBe('12 March 2026')
+  })
 })
 
 describe('formatEventMonths', () => {
@@ -100,7 +112,9 @@ describe('formatEventMonths', () => {
   })
 
   it("répète l'année quand elle change", () => {
-    expect(formatEventMonths(['2026-12', '2027-01'], 'ou')).toBe('décembre\u00A02026 ou janvier\u00A02027')
+    expect(formatEventMonths(['2026-12', '2027-01'], 'ou')).toBe(
+      'décembre\u00A02026 ou janvier\u00A02027',
+    )
   })
 })
 

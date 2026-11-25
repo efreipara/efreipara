@@ -8,9 +8,9 @@ import type { ActivityType } from '~/utils/activities'
  * Activités dans l'ordre d'affichage, avec ce que tout le site en montre (menu, icône, libellés)
  */
 export const useActivities = async () => {
-  const { data } = await useAsyncData('activites', () =>
-    queryCollection('activites').select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
-  )
+  const { data } = await useContentData('activites', {
+    query: (q) => q.select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
+  })
 
   const activities = computed(() => orderActivities(data.value ?? []))
 
@@ -36,7 +36,7 @@ export const useUpcomingEvents = async (type?: ActivityType) => {
   // Avant l'await : le contexte Nuxt et le composant ne sont plus connus après
   const today = useState('events-today', () => new Date().toISOString())
   onMounted(() => (today.value = new Date().toISOString()))
-  const { data } = await useAsyncData('events', () => queryCollection('events').first())
+  const { data } = await useContentData('events')
 
   const events = computed(() =>
     upcomingEvents(data.value?.items ?? [], new Date(today.value), type),

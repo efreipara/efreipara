@@ -10,7 +10,7 @@ Site vitrine du club de parachutisme de l'Efrei (rattaché au BDS). Il présente
 
 - Public : étudiants de l'Efrei et curieux, souvent sur téléphone. Le ton tutoie le visiteur.
 - Site **public et statique** : pas de compte, pas de saisie enregistrée par le site, pas de back-office. Le contenu est modifié dans le dépôt (voir [CONTENT.md](CONTENT.md)).
-- Interface **100 % en français**.
+- Interface **100 % en français**. Le site est prêt à recevoir d'autres langues (une version anglaise est prévue, sous `/en/…`), mais aucune n'est encore écrite : pas de sélecteur de langue.
 
 ### Activités
 
@@ -176,4 +176,4 @@ Un événement n'apparaît dans Plausible que lorsqu'un objectif (Goal) de même
 
 ## 5. Hors périmètre
 
-Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, page agenda et historique des événements (seuls les événements à venir sont montrés, voir [Événements](#événements)), galerie hébergée sur le site, traduction, recherche.
+Pas prévu pour l'instant : comptes et espace membre, formulaires hébergés par le site (inscription, contact), paiement, page agenda et historique des événements (seuls les événements à venir sont montrés, voir [Événements](#événements)), galerie hébergée sur le site, recherche. La version anglaise est préparée côté code ([ARCHITECTURE.md](ARCHITECTURE.md#langues)) mais son texte reste à écrire.

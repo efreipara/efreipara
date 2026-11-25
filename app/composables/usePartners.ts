@@ -16,7 +16,7 @@ export interface Partner {
  * Composable pour gérer les partenaires du club
  */
 export const usePartners = async () => {
-  const { data } = await useAsyncData('partners', () => queryCollection('partners').first())
+  const { data } = await useContentData('partners')
 
   const partners = computed(() => data.value?.items ?? [])
 

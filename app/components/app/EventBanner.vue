@@ -3,13 +3,16 @@
   const { getIcon } = await useActivities()
   const appConfig = useAppConfig()
   const { labels } = await useLabels()
+  const { localeProperties } = useI18n()
 
   // Événement annoncé : le plus proche dont le jour est fixé ; les autres sont comptés dans « +N »
   const event = computed(() => bannerEvent(events.value))
   const others = computed(() => events.value.length - 1)
-  const title = computed(() => event.value && bannerTitle(event.value, labels.value.banner))
+  const title = computed(
+    () => event.value && bannerTitle(event.value, labels.banner, localeProperties.value.language),
+  )
   const moreLabel = computed(() =>
-    fillLabel(labels.value.banner.moreLabel[others.value > 1 ? 'other' : 'one'], {
+    fillLabel(labels.banner.moreLabel[others.value > 1 ? 'other' : 'one'], {
       count: others.value,
     }),
   )

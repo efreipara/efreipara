@@ -1,5 +1,9 @@
 import { queryCollection } from '@nuxt/content/server'
 import { buildLlmsText, type LlmsData } from '../../app/utils/llms'
+import { DEFAULT_LOCALE, localizedCollection } from '../../app/utils/locales'
+
+// Collections de la langue par défaut : /llms.txt reste en français
+const collection = <N extends string>(name: N) => localizedCollection(name, DEFAULT_LOCALE)
 
 // Prérendue au generate (nitro.prerender.routes) : écrite en fichier, aucun serveur à l'exécution
 export default defineEventHandler(async (event) => {
@@ -20,21 +24,21 @@ export default defineEventHandler(async (event) => {
     navigation,
     legal,
   ] = await Promise.all([
-    queryCollection(event, 'seo').first(),
-    queryCollection(event, 'home').first(),
-    queryCollection(event, 'activitesIndex').first(),
-    queryCollection(event, 'activites').all(),
-    queryCollection(event, 'labels').first(),
-    queryCollection(event, 'rejoindre').first(),
-    queryCollection(event, 'events').first(),
-    queryCollection(event, 'faq').first(),
-    queryCollection(event, 'documents').first(),
-    queryCollection(event, 'galerie').first(),
-    queryCollection(event, 'partners').first(),
-    queryCollection(event, 'contact').first(),
-    queryCollection(event, 'club').first(),
-    queryCollection(event, 'navigation').first(),
-    queryCollection(event, 'legal').select('title', 'description', 'path').all(),
+    queryCollection(event, collection('seo')).first(),
+    queryCollection(event, collection('home')).first(),
+    queryCollection(event, collection('activitesIndex')).first(),
+    queryCollection(event, collection('activites')).all(),
+    queryCollection(event, collection('labels')).first(),
+    queryCollection(event, collection('rejoindre')).first(),
+    queryCollection(event, collection('events')).first(),
+    queryCollection(event, collection('faq')).first(),
+    queryCollection(event, collection('documents')).first(),
+    queryCollection(event, collection('galerie')).first(),
+    queryCollection(event, collection('partners')).first(),
+    queryCollection(event, collection('contact')).first(),
+    queryCollection(event, collection('club')).first(),
+    queryCollection(event, collection('navigation')).first(),
+    queryCollection(event, collection('legal')).select('title', 'description', 'path').all(),
   ])
 
   setHeader(event, 'Content-Type', 'text/plain; charset=utf-8')

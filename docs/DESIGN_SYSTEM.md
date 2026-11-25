@@ -9,7 +9,7 @@
 - **Clair et sombre** : les deux thèmes sont soignés. Le thème suit le système, le visiteur peut basculer (`HeaderColorModeButton`), choix gardé en `sessionStorage` (`colorMode` dans `nuxt.config.ts`). Toute couleur posée en dur se vérifie dans les deux thèmes.
 - **Identité du club** : bleu nuit Efrei Para, une couleur par activité, police de titre « course », parachutes qui tombent en décor.
 - **Nuxt UI d'abord** : composants Nuxt UI (`UHeader`, `UFooter`, `UPageHero`, `UPageCTA`, `UCard`, `UAccordion`, `UCarousel`, `UTimeline`…) ; un composant maison ne se justifie que si Nuxt UI n'a pas d'équivalent. Vérifier props et slots avec le MCP Nuxt UI avant de s'en servir.
-- **Interface 100 % en français**, dates formatées en `fr-FR` (`Intl.DateTimeFormat`, `toLocaleDateString`).
+- **Interface 100 % en français**, dates formatées dans la langue de la page (`fr-FR` : fonctions de `utils/event.ts`, `Intl.DateTimeFormat`) ; libellés internes des composants Nuxt UI dans la même langue (`UApp`, [ARCHITECTURE.md](ARCHITECTURE.md#langues)).
 - **Mobile d'abord** : public étudiant, souvent sur téléphone ; tout se vérifie aussi en desktop.
 
 ## Thème

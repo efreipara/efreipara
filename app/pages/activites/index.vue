@@ -3,12 +3,11 @@
   const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  const { data: page } = await useAsyncData('activites-index', () =>
-    queryCollection('activitesIndex').first(),
-  )
-  const { data: entries } = await useAsyncData('activites-sections', () =>
-    queryCollection('activites').select('stem', 'label', 'alt', 'section').all(),
-  )
+  const { t } = await useT('activitesIndex', { key: 'activites-index' })
+  const { data: entries } = await useContentData('activites', {
+    key: 'activites-sections',
+    query: (q) => q.select('stem', 'label', 'alt', 'section').all(),
+  })
   const sections = computed(() =>
     orderActivities(entries.value ?? []).map(({ key, to, label, alt, section }) => ({
       ...section,
@@ -31,9 +30,9 @@
 <template>
   <div>
     <SharedPageHero
-      :headline="page?.hero.headline"
-      :title="page?.hero.title"
-      :description="page?.hero.description"
+      :headline="t.hero.headline"
+      :title="t.hero.title"
+      :description="t.hero.description"
     />
 
     <!-- Image à gauche puis à droite en alternance (lg) ; toujours au-dessus du texte sur mobile -->

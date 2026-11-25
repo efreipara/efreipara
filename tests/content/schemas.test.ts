@@ -1,25 +1,48 @@
+import { readdirSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { collections } from '../../content.schemas'
-import { allContentFiles, readContent, sourceFiles } from './helpers'
+import { LOCALE_CODES } from '../../app/utils/locales'
+import { allContentFiles, contentDir, readContent, sourceFiles } from './helpers'
 
 describe('schémas des collections', () => {
-  for (const [name, collection] of Object.entries(collections)) {
-    const files = sourceFiles(collection.source)
+  for (const locale of LOCALE_CODES) {
+    for (const [name, collection] of Object.entries(collections)) {
+      const files = sourceFiles(collection.source, locale)
 
-    it(`${name} : la source de la collection existe`, () => {
-      expect(files.length).toBeGreaterThan(0)
+      it(`${locale}/${name} : la source de la collection existe`, () => {
+        expect(files.length).toBeGreaterThan(0)
+      })
+
+      for (const file of files) {
+        it(`${locale}/${name} : ${file} respecte son schéma`, () => {
+          const result = collection.schema.safeParse(readContent(file, locale))
+          const issues = result.success
+            ? []
+            : result.error.issues.map((issue) => `${issue.path.join('.')} : ${issue.message}`)
+          expect(issues).toEqual([])
+        })
+      }
+    }
+
+    it(`${locale} : chaque fichier appartient à une collection`, () => {
+      const covered = new Set(
+        Object.values(collections).flatMap((c) => sourceFiles(c.source, locale)),
+      )
+      expect(allContentFiles(locale).filter((file) => !covered.has(file))).toEqual([])
     })
 
-    for (const file of files) {
-      it(`${name} : ${file} respecte son schéma`, () => {
-        const result = collection.schema.safeParse(readContent(file))
-        const issues = result.success
-          ? []
-          : result.error.issues.map((issue) => `${issue.path.join('.')} : ${issue.message}`)
-        expect(issues).toEqual([])
-      })
-    }
+    it(`${locale} : mêmes fichiers que la langue par défaut`, () => {
+      expect(allContentFiles(locale)).toEqual(allContentFiles())
+    })
   }
+
+  it('content/ ne contient qu’un dossier par langue déclarée', () => {
+    expect(
+      readdirSync(contentDir)
+        .filter((name) => !name.startsWith('.'))
+        .sort(),
+    ).toEqual([...LOCALE_CODES].sort())
+  })
 
   it('refuse un lien javascript:, data: ou //hôte', () => {
     const file = 'pages/rejoindre.yml'
@@ -41,10 +64,5 @@ describe('schémas des collections', () => {
       expect(collections.events.schema.safeParse({ items: [event] }).success).toBe(false)
     }
     expect(collections.events.schema.safeParse({ items: [] }).success).toBe(true)
-  })
-
-  it('chaque fichier de content/ appartient à une collection', () => {
-    const covered = new Set(Object.values(collections).flatMap((c) => sourceFiles(c.source)))
-    expect(allContentFiles().filter((file) => !covered.has(file))).toEqual([])
   })
 })

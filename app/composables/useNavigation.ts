@@ -1,7 +1,7 @@
 export const useNavigation = async () => {
   // Lancées ensemble : un composable appelé après un await perd le contexte Nuxt
   const [{ data }, { activities: activityList }] = await Promise.all([
-    useAsyncData('navigation', () => queryCollection('navigation').first()),
+    useContentData('navigation'),
     useActivities(),
   ])
 

@@ -9,13 +9,14 @@
 
   const { getIcon, byKey } = await useActivities()
   const { labels } = await useLabels()
+  const { localeProperties } = useI18n()
 
   const cards = computed(() =>
     props.events.map((event) => ({
       ...event,
       key: `${event.type}-${event.date ?? event.months?.join('-')}-${event.title}`,
-      when: formatEventWhen(event, labels.value.events.or),
-      parts: event.date ? eventDateParts(event.date) : null,
+      when: formatEventWhen(event, labels.events.or, localeProperties.value.language),
+      parts: event.date ? eventDateParts(event.date, localeProperties.value.language) : null,
     })),
   )
 </script>

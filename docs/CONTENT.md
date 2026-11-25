@@ -6,7 +6,7 @@
 
 ## Principe
 
-Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts), avec sa source et son schéma Zod dans [`content.schemas.ts`](../content.schemas.ts). Nuxt Content ne vérifie pas le schéma au build : c'est `bun run test` qui le fait, avec d'autres contrôles (voir [Vérifier le contenu](#vérifier-le-contenu)).
+Le texte visible du site vit dans `content/` (YAML et Markdown), pas dans les composants : un membre du bureau doit pouvoir changer une phrase, une FAQ ou un album sans toucher au code. Il est rangé **par langue** : `content/fr/` (seule langue aujourd'hui), plus tard `content/en/` avec exactement les mêmes fichiers ([ajouter une langue](ARCHITECTURE.md#ajouter-une-langue)). Chaque fichier correspond à une **collection** déclarée dans [`content.config.ts`](../content.config.ts) une fois par langue (`home_fr`), avec sa source et son schéma Zod dans [`content.schemas.ts`](../content.schemas.ts). Le code lit le texte en `t.cle.sous.cle` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)). Nuxt Content ne vérifie pas le schéma au build : c'est `bun run test` qui le fait, avec d'autres contrôles (voir [Vérifier le contenu](#vérifier-le-contenu)).
 
 Ce qui n'est pas dans `content/` :
 
@@ -18,6 +18,8 @@ Ce qui n'est pas dans `content/` :
 Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, ou dans `labels.yml` pour un composant commun à plusieurs pages. Un libellé qui contient `{nom}` est complété par le code (`fillLabel`), un compteur a ses deux formes (`one`, `other`, lues par `countLabel`).
 
 ## Collections
+
+Les sources sont relatives au dossier de la langue (`global/seo.yml` = `content/fr/global/seo.yml`).
 
 | Collection       | Type | Source                                | Utilisée par                                                                                                        |
 | ---------------- | ---- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -49,7 +51,7 @@ Un nouveau texte va dans `content/` : dans le fichier de la page qui l'affiche, 
 - **`seasons`** : `items[]`, une saison par décoration, chacune faite d'icônes qui tombent sur tout le site. `key` unique, `start` et `end` au format `MM-JJ` (bornes incluses, répétées chaque année ; `start` après `end` fait passer le 31 décembre : `'12-20'` → `'01-05'`), `icon` (icône qui tombe, aussi celle de la case du menu d'accessibilité), `count` (nombre d'icônes, une quarantaine au plus pour rester léger), `color` et `colorDark` facultatif (couleur CSS en clair et en sombre, ex. `var(--color-navy-300)`, `white`). Si deux périodes se chevauchent, la première de la liste gagne. Ajouter un thème (Halloween, Octobre rose…) = ajouter une entrée ([PRD.md](PRD.md#accessibilité-et-thème)).
 - **`partners`** : `icon` (icône d'une collection, ex. `ifly:logo-color`) ou `logo` (fichier de `public/`, ex. `/partners/skydive-event.webp`) ; `activites` liste les pages d'activité où le partenaire apparaît (l'accueil les montre tous).
 - **`home`** : chaque section (`about`, `activites`, `events`, `why`, `albums`, `partners`) a son `headline` (surtitre) et son `title` ; `activites.cardLink` (« En savoir plus » des cartes d'activité) et `activites.link` ; `why.image` (chemin sur le CDN) et `why.alt` pour la photo, `why.items[]` les points forts ; `albums.link` vers la galerie ; `hero.links` (boutons sous la phrase d'accroche ; `variant` : `primary` par défaut ou `secondary`, voir [rôles des boutons](DESIGN_SYSTEM.md#boutons)), `hero.scrollIcon` (flèche vers le bas) et `hero.video` (`pause`, `play` : `label` et `icon` du bouton de la vidéo) ; `stats[].title` commence par le nombre à animer, le reste est un suffixe (`100+`). `why.items[].type` donne la teinte ; les cartes d'activité viennent des fichiers d'activité (`card`, photo `activites/<clé>`), les albums de `galerie.yml`.
-- **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`pages/activites/tandem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`. La clé donne aussi le raccourci `/<clé>` vers `/activites/<clé>` ([PRD.md](PRD.md#raccourcis-des-activités--tandem-soufflerie-pac-oa)) : elle ne doit reprendre aucune autre route (`/discord`, `/rgpd`…).
+- **`activites`** : un fichier par activité, nommé par sa clé (`tandem.yml`…), retrouvé par son `stem` (`fr/pages/activites/tandem`, `activityStem`). C'est la seule source de l'activité ; l'ordre d'affichage est celui de `ACTIVITY_KEYS`. La clé donne aussi le raccourci `/<clé>` vers `/activites/<clé>` ([PRD.md](PRD.md#raccourcis-des-activités--tandem-soufflerie-pac-oa)) : elle ne doit reprendre aucune autre route (`/discord`, `/rgpd`…).
   - Obligatoires : `title`, `description`, `label` (nom court : badge, précédent / suivant), `alt` (photo du hero), `icon`, `menu` (`label`, `description` : en-tête et pied de page), `card` (`title`, `description` : carte de l'accueil), `section` (`title`, `description`, `features[]`, `linkLabel` : section de `/activites`, qui reprend `alt` pour la photo).
   - Facultatifs : `galleryLabel` (filtres et étiquettes de la galerie, sinon `label`) ; `intro`, `stats`, `features`, `steps`, `requirements`, dont la section disparaît s'ils sont absents ; `imageCount` = nombre de photos du carrousel sur le CDN (0 ou absent : pas de carrousel).
 - **En-tête des pages** : `headline` (surtitre court au-dessus du titre) dans `activites.yml`, `galerie.yml`, `contact.yml`, `rejoindre.yml` (sous `hero`) et `documents.yml`, `faq.yml` (à la racine).
@@ -123,16 +125,16 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 
 ## Ajouter une collection
 
-1. Créer le fichier dans `content/global/` (commun à plusieurs pages) ou `content/pages/`.
-2. Ajouter sa source et son schéma Zod dans `content.schemas.ts`, puis `nom: defineCollection(collections.nom)` dans `content.config.ts`.
-3. La lire avec `useAsyncData('<clé unique>', () => queryCollection('<nom>').first())`.
+1. Créer le fichier dans `content/<langue>/global/` (commun à plusieurs pages) ou `content/<langue>/pages/`, pour chaque langue.
+2. Ajouter sa source (relative au dossier de la langue) et son schéma Zod dans `content.schemas.ts` : `content.config.ts` en déclare une collection par langue.
+3. La lire avec `const { t } = await useT('<nom>')`.
 4. Ajouter l'entrée SEO si c'est une nouvelle page, et la mettre à jour ici.
 
 ## Ajouter une activité
 
 Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le code. Il faut toucher :
 
-- `content/pages/activites/<clé>.yml` (tous les champs obligatoires ci-dessus) et l'entrée `activites-<clé>` de `seo.yml` ;
+- `content/<langue>/pages/activites/<clé>.yml` (tous les champs obligatoires ci-dessus) et l'entrée `activites-<clé>` de `seo.yml`, dans chaque langue ;
 - `ACTIVITY_KEYS` dans `app/utils/activities.ts` (la place de la clé donne l'ordre d'affichage) ;
 - `app/assets/css/main.css` (`--color-efreipara-<clé>`, `--color-on-efreipara-<clé>` et la liste `@source inline('activity-{…}')`) ;
 - l'icône `app/assets/icons/activite/<clé>.svg`, au gabarit Tabler ([DESIGN_SYSTEM.md](DESIGN_SYSTEM.md#icônes)), citée par le champ `icon` ;
@@ -149,7 +151,7 @@ Une activité n'est pas qu'un fichier de contenu : sa clé est écrite dans le c
 
 `bun run test` lance les tests de `tests/content/`, qui attrapent les erreurs d'édition que le build laisse passer :
 
-- chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), et chaque fichier de `content/` appartient à une collection ;
+- chaque fichier respecte le schéma de sa collection (champ manquant, mal typé, valeur hors liste), dans chaque langue ; chaque fichier appartient à une collection, chaque langue a les mêmes fichiers que le français, et `content/` ne contient qu'un dossier par langue déclarée ;
 - chaque icône citée existe (une icône inconnue disparaît du site sans erreur) ;
 - chaque lien interne (`to`, `url`, `link` commençant par `/`) mène à une page ou à un fichier de `public/` ;
 - chaque page a son SEO, dans `seo.yml` ou dans son propre fichier mais pas aux deux endroits, et chaque image de partage existe ;

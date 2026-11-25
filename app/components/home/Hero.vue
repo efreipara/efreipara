@@ -14,7 +14,7 @@
     { src: buildCdnUrl('accueil/video-h264.mp4'), type: 'video/mp4; codecs="avc1.640028"' },
   ].filter(({ src }) => src)
 
-  const { data: seo } = useNuxtData('seo')
+  const { data: seo } = useContentData('seo')
   const description = computed(() => seo.value?.pages['index']?.description)
   const siteName = computed(() => seo.value?.defaults.siteName)
 

@@ -5,7 +5,7 @@
 
 ## Modèle de menace
 
-- Site **statique et public** : nginx sert des fichiers générés au build. Pas de serveur applicatif, pas d'API, pas de compte, pas de cookie, aucune saisie du visiteur n'est envoyée au site (les formulaires sont externes).
+- Site **statique et public** : nginx sert des fichiers générés au build. Pas de serveur applicatif, pas d'API, pas de compte, pas de cookie (même pour la langue : `detectBrowserLanguage: false`, la langue vient de l'adresse), aucune saisie du visiteur n'est envoyée au site (les formulaires sont externes).
 - Le contenu vient du dépôt, modifié par les membres qui y ont accès : il est fiable mais pas infaillible, d'où le nettoyage du HTML.
 - Le code est **open source** (dépôt GitHub public) : tout ce qui est commité est lu par n'importe qui.
 - Les risques réels sont donc : la **fuite d'un secret** dans le bundle ou le dépôt, une **injection de script** par le contenu, une **origine externe** non maîtrisée, la **chaîne de dépendances** (outils de build), et la configuration nginx / Docker.

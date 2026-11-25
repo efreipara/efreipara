@@ -1,8 +1,6 @@
 <script setup lang="ts">
-  const { data: rejoindreData } = await useAsyncData('rejoindre', () =>
-    queryCollection('rejoindre').first(),
-  )
-  const joinOptions = computed(() => rejoindreData.value?.options ?? [])
+  const { t } = await useT('rejoindre')
+  const joinOptions = computed(() => t.options ?? [])
   const { getSocial } = await useClub()
   const discord = computed(() => getSocial('discord'))
   const { cdnImage } = useCdnAsset()
@@ -12,18 +10,18 @@
 <template>
   <div>
     <SharedPageHero
-      :headline="rejoindreData?.hero.headline"
-      :title="rejoindreData?.hero.title"
-      :description="rejoindreData?.hero.description"
+      :headline="t.hero.headline"
+      :title="t.hero.title"
+      :description="t.hero.description"
     />
 
     <UContainer class="py-12 sm:py-16">
       <UAlert
-        :title="rejoindreData?.alert.title"
-        :description="rejoindreData?.alert.description"
+        :title="t.alert.title"
+        :description="t.alert.description"
         :actions="[
           {
-            label: rejoindreData?.alert.actionLabel,
+            label: t.alert.actionLabel,
             to: discord?.url,
             target: '_blank',
             icon: discord?.icon,
@@ -93,16 +91,16 @@
     </UContainer>
 
     <SharedSection
-      v-if="rejoindreData"
-      :headline="rejoindreData.why.headline"
-      :title="rejoindreData.why.title"
+      v-if="t.why"
+      :headline="t.why.headline"
+      :title="t.why.title"
       orientation="horizontal"
       band
     >
       <template #body>
         <ul class="flex flex-col gap-6">
           <UPageFeature
-            v-for="feature in rejoindreData.why.features"
+            v-for="feature in t.why.features"
             :key="feature.title"
             as="li"
             :icon="feature.icon"
@@ -119,8 +117,8 @@
         </ul>
       </template>
       <img
-        v-bind="cdnImage(rejoindreData.why.image, 'half')"
-        :alt="rejoindreData.why.alt"
+        v-bind="cdnImage(t.why.image, 'half')"
+        :alt="t.why.alt"
         loading="lazy"
         class="aspect-4/3 w-full rounded-2xl object-cover"
       />

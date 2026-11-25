@@ -12,7 +12,7 @@ export const useSeo = (
   pageKey: MaybeRefOrGetter<string>,
   overrides: MaybeRefOrGetter<SeoOverrides> = {},
 ) => {
-  const { data: seoData, status } = useAsyncData('seo', () => queryCollection('seo').first())
+  const { data: seoData, status } = useContentData('seo')
 
   const seoMeta = computed(() =>
     seoData.value ? buildSeoMeta(seoData.value, toValue(pageKey), toValue(overrides)) : null,

@@ -1,16 +1,16 @@
 <script setup lang="ts">
   const { club, socials, maps, getSocial } = await useClub()
 
-  const { data: page } = await useAsyncData('contact', () => queryCollection('contact').first())
+  const { t } = await useT('contact')
   const mapKeys = ['google', 'apple', 'waze'] as const
 </script>
 
 <template>
   <div>
     <SharedPageHero
-      :headline="page?.hero.headline"
-      :title="page?.hero.title"
-      :description="page?.hero.description"
+      :headline="t.hero.headline"
+      :title="t.hero.title"
+      :description="t.hero.description"
     />
 
     <UContainer class="py-12 sm:py-16">
@@ -20,17 +20,17 @@
           class="rounded-2xl"
           :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
         >
-          <SharedHeadline as="h2" :icon="page?.email.icon" class="mb-4">
-            {{ page?.email.title }}
+          <SharedHeadline as="h2" :icon="t.email.icon" class="mb-4">
+            {{ t.email.title }}
           </SharedHeadline>
           <p class="font-title text-highlighted text-xl break-all select-text sm:text-2xl">
             {{ club.email }}
           </p>
-          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.email.description }}</p>
+          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ t.email.description }}</p>
           <UButton
             :to="`mailto:${club.email}`"
-            :icon="page?.email.icon"
-            :label="page?.email.buttonLabel"
+            :icon="t.email.icon"
+            :label="t.email.buttonLabel"
             variant="primary"
             class="self-start"
           />
@@ -41,10 +41,10 @@
           class="rounded-2xl"
           :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
         >
-          <SharedHeadline as="h2" :icon="page?.socials.icon" class="mb-4">
-            {{ page?.socials.title }}
+          <SharedHeadline as="h2" :icon="t.socials.icon" class="mb-4">
+            {{ t.socials.title }}
           </SharedHeadline>
-          <p class="text-muted mb-6 text-sm">{{ page?.socials.description }}</p>
+          <p class="text-muted mb-6 text-sm">{{ t.socials.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
               v-for="social in socials"
@@ -64,22 +64,22 @@
           class="rounded-2xl"
           :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
         >
-          <SharedHeadline as="h2" :icon="page?.address.icon" class="mb-4">
-            {{ page?.address.title }}
+          <SharedHeadline as="h2" :icon="t.address.icon" class="mb-4">
+            {{ t.address.title }}
           </SharedHeadline>
           <p class="font-title text-highlighted text-xl select-text">{{ club.address }}</p>
-          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ page?.address.description }}</p>
+          <p class="text-muted mt-2 mb-6 flex-1 text-sm">{{ t.address.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
               v-for="map in mapKeys"
               :key="map"
               :to="maps[map]"
               target="_blank"
-              :icon="page?.address.buttons[map].icon"
+              :icon="t.address.buttons[map].icon"
               size="sm"
               variant="utility"
             >
-              {{ page?.address.buttons[map].label }}
+              {{ t.address.buttons[map].label }}
             </UButton>
           </div>
         </UCard>
@@ -89,10 +89,10 @@
           class="rounded-2xl"
           :ui="{ body: 'flex h-full flex-col p-6 sm:p-8' }"
         >
-          <SharedHeadline as="h2" :icon="page?.support.icon" class="mb-4">
-            {{ page?.support.title }}
+          <SharedHeadline as="h2" :icon="t.support.icon" class="mb-4">
+            {{ t.support.title }}
           </SharedHeadline>
-          <p class="text-muted mb-6 flex-1 text-sm">{{ page?.support.description }}</p>
+          <p class="text-muted mb-6 flex-1 text-sm">{{ t.support.description }}</p>
           <div class="flex flex-wrap gap-2">
             <UButton
               :to="club.github.issues"
@@ -100,15 +100,15 @@
               size="sm"
               variant="utility"
             >
-              {{ page?.support.buttons.github }}
+              {{ t.support.buttons.github }}
             </UButton>
             <UButton
               :to="`mailto:${club.maintainerEmail}`"
-              :icon="page?.support.icon"
+              :icon="t.support.icon"
               size="sm"
               variant="utility"
             >
-              {{ page?.support.buttons.email }}
+              {{ t.support.buttons.email }}
             </UButton>
           </div>
         </UCard>
