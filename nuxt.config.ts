@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
 import { activityShortcuts, redirectRoutes } from './content.routes'
+import { DEFAULT_LOCALE, LOCALES } from './app/utils/locales'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -43,6 +44,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/icon',
     '@nuxt/content',
+    '@nuxtjs/i18n',
     '@nuxt/eslint',
   ],
   css: ['~/assets/css/main.css'],
@@ -183,6 +185,18 @@ export default defineNuxtConfig({
         dir: './app/assets/icons/activite',
       },
     ],
+  },
+
+  // Langue tirée de l'URL seule (/en/… ; français sans préfixe) : ni détection ni cookie.
+  // Pas de fichiers de messages : le texte de chaque langue est dans content/<langue>/.
+  i18n: {
+    locales: [...LOCALES],
+    defaultLocale: DEFAULT_LOCALE,
+    strategy: 'prefix_except_default',
+    customRoutes: 'meta',
+    detectBrowserLanguage: false,
+    // Aucun message vue-i18n : ni compilateur de messages ni composants <i18n-t>, v-t
+    bundle: { runtimeOnly: true, dropMessageCompiler: true, fullInstall: false },
   },
 
   plausible: {

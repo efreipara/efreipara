@@ -37,6 +37,7 @@
     "@nuxt/fonts": "^1.2.0",
     "@nuxt/icon": "^2.6.3",
     "@nuxt/ui": "^4.13.1",
+    "@nuxtjs/i18n": "^10.6.0",
     "@nuxtjs/plausible": "^4.1.0",
     "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.10",
