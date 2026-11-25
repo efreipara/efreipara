@@ -16,7 +16,7 @@ import type { SeoData } from '../../app/utils/seo'
 import { allRedirectRoutes } from '../../content.routes'
 import { readYaml, root } from '../content/helpers'
 import { expect, gotoReady, test } from './fixtures'
-import { defaultPages, localePages } from './routes'
+import { defaultPages, isPublished, localePages } from './routes'
 
 // Noms des événements Plausible de chaque lien qui sort du site, comparés à docs/plausible/goals.txt.
 // UPDATE_GOALS=1 (bun run goals) réécrit la liste et le script de la console.
@@ -172,6 +172,7 @@ test.describe('goals Plausible', () => {
 
   test('les pages anglaises envoient les noms des pages françaises', async ({ page, isMobile }) => {
     test.skip(isMobile, 'desktop, puis menu mobile par redimensionnement')
+    test.skip(!isPublished('en'), 'version anglaise désactivée (LOCALES, enabled)')
     test.setTimeout(120_000)
     const goalNames = JSON.parse(readFileSync(namesFile, 'utf8')) as GoalNames
     const listed = new Set(readFileSync(listFile, 'utf8').trim().split('\n'))

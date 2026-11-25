@@ -2,7 +2,7 @@
 
 Site vitrine du club de parachutisme de l'Efrei ([efreipara.fr](https://efreipara.fr)).
 Site **statique** généré par Nuxt (`nuxt generate`), servi par nginx dans Docker. Pas de serveur applicatif, pas d'API, pas de base de données.
-Tout le texte vient de `content/<langue>/` (Nuxt Content : français, et anglais sous `/en`) ; photos et vidéo sont sur un CDN. **Le dépôt GitHub est public.**
+Tout le texte vient de `content/<langue>/` (Nuxt Content : français ; anglais prêt dans `content/en/` mais désactivé, voir `LOCALES`) ; photos et vidéo sont sur un CDN. **Le dépôt GitHub est public.**
 
 ## Documentation du projet
 
@@ -90,7 +90,7 @@ Les skills du dépôt (`.claude/skills/`) s'utilisent selon la demande. Charger 
 
 Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 
-- **Interface en français, traduite en anglais** ; le texte visible va dans `content/fr/` **et** `content/en/` (même structure, voir `docs/CONTENT.md#langues`), pas dans les composants. Le code le lit en `t.cle.sous.cle` (`const { t } = await useT('<collection>')`), sans jamais nommer de langue ; un lien interne construit par le code passe par un nom de route (`localePath`, `activityPath`).
+- **Interface en français, traduction anglaise tenue à jour (non publiée)** ; le texte visible va dans `content/fr/` **et** `content/en/` (même structure, voir `docs/CONTENT.md#langues`), pas dans les composants. Le code le lit en `t.cle.sous.cle` (`const { t } = await useT('<collection>')`), sans jamais nommer de langue ; un lien interne construit par le code passe par un nom de route (`localePath`, `activityPath`).
 - Code en anglais, URL et clés de contenu en français, **commentaires en français et rares**.
 - Préférer les composants Nuxt UI aux composants maison ; réutiliser les composants listés dans `docs/DESIGN_SYSTEM.md`.
 - `app.config.ts` ne garde que le thème Nuxt UI : icônes, liens et options d'une page vont dans son fichier de `content/` ; teintes d'activité par `color-mix`.

@@ -1,15 +1,21 @@
 // Langues du site : source unique pour nuxt.config.ts (i18n), content.config.ts et les tests.
-// La première est la langue par défaut, servie sans préfixe d'URL.
+// La première est la langue par défaut, servie sans préfixe d'URL. `enabled: false` : contenu
+// tenu à jour et testé, mais langue non publiée (ni adresses /en, ni bouton de langue)
 export const LOCALES = [
-  { code: 'fr', language: 'fr-FR', name: 'Français' },
-  { code: 'en', language: 'en-GB', name: 'English' },
+  { code: 'fr', language: 'fr-FR', name: 'Français', enabled: true },
+  { code: 'en', language: 'en-GB', name: 'English', enabled: false },
 ] as const
 
 export type LocaleCode = (typeof LOCALES)[number]['code']
 
 export const LOCALE_CODES = LOCALES.map((locale) => locale.code) as LocaleCode[]
 
-export const DEFAULT_LOCALE: LocaleCode = LOCALES[0].code
+// Langues publiées : routes, bouton de langue, hreflang, prérendu
+export const ENABLED_LOCALES = LOCALES.filter((locale) => locale.enabled)
+
+export const ENABLED_LOCALE_CODES = ENABLED_LOCALES.map((locale) => locale.code) as LocaleCode[]
+
+export const DEFAULT_LOCALE = LOCALES[0].code
 
 // Langue BCP 47 des dates (Intl) : celle de la locale courante, la langue par défaut sinon
 export const DEFAULT_LANGUAGE: string = LOCALES[0].language
@@ -25,6 +31,17 @@ export const LOCALIZED_PATHS: Record<string, Partial<Record<LocaleCode, string>>
   galerie: { en: '/gallery' },
   rejoindre: { en: '/join' },
 }
+
+// Adresses traduites des langues publiées seulement (configuration d'i18n)
+export const enabledLocalizedPaths = () =>
+  Object.fromEntries(
+    Object.entries(LOCALIZED_PATHS).map(([name, paths]) => [
+      name,
+      Object.fromEntries(
+        Object.entries(paths).filter(([code]) => (ENABLED_LOCALE_CODES as string[]).includes(code)),
+      ),
+    ]),
+  )
 
 // Chemin d'une page dans une langue, à partir de son chemin français : /galerie → /en/gallery,
 // /activites/tandem → /en/activities/tandem (clés et slugs inchangés)

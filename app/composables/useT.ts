@@ -4,8 +4,10 @@ import type { LocaleCode } from '~/utils/locales'
 
 export type ContentName = keyof typeof collections
 
-// Entrée d'une collection, identique dans toutes les langues (même schéma)
-export type ContentItem<N extends ContentName> = Collections[`${N}_${LocaleCode}`]
+// Entrée d'une collection, identique dans toutes les langues (même schéma) : typée par la langue
+// par défaut, la seule dont la collection existe toujours (content.config.ts)
+type DefaultCollection<N extends ContentName> = `${N}_${typeof DEFAULT_LOCALE}`
+export type ContentItem<N extends ContentName> = Collections[DefaultCollection<N>]
 
 interface ContentOptions<N extends ContentName, R> {
   /** Clé useAsyncData sans la langue, le nom de la collection par défaut */
@@ -32,7 +34,7 @@ export const useContentData = <N extends ContentName, R = ContentItem<N> | null>
     async () => {
       const run = (code: LocaleCode) => {
         const collection = queryCollection(
-          localizedCollection(name, code),
+          localizedCollection(name, code) as DefaultCollection<N>,
         ) as CollectionQueryBuilder<ContentItem<N>>
         return (options.query ? options.query(collection, code) : collection.first()) as Promise<R>
       }

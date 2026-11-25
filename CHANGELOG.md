@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.22.0 — 25 novembre 2026
+
+### Modifications
+
+- La version anglaise du site est mise en pause : plus d’adresses en /en ni de bouton de langue dans l’en-tête. Sa traduction reste prête et sera publiée plus tard.
+
 ## 1.21.3 — 25 novembre 2026
 
 ### Corrections

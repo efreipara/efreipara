@@ -5,12 +5,14 @@
   const { locale, locales } = useI18n()
   const switchLocalePath = useSwitchLocalePath()
 
-  const target = computed(() => locales.value.find((item) => item.code !== locale.value)!)
+  // Aucune autre langue publiée (ENABLED_LOCALES) : pas de bouton
+  const target = computed(() => locales.value.find((item) => item.code !== locale.value))
 </script>
 
 <template>
   <!-- locale false : l'adresse vient déjà de switchLocalePath, Nuxt UI ne la re-préfixe pas -->
   <UButton
+    v-if="target"
     :to="switchLocalePath(target.code)"
     :locale="false"
     :hreflang="target.language"

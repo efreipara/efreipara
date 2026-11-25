@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { contentProxy } from '../../app/utils/content-proxy'
 import {
   DEFAULT_LOCALE,
+  ENABLED_LOCALE_CODES,
   LOCALE_CODES,
   contentKey,
   delocalizePath,
@@ -16,6 +17,11 @@ describe('langues', () => {
   it('le français est la langue par défaut, l’anglais la seconde', () => {
     expect(DEFAULT_LOCALE).toBe('fr')
     expect(LOCALE_CODES).toEqual(['fr', 'en'])
+  })
+
+  it('publie toujours la langue par défaut', () => {
+    expect(ENABLED_LOCALE_CODES).toContain(DEFAULT_LOCALE)
+    expect(ENABLED_LOCALE_CODES.every((code) => LOCALE_CODES.includes(code))).toBe(true)
   })
 
   it('reconnaît une langue déclarée seulement', () => {

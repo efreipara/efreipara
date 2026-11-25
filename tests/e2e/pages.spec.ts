@@ -1,4 +1,4 @@
-import { delocalizePath, LOCALE_CODES, localizePath } from '../../app/utils/locales'
+import { delocalizePath, ENABLED_LOCALE_CODES, localizePath } from '../../app/utils/locales'
 import { expect, gotoReady, test } from './fixtures'
 import { pages } from './routes'
 import { readYaml, sourceFiles } from '../content/helpers'
@@ -22,13 +22,17 @@ test.describe('pages', () => {
       // Langue de la page et versions dans chaque langue
       const locale = path.startsWith('/en') ? 'en' : 'fr'
       await expect(page.locator('html')).toHaveAttribute('lang', locale)
-      for (const code of LOCALE_CODES) {
-        const target = localizePath(delocalizePath(path), code)
-        await expect(page.locator(`link[rel="alternate"][hreflang="${code}"]`)).toHaveAttribute(
-          'href',
-          target === '/' ? 'https://efreipara.fr' : `https://efreipara.fr${target}`,
-        )
-      }
+      // Versions dans les autres langues publiées ; aucune avec une seule langue
+      if (ENABLED_LOCALE_CODES.length === 1)
+        await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(0)
+      else
+        for (const code of ENABLED_LOCALE_CODES) {
+          const target = localizePath(delocalizePath(path), code)
+          await expect(page.locator(`link[rel="alternate"][hreflang="${code}"]`)).toHaveAttribute(
+            'href',
+            target === '/' ? 'https://efreipara.fr' : `https://efreipara.fr${target}`,
+          )
+        }
       expect(await page.locator('h1').count()).toBeLessThanOrEqual(1)
       expect(consoleErrors).toEqual([])
     })

@@ -125,6 +125,7 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 
 ## Langues
 
+- La version anglaise n'est **pas publiée** pour l'instant ([ARCHITECTURE.md](ARCHITECTURE.md#langues)) : `content/en/` reste à tenir à jour, les tests le vérifient comme le français.
 - `content/fr/` est la référence ; `content/en/` en est la traduction, fichier pour fichier, avec la même structure (mêmes champs, mêmes listes dans le même ordre).
 - **Ne se traduisent pas**, et restent identiques dans les deux langues : dates, types d'activité, icônes, images, couleurs, slugs, liens externes, et les noms Plausible (`goalZones`, `changelogGoal`, `goal` de `seo.yml`, en français partout).
 - **Liens internes** : chaque langue écrit l'adresse de sa propre page, `/rejoindre` en français, `/en/join` en anglais (adresses traduites : [ARCHITECTURE.md](ARCHITECTURE.md#langues)). Les clés et slugs ne changent pas : `/en/activities/tandem`, `/en/rgpd`, `/en/discord`.

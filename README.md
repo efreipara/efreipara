@@ -172,7 +172,7 @@ cp .env.example .env
 
 ### Modifier le contenu du site
 
-Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/fr/`, traduits en anglais dans `content/en/` (même nom de fichier : modifier les deux), et utilisent les formats Markdown (`.md`) ou YAML (`.yml`). Coordonnées, partenaires, saisons et pages légales n'existent qu'en français. Règles de traduction : [docs/CONTENT.md](docs/CONTENT.md#langues).
+Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/fr/`, traduits en anglais dans `content/en/` (même nom de fichier : modifier les deux ; la version anglaise n'est pas encore publiée), et utilisent les formats Markdown (`.md`) ou YAML (`.yml`). Coordonnées, partenaires, saisons et pages légales n'existent qu'en français. Règles de traduction : [docs/CONTENT.md](docs/CONTENT.md#langues).
 
 ### Pages éditables
 

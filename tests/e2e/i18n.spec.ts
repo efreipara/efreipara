@@ -1,5 +1,6 @@
 import { readYaml } from '../content/helpers'
 import { expect, gotoReady, test } from './fixtures'
+import { isPublished } from './routes'
 
 type Navigation = { languageSwitch: { label: string; ariaLabel: string } }
 const fr = readYaml<Navigation>('global/navigation.yml')
@@ -7,6 +8,8 @@ const en = readYaml<Navigation>('global/navigation.yml', 'en')
 const labels = readYaml<{ legal: { untranslated: string } }>('global/labels.yml', 'en')
 
 test.describe('langues', () => {
+  test.skip(!isPublished('en'), 'version anglaise désactivée (LOCALES, enabled)')
+
   test('le bouton de langue affiche la langue en cours et mène à l’autre, et retour', async ({
     page,
   }) => {
@@ -42,5 +45,17 @@ test.describe('langues', () => {
     await expect(page.getByText(labels.legal.untranslated)).toBeVisible()
     await expect(page.locator('main [lang="fr"]').first()).toBeAttached()
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  })
+})
+
+test.describe('langue unique', () => {
+  test.skip(isPublished('en'), 'version anglaise publiée')
+
+  test('sans autre langue publiée : ni bouton de langue, ni adresses /en', async ({ page }) => {
+    await gotoReady(page, '/activites/tandem')
+    await expect(page.getByRole('link', { name: fr.languageSwitch.ariaLabel })).toHaveCount(0)
+    await expect(page.locator('a[href^="/en"]')).toHaveCount(0)
+    const response = await page.goto('/en')
+    expect(response?.status()).toBe(404)
   })
 })

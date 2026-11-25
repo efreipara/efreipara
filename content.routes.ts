@@ -1,6 +1,11 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { parse } from 'yaml'
-import { DEFAULT_LOCALE, LOCALE_CODES, localizePath, type LocaleCode } from './app/utils/locales'
+import {
+  DEFAULT_LOCALE,
+  ENABLED_LOCALE_CODES,
+  localizePath,
+  type LocaleCode,
+} from './app/utils/locales'
 
 // Routes de redirection déduites du contenu : prérendues par nuxt.config.ts, comptées comme liens
 // sortants par les goals Plausible, listées par les tests. Lecture directe des fichiers : Nuxt
@@ -17,7 +22,9 @@ export const redirectRoutes = (locale: LocaleCode = DEFAULT_LOCALE) => {
   return [...socials, ...options].map((slug) => localizePath(`/${slug}`, locale))
 }
 
-export const allRedirectRoutes = () => LOCALE_CODES.flatMap((locale) => redirectRoutes(locale))
+// Langues publiées seulement : prérendu, liens sortants des goals
+export const allRedirectRoutes = () =>
+  ENABLED_LOCALE_CODES.flatMap((locale) => redirectRoutes(locale))
 
 // Adresse de production (seo.yml) : liens canoniques et hreflang absolus
 export const siteBaseUrl = () =>

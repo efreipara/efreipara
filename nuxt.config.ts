@@ -4,7 +4,7 @@ import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
 import { activityShortcuts, allRedirectRoutes, siteBaseUrl } from './content.routes'
 import type { CustomRoutePages } from '@nuxtjs/i18n'
-import { DEFAULT_LOCALE, LOCALES, LOCALIZED_PATHS } from './app/utils/locales'
+import { DEFAULT_LOCALE, ENABLED_LOCALES, enabledLocalizedPaths } from './app/utils/locales'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -191,11 +191,11 @@ export default defineNuxtConfig({
   // Langue tirée de l'URL seule (/en/… ; français sans préfixe) : ni détection ni cookie.
   // Pas de fichiers de messages : le texte de chaque langue est dans content/<langue>/.
   i18n: {
-    locales: [...LOCALES],
+    locales: ENABLED_LOCALES.map(({ code, language, name }) => ({ code, language, name })),
     defaultLocale: DEFAULT_LOCALE,
     strategy: 'prefix_except_default',
     customRoutes: 'config',
-    pages: LOCALIZED_PATHS as CustomRoutePages,
+    pages: enabledLocalizedPaths() as CustomRoutePages,
     baseUrl: siteBaseUrl(),
     detectBrowserLanguage: false,
     // Aucun message vue-i18n : ni compilateur de messages ni composants <i18n-t>, v-t
