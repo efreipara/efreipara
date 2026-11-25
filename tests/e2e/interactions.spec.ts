@@ -177,6 +177,15 @@ const tocLink = (page: Page) =>
   page
     .locator('nav a[data-slot="link"]', { hasText: 'Durées de conservation' })
     .locator('visible=true')
+// Menu du sommaire sur téléphone, ouvert et immobile : un clic pendant son animation peut manquer le lien
+const openMobileToc = async (page: Page) => {
+  await page.getByRole('button', { name: 'Sur cette page' }).click()
+  const content = page.locator('[data-slot="content"][data-state="open"]').locator('visible=true')
+  await expect(content).toBeVisible()
+  await expect
+    .poll(() => content.evaluate((el) => el.getAnimations({ subtree: true }).length))
+    .toBe(0)
+}
 const sectionTop = (page: Page) =>
   page.getByRole('heading', { level: 2, name: /Durées de conservation/ }).evaluate((el) => ({
     top: el.getBoundingClientRect().top,
@@ -189,7 +198,7 @@ test.describe('pages légales', () => {
     isMobile,
   }) => {
     await gotoReady(page, '/rgpd')
-    if (isMobile) await page.getByRole('button', { name: 'Sur cette page' }).click()
+    if (isMobile) await openMobileToc(page)
     await tocLink(page).click()
     await expect
       .poll(async () => {
@@ -340,6 +349,26 @@ test.describe('FAQ et documents', () => {
     await page.getByRole('button', { name: last }).click()
     await page.waitForTimeout(250)
     // Vrai geste de molette (Chromium) : un mouse.wheel synthétique ne reproduit pas le cas
+    const cdp = await page.context().newCDPSession(page)
+    await cdp.send('Input.synthesizeScrollGesture', {
+      x: 200,
+      y: 400,
+      yDistance: -100,
+      gestureSourceType: 'mouse',
+    })
+    const stopped = await page.evaluate(() => window.scrollY)
+    await page.waitForTimeout(1000)
+    expect(await page.evaluate(() => window.scrollY)).toBe(stopped)
+  })
+
+  test('la molette interrompt le défilement, même après un scrollend d’un défilement précédent', async ({
+    page,
+  }) => {
+    const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
+    await gotoReady(page, '/documents')
+    await page.getByRole('button', { name: docs.categories.at(-1)!.name }).click()
+    // Ce que Chromium envoie en retard après un autre défilement (celui qui amène la pastille à l'écran)
+    await page.evaluate(() => window.dispatchEvent(new Event('scrollend')))
     const cdp = await page.context().newCDPSession(page)
     await cdp.send('Input.synthesizeScrollGesture', {
       x: 200,

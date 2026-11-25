@@ -9,7 +9,8 @@
 - Conséquence sur le code : une règle qui mérite un test (calcul, tri, filtre, règle d'affichage) est écrite comme une fonction pure dans `app/utils/`, puis appelée par le composant ou le composable ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)). Une règle enfouie dans un composant n'est pas testable ici.
 - **Playwright** pour le **site généré** : pages, erreurs, redirections, interactions et audit d'accessibilité (axe), sur Brave, en desktop et en mobile. Les composants sont testés à travers les pages, pas isolément.
 - Nuxt Content ne valide pas le contenu contre ses schémas au build : ce sont les tests de contenu qui le font, avec les icônes, les liens et la cohérence ([CONTENT.md](CONTENT.md#vérifier-le-contenu)).
-- Types vérifiés par `vue-tsc` (`bun run typecheck`). Pas de CI : les vérifications se font en local.
+- Types vérifiés par `vue-tsc` (`bun run typecheck`).
+- Les vérifications se font en local avant de livrer, puis sont rejouées par la [CI](#ci) à chaque PR et à chaque push sur `dev`.
 
 ## Organisation
 
@@ -28,14 +29,14 @@
 - événements (`event`) : à venir (jour fixé ou fin du dernier mois possible), tri, filtre par activité, choix de l'événement de la bannière, dates en toutes lettres, phrase de la bannière, clé de fermeture ; schéma : `date` ou `months`, jamais les deux ni aucun ;
 - adresse CDN et jeton de développement, chemins et `srcset` des photos (`cdn`) ;
 - chaque export de `app/utils/` et `app/composables/` est vu par l'import automatique de Nuxt (`auto-imports`) : un export manqué ne casse pas le build, seulement le rendu (« … is not defined », erreur 500 à la génération) ;
-- valeur des statistiques animées (`stat`), ancres de catégories (`anchor`) ;
+- valeur des statistiques animées (`stat`), ancres de catégories et position d'arrivée d'un défilement (`anchor`) ;
 - lecture des options d'accessibilité enregistrées, valeur illisible ou inconnue comprise (`accessibility`) ;
 - filtre, tri et mise en avant de la galerie (`gallery`) ;
 - libellés à compléter et compteurs (`labels`), liens d'itinéraire (`contact`), liens de l'en-tête (`navigation`), activité précédente / suivante et teinte d’activité (`activities`), couleurs de catégorie (`category-color`), alternance des bandes de section (`sections`) ;
 - Markdown de `/llms.txt` : ordre des activités, libellés remplis, sections facultatives omises, liens absolus, événements à venir listés, passés masqués (`llms`) ;
 - plugin `rehype-target-blank` ;
 - contenu : schémas, icônes, liens internes, SEO de chaque page (dans `seo.yml` ou dans son fichier, jamais aux deux endroits), fichiers d'activité ;
-- site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections et raccourcis d'activité ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ; événements, horloge du navigateur figée autour du premier événement daté du contenu : bannière et sections jusqu'au jour même, flèche et bouton vidéo du hero dans l'écran bannière ouverte puis fermée, retirés le lendemain sans nouveau `generate` (`events.spec.ts`) ; comportement d'application (texte non sélectionnable sauf zones `select-text`, pas de menu contextuel sur les images, menu du lien sur une image dans un lien) ;
+- site généré : chaque page répond sans erreur console, avec titre et canonique ; `/llms.txt` servi en texte avec chaque activité ; 404 ; redirections et raccourcis d'activité ; menus desktop et mobile ; thème ; options d'accessibilité (dont `no-contrast`) ; réglage « réduire les animations » (compteurs, carrousel immobile, vidéo d'accueil à l'arrêt, saut direct des pastilles) ; filtres de la galerie ; FAQ ; sommaire des pages légales (défilement sans `#`, immédiat avec « réduire les animations ») ; ancres (dont l'arrêt du défilement à la molette, y compris après un `scrollend` en retard d'un défilement précédent, par un vrai geste Chromium `Input.synthesizeScrollGesture` : `mouse.wheel` ne reproduit pas le cas) ; sections facultatives des activités ; événements, horloge du navigateur figée autour du premier événement daté du contenu : bannière et sections jusqu'au jour même, flèche et bouton vidéo du hero dans l'écran bannière ouverte puis fermée, retirés le lendemain sans nouveau `generate` (`events.spec.ts`) ; comportement d'application (texte non sélectionnable sauf zones `select-text`, pas de menu contextuel sur les images, menu du lien sur une image dans un lien) ;
 - événements Plausible : nom d'un lien (`data-goal-title`, `aria-label`, texte), nom de la page (`goal` de `seo.yml`, titre de l'onglet) (`goals`) ; liste de tous les noms à jour avec les liens du site généré (`goals.spec.ts`) ;
 - accessibilité : axe sur chaque page, en clair et en sombre. Une violation `serious` ou `critical` absente de `a11y-known.ts` fait échouer le test, de même que `heading-order` (ordre des titres, « moderate » pour axe). Corriger une violation connue retire sa ligne de la liste.
 
@@ -73,6 +74,20 @@ bun run docker:build # quand le Dockerfile, nginx, les variables ou les dépenda
 - **Icônes** : les tests de contenu vérifient chaque nom d'icône écrit en entier ; une icône construite par concaténation leur échappe et se contrôle à l'œil.
 - **CSP et en-têtes** : les tests Playwright n'appliquent pas les en-têtes nginx. Une nouvelle origine externe ou un en-tête se vérifie dans le conteneur (`docker:build` puis lancement).
 - `bun run format` après une modification (Markdown compris).
+
+## CI
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) tourne sur les runners de GitHub à chaque PR et à chaque push sur `dev`. Ses trois jobs sont **obligatoires pour fusionner vers `main`** (ruleset « main : PR obligatoire ») :
+
+| Job             | Ce qu'il vérifie                                                                                                                                                                                           |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `verifications` | `bun install --frozen-lockfile`, Prettier (`--check`), lint, typecheck, Vitest, `generate` (échoue si le journal contient une erreur de prérendu), puis Playwright sur le Chromium de Playwright, headless |
+| `audit`         | `bun audit --audit-level=high` : aucune faille élevée ou critique ([SECURITY.md](SECURITY.md#6-dépendances))                                                                                               |
+| `docker`        | construction de l'image, puis le conteneur : `/` en 200 avec la CSP, une page inconnue et `/.env` en 404                                                                                                   |
+
+- Les variables d'environnement y ont des valeurs fictives (`https://cdn.example.org`…) : le site se génère avec vidéo et carrousels, les tests e2e coupant de toute façon les requêtes externes.
+- En cas d'échec de Playwright, le rapport HTML est joint au run (artefact `playwright-report`, 7 jours).
+- La CI ne remplace pas les vérifications locales : ni la [vérification de l'interface](#vérification-de-linterface), ni le lancement de l'image avec les vraies variables.
 
 ## Vérification de l'interface
 

@@ -33,14 +33,14 @@ Installation et variables d'environnement : `README.md` ; historique des version
 | Couleur, police, icône, règle visuelle, composant réutilisable             | `docs/DESIGN_SYSTEM.md`             |
 | Secret, `v-html`, origine externe, CSP, en-tête, image Docker              | `docs/SECURITY.md`                  |
 | Convention, Prettier, ESLint, format des commits                           | `docs/CODE_STYLE.md`                |
-| Outil de test, script ou liste de vérifications                            | `docs/TESTING.md`                   |
+| Outil de test, script, liste de vérifications, CI                          | `docs/TESTING.md`                   |
 | Lien, libellé de lien ou page ajouté, renommé ou retiré                    | `docs/plausible/` (`bun run goals`) |
 | Variable d'environnement, installation, édition de contenu                 | `README.md` + `.env.example`        |
 
 - Chaque information n'est écrite qu'à **un seul endroit** ; les autres documents y renvoient par un lien.
 - Les documents décrivent l'**état actuel** : corriger le texte existant, ne pas ajouter de note datée (l'historique va dans `CHANGELOG.md`).
 - Un `refactor`, `style` ou `chore` qui ne change rien à ce qui est décrit ne touche pas la documentation.
-- `docs/` est public : jamais d'adresse de préproduction, d'hébergeur, d'IP ni de chemin de déploiement ([SECURITY.md](docs/SECURITY.md#7-dépôt-public)).
+- `docs/` est public : jamais d'adresse de préproduction, d'hébergeur, d'IP ni de chemin de déploiement ([SECURITY.md](docs/SECURITY.md#8-dépôt-public)).
 - En fin de réponse, indiquer les documents mis à jour (ou « documentation inchangée »).
 
 ## Stack
@@ -52,7 +52,7 @@ Installation et variables d'environnement : `README.md` ; historique des version
 - Icônes : `@nuxt/icon` (Tabler, Simple Icons, collections maison), embarquées au build
 - Audience : **Plausible**
 - Service : **nginx** non-root dans **Docker**
-- Qualité : **ESLint** (`@nuxt/eslint`), **Prettier**
+- Qualité : **ESLint** (`@nuxt/eslint`), **Prettier**, CI **GitHub Actions** (obligatoire pour fusionner vers `main`)
 
 ## Documentation et MCP
 
