@@ -1,6 +1,6 @@
 # Efrei Para — Sécurité
 
-> **Périmètre** : modèle de menace et invariants à ne jamais casser (secrets, HTML du contenu, liens, CSP, conteneur, dépôt public).
+> **Périmètre** : modèle de menace et invariants à ne jamais casser (secrets, HTML du contenu, liens, CSP, conteneur, dépendances, CI, dépôt public).
 > **À mettre à jour** dès qu'une variable d'environnement, un `v-html`, une origine externe, un en-tête nginx, l'image Docker ou l'exposition du site change.
 
 ## Modèle de menace
@@ -56,7 +56,14 @@ Règles :
 - Les `overrides` en place et leur raison sont dans `package.json` (champ `//overrides`) ; on les retire dès que les paquets concernés acceptent d'eux-mêmes la version corrigée.
 - Les skills Claude Code ne sont pas dans le dépôt : `scripts/install-skills.sh` les télécharge à des commits épinglés (git vérifie le contenu contre le hash) et n'exécute rien de ce qu'il récupère. Changer un commit épinglé suppose de relire le diff du skill.
 
-### 7. Dépôt public
+### 7. CI
+
+- `ci.yml` tourne sur `pull_request` et `push`, jamais sur `pull_request_target` : le code d'une PR venue d'un fork ne voit ni secret ni jeton en écriture.
+- `permissions: contents: read` ; `actions/checkout` avec `persist-credentials: false` ; aucun secret ni variable du dépôt, seulement des adresses fictives.
+- Chaque action est épinglée par son SHA complet (version en commentaire), et le réglage du dépôt refuse toute action qui ne l'est pas. Mettre une action à jour, c'est changer son SHA après relecture.
+- Les workflows d'un premier contributeur attendent une approbation manuelle (réglage GitHub par défaut, gardé).
+
+### 8. Dépôt public
 
 - Aucun secret, jeton, mot de passe ni fichier `.env` dans le dépôt ou son historique.
 - Aucune information d'infrastructure au-delà du nécessaire : pas d'adresse de préproduction, d'hébergeur, d'IP, de chemin de déploiement ni de journal de déploiement dans les fichiers versionnés (documentation comprise).

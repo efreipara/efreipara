@@ -12,6 +12,7 @@
 [![Bun](https://img.shields.io/badge/Bun-1.4-fbf0df?logo=bun&logoColor=white)](https://bun.sh)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![CI](https://github.com/efreipara/efreipara/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/efreipara/efreipara/actions/workflows/ci.yml)
 
 [**efreipara.fr**](https://efreipara.fr) · [activités](https://efreipara.fr/activites) · [galerie](https://efreipara.fr/galerie) · [rejoindre](https://efreipara.fr/rejoindre) · [faq](https://efreipara.fr/faq)
 

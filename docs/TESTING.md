@@ -9,7 +9,8 @@
 - Conséquence sur le code : une règle qui mérite un test (calcul, tri, filtre, règle d'affichage) est écrite comme une fonction pure dans `app/utils/`, puis appelée par le composant ou le composable ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)). Une règle enfouie dans un composant n'est pas testable ici.
 - **Playwright** pour le **site généré** : pages, erreurs, redirections, interactions et audit d'accessibilité (axe), sur Brave, en desktop et en mobile. Les composants sont testés à travers les pages, pas isolément.
 - Nuxt Content ne valide pas le contenu contre ses schémas au build : ce sont les tests de contenu qui le font, avec les icônes, les liens et la cohérence ([CONTENT.md](CONTENT.md#vérifier-le-contenu)).
-- Types vérifiés par `vue-tsc` (`bun run typecheck`). Pas de CI : les vérifications se font en local.
+- Types vérifiés par `vue-tsc` (`bun run typecheck`).
+- Les vérifications se font en local avant de livrer, puis sont rejouées par la [CI](#ci) à chaque PR et à chaque push sur `dev`.
 
 ## Organisation
 
@@ -73,6 +74,20 @@ bun run docker:build # quand le Dockerfile, nginx, les variables ou les dépenda
 - **Icônes** : les tests de contenu vérifient chaque nom d'icône écrit en entier ; une icône construite par concaténation leur échappe et se contrôle à l'œil.
 - **CSP et en-têtes** : les tests Playwright n'appliquent pas les en-têtes nginx. Une nouvelle origine externe ou un en-tête se vérifie dans le conteneur (`docker:build` puis lancement).
 - `bun run format` après une modification (Markdown compris).
+
+## CI
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) tourne sur les runners de GitHub à chaque PR et à chaque push sur `dev`. Ses trois jobs sont **obligatoires pour fusionner vers `main`** (ruleset « main : PR obligatoire ») :
+
+| Job             | Ce qu'il vérifie                                                                                                                                                                                           |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `verifications` | `bun install --frozen-lockfile`, Prettier (`--check`), lint, typecheck, Vitest, `generate` (échoue si le journal contient une erreur de prérendu), puis Playwright sur le Chromium de Playwright, headless |
+| `audit`         | `bun audit --audit-level=high` : aucune faille élevée ou critique ([SECURITY.md](SECURITY.md#6-dépendances))                                                                                               |
+| `docker`        | construction de l'image, puis le conteneur : `/` en 200 avec la CSP, une page inconnue et `/.env` en 404                                                                                                   |
+
+- Les variables d'environnement y ont des valeurs fictives (`https://cdn.example.org`…) : le site se génère avec vidéo et carrousels, les tests e2e coupant de toute façon les requêtes externes.
+- En cas d'échec de Playwright, le rapport HTML est joint au run (artefact `playwright-report`, 7 jours).
+- La CI ne remplace pas les vérifications locales : ni la [vérification de l'interface](#vérification-de-linterface), ni le lancement de l'image avec les vraies variables.
 
 ## Vérification de l'interface
 
