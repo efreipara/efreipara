@@ -58,7 +58,7 @@ Règles :
 
 ### 7. CI
 
-- `ci.yml` tourne sur `pull_request` et `push`, jamais sur `pull_request_target` : le code d'une PR venue d'un fork ne voit ni secret ni jeton en écriture.
+- `ci.yml` tourne sur `pull_request` et `workflow_dispatch`, jamais sur `pull_request_target` : le code d'une PR venue d'un fork ne voit ni secret ni jeton en écriture.
 - `permissions: contents: read` ; `actions/checkout` avec `persist-credentials: false` ; aucun secret ni variable du dépôt, seulement des adresses fictives.
 - Chaque action est épinglée par son SHA complet (version en commentaire), et le réglage du dépôt refuse toute action qui ne l'est pas. Mettre une action à jour, c'est changer son SHA après relecture.
 - Les workflows d'un premier contributeur attendent une approbation manuelle (réglage GitHub par défaut, gardé).

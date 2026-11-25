@@ -10,7 +10,7 @@
 - **Playwright** pour le **site généré** : pages, erreurs, redirections, interactions et audit d'accessibilité (axe), sur Brave, en desktop et en mobile. Les composants sont testés à travers les pages, pas isolément.
 - Nuxt Content ne valide pas le contenu contre ses schémas au build : ce sont les tests de contenu qui le font, avec les icônes, les liens et la cohérence ([CONTENT.md](CONTENT.md#vérifier-le-contenu)).
 - Types vérifiés par `vue-tsc` (`bun run typecheck`).
-- Les vérifications se font en local avant de livrer, puis sont rejouées par la [CI](#ci) à chaque PR et à chaque push sur `dev`.
+- Les vérifications se font en local avant de livrer, puis sont rejouées par la [CI](#ci) à chaque PR.
 
 ## Organisation
 
@@ -77,7 +77,7 @@ bun run docker:build # quand le Dockerfile, nginx, les variables ou les dépenda
 
 ## CI
 
-[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) tourne sur les runners de GitHub à chaque PR et à chaque push sur `dev`. Ses trois jobs sont **obligatoires pour fusionner vers `main`** (ruleset « main : PR obligatoire ») :
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) tourne sur les runners de GitHub à chaque PR (un run par commit poussé), ou à la main sur une branche : onglet Actions, ou `gh workflow run ci.yml --ref dev`. Ses trois jobs sont **obligatoires pour fusionner vers `main`** (ruleset « main : PR obligatoire ») :
 
 | Job             | Ce qu'il vérifie                                                                                                                                                                                           |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

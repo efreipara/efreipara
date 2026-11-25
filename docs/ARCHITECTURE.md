@@ -256,4 +256,4 @@ Toute nouvelle variable est ajoutée à `.env.example`, au README et, si elle se
 - `bun run dev` : développement local sur `http://localhost:3000`, sans Docker.
 - `bun run preview` : sert le site généré (`.output/public`) sur `http://127.0.0.1:4173` avec les règles de nginx, par `tests/e2e/serve.ts`, sans les en-têtes de sécurité (vérifiés dans le conteneur).
 - Chaque push déclenche une construction de l'image Docker et sa mise en ligne : la branche **`dev`** alimente la préproduction, **`main`** la production. On travaille sur `dev` ; `main` ne reçoit que ce qui est prêt à publier.
-- La CI GitHub Actions rejoue les vérifications à chaque PR et à chaque push sur `dev` ; elle ne déploie rien ([TESTING.md](TESTING.md#ci)).
+- La CI GitHub Actions rejoue les vérifications à chaque PR (et à la demande) ; elle ne déploie rien, et un push sur `dev` part en préproduction sans l'attendre ([TESTING.md](TESTING.md#ci)).
