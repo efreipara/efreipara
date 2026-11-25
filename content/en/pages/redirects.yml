@@ -1,0 +1,13 @@
+form:
+  redirectText: Redirecting to the form...
+  buttonLabel: Open the form
+
+socials:
+  discord:
+    title: Join our Discord
+    redirectText: Redirecting to Discord...
+    buttonLabel: Open Discord
+  instagram:
+    title: Follow us on Instagram
+    redirectText: Redirecting to Instagram...
+    buttonLabel: Open Instagram

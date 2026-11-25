@@ -16,7 +16,9 @@
           </SharedHeadline>
         </template>
         <template #title>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.08s">{{ title }}</span>
+          <span class="hero-slide-up title-ink inline-block" style="animation-delay: 0.08s">
+            {{ title }}
+          </span>
         </template>
         <template v-if="description" #description>
           <span class="hero-slide-up inline-block" style="animation-delay: 0.14s">

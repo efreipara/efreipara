@@ -8,11 +8,22 @@ import type { ActivityType } from '~/utils/activities'
  * Activités dans l'ordre d'affichage, avec ce que tout le site en montre (menu, icône, libellés)
  */
 export const useActivities = async () => {
-  const { data } = await useAsyncData('activites', () =>
-    queryCollection('activites').select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
-  )
+  // Avant l'await : le contexte Nuxt n'est plus connu après
+  const localePath = useLocalePath()
+  // Par nom de route : l'adresse traduite de la langue courante (/en/activities/tandem)
+  const activityPath = (key: string) =>
+    localePath({ name: 'activites-activite', params: { activite: key } })
 
-  const activities = computed(() => orderActivities(data.value ?? []))
+  const { data } = await useContentData('activites', {
+    query: (q) => q.select('stem', 'label', 'icon', 'galleryLabel', 'menu').all(),
+  })
+
+  const activities = computed(() =>
+    orderActivities(data.value ?? []).map((activity) => ({
+      ...activity,
+      to: activityPath(activity.key),
+    })),
+  )
 
   const byKey = (key: string) => activities.value.find((activity) => activity.key === key)
 
@@ -24,7 +35,7 @@ export const useActivities = async () => {
     return activity?.galleryLabel ?? activity?.label ?? key
   }
 
-  return { activities, byKey, getIcon, getGalleryLabel }
+  return { activities, activityPath, byKey, getIcon, getGalleryLabel }
 }
 
 /**
@@ -36,7 +47,7 @@ export const useUpcomingEvents = async (type?: ActivityType) => {
   // Avant l'await : le contexte Nuxt et le composant ne sont plus connus après
   const today = useState('events-today', () => new Date().toISOString())
   onMounted(() => (today.value = new Date().toISOString()))
-  const { data } = await useAsyncData('events', () => queryCollection('events').first())
+  const { data } = await useContentData('events')
 
   const events = computed(() =>
     upcomingEvents(data.value?.items ?? [], new Date(today.value), type),

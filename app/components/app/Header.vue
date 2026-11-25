@@ -14,6 +14,7 @@
     headerLinks,
     menuButton,
     colorModeButton,
+    languageSwitch,
   } = await useNavigation()
   const { labels } = await useLabels()
 
@@ -58,7 +59,7 @@
 
   // Fenêtre du menu mobile, téléportée hors du <header> : même zone Plausible (utils/goals.ts)
   const menuContentAttrs = computed<Record<string, string>>(() => ({
-    'data-goal-zone': labels.value.goalZones.header,
+    'data-goal-zone': labels.goalZones.header,
   }))
 
   // Le sous-menu des activités est rendu par le slot #activities-content
@@ -153,6 +154,7 @@
           class="p-2"
         />
       </UDropdownMenu>
+      <HeaderLanguageSwitch :labels="languageSwitch" />
       <HeaderColorModeButton :labels="colorModeButton" class="p-2" />
     </template>
 

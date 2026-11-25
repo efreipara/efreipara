@@ -1,0 +1,87 @@
+headline: Resources
+title: Documents
+description: Documents about the club and its skydiving activities
+count:
+  one: doc
+  other: docs
+helpcta:
+  title: A document missing?
+  description: Can’t find a document? Write to us and we’ll add it.
+  buttons:
+    - discord
+    - instagram
+    - github
+categories:
+  - name: General documents
+    description: Administrative documents and club rules
+    icon: tabler:file-description
+    color: blue
+    documents:
+      - title: Club rules
+        description: Efrei Para’s internal rules (in French)
+        url: /en/reglement
+        icon: tabler:scale
+        type: internal
+
+      - title: Legal notice
+        description: Legal notice of the website (in French)
+        url: /en/mentions-legales
+        icon: tabler:info-circle
+        type: internal
+
+      - title: Privacy policy
+        description: Personal data protection policy (in French)
+        url: /en/rgpd
+        icon: tabler:shield-check-filled
+        type: internal
+
+  - name: Medical documents
+    description: Mandatory certificates and medical information
+    icon: tabler:heartbeat
+    color: red
+    documents:
+      - title: Medical contraindications
+        description: List of contraindications to skydiving, from the French Parachuting Federation (FFP, in French)
+        url: https://www.ffp.asso.fr/wp-content/uploads/2021/06/contre-indication-para-NEW.pdf
+        icon: tabler:clipboard-heart
+        type: external
+
+      - title: FFP medical section
+        description: Medical information and certificates on the FFP website (in French)
+        url: https://www.ffp.asso.fr/espace-medical/
+        icon: tabler:building-hospital
+        type: external
+
+      - title: Medical certificate template
+        description: Template of the medical certificate of fitness (in French)
+        url: https://drive.google.com/file/d/1QBVjmEVeXmjfrWxLlDbNHoHzhHQSHeL_/view
+        icon: tabler:certificate
+        type: external
+
+  - name: Skydiving
+    description: Documents and information about skydiving activities
+    icon: tabler:parachute
+    color: green
+    documents:
+      - title: French Parachuting Federation
+        description: Official website of the FFP (in French)
+        url: https://www.ffp.asso.fr/
+        icon: tabler:world-www
+        type: external
+
+      - title: Tandem health questionnaire
+        description: Mandatory health questionnaire before a tandem jump (in French)
+        url: https://www.ecole-parachutisme.fr/questionnaire-sante
+        icon: tabler:file-description
+        type: external
+
+  - name: Wind tunnel
+    description: Documents and information about wind tunnel activities
+    icon: tabler:wind
+    color: purple
+    documents:
+      - title: iFly Paris website
+        description: Official website of the iFly Paris wind tunnel
+        url: https://www.iflyfrance.com/lieux/ifly-paris/
+        icon: tabler:world-www
+        type: external

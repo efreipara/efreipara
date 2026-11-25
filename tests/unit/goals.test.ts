@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { goalName, isOutbound, linkLabel, pageGoalName } from '../../app/utils/goals'
+import {
+  defaultLocaleGoalName,
+  goalName,
+  isOutbound,
+  linkLabel,
+  pageGoalName,
+} from '../../app/utils/goals'
 import type { SeoData } from '../../app/utils/seo'
 
 const link = (
@@ -106,5 +112,50 @@ describe('isOutbound', () => {
     expect(isOutbound('#donnees', origin, redirects)).toBe(false)
     expect(isOutbound('https://efreipara.fr/faq', origin, redirects)).toBe(false)
     expect(isOutbound(null, origin, redirects)).toBe(false)
+  })
+})
+
+describe('defaultLocaleGoalName', () => {
+  const names = {
+    scopes: { '/faq': 'FAQ' },
+    links: {
+      'FAQ|/rejoindre-bureau': 'FAQ › Devenir membre du bureau',
+      'Footer|https://x.test': 'Footer › X',
+    },
+    labels: { register: 'Inscription' },
+  }
+
+  it('reprend le nom relevé sur la page française pour la même portée et la même adresse', () => {
+    expect(defaultLocaleGoalName(names, { path: '/faq', href: '/rejoindre-bureau' })).toBe(
+      'FAQ › Devenir membre du bureau',
+    )
+    expect(
+      defaultLocaleGoalName(names, { zone: 'Footer', path: '/en', href: 'https://x.test' }),
+    ).toBe('Footer › X')
+  })
+
+  it('distingue deux liens de même adresse par leur rang', () => {
+    const ranked = { ...names, links: { 'Footer|https://x.test#1': 'Footer › X Efrei Para' } }
+    expect(
+      defaultLocaleGoalName(ranked, {
+        zone: 'Footer',
+        path: '/en',
+        href: 'https://x.test',
+        rank: 1,
+      }),
+    ).toBe('Footer › X Efrei Para')
+  })
+
+  it('nomme un lien variable par sa clé', () => {
+    expect(
+      defaultLocaleGoalName(names, { path: '/faq', href: 'https://forms.test/1', key: 'register' }),
+    ).toBe('FAQ › Inscription')
+  })
+
+  it('ne devine rien sans correspondance', () => {
+    expect(defaultLocaleGoalName(names, { path: '/faq', href: 'https://autre.test' })).toBeNull()
+    expect(
+      defaultLocaleGoalName(names, { path: '/inconnue', href: '/rejoindre-bureau' }),
+    ).toBeNull()
   })
 })

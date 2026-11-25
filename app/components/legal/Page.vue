@@ -1,9 +1,13 @@
 <script setup lang="ts">
-  import type { LegalCollectionItem } from '@nuxt/content'
+  import type { ContentItem } from '~/composables/useT'
 
-  const props = defineProps<{ page: LegalCollectionItem }>()
+  // lang : langue du texte, celle de la page sauf repli sur la langue par défaut
+  const props = defineProps<{ page: ContentItem<'legal'>; lang: string }>()
 
+  const appConfig = useAppConfig()
   const { labels } = await useLabels()
+  const { locale, localeProperties } = useI18n()
+  const isFallback = computed(() => props.lang !== locale.value)
   const toc = computed(() => props.page.body?.toc?.links ?? [])
 
   // Les liens du sommaire et des titres (ancres de Nuxt UI) font un router.push('#id') : interceptés
@@ -30,13 +34,22 @@
 </script>
 
 <template>
-  <div>
+  <div :lang="isFallback ? lang : undefined">
     <SharedPageHero
       :headline="labels.legal.headline"
       :title="page.title"
       :description="page.description"
     />
     <UContainer class="py-12 sm:py-16">
+      <UAlert
+        v-if="isFallback && labels.legal.untranslated"
+        :lang="locale"
+        :title="labels.legal.untranslated"
+        :icon="appConfig.ui.icons.info"
+        color="neutral"
+        variant="subtle"
+        class="mb-8 rounded-2xl"
+      />
       <!-- Texte sur 7 colonnes, sommaire collant sur 3 ; sur téléphone, sommaire repliable au-dessus -->
       <UPage :ui="{ center: 'lg:col-span-7', right: 'lg:col-span-3' }">
         <div
@@ -50,13 +63,7 @@
           class="border-default text-muted mt-12 border-t pt-6 text-sm select-text"
         >
           {{ labels.legal.updatedAt }}
-          {{
-            new Date(page.updatedAt).toLocaleDateString('fr-FR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          }}
+          {{ formatLongDate(page.updatedAt, localeProperties.language) }}
         </div>
         <template v-if="toc.length" #right>
           <UContentToc

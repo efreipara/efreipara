@@ -31,10 +31,13 @@ export type SeoOverrides = Partial<SeoPage>
 export const seoKeyFromPath = (path: string) =>
   path === '/' ? 'index' : path.slice(1).replace(/\//g, '-')
 
-export const buildCanonicalUrl = (baseUrl: string, key: string) =>
-  baseUrl
-    ? `${baseUrl}${key === 'index' ? '' : '/' + key.replace('activites-', 'activites/')}`
-    : undefined
+// Chemin français d'une clé : activites-tandem → /activites/tandem
+const pathFromKey = (key: string) =>
+  key === 'index' ? '/' : `/${key.replace('activites-', 'activites/')}`
+
+// Adresse de la page en production : chaque langue a la sienne (/en/gallery)
+export const buildCanonicalUrl = (baseUrl: string, path: string) =>
+  baseUrl ? `${baseUrl}${path === '/' ? '' : path.replace(/\/$/, '')}` : undefined
 
 // `/seo/x.png` → `https://efreipara.fr/seo/x.png` : les aperçus de partage exigent une URL absolue
 export const toAbsoluteUrl = (baseUrl: string, path?: string) =>
@@ -43,7 +46,13 @@ export const toAbsoluteUrl = (baseUrl: string, path?: string) =>
     : path
 
 // Fusion defaults < seo.yml › pages.<clé> < options de la page (valeurs absentes ignorées)
-export const buildSeoMeta = (seoData: SeoData, key: string, overrides: SeoOverrides = {}) => {
+// `path` : adresse réelle de la page (canonique, og:url), déduite de la clé sinon
+export const buildSeoMeta = (
+  seoData: SeoData,
+  key: string,
+  overrides: SeoOverrides = {},
+  path = pathFromKey(key),
+) => {
   const defaults = seoData.defaults
   const pageSeo: Partial<SeoPage> = { ...seoData.pages[key] }
   for (const [field, value] of Object.entries(overrides) as [keyof SeoPage, string | undefined][])
@@ -53,7 +62,7 @@ export const buildSeoMeta = (seoData: SeoData, key: string, overrides: SeoOverri
   const description = pageSeo?.description || ''
   const ogImage = pageSeo?.ogImage || defaults.ogImage
   const fullTitle = key === 'index' ? title : `${title}${defaults.separator}${defaults.siteName}`
-  const canonicalUrl = buildCanonicalUrl(defaults.baseUrl, key)
+  const canonicalUrl = buildCanonicalUrl(defaults.baseUrl, path)
 
   return {
     title: fullTitle,

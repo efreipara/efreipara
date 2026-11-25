@@ -13,19 +13,15 @@
     instagram: 'text-instagram',
   }
 
-  const { data: redirectsData } = await useAsyncData('redirects', () =>
-    queryCollection('redirects').first(),
-  )
-  const { data: rejoindreData } = await useAsyncData('rejoindre', () =>
-    queryCollection('rejoindre').first(),
-  )
+  const { t } = await useT('redirects')
+  const { data: rejoindre } = await useContentData('rejoindre')
 
-  const socials = redirectsData.value?.socials
+  const socials = t.socials
   // Clé propre uniquement : `__proto__` ou `constructor` ne désignent aucun réseau
   const social = socials && Object.hasOwn(socials, key) ? socials[key] : undefined
   const network = getSocial(key)
-  const option = rejoindreData.value?.options.find((o) => o.slug === key)
-  const form = redirectsData.value?.form
+  const option = rejoindre.value?.options.find((o) => o.slug === key)
+  const form = t.form
 
   const redirect =
     social && network

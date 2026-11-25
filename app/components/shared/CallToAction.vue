@@ -3,11 +3,11 @@
 
   const { cdnImage } = useCdnAsset()
 
-  const { data: cta } = await useAsyncData('cta', () => queryCollection('cta').first())
+  const { t } = await useT('cta')
 
   const links = computed<ButtonProps[]>(
     () =>
-      cta.value?.links.map((link) => ({
+      t.links.map((link) => ({
         label: link.label,
         to: link.to,
         icon: link.icon,
@@ -28,8 +28,8 @@
       color-dark="rgb(255 255 255 / 0.12)"
     />
     <UPageCTA
-      :title="cta?.title"
-      :description="cta?.description"
+      :title="t.title"
+      :description="t.description"
       orientation="horizontal"
       variant="naked"
       :links="links"
@@ -37,8 +37,8 @@
       :ui="{ title: 'font-title' }"
     >
       <img
-        v-bind="cdnImage(cta?.image ?? '', 'half')"
-        :alt="cta?.alt"
+        v-bind="cdnImage(t.image ?? '', 'half')"
+        :alt="t.alt"
         loading="lazy"
         class="relative z-10 aspect-5/3 w-full rounded-lg object-cover"
       />

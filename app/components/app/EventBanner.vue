@@ -1,15 +1,21 @@
 <script setup lang="ts">
+  import type { ButtonProps } from '@nuxt/ui'
+
   const { events } = await useUpcomingEvents()
-  const { getIcon } = await useActivities()
+  const { getIcon, activityPath } = await useActivities()
+  const localePath = useLocalePath()
   const appConfig = useAppConfig()
   const { labels } = await useLabels()
+  const { localeProperties } = useI18n()
 
   // Événement annoncé : le plus proche dont le jour est fixé ; les autres sont comptés dans « +N »
   const event = computed(() => bannerEvent(events.value))
   const others = computed(() => events.value.length - 1)
-  const title = computed(() => event.value && bannerTitle(event.value, labels.value.banner))
+  const title = computed(
+    () => event.value && bannerTitle(event.value, labels.banner, localeProperties.value.language),
+  )
   const moreLabel = computed(() =>
-    fillLabel(labels.value.banner.moreLabel[others.value > 1 ? 'other' : 'one'], {
+    fillLabel(labels.banner.moreLabel[others.value > 1 ? 'other' : 'one'], {
       count: others.value,
     }),
   )
@@ -22,6 +28,31 @@
   })
 
   const showBanner = computed(() => !!event.value && !isBannerClosed.value)
+
+  // Hauteur de la bannière, animations comprises, en --banner-height : le hero de l'accueil la retire
+  // de la sienne pour garder sa flèche et son bouton vidéo dans l'écran
+  const bannerEl = useTemplateRef<HTMLElement>('bannerEl')
+  let observer: ResizeObserver | undefined
+  const setBannerHeight = (height: number) =>
+    document.documentElement.style.setProperty('--banner-height', `${height}px`)
+
+  watch(
+    bannerEl,
+    (el) => {
+      observer?.disconnect()
+      if (!el) return setBannerHeight(0)
+      observer = new ResizeObserver(([entry]) =>
+        setBannerHeight(entry?.borderBoxSize[0]?.blockSize ?? 0),
+      )
+      observer.observe(el)
+    },
+    { flush: 'post' },
+  )
+
+  onBeforeUnmount(() => {
+    observer?.disconnect()
+    document.documentElement.style.removeProperty('--banner-height')
+  })
 
   // Fermeture gérée ici et non par UBanner : sessionStorage (UBanner utilise localStorage)
   // et animation de sortie de la Transition
@@ -45,7 +76,12 @@
       leave-from-class="grid-rows-[1fr]"
       leave-to-class="grid-rows-[0fr] opacity-0"
     >
-      <div v-if="showBanner && event" class="grid" :data-goal-zone="labels.goalZones.banner">
+      <div
+        v-if="showBanner && event"
+        ref="bannerEl"
+        class="grid"
+        :data-goal-zone="labels.goalZones.banner"
+      >
         <div class="min-h-0 overflow-hidden">
           <UBanner
             :title="title"
@@ -59,12 +95,13 @@
                       size: 'sm' as const,
                       variant: 'primary' as const,
                       trailingIcon: labels.events.registerIcon,
-                    },
+                      'data-goal-key': 'register',
+                    } as ButtonProps,
                   ]
                 : []),
               {
                 label: labels.events.info,
-                to: `/activites/${event.type}`,
+                to: activityPath(event.type),
                 size: 'sm',
                 variant: 'tertiary',
                 leadingIcon: getIcon(event.type),
@@ -99,7 +136,7 @@
               <template v-if="others > 0">
                 <span aria-hidden="true">·</span>
                 <NuxtLink
-                  to="/#evenements"
+                  :to="localePath({ name: 'index', hash: '#evenements' })"
                   :aria-label="moreLabel"
                   class="ms-1 underline underline-offset-2"
                 >

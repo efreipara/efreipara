@@ -2,7 +2,9 @@
 import { fileURLToPath } from 'node:url'
 import rehypeTargetBlank from './rehype-target-blank.mjs'
 import pkg from './package.json'
-import { activityShortcuts, redirectRoutes } from './content.routes'
+import { activityShortcuts, allRedirectRoutes, siteBaseUrl } from './content.routes'
+import type { CustomRoutePages } from '@nuxtjs/i18n'
+import { DEFAULT_LOCALE, ENABLED_LOCALES, enabledLocalizedPaths } from './app/utils/locales'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-07-19',
@@ -43,6 +45,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/icon',
     '@nuxt/content',
+    '@nuxtjs/i18n',
     '@nuxt/eslint',
   ],
   css: ['~/assets/css/main.css'],
@@ -106,7 +109,7 @@ export default defineNuxtConfig({
       cdnDevToken: process.env.NODE_ENV === 'development' ? process.env.CDN_DEV_TOKEN || '' : '',
       plausibleUrl: process.env.PLAUSIBLE_URL || '',
       // Liens vers ces pages comptés comme sortants par plugins/link-goals.client.ts
-      redirectPaths: redirectRoutes(),
+      redirectPaths: allRedirectRoutes(),
     },
   },
 
@@ -185,6 +188,20 @@ export default defineNuxtConfig({
     ],
   },
 
+  // Langue tirée de l'URL seule (/en/… ; français sans préfixe) : ni détection ni cookie.
+  // Pas de fichiers de messages : le texte de chaque langue est dans content/<langue>/.
+  i18n: {
+    locales: ENABLED_LOCALES.map(({ code, language, name }) => ({ code, language, name })),
+    defaultLocale: DEFAULT_LOCALE,
+    strategy: 'prefix_except_default',
+    customRoutes: 'config',
+    pages: enabledLocalizedPaths() as CustomRoutePages,
+    baseUrl: siteBaseUrl(),
+    detectBrowserLanguage: false,
+    // Aucun message vue-i18n : ni compilateur de messages ni composants <i18n-t>, v-t
+    bundle: { runtimeOnly: true, dropMessageCompiler: true, fullInstall: false },
+  },
+
   plausible: {
     enabled: true,
     apiHost: process.env.PLAUSIBLE_URL || '',
@@ -227,7 +244,7 @@ export default defineNuxtConfig({
       failOnError: false,
       // Redirections, raccourcis et /llms.txt, sans lien entrant : le crawler ne les trouve pas seul.
       routes: [
-        ...redirectRoutes(),
+        ...allRedirectRoutes(),
         ...activityShortcuts().map((key) => `/${key}`),
         '/about',
         '/llms.txt',

@@ -46,11 +46,8 @@
     else onError()
   }
 
-  const date = computed(() =>
-    new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(
-      new Date(props.item.date),
-    ),
-  )
+  const { localeProperties } = useI18n()
+  const date = computed(() => formatLongDate(props.item.date, localeProperties.value.language))
 </script>
 
 <template>

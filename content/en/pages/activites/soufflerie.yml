@@ -1,0 +1,108 @@
+title: Wind tunnel first flights
+description: Feel the sensations of freefall in complete safety. Learn the basics of flying in a vertical wind tunnel with qualified instructors.
+label: Wind tunnel
+alt: Wind tunnel first flights with Efrei Para
+imageCount: 6
+icon: activite:soufflerie
+
+menu:
+  label: Wind tunnel
+  description: Freefall in a wind tunnel
+
+card:
+  title: Wind tunnel first flights
+  description: >-
+    Fly in the tunnel in complete safety. Ideal to get started, progress
+    and have fun with friends.
+
+section:
+  title: Wind tunnel first flights
+  description: 'Fly without a parachute: freefall, the indoor version.'
+  features:
+    - title: Real sensations
+      description: The same airflow as in freefall, with no altitude and no stress.
+      icon: tabler:wind
+    - title: Fun & accessible
+      description: Ideal as a first taste or simply for fun with friends.
+      icon: tabler:mood-happy
+    - title: Fast progress
+      description: In just a few flights, you understand body position, balance and stability.
+      icon: tabler:target
+    - title: Perfect for winter
+      description: The indoor activity that extends the skydiving season.
+      icon: tabler:snowflake
+  linkLabel: Discover the wind tunnel
+
+features:
+  - title: Real sensations
+    description: '180 km/h of airflow: exactly what a skydiver feels in freefall, with no altitude and no stress.'
+    icon: tabler:wind
+  - title: Fun & accessible
+    description: Perfect for an outing with friends or a first taste of skydiving, from age 5.
+    icon: tabler:mood-happy
+  - title: Photos & video included
+    description: 'Your flight is filmed: photos and video included to relive and share the experience.'
+    icon: tabler:video
+  - title: Perfect for winter
+    description: The indoor activity that extends the skydiving season all year round, whatever the weather.
+    icon: tabler:snowflake
+
+intro:
+  - |-
+    A **vertical wind tunnel** is freefall, the indoor version: all the sensations, with no plane and no altitude.
+  - |-
+    At **iFLY Paris** (Porte de la Villette), you fly on a 180 km/h airflow, with a qualified instructor by your side. Within seconds, you understand what skydivers feel in freefall.
+  - |-
+    It all ends with a **friendly evening**, with snacks and drinks to share the thrill of the flight with the other participants.
+
+stats:
+  - value: '180 km/h'
+    label: Airflow speed
+    icon: tabler:wind
+  - value: '2 flights'
+    label: Included in the session
+    icon: tabler:repeat
+  - value: 'Fly Up'
+    label: Vertical climb included
+    icon: tabler:arrow-up
+  - value: 'Age 5'
+    label: Minimum age
+    icon: tabler:users
+
+steps:
+  - title: Arrival at iFLY
+    description: Meet at iFLY Paris, Porte de la Villette. Welcome, check-in and ticket collection.
+    icon: tabler:map-pin
+  - title: Gear
+    description: You put on a flight suit, a helmet and ear protection suited to the wind tunnel.
+    icon: tabler:helmet
+  - title: Position briefing
+    description: The instructor explains the basic position in the entry area (arched body, arms and legs extended) before you go into the tunnel.
+    icon: tabler:book
+  - title: '1st flight: classic flight'
+    description: You enter the tunnel. The instructor is with you to help you find balance and stability on the airflow.
+    icon: tabler:wind
+  - title: '2nd flight: Fly Up'
+    description: 'A vertical climb to the top of the tunnel with the instructor: a unique feeling of free flight up high.'
+    icon: tabler:arrow-up
+  - title: Instructor demo
+    description: The instructor puts on a spectacular show in the tunnel (advanced moves, acrobatics) to show you how far practice can take you.
+    icon: tabler:star
+  - title: Debrief
+    description: The instructor goes over your session, your progress and what to work on next.
+    icon: tabler:message
+  - title: Snacks & drinks evening
+    description: A small friendly get-together between participants to share the experience and end the night together.
+    icon: tabler:confetti
+
+requirements:
+  - icon: tabler:user
+    label: Minimum age 5
+  - icon: tabler:weight
+    label: Weight under 115 kg (105 kg if under 1.85 m tall)
+  - icon: tabler:heart-rate-monitor
+    label: No history of heart, back or neck problems
+  - icon: tabler:bone
+    label: No shoulder dislocation (even an old one)
+  - icon: tabler:ban
+    label: No cast, no pregnancy, no alcohol

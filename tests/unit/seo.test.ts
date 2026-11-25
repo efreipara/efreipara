@@ -41,17 +41,20 @@ describe('seoKeyFromPath', () => {
 
 describe('buildCanonicalUrl', () => {
   it("donne l'URL de base pour l'accueil", () => {
-    expect(buildCanonicalUrl('https://efreipara.fr', 'index')).toBe('https://efreipara.fr')
+    expect(buildCanonicalUrl('https://efreipara.fr', '/')).toBe('https://efreipara.fr')
   })
 
-  it('remet le / des pages d’activité', () => {
-    expect(buildCanonicalUrl('https://efreipara.fr', 'activites-tandem')).toBe(
+  it('garde le chemin de la page, langue comprise, sans / final', () => {
+    expect(buildCanonicalUrl('https://efreipara.fr', '/activites/tandem')).toBe(
       'https://efreipara.fr/activites/tandem',
+    )
+    expect(buildCanonicalUrl('https://efreipara.fr', '/en/gallery/')).toBe(
+      'https://efreipara.fr/en/gallery',
     )
   })
 
   it("n'en produit pas sans URL de base", () => {
-    expect(buildCanonicalUrl('', 'faq')).toBeUndefined()
+    expect(buildCanonicalUrl('', '/faq')).toBeUndefined()
   })
 })
 
@@ -65,6 +68,15 @@ describe('buildSeoMeta', () => {
     expect(meta.title).toBe('FAQ - Efrei Para')
     expect(meta.ogTitle).toBe('FAQ - Efrei Para')
     expect(meta.canonicalUrl).toBe('https://efreipara.fr/faq')
+  })
+
+  it('tire le canonique du chemin réel quand il est donné', () => {
+    expect(buildSeoMeta(seoData, 'activites-tandem').canonicalUrl).toBe(
+      'https://efreipara.fr/activites/tandem',
+    )
+    expect(buildSeoMeta(seoData, 'galerie', {}, '/en/gallery').canonicalUrl).toBe(
+      'https://efreipara.fr/en/gallery',
+    )
   })
 
   it("prend l'image de la page, sinon celle par défaut", () => {

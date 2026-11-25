@@ -1,0 +1,25 @@
+<script setup lang="ts">
+  // Affiche la langue en cours ; mène à la même page dans l'autre langue
+  defineProps<{ labels: { label: string; ariaLabel: string } }>()
+
+  const { locale, locales } = useI18n()
+  const switchLocalePath = useSwitchLocalePath()
+
+  // Aucune autre langue publiée (ENABLED_LOCALES) : pas de bouton
+  const target = computed(() => locales.value.find((item) => item.code !== locale.value))
+</script>
+
+<template>
+  <!-- locale false : l'adresse vient déjà de switchLocalePath, Nuxt UI ne la re-préfixe pas -->
+  <UButton
+    v-if="target"
+    :to="switchLocalePath(target.code)"
+    :locale="false"
+    :hreflang="target.language"
+    :label="labels.label"
+    :aria-label="labels.ariaLabel"
+    color="neutral"
+    variant="ghost"
+    class="px-2 font-semibold"
+  />
+</template>

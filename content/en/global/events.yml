@@ -1,0 +1,8 @@
+# Mêmes événements que content/fr/global/events.yml (dates, types, liens vérifiés par les tests) :
+# seuls le titre et le lieu se traduisent
+items:
+  - title: Wind tunnel first flight
+    location: iFly Paris
+    date: '2026-12-04'
+    type: soufflerie
+    url: 'https://www.helloasso.com/associations/bds-efrei/evenements/efrei-para'

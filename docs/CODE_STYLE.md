@@ -6,7 +6,7 @@
 
 ## Langues
 
-- **Interface en français** : libellés, `aria-label`, messages d'erreur. Le texte visible va dans `content/` ([CONTENT.md](CONTENT.md#principe)).
+- **Interface en français et en anglais** : libellés, `aria-label`, messages d'erreur, dans `content/fr/` et `content/en/` ([CONTENT.md](CONTENT.md#langues)) ; le code ne nomme jamais une langue (`useT`, `LOCALES`) et ne construit pas d'adresse interne à la main : nom de route avec `localePath` ([ARCHITECTURE.md](ARCHITECTURE.md#langues)).
 - **URL et clés de contenu en français** : routes (`/activites`, `/rejoindre`, `/galerie`), clés d'activité (`soufflerie`), dossier `components/activite/`, champs YAML proches du domaine.
 - **Code en anglais** : variables, fonctions, types, composables (`useNextEvent`, `buildCdnUrl`, `ActivityType`).
 - **Commentaires en français**, rares : ils expliquent un choix ou une contrainte non évidente (contournement, ordre imposé, piège d'une bibliothèque), pas ce que le code dit déjà.
@@ -19,7 +19,7 @@
 - Composants rangés par zone dans `components/<zone>/`, nommés sans répéter la zone (`activite/Hero.vue` → `<ActiviteHero>`).
 - Composables : un fichier `useXxx.ts` dans `app/composables/`, `export const useXxx = () => { … }`, qui renvoie un objet. Les types partagés sont exportés du module qui les porte (`ActivityType` depuis `app/utils/activities.ts`).
 - Logique testable (calcul, tri, filtre, règle d'affichage) : une fonction pure dans `app/utils/`, appelée par le composant ([ARCHITECTURE.md](ARCHITECTURE.md#fonctions-pures)).
-- Données : `await useAsyncData('<clé unique>', () => queryCollection(…))` ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)) ; les champs facultatifs se lisent avec `?.` et un repli.
+- Texte et données du contenu : `const { t } = await useT('<collection>')` puis **`t.cle.sous.cle`** pour le texte principal du fichier ; `useContentData` quand il faut la ref ; jamais `queryCollection` directement ([ARCHITECTURE.md](ARCHITECTURE.md#chargement-du-contenu)). Les champs facultatifs se lisent avec `?.` et un repli.
 - Variables inutilisées interdites ; un argument volontairement ignoré commence par `_`.
 
 ## Icônes, couleurs et classes
@@ -32,8 +32,8 @@
 
 ## Formatage et lint
 
-- **Prettier** ([`.prettierrc.json`](../.prettierrc.json)) : sans point-virgule, guillemets simples, virgules finales, 100 colonnes, `htmlWhitespaceSensitivity: ignore`, plugin Tailwind. `bun run format` formate tout le dépôt, Markdown compris, sauf les fichiers de `.gitignore` et de [`.prettierignore`](../.prettierignore) (`.claude/skills/` et `.claude/references/`, code tiers repris sans modification). VS Code formate à l'enregistrement (`.vscode/settings.json`).
-- **ESLint** ([`eslint.config.mjs`](../eslint.config.mjs)) : configuration `@nuxt/eslint`, plus balises auto-fermantes partout, composants en `PascalCase` dans les templates, variables inutilisées et `v-html` en erreur (le Markdown du contenu passe par `<MDC>`, voir [SECURITY.md](SECURITY.md#2-html-issu-du-contenu)). `.claude/skills/` est exclu : ce code tiers est repris sans modification ([README des skills](../.claude/skills/README.md)). `bun run lint`, `bun run lint:fix`.
+- **Prettier** ([`.prettierrc.json`](../.prettierrc.json)) : sans point-virgule, guillemets simples, virgules finales, 100 colonnes, `htmlWhitespaceSensitivity: ignore`, plugin Tailwind. `bun run format` formate tout le dépôt, Markdown compris, sauf les fichiers de `.gitignore` (dont `.claude/skills/` et `.claude/references/`, skills tiers repris sans modification). VS Code formate à l'enregistrement (`.vscode/settings.json`).
+- **ESLint** ([`eslint.config.mjs`](../eslint.config.mjs)) : configuration `@nuxt/eslint`, plus balises auto-fermantes partout, composants en `PascalCase` dans les templates, variables inutilisées et `v-html` en erreur (le Markdown du contenu passe par `<MDC>`, voir [SECURITY.md](SECURITY.md#2-html-issu-du-contenu)). `.claude/skills/` est exclu : ce code tiers est repris sans modification (`scripts/install-skills.sh`). `bun run lint`, `bun run lint:fix`.
 
 ## Commits
 

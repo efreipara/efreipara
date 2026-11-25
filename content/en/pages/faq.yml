@@ -1,0 +1,162 @@
+headline: Your questions
+title: Frequently asked questions
+description: Answers to the questions we’re asked most about Efrei Para
+count:
+  one: question
+  other: questions
+helpcta:
+  title: A question with no answer?
+  description: Feel free to ask us on Discord or Instagram!
+  buttons:
+    - discord
+    - instagram
+categories:
+  - name: The club
+    color: blue
+    icon: efreipara:parachute
+    questions:
+      - question: What is Efrei Para?
+        answer: Efrei Para is Efrei’s skydiving club. We offer skydiving activities (static line jumps, tandems), wind tunnel sessions, and accelerated freefall training (PAC). Our goal is to help students discover and practise skydiving in a friendly and safe club setting.
+
+      - question: How can I contact the club?
+        answer: You can reach us on our Discord, on Instagram, or by email. You can also come and meet us at our breakfasts at Efrei or at our events. We answer every message!
+        buttons:
+          - label: Join our Discord
+            to: /en/discord
+            icon: simple-icons:discord
+            target: _blank
+          - label: Follow us on Instagram
+            to: /en/instagram
+            icon: simple-icons:instagram
+            target: _blank
+          - label: Contact us
+            to: /en/contact
+            icon: tabler:mail
+
+  - name: Joining
+    color: green
+    icon: tabler:user
+    questions:
+      - question: How can I join the club?
+        answer: To join Efrei Para, you just need to be an Efrei student. Sign-up is done through an online form. Membership gives you access to the members’ area of our Discord and earns you LXP points!
+        buttons:
+          - label: Join Efrei Para
+            to: /en/join
+            icon: tabler:user-plus
+          - label: Join the board
+            to: /en/rejoindre-bureau
+            icon: tabler:crown
+
+      - question: Do I need skydiving experience?
+        answer: Not at all! Most of our members start with no experience whatsoever. We offer training suited to every level, from complete beginners to experienced skydivers. Our qualified instructors will guide you every step of the way.
+        buttons:
+          - label: Become a member
+            to: /en/join
+            icon: tabler:rocket
+
+      - question: Does it cost anything to join Efrei Para?
+        answer: |
+          No. Zero euros. Nada. Nothing at all. 😎
+
+          Club membership is completely free for Efrei students.
+
+      - question: Can I join the club at any time of the year?
+        answer: Yes. You can join Efrei Para throughout the year, even though some activities are more frequent at certain times.
+
+      - question: Do I have to commit for the whole year?
+        answer: No. There’s no mandatory commitment. You take part in the activities you’re interested in, whenever you like.
+
+      - question: Can I join without ever jumping?
+        answer: Yes. You can join the club to discover the sport and take part in events, club life or outings, without necessarily jumping straight away.
+
+  - name: Activities
+    color: purple
+    icon: tabler:plane-tilt
+    questions:
+      - question: Which activities do you offer?
+        answer: We offer several activities depending on your level. To get started, there are static line jumps (OA) and tandems. To progress, we offer accelerated freefall training (PAC) and wind tunnel sessions. All our activities are supervised by qualified professionals.
+        buttons:
+          - label: Tandem jumps
+            to: /en/activities/tandem
+            icon: activite:tandem
+          - label: Wind tunnel
+            to: /en/activities/soufflerie
+            icon: activite:soufflerie
+          - label: PAC (AFF)
+            to: /en/activities/pac
+            icon: activite:pac
+          - label: Static line jumps
+            to: /en/activities/oa
+            icon: activite:oa
+
+      - question: What is a first jump like?
+        answer: For your first jump, we recommend a static line jump (OA). You’ll start with a full theory briefing, then gear up and train on the ground. Then it’s off to the plane for the big jump! Your parachute opens automatically and you fly it down to the ground following the instructor’s radio guidance.
+
+      - question: Where do the jumps take place?
+        answer: Our jumps take place at approved drop zones, in the Paris region or a few hours from Paris (Péronne, in the Somme, for tandems). Locations may vary depending on the activity and availability. We also organise weekends and trips to other regions for a wider range of experiences.
+
+  - name: Requirements
+    color: red
+    icon: tabler:calendar-check
+    questions:
+      - question: What is the minimum age to jump?
+        answer: The minimum age for skydiving is 15, with parental consent. From 18, no consent is needed. You also need a medical certificate stating that there is no contraindication to skydiving.
+
+      - question: Are there any particular physical requirements?
+        answer: Skydiving requires a normal level of fitness. You need a medical certificate of fitness. Some contraindications exist (heart problems, epilepsy, etc.). If in doubt, see your doctor. Some activities also have weight limits.
+        buttons:
+          - label: See the contraindications (FFP, in French)
+            to: https://www.ffp.asso.fr/wp-content/uploads/2021/06/contre-indication-para-NEW.pdf
+            icon: tabler:clipboard-heart
+            target: _blank
+          - label: FFP medical section (in French)
+            to: https://www.ffp.asso.fr/espace-medical/
+            icon: tabler:building-hospital
+            target: _blank
+
+  - name: Organisation & logistics
+    color: orange
+    icon: tabler:car
+    questions:
+      - question: How do we get to the drop zones?
+        answer: |
+          Travel is organised by the club, often by car-sharing. All the practical information is shared in advance.
+
+          You can also make your own way there if you prefer.
+
+      - question: Should I plan a budget for the activities?
+        answer: |
+          Yes. Club membership is free, but skydiving activities have a cost (jumps, training, wind tunnel).
+
+          Prices are negotiated by the club and announced in advance. Efrei students usually get reduced prices, with part of the cost covered by the club and the school.
+
+          The club is non-profit: its only aim is to make skydiving accessible to students.
+
+      - question: How long does a jump day last?
+        answer: |
+          A typical jump day lasts about 6 to 8 hours. That includes the briefing, gearing up, the jumps and the debrief. The exact time may vary depending on the weather and the number of participants.
+
+          Wind tunnel first flights are usually shorter, around 2 to 3 hours.
+
+  - name: Safety
+    color: gray
+    icon: tabler:shield-check-filled
+    questions:
+      - question: Is skydiving safe?
+        answer: |
+          Skydiving is a **highly regulated** activity in France. Every year, **over 500,000 jumps** are made in clubs affiliated with the French Parachuting Federation.
+
+          **Serious accidents are rare** and **fatal accidents exceptional**, with only **a few cases a year nationwide**, out of a very large number of jumps.
+
+          Safety relies on **gradual training**, **redundant reserve equipment** and supervision by **qualified professionals**.
+
+          In a **tandem** jump, safety is even higher, thanks in particular to the presence of an experienced instructor.
+
+      - question: Who supervises the jumps?
+        answer: Jumps are supervised by qualified professional instructors, in centres approved by the French Parachuting Federation (FFP).
+
+      - question: Is the equipment checked?
+        answer: Yes. The equipment is inspected regularly and meets current safety standards. Every skydiver has a main parachute and a reserve parachute.
+
+      - question: What happens in bad weather?
+        answer: Safety comes first. If the weather isn’t suitable, jumps are postponed or cancelled.

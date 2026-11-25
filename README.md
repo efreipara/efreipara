@@ -37,7 +37,7 @@ efreipara/
 │   ├── pages/           # Pages du site (routing automatique)
 │   ├── app.vue          # Composant racine de l'application
 │   └── app.config.ts    # Configuration de l'application
-├── content/             # Contenu en Markdown/YAML
+├── content/             # Contenu en Markdown/YAML, un dossier par langue (fr/, en/)
 ├── public/              # Fichiers publics statiques
 ├── nuxt.config.ts       # Configuration principale de Nuxt
 ├── content.config.ts    # Configuration de Nuxt Content
@@ -57,6 +57,7 @@ La documentation détaillée du projet est dans le dossier [`docs/`](docs/) :
 | [SECURITY.md](docs/SECURITY.md)           | Modèle de menace et règles à respecter                        |
 | [CODE_STYLE.md](docs/CODE_STYLE.md)       | Conventions de code, formatage, commits                       |
 | [TESTING.md](docs/TESTING.md)             | Vérifications avant de livrer                                 |
+| [plausible/](docs/plausible/README.md)    | Noms des événements Plausible, création des Goals             |
 
 ## 🚀 Pour les développeurs
 
@@ -136,6 +137,9 @@ bun docker:build
 
 # Préparer photos et vidéo pour le CDN : cdn/sources/ → cdn/dist/ (voir docs/CONTENT.md)
 bun run cdn:build
+
+# Installer les skills Claude Code du projet dans .claude/skills/ (commits épinglés)
+bun run skills
 ```
 
 ### Variables d'environnement
@@ -172,21 +176,21 @@ cp .env.example .env
 
 ### Modifier le contenu du site
 
-Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/` et utilisent les formats Markdown (`.md`) ou YAML (`.yml`).
+Certaines sections du site sont gérées via [Nuxt Content](https://content.nuxt.com). Les fichiers de contenu se trouvent dans le dossier `content/fr/`, traduits en anglais dans `content/en/` (même nom de fichier : modifier les deux ; la version anglaise n'est pas encore publiée), et utilisent les formats Markdown (`.md`) ou YAML (`.yml`). Coordonnées, partenaires, saisons et pages légales n'existent qu'en français. Règles de traduction : [docs/CONTENT.md](docs/CONTENT.md#langues).
 
 ### Pages éditables
 
 Tous les textes du site sont éditables. Les plus courants :
 
-- **Événements à venir** : `content/global/events.yml` - Bannière, accueil et pages d'activité
-- **Galerie** : `content/pages/galerie.yml` - Albums photos
-- **FAQ** : `content/pages/faq.yml` - Questions fréquemment posées
-- **Documents** : `content/pages/documents.yml` - Liens vers les documents utiles
-- **Activités** : `content/pages/activites/*.yml` - Une page par activité, et tout ce qui la présente ailleurs (menu, accueil, galerie)
-- **Coordonnées et réseaux** : `content/global/club.yml` - E-mail, adresse, Discord, Instagram…
-- **Règlement** : `content/pages/legal/reglement.md` - Règlement intérieur du club
-- **Mentions légales** : `content/pages/legal/mentions-legales.md`
-- **RGPD** : `content/pages/legal/rgpd.md` - Politique de confidentialité
+- **Événements à venir** : `content/fr/global/events.yml` - Bannière, accueil et pages d'activité
+- **Galerie** : `content/fr/pages/galerie.yml` - Albums photos
+- **FAQ** : `content/fr/pages/faq.yml` - Questions fréquemment posées
+- **Documents** : `content/fr/pages/documents.yml` - Liens vers les documents utiles
+- **Activités** : `content/fr/pages/activites/*.yml` - Une page par activité, et tout ce qui la présente ailleurs (menu, accueil, galerie)
+- **Coordonnées et réseaux** : `content/fr/global/club.yml` - E-mail, adresse, Discord, Instagram…
+- **Règlement** : `content/fr/pages/legal/reglement.md` - Règlement intérieur du club
+- **Mentions légales** : `content/fr/pages/legal/mentions-legales.md`
+- **RGPD** : `content/fr/pages/legal/rgpd.md` - Politique de confidentialité
 
 La liste complète des fichiers, leurs champs et les conventions sont décrits dans [docs/CONTENT.md](docs/CONTENT.md).
 
@@ -254,6 +258,8 @@ Les logos d'Efrei, d'iFly, de Skydive Event et de Creative Commons appartiennent
 ## 📧 Contact
 
 Pour toute question concernant le site web, contactez le bureau d'Efrei Para via [efreipara.fr/contact](https://efreipara.fr/contact).
+
+Pour signaler une faille de sécurité, suivez [SECURITY.md](SECURITY.md) (jamais d'issue publique).
 
 ---
 

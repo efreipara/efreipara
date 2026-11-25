@@ -1,11 +1,19 @@
+import { DEFAULT_LOCALE, ENABLED_LOCALE_CODES, type LocaleCode } from '../../app/utils/locales'
 import { activityShortcuts, redirectRoutes as contentRedirects } from '../../content.routes'
 import { siteRoutes } from '../content/helpers'
 
-const redirects = contentRedirects()
+// Pages affichées d'une langue (les redirections quittent le site)
+export const localePages = (locale: LocaleCode) => {
+  const redirects = contentRedirects(locale)
+  return siteRoutes(locale).filter((route) => !redirects.includes(route))
+}
 
-// Pages affichées (les redirections quittent le site)
-export const pages = siteRoutes().filter((route) => !redirects.includes(route))
-export const redirectRoutes = redirects
+// Langues publiées : pages, accessibilité, SEO ; la langue par défaut seule pour les goals
+export const pages = ENABLED_LOCALE_CODES.flatMap(localePages)
+export const defaultPages = localePages(DEFAULT_LOCALE)
+export const redirectRoutes = ENABLED_LOCALE_CODES.flatMap((locale) => contentRedirects(locale))
+
+export const isPublished = (locale: LocaleCode) => ENABLED_LOCALE_CODES.includes(locale)
 
 // Raccourcis /<clé> → /activites/<clé>
 export const shortcuts = activityShortcuts()

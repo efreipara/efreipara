@@ -8,12 +8,13 @@ import { dirname, extname, join, relative } from 'node:path'
 import { $ } from 'bun'
 import { parse } from 'yaml'
 import { CDN_IMAGE_WIDTHS } from '../app/utils/cdn'
+import { DEFAULT_LOCALE } from '../app/utils/locales'
 import type { GalleryItem } from '../app/utils/gallery'
 
 const root = join(import.meta.dir, '../cdn')
 const sources = join(root, 'sources')
 const dist = join(root, 'dist')
-const galleryContent = join(import.meta.dir, '../content/pages/galerie.yml')
+const galleryContent = join(import.meta.dir, `../content/${DEFAULT_LOCALE}/pages/galerie.yml`)
 const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'])
 const videoExtensions = new Set(['.mov', '.mp4', '.m4v'])
 

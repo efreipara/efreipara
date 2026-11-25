@@ -2,7 +2,7 @@
 
 Site vitrine du club de parachutisme de l'Efrei ([efreipara.fr](https://efreipara.fr)).
 Site **statique** généré par Nuxt (`nuxt generate`), servi par nginx dans Docker. Pas de serveur applicatif, pas d'API, pas de base de données.
-Tout le texte vient de `content/` (Nuxt Content) ; photos et vidéo sont sur un CDN. **Le dépôt GitHub est public.**
+Tout le texte vient de `content/<langue>/` (Nuxt Content : français ; anglais prêt dans `content/en/` mais désactivé, voir `LOCALES`) ; photos et vidéo sont sur un CDN. **Le dépôt GitHub est public.**
 
 ## Documentation du projet
 
@@ -19,7 +19,7 @@ La documentation est découpée par usage dans `docs/`. **Lire le ou les documen
 | [`docs/TESTING.md`](docs/TESTING.md)             | Vérifications avant de livrer                                    | terminer une livraison                                             |
 | [`docs/plausible/`](docs/plausible/README.md)    | Noms des événements Plausible, création des Goals                | créer les Goals d'un site Plausible                                |
 
-Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md`.
+Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md` ; signalement des failles : `SECURITY.md` (racine).
 
 ### Documentation à jour (obligatoire)
 
@@ -68,7 +68,9 @@ Ne jamais supposer une API de mémoire quand le MCP peut la confirmer : les vers
 
 ## Skills
 
-Les skills du dépôt (`.claude/skills/`) s'utilisent selon la demande. Charger le skill avant de commencer, sans attendre qu'il soit nommé.
+Les skills ne sont pas dans git : `bun run skills` (`scripts/install-skills.sh`) les télécharge dans `.claude/skills/` (checklists citées dans `.claude/references/`), depuis leurs dépôts d'origine à des commits épinglés. À lancer une fois, puis à chaque changement du script ; mettre à jour un skill, c'est changer son commit épinglé après relecture du diff du skill.
+
+Ils s'utilisent selon la demande. Charger le skill avant de commencer, sans attendre qu'il soit nommé.
 
 | Demande                                                                   | Skill                          |
 | ------------------------------------------------------------------------- | ------------------------------ |
@@ -90,7 +92,7 @@ Les skills du dépôt (`.claude/skills/`) s'utilisent selon la demande. Charger 
 
 Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 
-- **Interface 100 % en français** ; le texte visible va dans `content/`, pas dans les composants.
+- **Interface en français, traduction anglaise tenue à jour (non publiée)** ; le texte visible va dans `content/fr/` **et** `content/en/` (même structure, voir `docs/CONTENT.md#langues`), pas dans les composants. Le code le lit en `t.cle.sous.cle` (`const { t } = await useT('<collection>')`), sans jamais nommer de langue ; un lien interne construit par le code passe par un nom de route (`localePath`, `activityPath`).
 - Code en anglais, URL et clés de contenu en français, **commentaires en français et rares**.
 - Préférer les composants Nuxt UI aux composants maison ; réutiliser les composants listés dans `docs/DESIGN_SYSTEM.md`.
 - `app.config.ts` ne garde que le thème Nuxt UI : icônes, liens et options d'une page vont dans son fichier de `content/` ; teintes d'activité par `color-mix`.
@@ -101,8 +103,8 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 - Commiter l'avancement au fil de l'eau (une étape cohérente = un commit), au format Conventional Commits en français (`feat(scope): …`, `fix(scope): …`, `docs(scope): …`, `chore(bun): …`).
 - Travailler sur `dev` ; `main` est la production.
 - **Jamais de push. Jamais de ligne `Co-Authored-By`** ni autre mention de Claude dans les messages de commit.
-- `CLAUDE.md` et `.claude/` (skills) sont versionnés : une modification des conventions ou des skills se commite comme le reste.
-- Jamais commités : `CLAUDE.local.md`, `.claude/settings.local.json` et tout fichier ignoré par git (ne jamais forcer un `git add -f`).
+- `CLAUDE.md` et `scripts/install-skills.sh` sont versionnés : une modification des conventions ou de la liste des skills se commite comme le reste.
+- Jamais commités : `.claude/skills/`, `.claude/references/`, `CLAUDE.local.md`, `.claude/settings.local.json` et tout fichier ignoré par git (ne jamais forcer un `git add -f`).
 - Ne pas inclure dans un commit des modifications du dépôt qu'on n'a pas faites soi-même.
 
 ## Versions
@@ -131,6 +133,7 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 
 ```bash
 bun install
+bun run skills        # skills Claude Code dans .claude/skills/ (une fois, puis à chaque changement du script)
 bun dev               # développement sur http://localhost:3000
 bun run lint          # ESLint (lint:fix pour corriger)
 bun run test          # Vitest : logique pure et contenu

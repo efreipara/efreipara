@@ -1,16 +1,19 @@
 <script setup lang="ts">
-  const { getIcon } = await useActivities()
+  const { getIcon, activityPath } = await useActivities()
   const { partners } = await usePartners()
   const { cdnImage } = useCdnAsset()
   const appConfig = useAppConfig()
 
-  const { data: home } = await useAsyncData('home', () => queryCollection('home').first())
-  const { data: cards } = await useAsyncData('home-activites', () =>
-    queryCollection('activites').select('stem', 'label', 'card').all(),
+  const { t } = await useT('home')
+  const { data: cards } = await useContentData('activites', {
+    key: 'home-activites',
+    query: (q) => q.select('stem', 'label', 'card').all(),
+  })
+  const activityCards = computed(() =>
+    orderActivities(cards.value ?? []).map((card) => ({ ...card, to: activityPath(card.key) })),
   )
-  const activityCards = computed(() => orderActivities(cards.value ?? []))
 
-  const { data: galerie } = await useAsyncData('galerie', () => queryCollection('galerie').first())
+  const { data: galerie } = await useContentData('galerie')
   const latestAlbums = computed(() => filterGallery(galerie.value?.items ?? [], null).slice(0, 3))
   const albumLabels = computed(() => ({
     link: galerie.value?.hero.linkLabel ?? '',
@@ -51,23 +54,19 @@
 </script>
 
 <template>
-  <div v-if="home">
-    <HomeHero
-      :links="home.hero.links"
-      :scroll-icon="home.hero.scrollIcon"
-      :video="home.hero.video"
-    />
+  <div v-if="t.hero">
+    <HomeHero :links="t.hero.links" :scroll-icon="t.hero.scrollIcon" :video="t.hero.video" />
 
     <SharedSection
-      :headline="home.about.headline"
-      :title="home.about.title"
+      :headline="t.about.headline"
+      :title="t.about.title"
       orientation="horizontal"
       :band="band('about')"
     >
       <template #description>
         <div class="space-y-4">
           <MDC
-            v-for="paragraph in home.about.paragraphs"
+            v-for="paragraph in t.about.paragraphs"
             :key="paragraph"
             :value="paragraph"
             tag="p"
@@ -79,7 +78,7 @@
       <template #body>
         <ul class="border-default grid grid-cols-3 border-y">
           <li
-            v-for="stat in home.stats"
+            v-for="stat in t.stats"
             :key="stat.description"
             class="border-default flex flex-col gap-1 py-5 not-first:border-l not-first:pl-4 sm:not-first:pl-6"
           >
@@ -103,9 +102,9 @@
     </SharedSection>
 
     <SharedSection
-      :headline="home.activites.headline"
-      :title="home.activites.title"
-      :links="sectionLink(home.activites.link)"
+      :headline="t.activites.headline"
+      :title="t.activites.title"
+      :links="sectionLink(t.activites.link)"
       :band="band('activites')"
     >
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -144,7 +143,7 @@
             </h3>
             <p class="text-muted mb-5 flex-1 text-sm">{{ item.card.description }}</p>
             <span class="text-activity-strong flex items-center gap-1 text-sm font-semibold">
-              {{ home.activites.cardLink }}
+              {{ t.activites.cardLink }}
               <UIcon
                 :name="appConfig.ui.icons.arrowRight"
                 class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -159,16 +158,16 @@
       v-if="events.length"
       id="evenements"
       class="scroll-mt-(--ui-header-height)"
-      :headline="home.events.headline"
-      :title="home.events.title"
+      :headline="t.events.headline"
+      :title="t.events.title"
       :band="band('events')"
     >
       <SharedEventList :events="events" show-activity />
     </SharedSection>
 
     <SharedSection
-      :headline="home.why.headline"
-      :title="home.why.title"
+      :headline="t.why.headline"
+      :title="t.why.title"
       orientation="horizontal"
       reverse
       :band="band('why')"
@@ -176,7 +175,7 @@
       <template #body>
         <ul class="flex flex-col gap-6">
           <UPageFeature
-            v-for="item in home.why.items"
+            v-for="item in t.why.items"
             :key="item.title"
             as="li"
             :icon="item.icon"
@@ -193,8 +192,8 @@
         </ul>
       </template>
       <img
-        v-bind="cdnImage(home.why.image, 'half')"
-        :alt="home.why.alt"
+        v-bind="cdnImage(t.why.image, 'half')"
+        :alt="t.why.alt"
         loading="lazy"
         class="aspect-4/3 w-full rounded-2xl object-cover"
       />
@@ -202,9 +201,9 @@
 
     <SharedSection
       v-if="latestAlbums.length"
-      :headline="home.albums.headline"
-      :title="home.albums.title"
-      :links="sectionLink(home.albums.link)"
+      :headline="t.albums.headline"
+      :title="t.albums.title"
+      :links="sectionLink(t.albums.link)"
       :band="band('albums')"
     >
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -219,8 +218,8 @@
     </SharedSection>
 
     <SharedSection
-      :headline="home.partners.headline"
-      :title="home.partners.title"
+      :headline="t.partners.headline"
+      :title="t.partners.title"
       :band="band('partners')"
     >
       <SharedPartnerLogos :partners="partners" />

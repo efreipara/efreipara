@@ -1,27 +1,25 @@
 <script setup lang="ts">
   const { getIcon, getGalleryLabel } = await useActivities()
 
-  const { data: page } = await useAsyncData('galerie', () => queryCollection('galerie').first())
+  const { t } = await useT('galerie')
 
   const activeFilter = ref<string | null>(null)
 
-  const activityTypes = computed(() => galleryTypes(page.value?.items ?? []))
+  const activityTypes = computed(() => galleryTypes(t.items ?? []))
 
-  const filteredItems = computed(() => filterGallery(page.value?.items ?? [], activeFilter.value))
+  const filteredItems = computed(() => filterGallery(t.items ?? [], activeFilter.value))
 
   const showHeroLayout = computed(() =>
     hasGalleryHeroLayout(activeFilter.value, filteredItems.value.length),
   )
 
   const cardLabels = computed(() => ({
-    link: page.value?.hero.linkLabel ?? '',
-    linkSource: page.value?.hero.linkSourceLabel ?? '',
+    link: t.hero.linkLabel ?? '',
+    linkSource: t.hero.linkSourceLabel ?? '',
   }))
 
   // Nom de transition stable par album (rang dans galerie.yml)
-  const albumIndex = computed(
-    () => new Map((page.value?.items ?? []).map((item, i) => [item.url, i])),
-  )
+  const albumIndex = computed(() => new Map((t.items ?? []).map((item, i) => [item.url, i])))
 
   // Changement de filtre en transition de vue : les albums glissent vers leur place, la carte mise
   // en avant se redimensionne. Les noms ne sont posés que pendant la transition, pour ne pas
@@ -58,15 +56,15 @@
 <template>
   <div>
     <SharedPageHero
-      :headline="page?.hero.headline"
-      :title="page?.hero.title"
-      :description="page?.hero.description"
+      :headline="t.hero.headline"
+      :title="t.hero.title"
+      :description="t.hero.description"
     />
 
     <UContainer class="py-12 sm:py-16">
       <div class="mb-8 flex flex-wrap gap-2">
         <UButton
-          :label="page?.hero.allLabel"
+          :label="t.hero.allLabel"
           variant="filter"
           :aria-pressed="!activeFilter"
           @click="setFilter(null)"
@@ -87,13 +85,13 @@
 
       <!-- Nombre d'albums affichés, dans la teinte de l'activité filtrée ; annoncé à chaque filtre -->
       <SharedHeadline
-        v-if="page?.count"
+        v-if="t.count"
         :tone="activeFilter ? 'text-activity-strong' : undefined"
         :class="activeFilter && activityClass(activeFilter)"
         aria-live="polite"
         class="mb-6"
       >
-        {{ countLabel(filteredItems.length, page.count) }}
+        {{ countLabel(filteredItems.length, t.count) }}
       </SharedHeadline>
 
       <UPageGrid class="gap-4">
@@ -105,7 +103,7 @@
           :featured="index === 0 && showHeroLayout"
           heading="h2"
           :labels="cardLabels"
-          :icons="page?.albumIcons ?? { date: '', location: '' }"
+          :icons="t.albumIcons ?? { date: '', location: '' }"
           :class="index === 0 && showHeroLayout && 'lg:col-span-2 lg:row-span-2'"
           :style="
             animating ? { viewTransitionName: `album-${albumIndex.get(item.url)}` } : undefined

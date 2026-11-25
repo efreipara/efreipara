@@ -2,6 +2,64 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.22.1 — 25 novembre 2026
+
+### Corrections
+
+- Sur l’accueil, quand la bannière d’un événement est affichée, la flèche vers le bas et le bouton pause / lecture de la vidéo restent visibles en bas de l’écran au lieu d’être poussés hors de l’écran.
+
+## 1.22.0 — 25 novembre 2026
+
+### Modifications
+
+- La version anglaise du site est mise en pause : plus d’adresses en /en ni de bouton de langue dans l’en-tête. Sa traduction reste prête et sera publiée plus tard.
+
+## 1.21.3 — 25 novembre 2026
+
+### Corrections
+
+- Le titre des pages pouvait apparaître coupé à gauche pendant son animation d’entrée, quand une ligne commençait par un « j » (« Static line jump (OA) ») : la lettre s’affiche désormais en entier.
+
+## 1.21.2 — 25 novembre 2026
+
+### Corrections
+
+- Le bouton de langue de l’en-tête affiche désormais la langue en cours (« FR » sur le site français, « EN » sur le site anglais) ; un clic mène toujours à la même page dans l’autre langue.
+
+## 1.21.1 — 25 novembre 2026
+
+### Corrections
+
+- Correction technique du nombre de photos des carrousels d’activité, lu en texte au lieu d’un nombre après un changement de page. Rien ne change pour les visiteurs.
+
+## 1.21.0 — 25 novembre 2026
+
+### Ajouts
+
+- Version anglaise du site, à l’adresse efreipara.fr/en : accueil, activités, galerie, documents, FAQ, adhésion et contact, entièrement traduits.
+- Bouton « EN » / « FR » dans l’en-tête pour passer à la même page dans l’autre langue.
+
+### Modifications
+
+- Les pages légales (mentions légales, règlement, RGPD) restent en français pour l’instant : leur version anglaise affiche le texte français, signalé en tête de page.
+- Les clics suivis dans les statistiques gardent les mêmes noms dans les deux langues : aucun nouvel objectif à créer.
+
+## 1.20.2 — 25 novembre 2026
+
+### Corrections
+
+- Les textes lus par les lecteurs d’écran sur certains éléments (choix de la photo dans le carrousel d’une activité, chargement des photos de la galerie) étaient en anglais : ils sont maintenant en français.
+
+### Modifications
+
+- Le site est prêt à accueillir une version anglaise : les textes sont rangés par langue et les adresses anglaises (/en/…) pourront être ajoutées sans toucher aux adresses actuelles. Rien ne change pour les visiteurs.
+
+## 1.20.1 — 25 novembre 2026
+
+### Corrections
+
+- Mise à jour technique du site et de ses outils (Nuxt 4.7). Rien ne change pour les visiteurs.
+
 ## 1.20.0 — 23 novembre 2026
 
 ### Ajouts

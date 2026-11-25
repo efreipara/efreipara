@@ -18,8 +18,8 @@
         return key === 'github'
           ? [
               {
-                label: labels.value.helpCta.github,
-                to: club.value.github.issues,
+                label: labels.helpCta.github,
+                to: club.github.issues,
                 icon: social.icon,
               },
             ]

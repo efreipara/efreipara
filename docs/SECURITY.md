@@ -5,7 +5,7 @@
 
 ## Modèle de menace
 
-- Site **statique et public** : nginx sert des fichiers générés au build. Pas de serveur applicatif, pas d'API, pas de compte, pas de cookie, aucune saisie du visiteur n'est envoyée au site (les formulaires sont externes).
+- Site **statique et public** : nginx sert des fichiers générés au build. Pas de serveur applicatif, pas d'API, pas de compte, pas de cookie (même pour la langue : `detectBrowserLanguage: false`, la langue vient de l'adresse, `/en/…` pour l'anglais), aucune saisie du visiteur n'est envoyée au site (les formulaires sont externes).
 - Le contenu vient du dépôt, modifié par les membres qui y ont accès : il est fiable mais pas infaillible, d'où le nettoyage du HTML.
 - Le code est **open source** (dépôt GitHub public) : tout ce qui est commité est lu par n'importe qui.
 - Les risques réels sont donc : la **fuite d'un secret** dans le bundle ou le dépôt, une **injection de script** par le contenu, une **origine externe** non maîtrisée, la **chaîne de dépendances** (outils de build), et la configuration nginx / Docker.
@@ -53,9 +53,12 @@ Règles :
 
 - Toutes les dépendances servent au build : une vulnérabilité touche la machine de développement et la construction de l'image, pas le visiteur — sauf le code effectivement embarqué dans le bundle (Vue, Nuxt UI, le rendu de `<MDC>`…).
 - Après une mise à jour des paquets, `bun audit` ; une vulnérabilité critique ou élevée se traite (mise à jour ou `overrides`) avant de publier.
+- Les `overrides` en place et leur raison sont dans `package.json` (champ `//overrides`) ; on les retire dès que les paquets concernés acceptent d'eux-mêmes la version corrigée.
+- Les skills Claude Code ne sont pas dans le dépôt : `scripts/install-skills.sh` les télécharge à des commits épinglés (git vérifie le contenu contre le hash) et n'exécute rien de ce qu'il récupère. Changer un commit épinglé suppose de relire le diff du skill.
 
 ### 7. Dépôt public
 
 - Aucun secret, jeton, mot de passe ni fichier `.env` dans le dépôt ou son historique.
 - Aucune information d'infrastructure au-delà du nécessaire : pas d'adresse de préproduction, d'hébergeur, d'IP, de chemin de déploiement ni de journal de déploiement dans les fichiers versionnés (documentation comprise).
 - Les seules données personnelles publiées sont celles destinées au public (contacts du club et du mainteneur affichés sur le site).
+- Les failles se signalent en privé selon [`SECURITY.md`](../SECURITY.md) à la racine (politique affichée par GitHub), jamais par une issue publique.

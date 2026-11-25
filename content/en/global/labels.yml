@@ -1,0 +1,69 @@
+# Libellés des composants communs à plusieurs pages ; {nom} est remplacé par la valeur correspondante
+
+# Bannière : prochain événement daté ; {date} en toutes lettres (« Friday, December 4 »)
+banner:
+  title: 'Next event: {title} on {date}'
+  titleAt: 'Next event: {title} at {location} on {date}'
+  more: '+{count}'
+  moreLabel:
+    one: See {count} more event
+    other: See {count} more events
+  close: Close the banner
+
+events:
+  register: Sign up
+  registerIcon: tabler:arrow-narrow-right
+  info: Learn more
+  soon: Sign-ups opening soon
+  # Entre les deux derniers mois possibles : « January or February 2027 »
+  or: or
+  dateIcon: tabler:calendar-week
+  locationIcon: tabler:map-pin
+
+socialLink: 'Efrei Para on {name}'
+
+# Noms des zones dans les événements Plausible : jamais affichés, gardés en français pour que les
+# clics des deux langues comptent dans les mêmes Goals
+goalZones:
+  header: Header
+  footer: Footer
+  banner: Bannière
+
+activity:
+  goTo: Go to {label}
+  features: Why choose {label}?
+  steps: How does it work?
+  requirements: Requirements
+  partners: Our partners
+  events: Upcoming events
+  headlines:
+    features: Highlights
+    steps: Step by step
+    requirements: Before you sign up
+    partners: They support us
+    events: Coming up
+  photo: '{label}, photo {n}'
+
+helpCta:
+  github: Report on GitHub
+
+legal:
+  headline: Legal information
+  toc: On this page
+  updatedAt: 'Last updated:'
+  # Au-dessus d’une page légale pas encore traduite (texte français)
+  untranslated: This page is only available in French.
+
+error:
+  home: Back to home
+  report: Report the error
+  messages:
+    '404':
+      title: Page not found
+      description: This page doesn’t exist or has moved.
+    '500':
+      title: Something went wrong
+      description: The site ran into a problem. You can report it so we can fix it.
+    default:
+      title: Unexpected error
+      description: Try again in a moment; if it keeps happening, let us know.

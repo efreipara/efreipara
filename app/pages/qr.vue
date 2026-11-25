@@ -7,7 +7,8 @@
     bodyAttrs: { class: 'bg-efreipara-background' },
   })
 
-  const { data: page } = await useAsyncData('qr', () => queryCollection('qr').first())
+  const localePath = useLocalePath()
+  const { t } = await useT('qr')
   const isFullscreen = ref(false)
 
   function toggleFullscreen() {
@@ -34,10 +35,10 @@
     />
     <div class="absolute top-4 left-4 z-20">
       <UButton
-        to="/"
+        :to="localePath('index')"
         :external="true"
-        :icon="page?.home.icon"
-        :aria-label="page?.home.label"
+        :icon="t.home.icon"
+        :aria-label="t.home.label"
         variant="ghost"
         color="neutral"
         size="sm"
@@ -46,8 +47,8 @@
     </div>
     <div class="absolute top-4 right-4 z-20">
       <UButton
-        :icon="isFullscreen ? page?.fullscreen.exitIcon : page?.fullscreen.enterIcon"
-        :aria-label="isFullscreen ? page?.fullscreen.exitLabel : page?.fullscreen.enterLabel"
+        :icon="isFullscreen ? t.fullscreen.exitIcon : t.fullscreen.enterIcon"
+        :aria-label="isFullscreen ? t.fullscreen.exitLabel : t.fullscreen.enterLabel"
         variant="ghost"
         color="neutral"
         size="sm"
@@ -58,7 +59,7 @@
     <div class="relative z-10 flex min-h-screen items-center justify-center p-4">
       <img
         src="~/assets/images/qr.svg"
-        :alt="page?.alt"
+        :alt="t.alt"
         class="h-auto max-h-[90vh] w-full max-w-md object-contain"
       />
     </div>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  const { data: faqData } = await useAsyncData('faq', () => queryCollection('faq').first())
+  const { t } = await useT('faq')
 
   const { getCategoryColor, getCategoryText } = useCategoryColor()
 
   const categoriesData = computed(() =>
-    (faqData.value?.categories ?? []).map((category, catIndex) => ({
+    (t.categories ?? []).map((category, catIndex) => ({
       name: category.name,
       color: category.color,
       icon: category.icon,
@@ -34,11 +34,7 @@
 
 <template>
   <div>
-    <SharedPageHero
-      :headline="faqData?.headline"
-      :title="faqData?.title"
-      :description="faqData?.description"
-    >
+    <SharedPageHero :headline="t.headline" :title="t.title" :description="t.description">
       <SharedCategoryChips :categories="categoriesData" />
     </SharedPageHero>
 
@@ -48,7 +44,7 @@
       :key="category.name"
       :name="category.name"
       :color="category.color"
-      :count="faqData?.count ? countLabel(category.questions.length, faqData.count) : ''"
+      :count="t.count ? countLabel(category.questions.length, t.count) : ''"
       :band="isBandSection(catIndex, false)"
     >
       <UAccordion
@@ -107,10 +103,10 @@
 
     <UContainer class="pb-12 sm:pb-16">
       <SharedHelpCta
-        v-if="faqData?.helpcta"
-        :title="faqData.helpcta.title"
-        :description="faqData.helpcta.description"
-        :buttons="faqData.helpcta.buttons"
+        v-if="t.helpcta"
+        :title="t.helpcta.title"
+        :description="t.helpcta.description"
+        :buttons="t.helpcta.buttons"
       />
     </UContainer>
   </div>

@@ -14,7 +14,7 @@
     { src: buildCdnUrl('accueil/video-h264.mp4'), type: 'video/mp4; codecs="avc1.640028"' },
   ].filter(({ src }) => src)
 
-  const { data: seo } = useNuxtData('seo')
+  const { data: seo } = useContentData('seo')
   const description = computed(() => seo.value?.pages['index']?.description)
   const siteName = computed(() => seo.value?.defaults.siteName)
 
@@ -45,8 +45,8 @@
 <template>
   <section class="main-hero-card relative overflow-hidden" style="view-transition-name: home-hero">
     <div
-      class="relative flex items-center justify-center"
-      style="height: calc(100svh - var(--ui-header-height, 80px))"
+      class="relative flex items-center justify-center py-14"
+      style="min-height: calc(100svh - var(--ui-header-height, 80px) - var(--banner-height, 0px))"
     >
       <video
         ref="heroVideo"

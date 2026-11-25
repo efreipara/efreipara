@@ -1,0 +1,94 @@
+logo:
+  label: Efrei Para, home
+
+headerSocials:
+  - instagram
+  - discord
+
+activitiesIndex:
+  label: Our activities
+  to: /en/activities
+  icon: tabler:parachute
+
+pages:
+  - label: Documents
+    to: /en/documents
+    icon: tabler:file-description
+    header: 1
+  - label: Gallery
+    to: /en/gallery
+    icon: tabler:camera
+    header: 2
+  - label: Join us
+    to: /en/join
+    icon: tabler:user-plus
+    header: 4
+  - label: Contact us
+    to: /en/contact
+  - label: FAQ
+    to: /en/faq
+    icon: tabler:help
+    header: 3
+
+accessibilityMenu:
+  label: Accessibility options
+  icon: tabler:accessible
+  activeIcon: tabler:accessible-filled
+
+accessibility:
+  - key: dyslexic
+    label: Dyslexia-friendly font
+    icon: tabler:typography
+  - key: highContrast
+    label: High contrast
+    icon: tabler:contrast
+  - key: seasonal
+    label: Seasonal decorations
+    icon: tabler:sparkles
+
+footer:
+  activities: Activities
+  club: Club
+  social: Social
+  legal: Legal
+  copyright: Efrei Para
+  code:
+    label: Source code
+    changelog: 'v{version}, release history'
+    # Nom du lien dans Plausible : gardé en français (mêmes Goals dans les deux langues)
+    changelogGoal: Historique des versions
+    license: MIT
+    url: https://opensource.org/license/MIT
+  content:
+    label: 'Content:'
+    license: CC BY-NC 4.0 (unless stated otherwise)
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+  media: 'Club photos, videos & logos: All rights reserved.'
+  partnerLogos: 'Partner logos: property of their respective owners.'
+  school:
+    label: Efrei
+    url: https://www.efrei.fr
+
+menuButton:
+  open: Open the menu
+  close: Close the menu
+colorModeButton:
+  light: Switch to light mode
+  dark: Switch to dark mode
+# Bouton de langue : affiche la langue en cours, mène à la version française ; ariaLabel commence
+# par le texte visible
+languageSwitch:
+  label: EN
+  ariaLabel: EN, switch this page to French
+
+# Pages légales en français pour l’instant (repli sur le texte français)
+legal:
+  - label: Legal notice
+    to: /en/mentions-legales
+  - label: Club rules
+    to: /en/reglement
+  - label: Privacy (GDPR)
+    to: /en/rgpd
+  - label: Site status
+    to: https://status.efreipara.fr
+    target: _blank

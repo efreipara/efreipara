@@ -1,0 +1,46 @@
+hero:
+  headline: Membership
+  title: Join Efrei Para
+  description: Whether you simply want to take part in our activities or get involved in running the club, there’s a place for you!
+
+alert:
+  title: Important requirement
+  description: To join the club, you need to be a member of the Efrei Para Discord. It’s our main channel to organise events and share information.
+  actionLabel: Join the Discord
+
+options:
+  - title: Become a member
+    description: 'Want to become a member of Efrei Para? You’ll get access to the members’ area of our Discord, and earn LXP points!'
+    icon: tabler:users-group
+    link: https://forms.gle/1kAbhqg7K1HSAoE19
+    linkText: Fill in the form
+    type: tandem
+    slug: devenir-membre
+    ogImage: /seo/devenir-membre.png
+  - title: Join the board
+    description: 'Want to get more involved? Apply to join the board and take an active part in running the club.'
+    icon: tabler:crown
+    link: https://forms.gle/Xz3DZBcAFBhqSkJ48
+    linkText: Apply
+    type: oa
+    slug: rejoindre-bureau
+    ogImage: /seo/rejoindre-bureau.png
+
+why:
+  headline: Club life
+  image: activites/carrousel/tandem-8
+  alt: Efrei Para members in harnesses on the grass in front of the plane, propeller running, with the instructors before the jump
+  title: Why join us?
+  features:
+    - title: Unique activities
+      description: Skydives, wind tunnel and training courses
+      icon: tabler:parachute
+      type: tandem
+    - title: A passionate community
+      description: Meet people who share your passion
+      icon: tabler:users
+      type: oa
+    - title: Unforgettable experiences
+      description: Create memories that last a lifetime
+      icon: tabler:star
+      type: soufflerie

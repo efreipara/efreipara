@@ -13,7 +13,7 @@
 
   // Titre et explication selon le code (labels.yml), message par défaut sinon
   const errorMessage = (statusCode: number) =>
-    labels.value.error.messages[String(statusCode)] ?? labels.value.error.messages.default!
+    labels.error.messages[String(statusCode)] ?? labels.error.messages.default!
 
   const customError = computed(() => ({
     ...props.error,
@@ -22,7 +22,7 @@
   }))
 
   // app.vue (et donc useSeo) n'est pas rendu à la place d'une page d'erreur
-  const { data: seo } = await useAsyncData('seo', () => queryCollection('seo').first())
+  const { data: seo } = await useContentData('seo')
   const meta = computed(() =>
     seo.value
       ? buildSeoMeta(seo.value, 'error', { title: customError.value.statusMessage })

@@ -20,9 +20,25 @@
     },
   })
 
-  const seoKey = computed(() => seoKeyFromPath(route.path))
+  // Clé de seo.yml tirée de l'adresse française de la page : mêmes clés dans toutes les langues
+  const switchLocalePath = useSwitchLocalePath()
+  const seoKey = computed(() => seoKeyFromPath(switchLocalePath(DEFAULT_LOCALE) || route.path))
 
   useSeo(seoKey)
+
+  // Versions de la page dans les autres langues publiées (hreflang, og:locale:alternate) ;
+  // lang, og:locale et canonique restent ceux de useSeo
+  if (ENABLED_LOCALES.length > 1) {
+    const localeHead = useLocaleHead({ lang: false, dir: false })
+    useHead({
+      link: computed(() =>
+        (localeHead.value.link ?? []).filter((link) => link.rel === 'alternate'),
+      ),
+      meta: computed(() =>
+        (localeHead.value.meta ?? []).filter((meta) => meta.property === 'og:locale:alternate'),
+      ),
+    })
+  }
 </script>
 
 <template>

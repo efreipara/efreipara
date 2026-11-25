@@ -1,0 +1,87 @@
+# Titre, description et image de partage de chaque page anglaise ; clés tirées de l’adresse
+# française (/en/gallery → galerie)
+
+defaults:
+  siteName: Efrei Para
+  separator: ' - '
+  baseUrl: 'https://efreipara.fr'
+  ogImage: /seo/efreipara.png
+  ogType: website
+  ogSiteName: Efrei Para
+  twitterCard: summary_large_image
+  locale: en_GB
+  themeColor: '#092954'
+  author: Efrei Para
+  robots: noindex, follow
+
+pages:
+  # goal : nom de la page dans Plausible, gardé en français (mêmes Goals dans les deux langues)
+  index:
+    title: Efrei Para
+    goal: Accueil
+    description: Defy gravity and live unique thrills with Efrei Para
+    robots: index, follow
+
+  contact:
+    title: Contact
+    description: A question about Efrei Para or its activities? Write to us.
+
+  faq:
+    title: Frequently asked questions (FAQ)
+    goal: FAQ
+    description: All the answers to your questions about Efrei Para, our activities and skydiving
+
+  rejoindre:
+    title: Join us
+    description: Find out how to join Efrei Para and take part in our activities
+    ogImage: /seo/rejoindre.png
+
+  galerie:
+    title: Our photo albums
+    description: Efrei Para’s highlights in pictures
+
+  documents:
+    title: Documents
+    description: Club rules, legal notice, medical documents and useful links from Efrei Para
+
+  activites:
+    title: Our activities
+    description: 'Discover all of Efrei Para’s activities: tandem, wind tunnel, AFF (PAC) and static line (OA)'
+
+  activites-oa:
+    title: Static line jump (OA)
+    description: Discover static line jumping (OA) with Efrei Para. Feel the rush of skydiving solo, with a parachute that opens automatically as you leave the plane.
+    ogImage: /seo/activites-oa.png
+
+  activites-tandem:
+    title: Tandem jump
+    description: Make your first skydive! 50 seconds of freefall from 4,000 m, strapped to a professional instructor.
+    ogImage: /seo/activites-tandem.png
+
+  activites-soufflerie:
+    title: Wind tunnel first flights
+    description: Discover the feeling of freefall in complete safety in a vertical wind tunnel. Ideal to get started and to progress.
+    ogImage: /seo/activites-soufflerie.png
+
+  activites-pac:
+    title: AFF training (PAC, accelerated freefall)
+    goal: Formation PAC
+    description: Learn to skydive with the PAC method, the French accelerated freefall programme. A complete course to become an autonomous skydiver.
+    ogImage: /seo/activites-pac.png
+
+  discord:
+    title: Join our Discord
+    description: Join the Efrei Para community on Discord
+    robots: noindex, nofollow
+    ogImage: /seo/discord.png
+
+  instagram:
+    title: Our Instagram
+    description: Follow us on Instagram so you don’t miss any of our adventures
+    robots: noindex, nofollow
+    ogImage: /seo/instagram.png
+
+  qr:
+    title: QR code
+    description: Scan our QR code to find Efrei Para
+    robots: noindex, nofollow
