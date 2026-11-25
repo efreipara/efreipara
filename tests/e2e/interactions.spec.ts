@@ -361,6 +361,26 @@ test.describe('FAQ et documents', () => {
     expect(await page.evaluate(() => window.scrollY)).toBe(stopped)
   })
 
+  test('la molette interrompt le défilement, même après un scrollend d’un défilement précédent', async ({
+    page,
+  }) => {
+    const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
+    await gotoReady(page, '/documents')
+    await page.getByRole('button', { name: docs.categories.at(-1)!.name }).click()
+    // Ce que Chromium envoie en retard après un autre défilement (celui qui amène la pastille à l'écran)
+    await page.evaluate(() => window.dispatchEvent(new Event('scrollend')))
+    const cdp = await page.context().newCDPSession(page)
+    await cdp.send('Input.synthesizeScrollGesture', {
+      x: 200,
+      y: 400,
+      yDistance: -100,
+      gestureSourceType: 'mouse',
+    })
+    const stopped = await page.evaluate(() => window.scrollY)
+    await page.waitForTimeout(1000)
+    expect(await page.evaluate(() => window.scrollY)).toBe(stopped)
+  })
+
   test('une pastille de catégorie fait défiler jusqu’à sa section', async ({ page }) => {
     const docs = readYaml<{ categories: { name: string }[] }>('pages/documents.yml')
     const last = docs.categories.at(-1)!.name

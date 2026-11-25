@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.22.2 — 25 novembre 2026
+
+### Corrections
+
+- Sur les pages Documents et FAQ et dans le sommaire des pages légales, un coup de molette arrête toujours le défilement lancé par une pastille de catégorie ou un lien du sommaire. Juste après un autre défilement de la page, il pouvait laisser le défilement aller jusqu'au bout.
+
 ## 1.22.1 — 25 novembre 2026
 
 ### Corrections

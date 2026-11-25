@@ -24,7 +24,16 @@ export const useSmoothScroll = () => {
       el.scrollIntoView({ block: 'start' })
       return
     }
-    const onEnd = () => stopListening?.()
+    // Un scrollend d'un défilement précédent peut arriver après le lancement : seul celui qui
+    // laisse la page à destination retire les écouteurs
+    const onEnd = () => {
+      const target = {
+        top: el.getBoundingClientRect().top,
+        margin: parseFloat(getComputedStyle(el).scrollMarginTop) || 0,
+        maxScroll: document.documentElement.scrollHeight - window.innerHeight,
+      }
+      if (isAtDestination(window.scrollY, target)) stopListening?.()
+    }
     userInputs.forEach((type) => addEventListener(type, abortScroll, { passive: true }))
     addEventListener('scrollend', onEnd)
     stopListening = () => {
