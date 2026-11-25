@@ -1,6 +1,6 @@
 {
   "name": "efreipara",
-  "version": "1.20.0",
+  "version": "1.20.1",
   "type": "module",
   "private": true,
   "scripts": {
@@ -28,9 +28,9 @@
   },
   "//typescript": "typescript bloqué en 6.0.x : typescript-eslint ne supporte pas encore TS 7.",
   "devDependencies": {
-    "@axe-core/playwright": "^4.14.0",
-    "@iconify-json/simple-icons": "^1.2.103",
-    "@iconify-json/tabler": "^1.2.46",
+    "@axe-core/playwright": "^4.14.1",
+    "@iconify-json/simple-icons": "^1.2.104",
+    "@iconify-json/tabler": "^1.2.47",
     "@libsql/client": "^0.18.0",
     "@nuxt/content": "^3.17.0",
     "@nuxt/eslint": "^1.17.0",
@@ -39,15 +39,15 @@
     "@nuxt/ui": "^4.13.1",
     "@nuxtjs/plausible": "^4.1.0",
     "@playwright/test": "^1.65.1",
-    "@types/node": "^26.6.6",
+    "@types/node": "^26.6.10",
     "eslint": "^10.15.0",
-    "nuxt": "^4.6.4",
+    "nuxt": "^4.7.0",
     "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.5",
     "typescript": "~6.0.3",
     "unist-util-visit": "^5.2.0",
-    "vitest": "^5.1.1",
+    "vitest": "^5.1.2",
     "vue-tsc": "^3.3.14",
     "yaml": "^2.9.1"
   }
