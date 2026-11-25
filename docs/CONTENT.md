@@ -130,7 +130,7 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 - **Liens internes** : chaque langue écrit l'adresse de sa propre page, `/rejoindre` en français, `/en/join` en anglais (adresses traduites : [ARCHITECTURE.md](ARCHITECTURE.md#langues)). Les clés et slugs ne changent pas : `/en/activities/tandem`, `/en/rgpd`, `/en/discord`.
 - **Écrits une seule fois**, en français : `club.yml`, `partners.yml`, `seasons.yml` (aucun texte à traduire) et les pages légales (pas encore traduites : la version anglaise du site affiche le texte français, avec une note). Ajouter un de ces fichiers dans `content/en/` le traduit.
 - Un événement, un album ou une question ajouté en français s'ajoute aussi en anglais, à la même place : les tests le signalent sinon.
-- Bouton de langue de l'en-tête : `navigation.yml › languageSwitch` (`label` visible, « EN » ; `ariaLabel` lu dans la langue de destination, qui commence par ce texte visible).
+- Bouton de langue de l'en-tête : `navigation.yml › languageSwitch` (`label` visible : la langue en cours, « FR » ; `ariaLabel` dans la langue de la page, qui commence par ce texte visible et dit où mène le bouton).
 
 ## Ajouter une collection
 

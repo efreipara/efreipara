@@ -1,21 +1,26 @@
 import { readYaml } from '../content/helpers'
 import { expect, gotoReady, test } from './fixtures'
 
-const fr = readYaml<{ languageSwitch: { ariaLabel: string } }>('global/navigation.yml')
-const en = readYaml<{ languageSwitch: { ariaLabel: string } }>('global/navigation.yml', 'en')
+type Navigation = { languageSwitch: { label: string; ariaLabel: string } }
+const fr = readYaml<Navigation>('global/navigation.yml')
+const en = readYaml<Navigation>('global/navigation.yml', 'en')
 const labels = readYaml<{ legal: { untranslated: string } }>('global/labels.yml', 'en')
 
 test.describe('langues', () => {
-  test('le bouton de langue mène à la même page dans l’autre langue, et retour', async ({
+  test('le bouton de langue affiche la langue en cours et mène à l’autre, et retour', async ({
     page,
   }) => {
     await gotoReady(page, '/activites/tandem')
-    await page.getByRole('link', { name: fr.languageSwitch.ariaLabel }).click()
+    const toEnglish = page.getByRole('link', { name: fr.languageSwitch.ariaLabel })
+    await expect(toEnglish).toHaveText('FR')
+    await toEnglish.click()
     await expect(page).toHaveURL(/\/en\/activities\/tandem$/)
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
     await expect(page.locator('h1')).toHaveText('Tandem jump')
 
-    await page.getByRole('link', { name: en.languageSwitch.ariaLabel }).click()
+    const toFrench = page.getByRole('link', { name: en.languageSwitch.ariaLabel })
+    await expect(toFrench).toHaveText('EN')
+    await toFrench.click()
     await expect(page).toHaveURL(/\/activites\/tandem$/)
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr')
   })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  // Lien vers la même page dans l'autre langue ; aria-label écrit dans la langue de destination
+  // Affiche la langue en cours ; mène à la même page dans l'autre langue
   defineProps<{ labels: { label: string; ariaLabel: string } }>()
 
   const { locale, locales } = useI18n()
@@ -14,7 +14,6 @@
     :to="switchLocalePath(target.code)"
     :locale="false"
     :hreflang="target.language"
-    :lang="target.code"
     :label="labels.label"
     :aria-label="labels.ariaLabel"
     color="neutral"

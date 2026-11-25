@@ -80,10 +80,11 @@ menuButton:
 colorModeButton:
   light: Passer en mode clair
   dark: Passer en mode sombre
-# Lien vers la version anglaise ; ariaLabel, lu en anglais, commence par le texte visible
+# Bouton de langue : affiche la langue en cours, mène à la version anglaise ; ariaLabel commence
+# par le texte visible
 languageSwitch:
-  label: EN
-  ariaLabel: EN, English version
+  label: FR
+  ariaLabel: FR, passer la page en anglais
 
 legal:
   - label: Mentions légales

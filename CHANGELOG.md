@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.21.2 — 25 novembre 2026
+
+### Corrections
+
+- Le bouton de langue de l’en-tête affiche désormais la langue en cours (« FR » sur le site français, « EN » sur le site anglais) ; un clic mène toujours à la même page dans l’autre langue.
+
 ## 1.21.1 — 25 novembre 2026
 
 ### Corrections

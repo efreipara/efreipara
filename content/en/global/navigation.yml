@@ -75,10 +75,11 @@ menuButton:
 colorModeButton:
   light: Switch to light mode
   dark: Switch to dark mode
-# Lien vers la version française ; ariaLabel, lu en français, commence par le texte visible
+# Bouton de langue : affiche la langue en cours, mène à la version française ; ariaLabel commence
+# par le texte visible
 languageSwitch:
-  label: FR
-  ariaLabel: FR, version française
+  label: EN
+  ariaLabel: EN, switch this page to French
 
 # Pages légales en français pour l’instant (repli sur le texte français)
 legal:
