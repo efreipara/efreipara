@@ -63,7 +63,9 @@
           </div>
         </template>
         <template #title>
-          <span class="hero-slide-up inline-block" style="animation-delay: 0.05s">{{ title }}</span>
+          <span class="hero-slide-up title-ink inline-block" style="animation-delay: 0.05s">
+            {{ title }}
+          </span>
         </template>
         <template #description>
           <span class="hero-slide-up inline-block" style="animation-delay: 0.12s">

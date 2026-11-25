@@ -253,6 +253,14 @@ html.a11y-highContrast .no-contrast {
   animation: heroSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* Titre italique animé : le « j » et la fin des lettres débordent de la boîte ; pendant
+   l'animation, l'élément peut être peint dans un calque limité à sa boîte, qui coupe ce débord.
+   La boîte s'élargit (padding), la mise en page ne bouge pas (marge négative). */
+.title-ink {
+  padding-inline: 0.15em;
+  margin-inline: -0.15em;
+}
+
 @keyframes heroSlideUp {
   from {
     opacity: 0;

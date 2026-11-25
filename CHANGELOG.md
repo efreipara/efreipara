@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.21.3 — 25 novembre 2026
+
+### Corrections
+
+- Le titre des pages pouvait apparaître coupé à gauche pendant son animation d’entrée, quand une ligne commençait par un « j » (« Static line jump (OA) ») : la lettre s’affiche désormais en entier.
+
 ## 1.21.2 — 25 novembre 2026
 
 ### Corrections

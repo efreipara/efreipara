@@ -147,6 +147,7 @@ Chaque bouton a un **rôle**, porté par une variante de `UButton` définie dans
 - Activité : `ActiviteHero`, même principe avec la photo de l'activité et une mise en page horizontale.
 - Accueil : `HomeHero`, vidéo plein écran assombrie (`bg-black/30`).
 - Le titre, la description et le badge entrent par le bas en décalé : classe `hero-slide-up` (0,5 s, 16 px, ease-out marqué) avec `animation-delay` de 0,05 s, 0,12 s, 0,2 s (en-tête des pages : 0,05 s, 0,08 s, 0,14 s ; accueil : 0,05 s, 0,15 s, 0,25 s). Le contenu doit être lisible dans les 300 ms qui suivent un clic.
+- Un titre en Racing Sans One animé porte aussi `title-ink` (`main.css`) : la police italique déborde de sa boîte (« j », fin des lettres), et pendant l'animation ce débord pouvait être coupé ; la classe élargit la boîte sans déplacer le texte.
 
 ### Décor de parachutes
 
