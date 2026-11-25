@@ -355,7 +355,7 @@ export const collections = {
         home: z.string(),
         report: z.string(),
         messages: z
-          .record(z.object({ title: z.string(), description: z.string() }))
+          .record(z.string(), z.object({ title: z.string(), description: z.string() }))
           .refine((messages) => 'default' in messages, 'message `default` manquant'),
       }),
     }),
@@ -486,6 +486,7 @@ export const collections = {
         buttonLabel: z.string(),
       }),
       socials: z.record(
+        z.string(),
         z.object({
           title: z.string(),
           redirectText: z.string(),
@@ -570,6 +571,7 @@ export const collections = {
         robots: z.string().optional(),
       }),
       pages: z.record(
+        z.string(),
         z.object({
           title: z.string(),
           description: z.string(),

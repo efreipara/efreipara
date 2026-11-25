@@ -53,6 +53,7 @@ Règles :
 
 - Toutes les dépendances servent au build : une vulnérabilité touche la machine de développement et la construction de l'image, pas le visiteur — sauf le code effectivement embarqué dans le bundle (Vue, Nuxt UI, le rendu de `<MDC>`…).
 - Après une mise à jour des paquets, `bun audit` ; une vulnérabilité critique ou élevée se traite (mise à jour ou `overrides`) avant de publier.
+- Les `overrides` en place et leur raison sont dans `package.json` (champ `//overrides`) ; on les retire dès que les paquets concernés acceptent d'eux-mêmes la version corrigée.
 - Les skills Claude Code ne sont pas dans le dépôt : `scripts/install-skills.sh` les télécharge à des commits épinglés (git vérifie le contenu contre le hash) et n'exécute rien de ce qu'il récupère. Changer un commit épinglé suppose de relire le diff du skill.
 
 ### 7. Dépôt public
