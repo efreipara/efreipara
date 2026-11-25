@@ -57,6 +57,7 @@ La documentation détaillée du projet est dans le dossier [`docs/`](docs/) :
 | [SECURITY.md](docs/SECURITY.md)           | Modèle de menace et règles à respecter                        |
 | [CODE_STYLE.md](docs/CODE_STYLE.md)       | Conventions de code, formatage, commits                       |
 | [TESTING.md](docs/TESTING.md)             | Vérifications avant de livrer                                 |
+| [plausible/](docs/plausible/README.md)    | Noms des événements Plausible, création des Goals             |
 
 ## 🚀 Pour les développeurs
 
@@ -254,6 +255,8 @@ Les logos d'Efrei, d'iFly, de Skydive Event et de Creative Commons appartiennent
 ## 📧 Contact
 
 Pour toute question concernant le site web, contactez le bureau d'Efrei Para via [efreipara.fr/contact](https://efreipara.fr/contact).
+
+Pour signaler une faille de sécurité, suivez [SECURITY.md](SECURITY.md) (jamais d'issue publique).
 
 ---
 

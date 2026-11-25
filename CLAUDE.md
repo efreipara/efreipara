@@ -19,7 +19,7 @@ La documentation est découpée par usage dans `docs/`. **Lire le ou les documen
 | [`docs/TESTING.md`](docs/TESTING.md)             | Vérifications avant de livrer                                    | terminer une livraison                                             |
 | [`docs/plausible/`](docs/plausible/README.md)    | Noms des événements Plausible, création des Goals                | créer les Goals d'un site Plausible                                |
 
-Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md`.
+Installation et variables d'environnement : `README.md` ; historique des versions : `CHANGELOG.md` ; signalement des failles : `SECURITY.md` (racine).
 
 ### Documentation à jour (obligatoire)
 

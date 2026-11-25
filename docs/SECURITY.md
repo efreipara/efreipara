@@ -59,3 +59,4 @@ Règles :
 - Aucun secret, jeton, mot de passe ni fichier `.env` dans le dépôt ou son historique.
 - Aucune information d'infrastructure au-delà du nécessaire : pas d'adresse de préproduction, d'hébergeur, d'IP, de chemin de déploiement ni de journal de déploiement dans les fichiers versionnés (documentation comprise).
 - Les seules données personnelles publiées sont celles destinées au public (contacts du club et du mainteneur affichés sur le site).
+- Les failles se signalent en privé selon [`SECURITY.md`](../SECURITY.md) à la racine (politique affichée par GitHub), jamais par une issue publique.
