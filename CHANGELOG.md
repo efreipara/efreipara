@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.22.1 — 25 novembre 2026
+
+### Corrections
+
+- Sur l’accueil, quand la bannière d’un événement est affichée, la flèche vers le bas et le bouton pause / lecture de la vidéo restent visibles en bas de l’écran au lieu d’être poussés hors de l’écran.
+
 ## 1.22.0 — 25 novembre 2026
 
 ### Modifications

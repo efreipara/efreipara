@@ -28,7 +28,7 @@
 
 - **Aucun serveur à l'exécution** : pas d'API, pas de base de données, pas de cookie. La seule route de `server/` (`/llms.txt`) est prérendue en fichier. Tout ce qui dépend de la configuration (`runtimeConfig`, variables d'environnement, contenu) est figé au moment du `generate` : changer une valeur impose de reconstruire.
 - **SSR obligatoire** (`ssr: true`) : Nuxt Content interroge sa base SQLite pendant le prérendu, et chaque page est écrite en HTML complet avec son payload.
-- **Interactivité côté navigateur uniquement** : bannière d'événement (`ClientOnly`), accessibilité, thème, filtres de la galerie, compteurs animés, redirections.
+- **Interactivité côté navigateur uniquement** : bannière d'événement (`ClientOnly` ; sa hauteur, mesurée par un `ResizeObserver` pendant ses animations, est posée en `--banner-height` sur `<html>` et retirée de celle du hero de l'accueil), accessibilité, thème, filtres de la galerie, compteurs animés, redirections.
 - **Appels externes limités** au CDN et à Plausible ; polices et icônes sont servies par le site. Toute nouvelle origine doit d'abord être ajoutée à la CSP ([SECURITY.md](SECURITY.md#4-csp-et-origines-externes)).
 
 ## Organisation du code

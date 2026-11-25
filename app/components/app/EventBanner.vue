@@ -29,6 +29,31 @@
 
   const showBanner = computed(() => !!event.value && !isBannerClosed.value)
 
+  // Hauteur de la bannière, animations comprises, en --banner-height : le hero de l'accueil la retire
+  // de la sienne pour garder sa flèche et son bouton vidéo dans l'écran
+  const bannerEl = useTemplateRef<HTMLElement>('bannerEl')
+  let observer: ResizeObserver | undefined
+  const setBannerHeight = (height: number) =>
+    document.documentElement.style.setProperty('--banner-height', `${height}px`)
+
+  watch(
+    bannerEl,
+    (el) => {
+      observer?.disconnect()
+      if (!el) return setBannerHeight(0)
+      observer = new ResizeObserver(([entry]) =>
+        setBannerHeight(entry?.borderBoxSize[0]?.blockSize ?? 0),
+      )
+      observer.observe(el)
+    },
+    { flush: 'post' },
+  )
+
+  onBeforeUnmount(() => {
+    observer?.disconnect()
+    document.documentElement.style.removeProperty('--banner-height')
+  })
+
   // Fermeture gérée ici et non par UBanner : sessionStorage (UBanner utilise localStorage)
   // et animation de sortie de la Transition
   const handleClose = () => {
@@ -51,7 +76,12 @@
       leave-from-class="grid-rows-[1fr]"
       leave-to-class="grid-rows-[0fr] opacity-0"
     >
-      <div v-if="showBanner && event" class="grid" :data-goal-zone="labels.goalZones.banner">
+      <div
+        v-if="showBanner && event"
+        ref="bannerEl"
+        class="grid"
+        :data-goal-zone="labels.goalZones.banner"
+      >
         <div class="min-h-0 overflow-hidden">
           <UBanner
             :title="title"

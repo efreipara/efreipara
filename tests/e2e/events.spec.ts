@@ -6,9 +6,14 @@ import { expect, gotoReady, test } from './fixtures'
 // le test ne dépend ni de la date du jour ni de celle du generate
 const { items } = readYaml<{ items: EventItem[] }>('global/events.yml')
 const event = items.find((item) => item.date)
-const labels = readYaml<{ goalZones: { banner: string }; activity: { events: string } }>(
-  'global/labels.yml',
-)
+const labels = readYaml<{
+  goalZones: { banner: string }
+  activity: { events: string }
+  banner: { close: string }
+}>('global/labels.yml')
+const { hero } = readYaml<{
+  hero: { video: { pause: { label: string }; play: { label: string } } }
+}>('pages/home.yml')
 const at = (offsetDays: number) => {
   const day = new Date(`${event?.date}T10:00:00`)
   day.setDate(day.getDate() + offsetDays)
@@ -30,6 +35,37 @@ test.describe('événements', () => {
       has: page.getByRole('heading', { name: labels.activity.events }),
     })
     await expect(section).toContainText(event!.title)
+  })
+
+  test("flèche et bouton vidéo du hero dans l'écran, bannière ouverte ou fermée", async ({
+    page,
+  }) => {
+    await page.clock.setFixedTime(at(0))
+    await gotoReady(page, '/')
+    const banner = page.locator(`[data-goal-zone="${labels.goalZones.banner}"]`)
+    const controls = [
+      page.locator('.main-hero-card .animate-bounce'),
+      page.getByRole('button', {
+        name: new RegExp(`^(${hero.video.pause.label}|${hero.video.play.label})$`),
+      }),
+    ]
+    const expectInViewport = async () => {
+      const { height } = page.viewportSize()!
+      for (const control of controls) {
+        await expect
+          .poll(async () => {
+            const box = await control.boundingBox()
+            return box ? box.y + box.height : Infinity
+          })
+          .toBeLessThanOrEqual(height)
+      }
+    }
+
+    await expect(banner).toBeVisible()
+    await expectInViewport()
+    await page.getByRole('button', { name: labels.banner.close }).click()
+    await expect(banner).toHaveCount(0)
+    await expectInViewport()
   })
 
   test('retiré le lendemain, même sans nouveau generate', async ({ page }) => {
