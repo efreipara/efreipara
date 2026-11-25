@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.21.1 — 25 novembre 2026
+
+### Corrections
+
+- Correction technique du nombre de photos des carrousels d’activité, lu en texte au lieu d’un nombre après un changement de page. Rien ne change pour les visiteurs.
+
 ## 1.21.0 — 25 novembre 2026
 
 ### Ajouts

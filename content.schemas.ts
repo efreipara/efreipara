@@ -141,7 +141,9 @@ export const collections = {
           z.object({ title: z.string(), description: z.string(), icon: z.string() }),
         ),
       }),
-      imageCount: z.number().int().min(0).optional(),
+      // multipleOf(1) et non int() : Content type un champ « integer » en colonne TEXT, et le
+      // nombre revient en texte après une navigation interne
+      imageCount: z.number().min(0).multipleOf(1).optional(),
       intro: z.array(z.string()).optional(),
       features: z
         .array(z.object({ title: z.string(), description: z.string(), icon: z.string() }))

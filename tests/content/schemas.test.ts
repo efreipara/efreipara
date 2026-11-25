@@ -1,5 +1,6 @@
 import { readdirSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
+import { z } from 'zod'
 import { collections } from '../../content.schemas'
 import { DEFAULT_LOCALE, LOCALE_CODES, OPTIONAL_TRANSLATIONS } from '../../app/utils/locales'
 import { allContentFiles, contentDir, readContent, sourceFiles } from './helpers'
@@ -55,6 +56,25 @@ describe('schémas des collections', () => {
         .filter((name) => !name.startsWith('.'))
         .sort(),
     ).toEqual([...LOCALE_CODES].sort())
+  })
+
+  it('aucun champ de premier niveau n’est un entier .int() (colonne TEXT dans Content)', () => {
+    const unwrap = (schema: z.ZodTypeAny): z.ZodTypeAny =>
+      schema instanceof z.ZodOptional ||
+      schema instanceof z.ZodNullable ||
+      schema instanceof z.ZodDefault
+        ? unwrap(schema._def.innerType)
+        : schema
+    const integers = Object.entries(collections).flatMap(([name, collection]) =>
+      Object.entries((collection.schema as z.AnyZodObject).shape)
+        .filter(([, field]) => {
+          const inner = unwrap(field as z.ZodTypeAny)
+          // isInt compte aussi multipleOf(1), converti, lui, en « number »
+          return inner instanceof z.ZodNumber && inner._def.checks.some((c) => c.kind === 'int')
+        })
+        .map(([key]) => `${name}.${key}`),
+    )
+    expect(integers).toEqual([])
   })
 
   it('refuse un lien javascript:, data: ou //hôte', () => {

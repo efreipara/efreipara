@@ -135,7 +135,7 @@ Restent dans le dépôt : les images OpenGraph (`public/seo/<clé>.png`, référ
 ## Ajouter une collection
 
 1. Créer le fichier dans `content/<langue>/global/` (commun à plusieurs pages) ou `content/<langue>/pages/`, pour chaque langue (ou l'ajouter à `OPTIONAL_TRANSLATIONS` s'il n'a rien à traduire).
-2. Ajouter sa source (relative au dossier de la langue) et son schéma Zod dans `content.schemas.ts` : `content.config.ts` en déclare une collection par langue.
+2. Ajouter sa source (relative au dossier de la langue) et son schéma Zod dans `content.schemas.ts` : `content.config.ts` en déclare une collection par langue. Un nombre entier au premier niveau du fichier s'écrit `z.number().multipleOf(1)`, jamais `.int()` : Nuxt Content en ferait une colonne texte, et la valeur reviendrait en chaîne (« 9 ») après une navigation interne (test de `schemas`).
 3. La lire avec `const { t } = await useT('<nom>')`.
 4. Ajouter l'entrée SEO si c'est une nouvelle page, et la mettre à jour ici.
 
