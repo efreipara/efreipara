@@ -2,10 +2,10 @@
 # Les trois jobs sont obligatoires pour fusionner vers main (ruleset « main : PR obligatoire »).
 name: CI
 
+# Une seule exécution par commit de PR ; workflow_dispatch pour la lancer à la main sur une branche (dev).
 on:
   pull_request:
-  push:
-    branches: [dev]
+  workflow_dispatch:
 
 permissions:
   contents: read
