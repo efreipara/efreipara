@@ -20,6 +20,7 @@
     "test:all": "bun run generate && bun run test && bun run test:e2e",
     "goals": "UPDATE_GOALS=1 playwright test goals --project=desktop",
     "cdn:build": "bun scripts/cdn-build.ts",
+    "skills": "bash scripts/install-skills.sh",
     "docker:build": "set -a && . ./.env && set +a && docker build --build-arg CDN_URL --build-arg PLAUSIBLE_URL --build-arg PLAUSIBLE_DOMAIN -t efreipara ."
   },
   "dependencies": {

@@ -31,9 +31,11 @@ logs
 credentials*.json
 .npmrc
 
-# Claude Code (fichiers personnels)
+# Claude Code : fichiers personnels, et skills installés par scripts/install-skills.sh
 CLAUDE.local.md
 .claude/settings.local.json
+.claude/skills/
+.claude/references/
 
 # Tests
 test-results

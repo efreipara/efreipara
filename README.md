@@ -137,6 +137,9 @@ bun docker:build
 
 # Préparer photos et vidéo pour le CDN : cdn/sources/ → cdn/dist/ (voir docs/CONTENT.md)
 bun run cdn:build
+
+# Installer les skills Claude Code du projet dans .claude/skills/ (commits épinglés)
+bun run skills
 ```
 
 ### Variables d'environnement

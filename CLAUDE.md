@@ -68,7 +68,9 @@ Ne jamais supposer une API de mémoire quand le MCP peut la confirmer : les vers
 
 ## Skills
 
-Les skills du dépôt (`.claude/skills/`) s'utilisent selon la demande. Charger le skill avant de commencer, sans attendre qu'il soit nommé.
+Les skills ne sont pas dans git : `bun run skills` (`scripts/install-skills.sh`) les télécharge dans `.claude/skills/` (checklists citées dans `.claude/references/`), depuis leurs dépôts d'origine à des commits épinglés. À lancer une fois, puis à chaque changement du script ; mettre à jour un skill, c'est changer son commit épinglé après relecture du diff du skill.
+
+Ils s'utilisent selon la demande. Charger le skill avant de commencer, sans attendre qu'il soit nommé.
 
 | Demande                                                                   | Skill                          |
 | ------------------------------------------------------------------------- | ------------------------------ |
@@ -101,8 +103,8 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 - Commiter l'avancement au fil de l'eau (une étape cohérente = un commit), au format Conventional Commits en français (`feat(scope): …`, `fix(scope): …`, `docs(scope): …`, `chore(bun): …`).
 - Travailler sur `dev` ; `main` est la production.
 - **Jamais de push. Jamais de ligne `Co-Authored-By`** ni autre mention de Claude dans les messages de commit.
-- `CLAUDE.md` et `.claude/` (skills) sont versionnés : une modification des conventions ou des skills se commite comme le reste.
-- Jamais commités : `CLAUDE.local.md`, `.claude/settings.local.json` et tout fichier ignoré par git (ne jamais forcer un `git add -f`).
+- `CLAUDE.md` et `scripts/install-skills.sh` sont versionnés : une modification des conventions ou de la liste des skills se commite comme le reste.
+- Jamais commités : `.claude/skills/`, `.claude/references/`, `CLAUDE.local.md`, `.claude/settings.local.json` et tout fichier ignoré par git (ne jamais forcer un `git add -f`).
 - Ne pas inclure dans un commit des modifications du dépôt qu'on n'a pas faites soi-même.
 
 ## Versions
@@ -131,6 +133,7 @@ Détail dans [`docs/CODE_STYLE.md`](docs/CODE_STYLE.md). L'essentiel :
 
 ```bash
 bun install
+bun run skills        # skills Claude Code dans .claude/skills/ (une fois, puis à chaque changement du script)
 bun dev               # développement sur http://localhost:3000
 bun run lint          # ESLint (lint:fix pour corriger)
 bun run test          # Vitest : logique pure et contenu

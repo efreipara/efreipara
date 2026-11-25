@@ -63,6 +63,7 @@ public/               # polices, favicon, icône tactile, robots.txt, images Ope
 nginx/                # templates de configuration (serveur, en-têtes de sécurité)
 tests/                # unit/ et content/ (Vitest), e2e/ (Playwright) : voir TESTING.md
 scripts/cdn-build.ts  # médias du CDN : originaux de cdn/sources/ → cdn/dist/ (CONTENT.md)
+scripts/install-skills.sh  # skills Claude Code, à des commits épinglés, dans .claude/ (ignoré par git)
 cdn/                  # originaux et fichiers générés pour le CDN, ignoré par git
 .mcp.json             # serveurs MCP du projet (Playwright sur Brave, pour Claude Code)
 Dockerfile            # build Bun puis service nginx
