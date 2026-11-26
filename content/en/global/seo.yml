@@ -81,6 +81,12 @@ pages:
     robots: noindex, nofollow
     ogImage: /seo/instagram.png
 
+  linkedin:
+    title: Our LinkedIn
+    description: Follow Efrei Para on LinkedIn to keep up with club life
+    robots: noindex, nofollow
+    ogImage: /seo/linkedin.png
+
   qr:
     title: QR code
     description: Scan our QR code to find Efrei Para

@@ -150,9 +150,9 @@ Page autonome, sans en-tête ni pied de page, pour projeter le QR code du club :
 
 En-tête compact commun (surtitre « Informations légales », titre et description de la page), puis le texte mis en forme depuis le Markdown, avec un sommaire des sections : collant dans la colonne de droite sur grand écran (section en cours surlignée), menu repliable « Sur cette page » au-dessus du texte sur téléphone. Un clic dans le sommaire ou sur un titre fait descendre en douceur jusqu'à la section (immédiat avec « réduire les animations », arrêté par la molette ou le toucher), sans ajouter de `#` à l'adresse ; sur téléphone, le menu se referme d'abord. Titres dans la police de titre, « Dernière mise à jour : » suivi de la date en toutes lettres, en bas, quand elle est renseignée. Les liens externes s'ouvrent dans un nouvel onglet.
 
-### Redirections — `/discord`, `/instagram`, `/devenir-membre`, `/rejoindre-bureau`
+### Redirections — `/discord`, `/instagram`, `/linkedin`, `/devenir-membre`, `/rejoindre-bureau`
 
-Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'icône, un titre, « Redirection vers… » et un bouton de secours, puis envoie aussitôt le navigateur vers la cible : le Discord, l'Instagram, ou le formulaire de l'option correspondante de « Nous rejoindre ». En développement, `?noRedirect` dans l'adresse garde la page affichée.
+Adresses courtes à partager (QR code, affiches, réseaux). La page affiche l'icône, un titre, « Redirection vers… » et un bouton de secours, puis envoie aussitôt le navigateur vers la cible : le Discord, l'Instagram, le LinkedIn, ou le formulaire de l'option correspondante de « Nous rejoindre ». En développement, `?noRedirect` dans l'adresse garde la page affichée.
 
 ### Erreurs
 

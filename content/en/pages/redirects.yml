@@ -11,3 +11,7 @@ socials:
     title: Follow us on Instagram
     redirectText: Redirecting to Instagram...
     buttonLabel: Open Instagram
+  linkedin:
+    title: Follow us on LinkedIn
+    redirectText: Redirecting to LinkedIn...
+    buttonLabel: Open LinkedIn

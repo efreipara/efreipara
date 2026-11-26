@@ -11,6 +11,7 @@
   const brandColor: Record<string, string> = {
     discord: 'text-discord',
     instagram: 'text-instagram',
+    linkedin: 'text-linkedin',
   }
 
   const { t } = await useT('redirects')

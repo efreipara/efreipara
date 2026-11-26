@@ -13,3 +13,7 @@ socials:
     title: Suivre sur Instagram
     redirectText: Redirection vers Instagram...
     buttonLabel: Ouvrir Instagram
+  linkedin:
+    title: Suivre sur LinkedIn
+    redirectText: Redirection vers LinkedIn...
+    buttonLabel: Ouvrir LinkedIn
