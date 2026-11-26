@@ -2,6 +2,12 @@
 
 Historique des versions du site Efrei Para. Le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
+## 1.23.0 — 26 novembre 2026
+
+### Ajouts
+
+- Nouvelle adresse courte efreipara.fr/linkedin, à partager comme /discord et /instagram : elle mène directement à la page LinkedIn du club.
+
 ## 1.22.2 — 25 novembre 2026
 
 ### Corrections
